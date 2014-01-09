@@ -72,7 +72,7 @@ class ExamController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),));
+			'model'=>$this->loadModel($id),));
 	}
 
 	/**
@@ -88,7 +88,7 @@ class ExamController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		//$this->performAjaxValidation($model);
 
-		if (isset($_POST['Exam']) && isset($_POST['ExamQuestion']) && isset($_POST['ExamChoice']))
+		if(isset($_POST['Exam']) && isset($_POST['ExamQuestion']) && isset($_POST['ExamChoice']))
 		{
 			$model->attributes = $_POST['Exam'];
 
@@ -96,17 +96,17 @@ class ExamController extends Controller
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
-				if ($model->save())
+				if($model->save())
 				{
 					$examTitleId = Yii::app()->db->lastInsertID;
 
 					//Question
-					foreach ($_POST['ExamQuestion'] as $qId => $examQuestion)
+					foreach($_POST['ExamQuestion'] as $qId=> $examQuestion)
 					{
 						$examQuestionModel = new ExamQuestion();
 						$examQuestionModel->attributes = $examQuestion;
 
-						if (!$examQuestionModel->save())
+						if(!$examQuestionModel->save())
 						{
 							$flag = false;
 							break;
@@ -118,23 +118,23 @@ class ExamController extends Controller
 						$examTitleExamQuestionModel->examId = $examTitleId;
 						$examTitleExamQuestionModel->examQuestionId = $examQuestionId;
 
-						if (!$examTitleExamQuestionModel->save())
+						if(!$examTitleExamQuestionModel->save())
 						{
 							$flag = false;
 							break;
 						}
 
-						if ($examQuestion['questionType'] == 2)
+						if($examQuestion['questionType'] == 2)
 							continue;
 
 						//Choice
-						foreach ($_POST['ExamChoice'][$qId] as $examChoice)
+						foreach($_POST['ExamChoice'][$qId] as $examChoice)
 						{
 
 							$examChoiceModel = new ExamChoice();
 							$examChoiceModel->attributes = $examChoice;
 
-							if (!$examChoiceModel->save())
+							if(!$examChoiceModel->save())
 							{
 								$flag = false;
 								break;
@@ -146,14 +146,14 @@ class ExamController extends Controller
 							$examQuestionExamChoiceModel->examQuestionId = $examQuestionId;
 							$examQuestionExamChoiceModel->examChoiceId = $examChoiceId;
 
-							if (!$examQuestionExamChoiceModel->save())
+							if(!$examQuestionExamChoiceModel->save())
 							{
 								$flag = false;
 								break;
 							}
 						}
 
-						if (!$flag)
+						if(!$flag)
 							break;
 					}
 				}
@@ -162,19 +162,19 @@ class ExamController extends Controller
 					$flag = false;
 				}
 
-				if ($flag)
+				if($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
 						'view',
-						'id' => $model->examId));
+						'id'=>$model->examId));
 				}
 				else
 				{
 					$transaction->rollback();
 				}
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -182,9 +182,9 @@ class ExamController extends Controller
 		}
 
 		$this->render('create', array(
-			'model' => $model,
-			'examQuestionModel' => $examQuestionModel,
-			'examChoiceModel' => $examChoiceModel,
+			'model'=>$model,
+			'examQuestionModel'=>$examQuestionModel,
+			'examChoiceModel'=>$examChoiceModel,
 		));
 	}
 
@@ -200,17 +200,17 @@ class ExamController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Exam']))
+		if(isset($_POST['Exam']))
 		{
 			$model->attributes = $_POST['Exam'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->examId));
+					'id'=>$model->examId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,));
+			'model'=>$model,));
 	}
 
 	/**
@@ -223,7 +223,7 @@ class ExamController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax']))
+		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 	}
@@ -236,7 +236,7 @@ class ExamController extends Controller
 		//$dataProvider=new CActiveDataProvider('Exam');
 		$model = new Exam('search');
 		$this->render('index', array(
-			'model' => $model,));
+			'model'=>$model,));
 	}
 
 	/**
@@ -246,11 +246,11 @@ class ExamController extends Controller
 	{
 		$model = new Exam('search');
 		$model->unsetAttributes(); // clear any default values
-		if (isset($_GET['Exam']))
+		if(isset($_GET['Exam']))
 			$model->attributes = $_GET['Exam'];
 
 		$this->render('admin', array(
-			'model' => $model,));
+			'model'=>$model,));
 	}
 
 	/**
@@ -261,7 +261,7 @@ class ExamController extends Controller
 	public function loadModel($id)
 	{
 		$model = Exam::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -272,7 +272,7 @@ class ExamController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'exam-title-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'exam-title-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -281,14 +281,14 @@ class ExamController extends Controller
 
 	public function actionAddQuestion()
 	{
-		if (isset($_POST['ExamQuestion']) && isset($_POST['ExamChoice']))
+		if(isset($_POST['ExamQuestion']) && isset($_POST['ExamChoice']))
 		{
 			$result = true;
 			$qId = $_POST['qId'];
 			$res = '';
 			$errorMsg = '';
 
-			if (empty($_POST['ExamQuestion']['title']))
+			if(empty($_POST['ExamQuestion']['title']))
 			{
 				$result = false;
 				$errorMsg = 'กรุณาใส่คำถาม';
@@ -305,11 +305,11 @@ class ExamController extends Controller
 
 				$res .= '<ul>';
 
-				if ($_POST['ExamQuestion']['questionType'] == 1) //mutiple choice
+				if($_POST['ExamQuestion']['questionType'] == 1) //mutiple choice
 				{
-					foreach ($_POST['ExamChoice']['title'] as $k => $choices)
+					foreach($_POST['ExamChoice']['title'] as $k=> $choices)
 					{
-						if (empty($_POST['ExamChoice']['title'][$k]) && empty($_POST['ExamChoice']['value'][$k]))
+						if(empty($_POST['ExamChoice']['title'][$k]) && empty($_POST['ExamChoice']['value'][$k]))
 						{
 							$result = false;
 							$errorMsg = 'กรุณากรอกข้อมูลคำตอบให้ครบถ้วน';
@@ -322,10 +322,10 @@ class ExamController extends Controller
 						$res .= '</li>';
 					}
 				}
-				else if ($_POST['ExamQuestion']['questionType'] == 2) //range
+				else if($_POST['ExamQuestion']['questionType'] == 2) //range
 				{
 					//$this->writeToFile('/tmp/exam', print_r($_POST['ExamQuestion'], true));
-					if (empty($_POST['ExamQuestion']['startRange']) || empty($_POST['ExamQuestion']['stopRange']))
+					if(empty($_POST['ExamQuestion']['startRange']) || empty($_POST['ExamQuestion']['stopRange']))
 					{
 						$result = false;
 						$errorMsg = 'กรุณากรอกข้อมูลคำตอบให้ครบถ้วน';
@@ -344,14 +344,14 @@ class ExamController extends Controller
 			}
 
 			echo CJSON::encode(array(
-				'result' => $result,
-				'errorMsg' => $errorMsg,
-				'div' => $res,
+				'result'=>$result,
+				'errorMsg'=>$errorMsg,
+				'div'=>$res,
 			));
 			Yii::app()->end();
 		}
 
-		if (Yii::app()->request->isAjaxRequest)
+		if(Yii::app()->request->isAjaxRequest)
 		{
 			$firstShow = $_POST['firstShow'];
 			$qId = $_POST['qId'];
@@ -362,11 +362,11 @@ class ExamController extends Controller
 			Yii::app()->clientScript->scriptMap['jquery.js'] = false;
 
 			echo CJSON::encode(array(
-				'result' => true,
-				'div' => $this->renderPartial('_addQuestionForm', array(
-					'examQuestionModel' => $examQuestionModel,
-					'examChoiceModel' => $examChoiceModel,
-					'qId' => $qId,
+				'result'=>true,
+				'div'=>$this->renderPartial('_addQuestionForm', array(
+					'examQuestionModel'=>$examQuestionModel,
+					'examChoiceModel'=>$examChoiceModel,
+					'qId'=>$qId,
 					), true, $firstShow)
 			));
 
@@ -380,7 +380,7 @@ class ExamController extends Controller
 		$model = $this->loadModel($_GET['examId']);
 
 		$this->render('exam', array(
-			'model' => $model));
+			'model'=>$model));
 	}
 
 }

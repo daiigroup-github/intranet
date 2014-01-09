@@ -46,13 +46,13 @@ class Authitemchild extends CActiveRecord
 			array(
 				'parent, child',
 				'length',
-				'max' => 64),
+				'max'=>64),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'parent, child',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -64,11 +64,11 @@ class Authitemchild extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'parent0' => array(
+			'parent0'=>array(
 				self::BELONGS_TO,
 				'Authitem',
 				'parent'),
-			'child0' => array(
+			'child0'=>array(
 				self::BELONGS_TO,
 				'Authitem',
 				'child'),
@@ -81,8 +81,8 @@ class Authitemchild extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'parent' => 'Parent',
-			'child' => 'Child',
+			'parent'=>'Parent',
+			'child'=>'Child',
 		);
 	}
 
@@ -101,7 +101,7 @@ class Authitemchild extends CActiveRecord
 		$criteria->compare('child', $this->child, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

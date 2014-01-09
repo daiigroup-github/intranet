@@ -47,13 +47,13 @@ class RGenerator extends CApplicationComponent
 				);
 
 			// Loop through each type of items
-			foreach ($this->_items as $type => $items)
+			foreach($this->_items as $type=> $items)
 			{
 				// Loop through items
-				foreach ($items as $name)
+				foreach($items as $name)
 				{
 					// Make sure the item does not already exist
-					if ($authManager->getAuthItem($name) === null)
+					if($authManager->getAuthItem($name) === null)
 					{
 						// Insert item
 						$sql = "INSERT INTO {$itemTable} (name, type, data)
@@ -73,7 +73,7 @@ class RGenerator extends CApplicationComponent
 			$txn->commit();
 			return $generatedItems;
 		}
-		catch (CDbException $e)
+		catch(CDbException $e)
 		{
 			// Something went wrong, rollback
 			$txn->rollback();
@@ -88,11 +88,11 @@ class RGenerator extends CApplicationComponent
 	 */
 	public function addItems($items, $type)
 	{
-		if (isset($this->_items[$type]) === false)
+		if(isset($this->_items[$type]) === false)
 			$this->_items[$type] = array(
 				);
 
-		foreach ($items as $itemname)
+		foreach($items as $itemname)
 			$this->_items[$type][] = $itemname;
 	}
 
@@ -102,27 +102,27 @@ class RGenerator extends CApplicationComponent
 	 */
 	public function getControllerActions($items = null)
 	{
-		if ($items === null)
+		if($items === null)
 			$items = $this->getAllControllers();
 
-		foreach ($items['controllers'] as $controllerName => $controller)
+		foreach($items['controllers'] as $controllerName=> $controller)
 		{
 			$actions = array(
 				);
 			$file = fopen($controller['path'], 'r');
 			$lineNumber = 0;
-			while (feof($file) === false)
+			while(feof($file) === false)
 			{
 				++$lineNumber;
 				$line = fgets($file);
 				preg_match('/public[ \t]+function[ \t]+action([A-Z]{1}[a-zA-Z0-9]+)[ \t]*\(/', $line, $matches);
-				if ($matches !== array(
+				if($matches !== array(
 					))
 				{
 					$name = $matches[1];
 					$actions[strtolower($name)] = array(
-						'name' => $name,
-						'line' => $lineNumber
+						'name'=>$name,
+						'line'=>$lineNumber
 					);
 				}
 			}
@@ -130,7 +130,7 @@ class RGenerator extends CApplicationComponent
 			$items['controllers'][$controllerName]['actions'] = $actions;
 		}
 
-		foreach ($items['modules'] as $moduleName => $module)
+		foreach($items['modules'] as $moduleName=> $module)
 			$items['modules'][$moduleName] = $this->getControllerActions($module);
 
 		return $items;
@@ -158,26 +158,26 @@ class RGenerator extends CApplicationComponent
 		$controllers = array(
 			);
 
-		if (file_exists($path) === true)
+		if(file_exists($path) === true)
 		{
 			$controllerDirectory = scandir($path);
-			foreach ($controllerDirectory as $entry)
+			foreach($controllerDirectory as $entry)
 			{
-				if ($entry{0} !== '.')
+				if($entry{0} !== '.')
 				{
 					$entryPath = $path . DIRECTORY_SEPARATOR . $entry;
-					if (strpos(strtolower($entry), 'controller') !== false)
+					if(strpos(strtolower($entry), 'controller') !== false)
 					{
 						$name = substr($entry, 0, -14);
 						$controllers[strtolower($name)] = array(
-							'name' => $name,
-							'file' => $entry,
-							'path' => $entryPath,
+							'name'=>$name,
+							'file'=>$entry,
+							'path'=>$entryPath,
 						);
 					}
 
-					if (is_dir($entryPath) === true)
-						foreach ($this->getControllersInPath($entryPath) as $controllerName => $controller)
+					if(is_dir($entryPath) === true)
+						foreach($this->getControllersInPath($entryPath) as $controllerName=> $controller)
 							$controllers[$controllerName] = $controller;
 				}
 			}
@@ -197,15 +197,15 @@ class RGenerator extends CApplicationComponent
 			);
 
 		$modulePath = $path . DIRECTORY_SEPARATOR . 'modules';
-		if (file_exists($modulePath) === true)
+		if(file_exists($modulePath) === true)
 		{
 			$moduleDirectory = scandir($modulePath);
-			foreach ($moduleDirectory as $entry)
+			foreach($moduleDirectory as $entry)
 			{
-				if (substr($entry, 0, 1) !== '.' && $entry !== 'rights')
+				if(substr($entry, 0, 1) !== '.' && $entry !== 'rights')
 				{
 					$subModulePath = $modulePath . DIRECTORY_SEPARATOR . $entry;
-					if (file_exists($subModulePath) === true)
+					if(file_exists($subModulePath) === true)
 					{
 						$items[$entry]['controllers'] = $this->getControllersInPath($subModulePath . DIRECTORY_SEPARATOR . 'controllers');
 						$items[$entry]['modules'] = $this->getControllersInModules($subModulePath);

@@ -24,7 +24,7 @@ class DocumentItemController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -39,17 +39,17 @@ class DocumentItemController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['DocumentItem']))
+		if(isset($_POST['DocumentItem']))
 		{
 			$model->attributes = $_POST['DocumentItem'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->documentItemId));
+					'id'=>$model->documentItemId));
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -65,17 +65,17 @@ class DocumentItemController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['DocumentItem']))
+		if(isset($_POST['DocumentItem']))
 		{
 			$model->attributes = $_POST['DocumentItem'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->documentItemId));
+					'id'=>$model->documentItemId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -86,13 +86,13 @@ class DocumentItemController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -107,7 +107,7 @@ class DocumentItemController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('DocumentItem');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -118,11 +118,11 @@ class DocumentItemController extends Controller
 	{
 		$model = new DocumentItem('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['DocumentItem']))
+		if(isset($_GET['DocumentItem']))
 			$model->attributes = $_GET['DocumentItem'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -134,7 +134,7 @@ class DocumentItemController extends Controller
 	public function loadModel($id)
 	{
 		$model = DocumentItem::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -145,7 +145,7 @@ class DocumentItemController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'document-item-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'document-item-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -155,10 +155,10 @@ class DocumentItemController extends Controller
 	public function actionDisableDocumentItem($id)
 	{
 		$docItem = DocumentItem::model()->findByPk($id);
-		if (isset($docItem))
+		if(isset($docItem))
 		{
 			$docItem->status = 0;
-			if (!$docItem->save())
+			if(!$docItem->save())
 			{
 				echo "ไม่สามารถ ลบรายการ ได้";
 			}
@@ -172,10 +172,10 @@ class DocumentItemController extends Controller
 	public function actionApproveDocumentItem($id)
 	{
 		$docItem = DocumentItem::model()->findByPk($id);
-		if (isset($docItem))
+		if(isset($docItem))
 		{
 			$docItem->status = 2;
-			if (!$docItem->save())
+			if(!$docItem->save())
 			{
 				echo "ไม่สามารถ ลบรายการ ได้";
 			}
@@ -189,10 +189,10 @@ class DocumentItemController extends Controller
 	public function actionRejectDocumentItem($id)
 	{
 		$docItem = DocumentItem::model()->findByPk($id);
-		if (isset($docItem))
+		if(isset($docItem))
 		{
 			$docItem->status = 3;
-			if (!$docItem->save())
+			if(!$docItem->save())
 			{
 				echo "ไม่สามารถ ลบรายการ ได้";
 			}

@@ -23,13 +23,13 @@ $this->pageHeader = 'Workflow : ' . $model->workflowName;
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'htmlOptions' => array(
-		'class' => 'table table-bordered table-striped table-condensed'),
-	'attributes' => array(
+	'data'=>$model,
+	'htmlOptions'=>array(
+		'class'=>'table table-bordered table-striped table-condensed'),
+	'attributes'=>array(
 		array(
-			'name' => 'Employee',
-			'value' => isset($model->employee->username) ? $model->employee->username : '',
+			'name'=>'Employee',
+			'value'=>isset($model->employee->username) ? $model->employee->username : '',
 		),
 		'groupId',
 	),

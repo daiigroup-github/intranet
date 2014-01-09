@@ -83,7 +83,7 @@
 #rights .pager li { margin:0; padding:0; }
 #rights .pager li a { padding:5px 10px; border-style:none; text-decoration:none; }
 #rights .pager li.hidden a { color:#c0c0c0; }
-#rights .pager li.selected a { 
+#rights .pager li.selected a {
 	background:#666699;
 	color:#ffffff;
 	-moz-border-radius:6px;

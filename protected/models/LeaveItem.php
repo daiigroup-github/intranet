@@ -80,14 +80,14 @@ class LeaveItem extends CActiveRecord
 			array(
 				'status, leaveTimeType',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'leaveTime',
 				'numerical'),
 			array(
 				'leaveId',
 				'length',
-				'max' => 45),
+				'max'=>45),
 			array(
 				'leaveDate',
 				'safe'),
@@ -96,7 +96,7 @@ class LeaveItem extends CActiveRecord
 			array(
 				'leaveItemId, leaveId, status, leaveDate, leaveTime, leaveTimeType',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -108,7 +108,7 @@ class LeaveItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'leave' => array(
+			'leave'=>array(
 				self::BELONGS_TO,
 				'Leave',
 				'leaveId'),
@@ -121,12 +121,12 @@ class LeaveItem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'leaveItemId' => 'Leave Item',
-			'leaveId' => 'Leave',
-			'status' => 'Status',
-			'leaveDate' => 'Leave Date',
-			'leaveTime' => 'Leave Time',
-			'leaveTimeType' => 'Leave Time Type',
+			'leaveItemId'=>'Leave Item',
+			'leaveId'=>'Leave',
+			'status'=>'Status',
+			'leaveDate'=>'Leave Date',
+			'leaveTime'=>'Leave Time',
+			'leaveTimeType'=>'Leave Time Type',
 		);
 	}
 
@@ -149,7 +149,7 @@ class LeaveItem extends CActiveRecord
 		$criteria->compare('leaveTimeType', $this->leaveTimeType);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -158,59 +158,59 @@ class LeaveItem extends CActiveRecord
 	{
 		$emp = Employee::model()->findByPk(Yii::app()->user->id);
 
-		if ($type != 3)
+		if($type != 3)
 		{
-			if ($emp->branchId == 1)
+			if($emp->branchId == 1)
 			{
 				$result = array(
-					self::LEAVE_TIME_RANGE_NONE => 'ไม่ลา',
-					self::LEAVE_TIME_RANGE_FULLDAY => 'เต็มวัน',
-					self::LEAVE_TIME_RANGE_MORNING => 'ครึ่งวันเช้า',
-					self::LEAVE_TIME_RANGE_AFTERNOON => 'ครึ่งวันบ่าย',
-					self::LEAVE_TIME_RANGE_13_14 => '1 ชั่วโมง เวลา 13.00-14.00',
-					self::LEAVE_TIME_RANGE_14_15 => '1 ชั่วโมง เวลา 14.00-15.00',
-					self::LEAVE_TIME_RANGE_15_16 => '1 ชั่วโมง เวลา 15.00-16.00',
-					self::LEAVE_TIME_RANGE_16_17 => '1 ชั่วโมง เวลา 16.00-17.00',
-					self::LEAVE_TIME_RANGE_13_15 => '2 ชั่วโมง เวลา 13.00-15.00',
-					self::LEAVE_TIME_RANGE_14_16 => '2 ชั่วโมง เวลา 14.00-16.00',
-					self::LEAVE_TIME_RANGE_15_17 => '2 ชั่วโมง เวลา 15.00-17.00',
-					self::LEAVE_TIME_RANGE_13_16 => '3 ชั่วโมง เวลา 13.00-16.00',
-					self::LEAVE_TIME_RANGE_14_17 => '3 ชั่วโมง เวลา 14.00-17.00',
-					self::LEAVE_TIME_RANGE_13_17 => '4 ชั่วโมง เวลา 13.00-17.00',
+					self::LEAVE_TIME_RANGE_NONE=>'ไม่ลา',
+					self::LEAVE_TIME_RANGE_FULLDAY=>'เต็มวัน',
+					self::LEAVE_TIME_RANGE_MORNING=>'ครึ่งวันเช้า',
+					self::LEAVE_TIME_RANGE_AFTERNOON=>'ครึ่งวันบ่าย',
+					self::LEAVE_TIME_RANGE_13_14=>'1 ชั่วโมง เวลา 13.00-14.00',
+					self::LEAVE_TIME_RANGE_14_15=>'1 ชั่วโมง เวลา 14.00-15.00',
+					self::LEAVE_TIME_RANGE_15_16=>'1 ชั่วโมง เวลา 15.00-16.00',
+					self::LEAVE_TIME_RANGE_16_17=>'1 ชั่วโมง เวลา 16.00-17.00',
+					self::LEAVE_TIME_RANGE_13_15=>'2 ชั่วโมง เวลา 13.00-15.00',
+					self::LEAVE_TIME_RANGE_14_16=>'2 ชั่วโมง เวลา 14.00-16.00',
+					self::LEAVE_TIME_RANGE_15_17=>'2 ชั่วโมง เวลา 15.00-17.00',
+					self::LEAVE_TIME_RANGE_13_16=>'3 ชั่วโมง เวลา 13.00-16.00',
+					self::LEAVE_TIME_RANGE_14_17=>'3 ชั่วโมง เวลา 14.00-17.00',
+					self::LEAVE_TIME_RANGE_13_17=>'4 ชั่วโมง เวลา 13.00-17.00',
 				);
 			}
 			else
 			{
 				$result = array(
-					self::LEAVE_TIME_RANGE_FULLDAY => 'เต็มวัน',
-					self::LEAVE_TIME_RANGE_MORNING => 'ครึ่งวันเช้า',
-					self::LEAVE_TIME_RANGE_AFTERNOON => 'ครึ่งวันบ่าย',
-					self::LEAVE_TIME_RANGE_15_16 => '1 ชั่วโมง เวลา 15.00-16.00',
-					self::LEAVE_TIME_RANGE_16_17 => '1 ชั่วโมง เวลา 16.00-17.00',
-					self::LEAVE_TIME_RANGE_17_18 => '1 ชั่วโมง เวลา 17.00-18.00',
-					self::LEAVE_TIME_RANGE_18_19 => '1 ชั่วโมง เวลา 18.00-19.00',
-					self::LEAVE_TIME_RANGE_19_20 => '1 ชั่วโมง เวลา 19.00-20.00',
-					self::LEAVE_TIME_RANGE_20_21 => '1 ชั่วโมง เวลา 20.00-21.00',
-					self::LEAVE_TIME_RANGE_15_17 => '2 ชั่วโมง เวลา 15.00-17.00',
-					self::LEAVE_TIME_RANGE_16_18 => '2 ชั่วโมง เวลา 16.00-18.00',
-					self::LEAVE_TIME_RANGE_17_19 => '2 ชั่วโมง เวลา 17.00-19.00',
-					self::LEAVE_TIME_RANGE_18_20 => '2 ชั่วโมง เวลา 18.00-20.00',
-					self::LEAVE_TIME_RANGE_19_21 => '2 ชั่วโมง เวลา 19.00-21.00',
-					self::LEAVE_TIME_RANGE_15_18 => '3 ชั่วโมง เวลา 15.00-18.00',
-					self::LEAVE_TIME_RANGE_16_19 => '3 ชั่วโมง เวลา 16.00-19.00',
-					self::LEAVE_TIME_RANGE_17_20 => '3 ชั่วโมง เวลา 17.00-20.00',
-					self::LEAVE_TIME_RANGE_18_21 => '3 ชั่วโมง เวลา 18.00-21.00',
-					self::LEAVE_TIME_RANGE_NONE => 'ไม่ลา',
+					self::LEAVE_TIME_RANGE_FULLDAY=>'เต็มวัน',
+					self::LEAVE_TIME_RANGE_MORNING=>'ครึ่งวันเช้า',
+					self::LEAVE_TIME_RANGE_AFTERNOON=>'ครึ่งวันบ่าย',
+					self::LEAVE_TIME_RANGE_15_16=>'1 ชั่วโมง เวลา 15.00-16.00',
+					self::LEAVE_TIME_RANGE_16_17=>'1 ชั่วโมง เวลา 16.00-17.00',
+					self::LEAVE_TIME_RANGE_17_18=>'1 ชั่วโมง เวลา 17.00-18.00',
+					self::LEAVE_TIME_RANGE_18_19=>'1 ชั่วโมง เวลา 18.00-19.00',
+					self::LEAVE_TIME_RANGE_19_20=>'1 ชั่วโมง เวลา 19.00-20.00',
+					self::LEAVE_TIME_RANGE_20_21=>'1 ชั่วโมง เวลา 20.00-21.00',
+					self::LEAVE_TIME_RANGE_15_17=>'2 ชั่วโมง เวลา 15.00-17.00',
+					self::LEAVE_TIME_RANGE_16_18=>'2 ชั่วโมง เวลา 16.00-18.00',
+					self::LEAVE_TIME_RANGE_17_19=>'2 ชั่วโมง เวลา 17.00-19.00',
+					self::LEAVE_TIME_RANGE_18_20=>'2 ชั่วโมง เวลา 18.00-20.00',
+					self::LEAVE_TIME_RANGE_19_21=>'2 ชั่วโมง เวลา 19.00-21.00',
+					self::LEAVE_TIME_RANGE_15_18=>'3 ชั่วโมง เวลา 15.00-18.00',
+					self::LEAVE_TIME_RANGE_16_19=>'3 ชั่วโมง เวลา 16.00-19.00',
+					self::LEAVE_TIME_RANGE_17_20=>'3 ชั่วโมง เวลา 17.00-20.00',
+					self::LEAVE_TIME_RANGE_18_21=>'3 ชั่วโมง เวลา 18.00-21.00',
+					self::LEAVE_TIME_RANGE_NONE=>'ไม่ลา',
 				);
 			}
 		}
 		else
 		{
 			$result = array(
-				self::LEAVE_TIME_RANGE_NONE => 'ไม่ลา',
-				self::LEAVE_TIME_RANGE_FULLDAY => 'เต็มวัน',
-				self::LEAVE_TIME_RANGE_MORNING => 'ครึ่งวันเช้า',
-				self::LEAVE_TIME_RANGE_AFTERNOON => 'ครึ่งวันบ่าย',
+				self::LEAVE_TIME_RANGE_NONE=>'ไม่ลา',
+				self::LEAVE_TIME_RANGE_FULLDAY=>'เต็มวัน',
+				self::LEAVE_TIME_RANGE_MORNING=>'ครึ่งวันเช้า',
+				self::LEAVE_TIME_RANGE_AFTERNOON=>'ครึ่งวันบ่าย',
 			);
 		}
 		return $result;
@@ -224,11 +224,11 @@ class LeaveItem extends CActiveRecord
 
 	public function genLeaveTime($leaveTimeType)
 	{
-		if ($leaveTimeType == 1)
+		if($leaveTimeType == 1)
 		{
 			return 1;
 		}
-		else if ($leaveTimeType == 2 || $leaveTimeType == 3)
+		else if($leaveTimeType == 2 || $leaveTimeType == 3)
 		{
 			return 0.5;
 		}
@@ -240,7 +240,7 @@ class LeaveItem extends CActiveRecord
 
 	public function getAllApprovedLeaveItemByEmployeeId($employeeId, $startDate, $endDate, $inAround = false)
 	{
-		if ($inAround)
+		if($inAround)
 		{
 			$calendar = Calendar::model()->getSalaryDateOfNow();
 			$saralyDay = $calendar->saralyDay;
@@ -252,14 +252,14 @@ class LeaveItem extends CActiveRecord
 		$criteria->join .= " LEFT JOIN workflow_log w on w.documentId = d.documentId AND w.workflowStateId = 210 ";
 		$criteria->join .= ' LEFT JOIN document_type dt on d.documentTypeId=dt.documentTypeId';
 		$criteria->condition = 'd.employeeId=:employeeId AND dt.documentCodePrefix IN ("RLE","RLO") AND l.status=1 AND (t.leaveDate BETWEEN :startDate AND :endDate)';
-		if ($inAround)
+		if($inAround)
 		{
 			$criteria->condition .= " AND w.createDateTime < DATE_FORMAT(INSERT(convert(now(),char),9,11,'$saralyDay 14:01:00'),'%Y-%m-%d %H:%i:%s')";
 		}
 		$criteria->params = array(
-			':employeeId' => $employeeId,
-			':startDate' => $startDate,
-			':endDate' => $endDate,);
+			':employeeId'=>$employeeId,
+			':startDate'=>$startDate,
+			':endDate'=>$endDate,);
 
 		return $this->findAll($criteria);
 	}
@@ -270,7 +270,7 @@ class LeaveItem extends CActiveRecord
 		$criteria->select = 'sum(leaveTime) as sumLeaveTime';
 		$criteria->condition = 'leaveId=:leaveId';
 		$criteria->params = array(
-			':leaveId' => $leaveId);
+			':leaveId'=>$leaveId);
 
 		$model = $this->find($criteria);
 
@@ -278,4 +278,3 @@ class LeaveItem extends CActiveRecord
 	}
 
 }
-

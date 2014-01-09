@@ -1,10 +1,10 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'requisition-form',
-	'enableAjaxValidation' => true,
-	'htmlOptions' => array(
-		'enctype' => 'multipart/form-data',
-		'class' => 'form-horizontal well',)));
+	'id'=>'requisition-form',
+	'enableAjaxValidation'=>true,
+	'htmlOptions'=>array(
+		'enctype'=>'multipart/form-data',
+		'class'=>'form-horizontal well',)));
 ?>
 <h3>ค้นหา</h3>
 <hr />
@@ -39,34 +39,34 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'startDate',
-			'model' => $model,
-			'attribute' => 'startDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$model,
+			'attribute'=>'startDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 		- ถึง
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'endDate',
-			'model' => $model,
-			'attribute' => 'endDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$model,
+			'attribute'=>'endDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 	</div>
 </div>
 
-<?php if (Yii::app()->controller->action->id == 'index'): ?>
+<?php if(Yii::app()->controller->action->id == 'index'): ?>
 	<div class="control-group">
 		<label class="control-label">แสดงเฉพาะรายการก่อนตัดรอบ</label>
 		<div class="controls">
@@ -85,7 +85,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="controls">
 		<?php
 		echo CHtml::submitButton('ค้นหา', array(
-			'class' => 'btn btn-primary'));
+			'class'=>'btn btn-primary'));
 		?>
 	</div>
 </div>

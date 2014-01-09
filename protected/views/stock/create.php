@@ -8,5 +8,5 @@ $this->pageHeader = 'การจัดการคลังอุปกรณ�
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

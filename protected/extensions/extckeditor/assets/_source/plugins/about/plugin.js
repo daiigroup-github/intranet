@@ -4,21 +4,21 @@
  */
 
 		CKEDITOR.plugins.add('about',
-		{
-			requires: ['dialog'],
-			init: function(editor)
-			{
-				var command = editor.addCommand('about', new CKEDITOR.dialogCommand('about'));
-				command.modes = {wysiwyg: 1, source: 1};
-				command.canUndo = false;
-				command.readOnly = 1;
+				{
+					requires: ['dialog'],
+					init: function(editor)
+					{
+						var command = editor.addCommand('about', new CKEDITOR.dialogCommand('about'));
+						command.modes = {wysiwyg: 1, source: 1};
+						command.canUndo = false;
+						command.readOnly = 1;
 
-				editor.ui.addButton('About',
-						{
-							label: editor.lang.about.title,
-							command: 'about'
-						});
+						editor.ui.addButton('About',
+								{
+									label: editor.lang.about.title,
+									command: 'about'
+								});
 
-				CKEDITOR.dialog.add('about', this.path + 'dialogs/about.js');
-			}
-		});
+						CKEDITOR.dialog.add('about', this.path + 'dialogs/about.js');
+					}
+				});

@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'qtech-process-form',
-		'enableAjaxValidation' => false,
+		'id'=>'qtech-process-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -13,7 +13,7 @@
 
 			<?php
 			echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-				'class' => 'alert alert-error'));
+				'class'=>'alert alert-error'));
 			?>
 		</div>
 	</div>
@@ -23,8 +23,8 @@
 			<?php echo $form->labelEx($model, 'processName'); ?>
 			<?php
 			echo $form->textField($model, 'processName', array(
-				'size' => 60,
-				'maxlength' => 100));
+				'size'=>60,
+				'maxlength'=>100));
 			?>
 			<?php echo $form->error($model, 'processName'); ?>
 		</div>
@@ -35,8 +35,8 @@
 			<?php echo $form->labelEx($model, 'processDetail'); ?>
 			<?php
 			echo $form->textField($model, 'processDetail', array(
-				'size' => 60,
-				'maxlength' => 120));
+				'size'=>60,
+				'maxlength'=>120));
 			?>
 			<?php echo $form->error($model, 'processDetail'); ?>
 		</div>
@@ -47,8 +47,8 @@
 			<?php echo $form->labelEx($model, 'duration'); ?>
 			<?php
 			echo $form->textField($model, 'duration', array(
-				'size' => 10,
-				'maxlength' => 10));
+				'size'=>10,
+				'maxlength'=>10));
 			?>
 			<?php echo $form->error($model, 'duration'); ?>
 		</div>

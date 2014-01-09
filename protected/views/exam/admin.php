@@ -3,19 +3,19 @@
 /* @var $model ExamTitle */
 
 $this->breadcrumbs = array(
-	'Exam Titles' => array(
+	'Exam Titles'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List ExamTitle',
-		'url' => array(
+		'label'=>'List ExamTitle',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create ExamTitle',
-		'url' => array(
+		'label'=>'Create ExamTitle',
+		'url'=>array(
 			'create')),
 );
 
@@ -42,29 +42,29 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'exam-title-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'exam-title-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'examId',
 		'status',
 		'createDateTime',
 		'examTitle',
 		'creator',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

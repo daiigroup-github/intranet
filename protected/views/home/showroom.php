@@ -21,7 +21,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 		<ul class="thumbnails">
 			<li class="span12">
 				<p>
-					<?php for ($i = 1; $i < 906; $i++): ?>
+					<?php for($i = 1; $i < 906; $i++): ?>
 						<?php
 						$seq = str_pad($i, 4, '0', STR_PAD_LEFT);
 						?>

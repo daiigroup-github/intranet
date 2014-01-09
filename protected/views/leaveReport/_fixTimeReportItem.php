@@ -13,7 +13,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/jquery.fancybox.css?v=2.0.6
 $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-buttons.css?v=1.0.2');
 $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.2');
 ?>
-<?php foreach ($employeeModels as $employee): ?>
+<?php foreach($employeeModels as $employee): ?>
 	<div class="alert alert-info" style='min-width: 750px'>
 		<h3 align="right"><?php echo $employee->fnTh . ' ' . $employee->lnTh . ' - ' . $employee->employeeCode; ?></h3>
 
@@ -29,13 +29,13 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 				<td>เหตุผล</td>
 				<td>Action</td>
 			</tr>
-			<?php foreach (DocumentItem::model()->getAllApprovedFixTimeItemByEmployeeId($employee->employeeId, $documentItem->startDate, $documentItem->endDate, $documentItem->inAround) as $documentItemModel): ?>
+			<?php foreach(DocumentItem::model()->getAllApprovedFixTimeItemByEmployeeId($employee->employeeId, $documentItem->startDate, $documentItem->endDate, $documentItem->inAround) as $documentItemModel): ?>
 				<tr class="<?php echo ($documentItemModel->status == 4) ? 'success' : ''; ?>">
 					<td><?php echo $documentItemModel->document->documentCode; ?></td>
 					<td><?php
 						$date = explode(' ', $documentItemModel->document->createDateTime);
 						echo $this->dateThai($date[0], 3);
-						?>			
+						?>
 					</td>
 					<td><?php echo $this->dateThai(isset(WorkflowLog::model()->findFixtimeApproveLogByDocumentId($documentItemModel->documentId)->createDateTime) ? WorkflowLog::model()->findFixtimeApproveLogByDocumentId($documentItemModel->documentId)->createDateTime : "0000-00-00", 3); ?></td>
 					<td><?php echo $this->dateThai($documentItemModel->documentItemName, 3); ?></td>
@@ -43,27 +43,27 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 					<td><?php echo $documentItemModel->remark; ?></td>
 					<td><?php echo $documentItemModel->id; ?></td>
 					<td><?php echo $documentItemModel->value; ?></td>
-					<td>    
+					<td>
 						<?php
-						if ($documentItemModel->status == 2)
+						if($documentItemModel->status == 2)
 						{
 							echo CHtml::ajaxLink('<i class="icon-ok icon-white"></i>', 'updateFixTimeItemStatus/' . $documentItemModel->documentItemId, array(
-								'update' => '',
-								'beforeSend' => 'function(){}',
-								'complete' => 'function(){
+								'update'=>'',
+								'beforeSend'=>'function(){}',
+								'complete'=>'function(){
 								$("#updateBtn' . $documentItemModel->documentItemId . '").hide();
 								$("#updateBtn' . $documentItemModel->documentItemId . '").parent().parent().addClass("alert");
 							}',
 								), array(
-								'class' => 'btn btn-warning btn-small',
-								'id' => 'updateBtn' . $documentItemModel->documentItemId
+								'class'=>'btn btn-warning btn-small',
+								'id'=>'updateBtn' . $documentItemModel->documentItemId
 							));
 						}
-						else if ($documentItemModel->status == 1)
+						else if($documentItemModel->status == 1)
 						{
 							echo "รอดำเนินการ";
 						}
-						else if ($documentItemModel->status == 3)
+						else if($documentItemModel->status == 3)
 						{
 							echo "ไม่อนุมัติ";
 						}

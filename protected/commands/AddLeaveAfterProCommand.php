@@ -11,7 +11,7 @@ class AddLeaveAfterProCommand extends CConsoleCommand
 
 		$employeeModels = Employee::model()->findAll('proDate="' . $date . '"');
 
-		foreach ($employeeModels as $employeeModel)
+		foreach($employeeModels as $employeeModel)
 		{
 			$employeeModel->leaveRemain = 6;
 			$employeeModel->save();

@@ -1,26 +1,26 @@
 <!-- Login -->
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'login-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form form-inline'),
+	'id'=>'login-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form form-inline'),
 	));
 ?>
 <?php
 echo $form->textField($model, 'username', array(
-	'placeholder' => 'Employee ID',
-	'class' => 'span2'));
+	'placeholder'=>'Employee ID',
+	'class'=>'span2'));
 ?>
 <?php
 echo $form->passwordField($model, 'password', array(
-	'placeholder' => 'Password',
-	'class' => 'span2'));
+	'placeholder'=>'Password',
+	'class'=>'span2'));
 ?>
 
 <?php
 echo CHtml::submitButton('Sign in', array(
-	'class' => 'btn btn-primary btn-mini',
+	'class'=>'btn btn-primary btn-mini',
 ));
 ?>
 

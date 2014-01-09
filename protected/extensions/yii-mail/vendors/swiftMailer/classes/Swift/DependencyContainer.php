@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -17,8 +16,8 @@
  */
 class Swift_DependencyContainer
 {
-	/** Constant for literal value types */
 
+	/** Constant for literal value types */
 	const TYPE_VALUE = 0x0001;
 
 	/** Constant for new instance types */
@@ -46,7 +45,7 @@ class Swift_DependencyContainer
 	 */
 	public function __construct()
 	{
-		
+
 	}
 
 	/**
@@ -55,7 +54,7 @@ class Swift_DependencyContainer
 	 */
 	public static function getInstance()
 	{
-		if (!isset(self::$_instance))
+		if(!isset(self::$_instance))
 		{
 			self::$_instance = new self();
 		}
@@ -91,14 +90,14 @@ class Swift_DependencyContainer
 	 */
 	public function lookup($itemName)
 	{
-		if (!$this->has($itemName))
+		if(!$this->has($itemName))
 		{
 			throw new Swift_DependencyException(
 			'Cannot lookup dependency "' . $itemName . '" since it is not registered.'
 			);
 		}
 
-		switch ($this->_store[$itemName]['lookupType'])
+		switch($this->_store[$itemName]['lookupType'])
 		{
 			case self::TYPE_ALIAS:
 				return $this->_createAlias($itemName);
@@ -120,7 +119,7 @@ class Swift_DependencyContainer
 	{
 		$args = array(
 			);
-		if (isset($this->_store[$itemName]['args']))
+		if(isset($this->_store[$itemName]['args']))
 		{
 			$args = $this->_resolveArgs($this->_store[$itemName]['args']);
 		}
@@ -208,7 +207,7 @@ class Swift_DependencyContainer
 	/**
 	 * Specify a list of injected dependencies for the previously registered item.
 	 * This method takes an array of lookup names.
-	 * 
+	 *
 	 * @param array $lookups
 	 * @return Swift_DependencyContainer
 	 * @see addConstructorValue(), addConstructorLookup()
@@ -218,7 +217,7 @@ class Swift_DependencyContainer
 		$endPoint = & $this->_getEndPoint();
 		$endPoint['args'] = array(
 			);
-		foreach ($lookups as $lookup)
+		foreach($lookups as $lookup)
 		{
 			$this->addConstructorLookup($lookup);
 		}
@@ -228,7 +227,7 @@ class Swift_DependencyContainer
 	/**
 	 * Specify a literal (non looked up) value for the constructor of the
 	 * previously registered item.
-	 * 
+	 *
 	 * @param mixed $value
 	 * @return Swift_DependencyContainer
 	 * @see withDependencies(), addConstructorLookup()
@@ -236,21 +235,21 @@ class Swift_DependencyContainer
 	public function addConstructorValue($value)
 	{
 		$endPoint = & $this->_getEndPoint();
-		if (!isset($endPoint['args']))
+		if(!isset($endPoint['args']))
 		{
 			$endPoint['args'] = array(
 				);
 		}
 		$endPoint['args'][] = array(
-			'type' => 'value',
-			'item' => $value);
+			'type'=>'value',
+			'item'=>$value);
 		return $this;
 	}
 
 	/**
 	 * Specify a dependency lookup for the constructor of the previously
 	 * registered item.
-	 * 
+	 *
 	 * @param string $lookup
 	 * @return Swift_DependencyContainer
 	 * @see withDependencies(), addConstructorValue()
@@ -258,14 +257,14 @@ class Swift_DependencyContainer
 	public function addConstructorLookup($lookup)
 	{
 		$endPoint = & $this->_getEndPoint();
-		if (!isset($this->_endPoint['args']))
+		if(!isset($this->_endPoint['args']))
 		{
 			$endPoint['args'] = array(
 				);
 		}
 		$endPoint['args'][] = array(
-			'type' => 'lookup',
-			'item' => $lookup);
+			'type'=>'lookup',
+			'item'=>$lookup);
 		return $this;
 	}
 
@@ -287,7 +286,7 @@ class Swift_DependencyContainer
 	private function _createNewInstance($itemName)
 	{
 		$reflector = new ReflectionClass($this->_store[$itemName]['className']);
-		if ($reflector->getConstructor())
+		if($reflector->getConstructor())
 		{
 			return $reflector->newInstanceArgs(
 					$this->createDependenciesFor($itemName)
@@ -302,7 +301,7 @@ class Swift_DependencyContainer
 	/** Create and register a shared instance of $itemName */
 	private function _createSharedInstance($itemName)
 	{
-		if (!isset($this->_store[$itemName]['instance']))
+		if(!isset($this->_store[$itemName]['instance']))
 		{
 			$this->_store[$itemName]['instance'] = $this->_createNewInstance($itemName);
 		}
@@ -312,7 +311,7 @@ class Swift_DependencyContainer
 	/** Get the current endpoint in the store */
 	private function &_getEndPoint()
 	{
-		if (!isset($this->_endPoint))
+		if(!isset($this->_endPoint))
 		{
 			throw new BadMethodCallException(
 			'Component must first be registered by calling register()'
@@ -326,9 +325,9 @@ class Swift_DependencyContainer
 	{
 		$resolved = array(
 			);
-		foreach ($args as $argDefinition)
+		foreach($args as $argDefinition)
 		{
-			switch ($argDefinition['type'])
+			switch($argDefinition['type'])
 			{
 				case 'lookup':
 					$resolved[] = $this->_lookupRecursive($argDefinition['item']);
@@ -344,11 +343,11 @@ class Swift_DependencyContainer
 	/** Resolve a single dependency with an collections */
 	private function _lookupRecursive($item)
 	{
-		if (is_array($item))
+		if(is_array($item))
 		{
 			$collection = array(
 				);
-			foreach ($item as $k => $v)
+			foreach($item as $k=> $v)
 			{
 				$collection[$k] = $this->_lookupRecursive($v);
 			}

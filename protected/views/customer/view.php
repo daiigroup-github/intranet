@@ -12,22 +12,22 @@ $this->pageHeader = 'View Customer : ' . strtoupper($model->customerFnTh);
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'htmlOptions' => array(
-		'class' => 'table table-bordered table-striped table-condensed'),
-	'attributes' => array(
+	'data'=>$model,
+	'htmlOptions'=>array(
+		'class'=>'table table-bordered table-striped table-condensed'),
+	'attributes'=>array(
 		'customerType',
 		array(
-			'name' => 'Customer Name',
-			'value' => $model->customerFnTh . ' ' . $model->customerLnTh,
+			'name'=>'Customer Name',
+			'value'=>$model->customerFnTh . ' ' . $model->customerLnTh,
 		),
 		'customerCompany',
 		'email',
 		'companyValue',
 		//'saleId',
 		array(
-			'name' => 'address',
-			'value' => isset($model->address) ? $model->address : " " . ' ' . $model->city . ' ' . $model->province->provinceName . ' ' . $model->zipcode,
+			'name'=>'address',
+			'value'=>isset($model->address) ? $model->address : " " . ' ' . $model->city . ' ' . $model->province->provinceName . ' ' . $model->zipcode,
 		),
 		'phone',
 	),

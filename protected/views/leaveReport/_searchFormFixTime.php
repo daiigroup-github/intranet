@@ -1,10 +1,10 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'leaveReport-form',
-	'enableAjaxValidation' => true,
-	'htmlOptions' => array(
-		'enctype' => 'multipart/form-data',
-		'class' => 'form-horizontal well',)));
+	'id'=>'leaveReport-form',
+	'enableAjaxValidation'=>true,
+	'htmlOptions'=>array(
+		'enctype'=>'multipart/form-data',
+		'class'=>'form-horizontal well',)));
 ?>
 <h3>ค้นหา</h3>
 <hr />
@@ -32,29 +32,29 @@ $form = $this->beginWidget('CActiveForm', array(
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'startDate',
-			'model' => $documentItem,
-			'attribute' => 'startDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$documentItem,
+			'attribute'=>'startDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 		- ถึง
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'endDate',
-			'model' => $documentItem,
-			'attribute' => 'endDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$documentItem,
+			'attribute'=>'endDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 	</div>
 </div>
@@ -77,7 +77,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="controls">
 		<?php
 		echo CHtml::submitButton('ค้นหา', array(
-			'class' => 'btn btn-primary'));
+			'class'=>'btn btn-primary'));
 		?>
 	</div>
 </div>

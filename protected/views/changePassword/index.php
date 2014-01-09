@@ -5,17 +5,17 @@ $this->pageHeader = 'เปลี่ยนรหัสผ่าน';
 <div class="form well">
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'changepassword-form',
-		'enableClientValidation' => true,
-		'clientOptions' => array(
-			'validateOnSubmit' => true,
+		'id'=>'changepassword-form',
+		'enableClientValidation'=>true,
+		'clientOptions'=>array(
+			'validateOnSubmit'=>true,
 		),
 	));
 	?>
 
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
 
 	<p>

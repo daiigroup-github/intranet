@@ -26,7 +26,7 @@
 
 					var resizeEditor = function(editor)
 					{
-						if (!editor.window)
+						if(!editor.window)
 							return;
 
 						var doc = editor.document,
@@ -47,13 +47,13 @@
 						newHeight = Math.max(newHeight, min);
 						newHeight = Math.min(newHeight, max);
 
-						if (newHeight != currentHeight)
+						if(newHeight != currentHeight)
 						{
 							newHeight = editor.fire('autoGrow', {currentHeight: currentHeight, newHeight: newHeight}).newHeight;
 							editor.resize(editor.container.getStyle('width'), newHeight, true);
 						}
 
-						if (scrollable.$.scrollHeight > scrollable.$.clientHeight && newHeight < max)
+						if(scrollable.$.scrollHeight > scrollable.$.clientHeight && newHeight < max)
 							scrollable.setStyle('overflow-y', 'hidden');
 						else
 							scrollable.removeStyle('overflow-y');
@@ -75,7 +75,7 @@
 										{
 											var maximize = editor.getCommand('maximize');
 											// Some time is required for insertHtml, and it gives other events better performance as well.
-											if (evt.editor.mode == 'wysiwyg' &&
+											if(evt.editor.mode == 'wysiwyg' &&
 													// Disable autogrow when the editor is maximized .(#6339)
 															(!maximize || maximize.state != CKEDITOR.TRISTATE_ON))
 											{

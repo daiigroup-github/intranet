@@ -10,7 +10,7 @@ class DefaultController extends MasterConstructionController
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -25,23 +25,23 @@ class DefaultController extends MasterConstructionController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['ConstructionProject']))
+		if(isset($_POST['ConstructionProject']))
 		{
 			$model->attributes = $_POST['ConstructionProject'];
 			$model->createDateTime = new CDbExpression('NOW()');
 			$model->updateDateTime = new CDbExpression('NOW()');
-			if ($model->save())
+			if($model->save())
 			{
 //				$this->redirect(array('view','id'=>$model->projectId));
 //				$_SESSION['project'] = $_POST['ConstructionProject'];
 				$this->redirect(array(
 					'createProcess',
-					'id' => $model->projectId));
+					'id'=>$model->projectId));
 			}
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -50,11 +50,11 @@ class DefaultController extends MasterConstructionController
 		$c = array(
 			);
 
-		for ($i = 0; $i < sizeof($array); $i++)
+		for($i = 0; $i < sizeof($array); $i++)
 		{
-			foreach ($model->attributes as $attr => $v)
+			foreach($model->attributes as $attr=> $v)
 			{
-				if (isset($array[$attr][$i]))
+				if(isset($array[$attr][$i]))
 					$c[$i][$attr] = $array[$attr][$i];
 			}
 		}
@@ -66,7 +66,7 @@ class DefaultController extends MasterConstructionController
 		$processModel = new ConstructionProcess;
 		$processArray = NULL;
 
-		if (isset($_POST['ConstructionProcess']))
+		if(isset($_POST['ConstructionProcess']))
 		{
 			$processArray = $this->modelAttributes($processModel, $_POST['ConstructionProcess']);
 			$transaction = Yii::app()->db->beginTransaction();
@@ -74,32 +74,32 @@ class DefaultController extends MasterConstructionController
 			{
 				$flag = true;
 
-				foreach ($processArray as $v)
+				foreach($processArray as $v)
 				{
 					$processModel = new ConstructionProcess;
 					$v['projectId'] = $id;
 					$processModel->attributes = $v;
 
-					if (!$processModel->save())
+					if(!$processModel->save())
 					{
 						$flag = false;
 						break;
 					}
 				}
 
-				if ($flag)
+				if($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
 						'createProcessSub',
-						'id' => $id));
+						'id'=>$id));
 				}
 				else
 				{
 					$transaction->rollback();
 				}
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				//echo $exc->getTraceAsString();
 				$transaction->rollback();
@@ -108,8 +108,8 @@ class DefaultController extends MasterConstructionController
 
 		$this->pageHeader = 'Process';
 		$this->render('createProcess', array(
-			'processModel' => $processModel,
-			'processArray' => $processArray));
+			'processModel'=>$processModel,
+			'processArray'=>$processArray));
 	}
 
 	public function actionCreateProcessSub($id)
@@ -119,10 +119,10 @@ class DefaultController extends MasterConstructionController
 
 		$projectModel = ConstructionProject::model()->findByPk($id);
 
-		if (isset($_POST['ConstructionProcessSub']))
+		if(isset($_POST['ConstructionProcessSub']))
 			$this->render('createProcessSub', array(
-				'projectModel' => $projectModel,
-				'processSubModel' => $processSubModel));
+				'projectModel'=>$projectModel,
+				'processSubModel'=>$processSubModel));
 	}
 
 	/**
@@ -137,19 +137,19 @@ class DefaultController extends MasterConstructionController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['ConstructionProject']))
+		if(isset($_POST['ConstructionProject']))
 		{
 			$model->attributes = $_POST['ConstructionProject'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->projectId));
+					'id'=>$model->projectId));
 		}
 
 		$this->pageHeader = 'แก้ไข : ' . $model->name . ' #' . $model->projectId;
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -163,7 +163,7 @@ class DefaultController extends MasterConstructionController
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax']))
+		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 	}
@@ -179,13 +179,13 @@ class DefaultController extends MasterConstructionController
 //		));
 		$model = new ConstructionProject('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['ConstructionProject']))
+		if(isset($_GET['ConstructionProject']))
 			$model->attributes = $_GET['ConstructionProject'];
 
 		$this->pageHeader = 'Qtech Project';
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -196,11 +196,11 @@ class DefaultController extends MasterConstructionController
 	{
 		$model = new ConstructionProject('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['ConstructionProject']))
+		if(isset($_GET['ConstructionProject']))
 			$model->attributes = $_GET['ConstructionProject'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 

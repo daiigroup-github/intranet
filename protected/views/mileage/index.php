@@ -35,49 +35,49 @@ $this->pageHeader = 'Mileage :';
 <div class="search-form" style="display:block;">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
-if (isset($models))
-	foreach ($models as $m)
+if(isset($models))
+	foreach($models as $m)
 	{
 		$this->widget('zii.widgets.grid.CGridView', array(
-			'id' => 'mileage-grid',
-			'dataProvider' => Mileage::mileageWithEmployeeIdAndDate($m->employeeId, $m->createDate),
-			'itemsCssClass' => 'table table-striped table-bordered table-condensed',
-			'summaryText' => $m->createDate . ' | Sum : ' . $m->sumMileageDiff,
-			'columns' => array(
+			'id'=>'mileage-grid',
+			'dataProvider'=>Mileage::mileageWithEmployeeIdAndDate($m->employeeId, $m->createDate),
+			'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+			'summaryText'=>$m->createDate . ' | Sum : ' . $m->sumMileageDiff,
+			'columns'=>array(
 				array(
-					'name' => 'Date Time',
-					'value' => 'CHtml::encode($data->createTime)',
+					'name'=>'Date Time',
+					'value'=>'CHtml::encode($data->createTime)',
 				),
 				array(
-					'name' => 'mileage',
-					'value' => 'CHtml::encode(number_format($data->mileage))',
+					'name'=>'mileage',
+					'value'=>'CHtml::encode(number_format($data->mileage))',
 				),
 				array(
-					'name' => 'Diff',
-					'value' => 'CHtml::encode($data->mileageDiff)',
+					'name'=>'Diff',
+					'value'=>'CHtml::encode($data->mileageDiff)',
 				),
 				array(
-					'name' => 'Detail',
-					'value' => 'CHtml::encode($data->mileageDetail)',
+					'name'=>'Detail',
+					'value'=>'CHtml::encode($data->mileageDetail)',
 				),
 				array(
-					'name' => 'Image',
-					'type' => 'raw',
-					'value' => 'CHtml::image("http://daiichireport.dcorp.co.th/images/mileage/".$data->mileageImage, $data->mileageDetail, array("style"=>"width:200px;height:150px;"))',
+					'name'=>'Image',
+					'type'=>'raw',
+					'value'=>'CHtml::image("http://daiichireport.dcorp.co.th/images/mileage/".$data->mileageImage, $data->mileageDetail, array("style"=>"width:200px;height:150px;"))',
 				),
 				array(
-					'name' => 'map',
-					'type' => 'raw',
-					'value' => 'CHtml::image("http://maps.googleapis.com/maps/api/staticmap?center=".$data->latitude.", ".$data->longitude."&zoom=15&size=150x150&sensor=true&markers=color:blue%7Clabel:S%7C".$data->latitude.", ".$data->longitude)',
+					'name'=>'map',
+					'type'=>'raw',
+					'value'=>'CHtml::image("http://maps.googleapis.com/maps/api/staticmap?center=".$data->latitude.", ".$data->longitude."&zoom=15&size=150x150&sensor=true&markers=color:blue%7Clabel:S%7C".$data->latitude.", ".$data->longitude)',
 				),
 				array(
-					'class' => 'CButtonColumn',
+					'class'=>'CButtonColumn',
 				),
 			),
 		));

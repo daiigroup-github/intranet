@@ -1,7 +1,7 @@
 
 body { background: #FFFFFF; }
 body, table {
-	font-family: Verdana, Arial, Helvetica, sans-serif; 
+	font-family: Verdana, Arial, Helvetica, sans-serif;
 	text-align: left;
 	font-size: 11px;
 }
@@ -10,13 +10,13 @@ table.none td.btCell { background-color: #fff; vertical-align: top; }
 table.none tr.highlight td.btCell { background-color: #f5f5f5; vertical-align: top; }
 table.none th.btHead { background-color: #e5e5e5; vertical-align: top; }
 table.btHeader, th.btHeader {
-	background-color: #014f9d; 
+	background-color: #014f9d;
 	color: #fff;
 	text-align: left;
 	vertical-align: top;
 }
 table.btHeaderProminent, th.btHeaderProminent {
-	background-color: #9d0119; 
+	background-color: #9d0119;
 	color: #fff;
 	text-align: left;
 	vertical-align: top;
@@ -25,7 +25,7 @@ div.showHideIndent { margin-left: 14px; }
 td.left, th.left, th.syntaxLanguage { vertical-align: top; text-align: left; border-right: 1px solid #ceced8; border-bottom: solid 1px #ceced8; }
 th.noborder { border: none; }
 th.border { border: 1px solid #ceced8; }
-td.border { border-bottom: 1px solid #ceced8; } 
+td.border { border-bottom: 1px solid #ceced8; }
 th.syntaxLanguage { font-size: 11px; line-height: 13px; vertical-align: top; }
 .faq, .property { color: #000090; }
 .method { color: #009000; }
@@ -91,24 +91,24 @@ img.showHideImg { margin-right: 3px; }
 	font-weight: bold;
 	background-color: #ceced8;
 }
-ol { 
-	margin: 0.2em 0em 0.2em 24px; 
-	padding: 0em; 
+ol {
+	margin: 0.2em 0em 0.2em 24px;
+	padding: 0em;
 }
-ul li { 
-	margin: 0.2em 0em 0.2em 0em; padding: 0em; 
-	list-style-position: outside; 
-	list-style-type: square; 
+ul li {
+	margin: 0.2em 0em 0.2em 0em; padding: 0em;
+	list-style-position: outside;
+	list-style-type: square;
 }
-span.li { 
-	color: #000000; 
+span.li {
+	color: #000000;
 }
-ul { 
-	color: #014fbe; 
-	margin: 3px 0em 3px 16px; 
+ul {
+	color: #014fbe;
+	margin: 3px 0em 3px 16px;
 }
-p { 
-	margin: 6px 0em 6px 0em; 
+p {
+	margin: 6px 0em 6px 0em;
 }
 h1 { margin: 1em 0em 1.2em 0em; font-size: 160%; line-height: 130%;}
 h2 { font-size: 125%; line-height: 120%;}

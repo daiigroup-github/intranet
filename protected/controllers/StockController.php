@@ -24,7 +24,7 @@ class StockController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -39,12 +39,12 @@ class StockController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Stock']))
+		if(isset($_POST['Stock']))
 		{
 			$model->attributes = $_POST['Stock'];
 			$date_now = new CDbExpression('NOW()');
 			$model->createDateTime = $date_now;
-			if ($model->save())
+			if($model->save())
 			{
 				$stockId = Yii::app()->db->lastInsertID;
 				$stockTransaction = new StockTransaction();
@@ -54,25 +54,25 @@ class StockController extends Controller
 				$stockTransaction->stockTransactionUnitPrice = $model->stockUnitPrice;
 				$stockTransaction->stockTransactionTotalPrice = $model->stockQuantity * $model->stockUnitPrice;
 				$stockTransaction->createDateTime = $date_now;
-				if ($stockTransaction->save())
+				if($stockTransaction->save())
 					$this->redirect(array(
 						'index',
-						'id' => $model->stockId));
+						'id'=>$model->stockId));
 			}
 		}
-		if (Yii::app()->request->isAjaxRequest)
+		if(Yii::app()->request->isAjaxRequest)
 		{
 			echo CJSON::encode(array(
-				'status' => 'failure',
-				'div' => $this->renderPartial('_form', array(
-					'model' => $model), true, true)));
+				'status'=>'failure',
+				'div'=>$this->renderPartial('_form', array(
+					'model'=>$model), true, true)));
 
 			exit;
 		}
 		else
 		{
 			$this->render('create', array(
-				'model' => $model,));
+				'model'=>$model,));
 		}
 	}
 
@@ -88,17 +88,17 @@ class StockController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Stock']))
+		if(isset($_POST['Stock']))
 		{
 			$model->attributes = $_POST['Stock'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'index',
-					'id' => $model->stockId));
+					'id'=>$model->stockId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -109,13 +109,13 @@ class StockController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -130,7 +130,7 @@ class StockController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('Stock');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -141,11 +141,11 @@ class StockController extends Controller
 	{
 		$model = new Stock('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['Stock']))
+		if(isset($_GET['Stock']))
 			$model->attributes = $_GET['Stock'];
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -157,7 +157,7 @@ class StockController extends Controller
 	public function loadModel($id)
 	{
 		$model = Stock::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -168,7 +168,7 @@ class StockController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'stock-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'stock-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

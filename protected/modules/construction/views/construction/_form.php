@@ -8,8 +8,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'construction-project-form',
-		'enableAjaxValidation' => false,
+		'id'=>'construction-project-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -33,8 +33,8 @@
 		<?php echo $form->labelEx($model, 'productCatId'); ?>
 		<?php
 		echo $form->textField($model, 'productCatId', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'productCatId'); ?>
 	</div>
@@ -43,8 +43,8 @@
 		<?php echo $form->labelEx($model, 'productValue'); ?>
 		<?php
 		echo $form->textField($model, 'productValue', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'productValue'); ?>
 	</div>
@@ -53,8 +53,8 @@
 		<?php echo $form->labelEx($model, 'name'); ?>
 		<?php
 		echo $form->textField($model, 'name', array(
-			'size' => 60,
-			'maxlength' => 100));
+			'size'=>60,
+			'maxlength'=>100));
 		?>
 		<?php echo $form->error($model, 'name'); ?>
 	</div>
@@ -63,8 +63,8 @@
 		<?php echo $form->labelEx($model, 'detail'); ?>
 		<?php
 		echo $form->textField($model, 'detail', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'detail'); ?>
 	</div>
@@ -79,8 +79,8 @@
 		<?php echo $form->labelEx($model, 'imageUrl'); ?>
 		<?php
 		echo $form->textField($model, 'imageUrl', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'imageUrl'); ?>
 	</div>
@@ -89,8 +89,8 @@
 		<?php echo $form->labelEx($model, 'address'); ?>
 		<?php
 		echo $form->textField($model, 'address', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'address'); ?>
 	</div>
@@ -99,8 +99,8 @@
 		<?php echo $form->labelEx($model, 'customerId'); ?>
 		<?php
 		echo $form->textField($model, 'customerId', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'customerId'); ?>
 	</div>
@@ -109,8 +109,8 @@
 		<?php echo $form->labelEx($model, 'engineerId'); ?>
 		<?php
 		echo $form->textField($model, 'engineerId', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'engineerId'); ?>
 	</div>
@@ -119,8 +119,8 @@
 		<?php echo $form->labelEx($model, 'saleId'); ?>
 		<?php
 		echo $form->textField($model, 'saleId', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'saleId'); ?>
 	</div>
@@ -141,8 +141,8 @@
 		<?php echo $form->labelEx($model, 'latitude'); ?>
 		<?php
 		echo $form->textField($model, 'latitude', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'latitude'); ?>
 	</div>
@@ -151,8 +151,8 @@
 		<?php echo $form->labelEx($model, 'longitude'); ?>
 		<?php
 		echo $form->textField($model, 'longitude', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'longitude'); ?>
 	</div>
@@ -161,8 +161,8 @@
 		<?php echo $form->labelEx($model, 'branchValue'); ?>
 		<?php
 		echo $form->textField($model, 'branchValue', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'branchValue'); ?>
 	</div>

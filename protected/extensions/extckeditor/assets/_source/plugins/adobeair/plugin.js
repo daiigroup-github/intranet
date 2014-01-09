@@ -28,7 +28,7 @@
 							(function(eventName)
 							{
 								var inlineEventHandler = node.getAttribute('on' + eventName);
-								if (node.hasAttribute('on' + eventName))
+								if(node.hasAttribute('on' + eventName))
 								{
 									node.removeAttribute('on' + eventName);
 									node.on(eventName, function(evt)
@@ -38,7 +38,7 @@
 												callFuncArgs = callFunc && callFunc[ 2 ].split(','),
 												preventDefault = /return false;/.test(inlineEventHandler);
 
-										if (callFuncArgs)
+										if(callFuncArgs)
 										{
 											var nums = callFuncArgs.length,
 													argName;
@@ -50,21 +50,21 @@
 
 												// String form param.
 												var strPattern = argName.match(/^(["'])([^"']*?)\1$/);
-												if (strPattern)
+												if(strPattern)
 												{
 													callFuncArgs[ i ] = strPattern[ 2 ];
 													continue;
 												}
 
 												// Integer form param.
-												if (argName.match(/\d+/))
+												if(argName.match(/\d+/))
 												{
 													callFuncArgs[ i ] = parseInt(argName, 10);
 													continue;
 												}
 
 												// Speical variables.
-												switch (argName)
+												switch(argName)
 												{
 													case 'this' :
 														callFuncArgs[ i ] = node.$;
@@ -79,11 +79,11 @@
 											}
 
 											var retval = CKEDITOR.tools.callFunction.apply(window, callFuncArgs);
-											if (hasReturn && retval === false)
+											if(hasReturn && retval === false)
 												preventDefault = 1;
 										}
 
-										if (preventDefault)
+										if(preventDefault)
 											evt.data.preventDefault();
 									});
 								}
@@ -97,7 +97,7 @@
 					{
 						init: function(editor)
 						{
-							if (!CKEDITOR.env.air)
+							if(!CKEDITOR.env.air)
 								return;
 
 							// Body doesn't get default margin on AIR.
@@ -107,7 +107,7 @@
 							{
 								convertInlineHandlers(editor.container);
 
-								if (editor.sharedSpaces)
+								if(editor.sharedSpaces)
 								{
 									for (var space in editor.sharedSpaces)
 										convertInlineHandlers(editor.sharedSpaces[ space ]);
@@ -134,7 +134,7 @@
 			{
 				var ui = evt.data;
 				// richcombo, panelbutton and menu
-				if (ui._.panel)
+				if(ui._.panel)
 				{
 					var panel = ui._.panel._.panel,
 							holder;
@@ -143,7 +143,7 @@
 					{
 						// Adding dom event listeners off-line are not supported in AIR,
 						// waiting for panel iframe loaded.
-						if (!panel.isLoaded)
+						if(!panel.isLoaded)
 						{
 							setTimeout(arguments.callee, 30);
 							return;
@@ -152,7 +152,7 @@
 						convertInlineHandlers(holder);
 					})();
 				}
-				else if (ui instanceof CKEDITOR.dialog)
+				else if(ui instanceof CKEDITOR.dialog)
 					convertInlineHandlers(ui._.element);
 			});
 		})();
@@ -173,7 +173,7 @@ CKEDITOR.dom.document.prototype.write = CKEDITOR.tools.override(CKEDITOR.dom.doc
 				// document.write() or document.writeln() fail silently after
 				// the page load event in Adobe AIR.
 				// DOM manipulation could be used instead.
-				if (this.getBody())
+				if(this.getBody())
 				{
 					// We're taking the below extra work only because innerHTML
 					// on <html> element doesn't work as expected.

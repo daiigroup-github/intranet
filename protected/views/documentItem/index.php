@@ -5,12 +5,12 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	array(
-		'label' => 'Create DocumentItem',
-		'url' => array(
+		'label'=>'Create DocumentItem',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'Manage DocumentItem',
-		'url' => array(
+		'label'=>'Manage DocumentItem',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -19,7 +19,7 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CListView', array(
-	'dataProvider' => $dataProvider,
-	'itemView' => '_view',
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view',
 ));
 ?>

@@ -10,7 +10,7 @@
 			var commitValue = function(data)
 			{
 				var id = this.id;
-				if (!data.info)
+				if(!data.info)
 					data.info = {};
 				data.info[id] = this.getValue();
 			};
@@ -42,7 +42,7 @@
 					var value = this.getValue(),
 							pass = !!(CKEDITOR.dialog.validate.integer()(value) && value > 0);
 
-					if (!pass)
+					if(!pass)
 					{
 						alert(msg);
 						this.select();
@@ -71,7 +71,7 @@
 
 						var styles = dialog.getContentElement('advanced', 'advStyles');
 
-						if (styles)
+						if(styles)
 						{
 							styles.on('change', function(evt)
 							{
@@ -101,15 +101,15 @@
 								widthInput = this.getContentElement('info', 'txtWidth'),
 								heightInput = this.getContentElement('info', 'txtHeight');
 
-						if (command == 'tableProperties')
+						if(command == 'tableProperties')
 						{
-							if ((selectedTable = selection.getSelectedElement()))
+							if((selectedTable = selection.getSelectedElement()))
 								selectedTable = selectedTable.getAscendant('table', true);
-							else if (ranges.length > 0)
+							else if(ranges.length > 0)
 							{
 								// Webkit could report the following range on cell selection (#4948):
 								// <table><tr><td>[&nbsp;</td></tr></table>]
-								if (CKEDITOR.env.webkit)
+								if(CKEDITOR.env.webkit)
 									ranges[ 0 ].shrink(CKEDITOR.NODE_ELEMENT);
 
 								var rangeRoot = ranges[0].getCommonAncestor(true);
@@ -121,7 +121,7 @@
 						}
 
 						// Enable or disable the row, cols, width fields.
-						if (selectedTable)
+						if(selectedTable)
 						{
 							this.setupContent(selectedTable);
 							rowsInput && rowsInput.disable();
@@ -149,12 +149,12 @@
 
 						this.commitContent(data, table);
 
-						if (data.info)
+						if(data.info)
 						{
 							var info = data.info;
 
 							// Generate the rows and cols.
-							if (!this._.selectedElement)
+							if(!this._.selectedElement)
 							{
 								var tbody = table.append(makeElement('tbody')),
 										rows = parseInt(info.txtRows, 10) || 0,
@@ -166,7 +166,7 @@
 									for (var j = 0; j < cols; j++)
 									{
 										var cell = row.append(makeElement('td'));
-										if (!CKEDITOR.env.ie)
+										if(!CKEDITOR.env.ie)
 											cell.append(makeElement('br'));
 									}
 								}
@@ -177,7 +177,7 @@
 
 							// Should we make a <thead>?
 							var headers = info.selHeaders;
-							if (!table.$.tHead && (headers == 'row' || headers == 'both'))
+							if(!table.$.tHead && (headers == 'row' || headers == 'both'))
 							{
 								var thead = new CKEDITOR.dom.element(table.$.createTHead());
 								tbody = table.getElementsByTag('tbody').getItem(0);
@@ -188,7 +188,7 @@
 								{
 									var th = theRow.getChild(i);
 									// Skip bookmark nodes. (#6155)
-									if (th.type == CKEDITOR.NODE_ELEMENT && !th.data('cke-bookmark'))
+									if(th.type == CKEDITOR.NODE_ELEMENT && !th.data('cke-bookmark'))
 									{
 										th.renameNode('th');
 										th.setAttribute('scope', 'col');
@@ -197,20 +197,20 @@
 								thead.append(theRow.remove());
 							}
 
-							if (table.$.tHead !== null && !(headers == 'row' || headers == 'both'))
+							if(table.$.tHead !== null && !(headers == 'row' || headers == 'both'))
 							{
 								// Move the row out of the THead and put it in the TBody:
 								thead = new CKEDITOR.dom.element(table.$.tHead);
 								tbody = table.getElementsByTag('tbody').getItem(0);
 
 								var previousFirstRow = tbody.getFirst();
-								while (thead.getChildCount() > 0)
+								while(thead.getChildCount() > 0)
 								{
 									theRow = thead.getFirst();
 									for (i = 0; i < theRow.getChildCount(); i++)
 									{
 										var newCell = theRow.getChild(i);
-										if (newCell.type == CKEDITOR.NODE_ELEMENT)
+										if(newCell.type == CKEDITOR.NODE_ELEMENT)
 										{
 											newCell.renameNode('td');
 											newCell.removeAttribute('scope');
@@ -222,7 +222,7 @@
 							}
 
 							// Should we make all first cells in a row TH?
-							if (!this.hasColumnHeaders && (headers == 'col' || headers == 'both'))
+							if(!this.hasColumnHeaders && (headers == 'col' || headers == 'both'))
 							{
 								for (row = 0; row < table.$.rows.length; row++)
 								{
@@ -233,12 +233,12 @@
 							}
 
 							// Should we make all first TH-cells in a row make TD? If 'yes' we do it the other way round :-)
-							if ((this.hasColumnHeaders) && !(headers == 'col' || headers == 'both'))
+							if((this.hasColumnHeaders) && !(headers == 'col' || headers == 'both'))
 							{
 								for (i = 0; i < table.$.rows.length; i++)
 								{
 									row = new CKEDITOR.dom.element(table.$.rows[i]);
-									if (row.getParent().getName() == 'tbody')
+									if(row.getParent().getName() == 'tbody')
 									{
 										newCell = new CKEDITOR.dom.element(row.$.cells[0]);
 										newCell.renameNode('td');
@@ -251,12 +251,12 @@
 							info.txtHeight ? table.setStyle('height', info.txtHeight) : table.removeStyle('height');
 							info.txtWidth ? table.setStyle('width', info.txtWidth) : table.removeStyle('width');
 
-							if (!table.getAttribute('style'))
+							if(!table.getAttribute('style'))
 								table.removeAttribute('style');
 						}
 
 						// Insert the table element if we're creating one.
-						if (!this._.selectedElement)
+						if(!this._.selectedElement)
 						{
 							editor.insertElement(table);
 							// Override the default cursor position after insertElement to place
@@ -274,7 +274,7 @@
 						else
 							try {
 								selection.selectBookmarks(bms);
-							} catch (er) {
+							} catch(er) {
 							}
 					},
 					contents: [
@@ -349,7 +349,7 @@
 																				{
 																					// If just one cell isn't a TH then it isn't a header column
 																					var headCell = selectedTable.$.rows[row].cells[0];
-																					if (headCell && headCell.nodeName.toLowerCase() != 'th')
+																					if(headCell && headCell.nodeName.toLowerCase() != 'th')
 																					{
 																						dialog.hasColumnHeaders = false;
 																						break;
@@ -357,7 +357,7 @@
 																				}
 
 																				// Check if the table contains <thead>.
-																				if ((selectedTable.$.tHead !== null))
+																				if((selectedTable.$.tHead !== null))
 																					this.setValue(dialog.hasColumnHeaders ? 'both' : 'row');
 																				else
 																					this.setValue(dialog.hasColumnHeaders ? 'col' : '');
@@ -377,7 +377,7 @@
 																			},
 																			commit: function(data, selectedTable)
 																			{
-																				if (this.getValue())
+																				if(this.getValue())
 																					selectedTable.setAttribute('border', this.getValue());
 																				else
 																					selectedTable.removeAttribute('border');
@@ -401,7 +401,7 @@
 																			},
 																			commit: function(data, selectedTable)
 																			{
-																				if (this.getValue())
+																				if(this.getValue())
 																					selectedTable.setAttribute('align', this.getValue());
 																				else
 																					selectedTable.removeAttribute('align');
@@ -487,7 +487,7 @@
 																			},
 																			commit: function(data, selectedTable)
 																			{
-																				if (this.getValue())
+																				if(this.getValue())
 																					selectedTable.setAttribute('cellSpacing', this.getValue());
 																				else
 																					selectedTable.removeAttribute('cellSpacing');
@@ -506,7 +506,7 @@
 																			},
 																			commit: function(data, selectedTable)
 																			{
-																				if (this.getValue())
+																				if(this.getValue())
 																					selectedTable.setAttribute('cellPadding', this.getValue());
 																				else
 																					selectedTable.removeAttribute('cellPadding');
@@ -535,12 +535,12 @@
 																this.enable();
 
 																var nodeList = selectedTable.getElementsByTag('caption');
-																if (nodeList.count() > 0)
+																if(nodeList.count() > 0)
 																{
 																	var caption = nodeList.getItem(0);
 																	var firstElementChild = caption.getFirst(CKEDITOR.dom.walker.nodeType(CKEDITOR.NODE_ELEMENT));
 
-																	if (firstElementChild && !firstElementChild.equals(caption.getBogus()))
+																	if(firstElementChild && !firstElementChild.equals(caption.getBogus()))
 																	{
 																		this.disable();
 																		this.setValue(caption.getText());
@@ -553,14 +553,14 @@
 															},
 															commit: function(data, table)
 															{
-																if (!this.isEnabled())
+																if(!this.isEnabled())
 																	return;
 
 																var caption = this.getValue(),
 																		captionElement = table.getElementsByTag('caption');
-																if (caption)
+																if(caption)
 																{
-																	if (captionElement.count() > 0)
+																	if(captionElement.count() > 0)
 																	{
 																		captionElement = captionElement.getItem(0);
 																		captionElement.setHtml('');
@@ -568,14 +568,14 @@
 																	else
 																	{
 																		captionElement = new CKEDITOR.dom.element('caption', editor.document);
-																		if (table.getChildCount())
+																		if(table.getChildCount())
 																			captionElement.insertBefore(table.getFirst());
 																		else
 																			captionElement.appendTo(table);
 																	}
 																	captionElement.append(new CKEDITOR.dom.text(caption, editor.document));
 																}
-																else if (captionElement.count() > 0)
+																else if(captionElement.count() > 0)
 																{
 																	for (var i = captionElement.count() - 1; i >= 0; i--)
 																		captionElement.getItem(i).remove();
@@ -592,7 +592,7 @@
 															},
 															commit: function(data, selectedTable)
 															{
-																if (this.getValue())
+																if(this.getValue())
 																	selectedTable.setAttribute('summary', this.getValue());
 																else
 																	selectedTable.removeAttribute('summary');

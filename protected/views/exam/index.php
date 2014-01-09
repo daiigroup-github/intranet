@@ -26,22 +26,22 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'exam-title-grid',
-	'dataProvider' => $model->search(),
-	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+	'id'=>'exam-title-grid',
+	'dataProvider'=>$model->search(),
+	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
-	'columns' => array(
+	'columns'=>array(
 		'title',
 		'creator',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

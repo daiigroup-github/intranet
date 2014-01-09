@@ -1,6 +1,6 @@
 <div class="flashes">
 
-	<?php if (Yii::app()->user->hasFlash('RightsSuccess') === true): ?>
+	<?php if(Yii::app()->user->hasFlash('RightsSuccess') === true): ?>
 
 		<div class="flash success">
 
@@ -10,7 +10,7 @@
 
 	<?php endif; ?>
 
-	<?php if (Yii::app()->user->hasFlash('RightsError') === true): ?>
+	<?php if(Yii::app()->user->hasFlash('RightsError') === true): ?>
 
 		<div class="flash error">
 

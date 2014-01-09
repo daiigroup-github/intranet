@@ -19,36 +19,35 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:block">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'document-grid',
-	'dataProvider' => $model->search(),
+	'id'=>'document-grid',
+	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
 	// 'htmlOptions'=>array(
 	// 'class'=>'span10 offset1',
 	// ),
-	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
-	'columns' => array(
+	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'columns'=>array(
 		'documentTypeName',
 		array(
-			'class' => 'CButtonColumn',
-			'header' => 'Action',
-			'template' => '{New}',
-			'buttons' => array(
-				'New' => array(
-					'url' => 'Yii::app()->createUrl("DocumentDemo/default/newDocument?documentTypeId=".$data->documentTypeId)',
+			'class'=>'CButtonColumn',
+			'header'=>'Action',
+			'template'=>'{New}',
+			'buttons'=>array(
+				'New'=>array(
+					'url'=>'Yii::app()->createUrl("DocumentDemo/default/newDocument?documentTypeId=".$data->documentTypeId)',
 				),
 			),
-			'htmlOptions' => array(
-				'style' => 'width:120px;text-align:center;',
+			'htmlOptions'=>array(
+				'style'=>'width:120px;text-align:center;',
 			),
 		),
 	),
 ));
 ?>
-	

@@ -46,21 +46,21 @@ class MemoLog extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'memoId, employeeId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'remark',
 				'length',
-				'max' => 2000),
+				'max'=>2000),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'memoLogId, memoId, employeeId, remark, status, createDateTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -81,12 +81,12 @@ class MemoLog extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'memoLogId' => 'Memo Log',
-			'memoId' => 'Memo',
-			'employeeId' => 'Employee',
-			'remark' => 'Remark',
-			'status' => 'Status',
-			'createDateTime' => 'Create Date Time',
+			'memoLogId'=>'Memo Log',
+			'memoId'=>'Memo',
+			'employeeId'=>'Employee',
+			'remark'=>'Remark',
+			'status'=>'Status',
+			'createDateTime'=>'Create Date Time',
 		);
 	}
 
@@ -109,7 +109,7 @@ class MemoLog extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

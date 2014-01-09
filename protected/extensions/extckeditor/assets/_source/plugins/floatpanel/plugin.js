@@ -4,9 +4,9 @@
  */
 
 		CKEDITOR.plugins.add('floatpanel',
-		{
-			requires: ['panel']
-		});
+				{
+					requires: ['panel']
+				});
 
 (function()
 {
@@ -21,7 +21,7 @@
 
 		var panel = panels[ key ];
 
-		if (!panel)
+		if(!panel)
 		{
 			panel = panels[ key ] = new CKEDITOR.ui.panel(doc, definition);
 			panel.element = parentElement.append(CKEDITOR.dom.element.createFromHtml(panel.renderHtml(editor), doc));
@@ -89,7 +89,7 @@
 							 2 = top-right
 							 3 = bottom-right
 							 4 = bottom-left
-							 
+
 							 corner (RTL):
 							 1 = top-right
 							 2 = top-left
@@ -118,12 +118,12 @@
 										top = position.y + (offsetY || 0);
 
 								// Floating panels are off by (-1px, 0px) in RTL mode. (#3438)
-								if (rtl && (corner == 1 || corner == 4))
+								if(rtl && (corner == 1 || corner == 4))
 									left += offsetParent.$.offsetWidth;
-								else if (!rtl && (corner == 2 || corner == 3))
+								else if(!rtl && (corner == 2 || corner == 3))
 									left += offsetParent.$.offsetWidth - 1;
 
-								if (corner == 3 || corner == 4)
+								if(corner == 3 || corner == 4)
 									top += offsetParent.$.offsetHeight - 1;
 
 								// Memorize offsetParent by it's ID.
@@ -144,7 +144,7 @@
 								element.getFirst().removeStyle('width');
 
 								// Configure the IFrame blur event. Do that only once.
-								if (!this._.blurSet)
+								if(!this._.blurSet)
 								{
 									// Non IE prefer the event into a window object.
 									var focused = CKEDITOR.env.ie ? iframe : new CKEDITOR.dom.window(iframe.$.contentWindow);
@@ -156,7 +156,7 @@
 
 									focused.on('blur', function(ev)
 									{
-										if (!this.allowBlur())
+										if(!this.allowBlur())
 											return;
 
 										// As we are using capture to register the listener,
@@ -164,10 +164,10 @@
 										// inside the window itself, so we must ensure the
 										// target is out of it.
 										var target = ev.data.getTarget();
-										if (target.getName && target.getName() != 'iframe')
+										if(target.getName && target.getName() != 'iframe')
 											return;
 
-										if (this.visible && !this._.activeChild && !isShowing)
+										if(this.visible && !this._.activeChild && !isShowing)
 										{
 											// Panel close is caused by user's navigating away the focus, e.g. click outside the panel.
 											// DO NOT restore focus in this case.
@@ -192,7 +192,7 @@
 
 								panel.onEscape = CKEDITOR.tools.bind(function(keystroke)
 								{
-									if (this.onEscape && this.onEscape(keystroke) === false)
+									if(this.onEscape && this.onEscape(keystroke) === false)
 										return false;
 								},
 										this);
@@ -203,22 +203,22 @@
 									{
 										var target = element.getFirst();
 
-										if (block.autoSize)
+										if(block.autoSize)
 										{
 											// We must adjust first the width or IE6 could include extra lines in the height computation
 											var widthNode = block.element.$;
 
-											if (CKEDITOR.env.gecko || CKEDITOR.env.opera)
+											if(CKEDITOR.env.gecko || CKEDITOR.env.opera)
 												widthNode = widthNode.parentNode;
 
-											if (CKEDITOR.env.ie)
+											if(CKEDITOR.env.ie)
 												widthNode = widthNode.document.body;
 
 											var width = widthNode.scrollWidth;
 											// Account for extra height needed due to IE quirks box model bug:
 											// http://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug
 											// (#3426)
-											if (CKEDITOR.env.ie && CKEDITOR.env.quirks && width > 0)
+											if(CKEDITOR.env.ie && CKEDITOR.env.quirks && width > 0)
 												width += (target.$.offsetWidth || 0) - (target.$.clientWidth || 0) + 3;
 											// A little extra at the end.
 											// If not present, IE6 might break into the next line, but also it looks better this way
@@ -234,7 +234,7 @@
 											// Account for extra height needed due to IE quirks box model bug:
 											// http://en.wikipedia.org/wiki/Internet_Explorer_box_model_bug
 											// (#3426)
-											if (CKEDITOR.env.ie && CKEDITOR.env.quirks && height > 0)
+											if(CKEDITOR.env.ie && CKEDITOR.env.quirks && height > 0)
 												height += (target.$.offsetHeight || 0) - (target.$.clientHeight || 0) + 3;
 
 											target.setStyle('height', height + 'px');
@@ -246,7 +246,7 @@
 											target.removeStyle('height');
 
 										// Flip panel layout horizontally in RTL with known width.
-										if (rtl)
+										if(rtl)
 											left -= element.$.offsetWidth;
 
 										// Pop the style now for measurement.
@@ -266,28 +266,28 @@
 										var spaceAfter = rtl ? rect.right : viewportSize.width - rect.left,
 												spaceBefore = rtl ? viewportSize.width - rect.right : rect.left;
 
-										if (rtl)
+										if(rtl)
 										{
-											if (spaceAfter < rectWidth)
+											if(spaceAfter < rectWidth)
 											{
 												// Flip to show on right.
-												if (spaceBefore > rectWidth)
+												if(spaceBefore > rectWidth)
 													left += rectWidth;
 												// Align to window left.
-												else if (viewportSize.width > rectWidth)
+												else if(viewportSize.width > rectWidth)
 													left = left - rect.left;
 												// Align to window right, never cutting the panel at right.
 												else
 													left = left - rect.right + viewportSize.width;
 											}
 										}
-										else if (spaceAfter < rectWidth)
+										else if(spaceAfter < rectWidth)
 										{
 											// Flip to show on left.
-											if (spaceBefore > rectWidth)
+											if(spaceBefore > rectWidth)
 												left -= rectWidth;
 											// Align to window right.
-											else if (viewportSize.width > rectWidth)
+											else if(viewportSize.width > rectWidth)
 												left = left - rect.right + viewportSize.width;
 											// Align to window left, never cutting the panel at left.
 											else
@@ -299,13 +299,13 @@
 										var spaceBelow = viewportSize.height - rect.top,
 												spaceAbove = rect.top;
 
-										if (spaceBelow < rectHeight)
+										if(spaceBelow < rectHeight)
 										{
 											// Flip to show above.
-											if (spaceAbove > rectHeight)
+											if(spaceAbove > rectHeight)
 												top -= rectHeight;
 											// Align to window bottom.
-											else if (viewportSize.height > rectHeight)
+											else if(viewportSize.height > rectHeight)
 												top = top - rect.bottom + viewportSize.height;
 											// Align to top, never cutting the panel at top.
 											else
@@ -315,19 +315,19 @@
 										// If IE is in RTL, we have troubles with absolute
 										// position and horizontal scrolls. Here we have a
 										// series of hacks to workaround it. (#6146)
-										if (CKEDITOR.env.ie)
+										if(CKEDITOR.env.ie)
 										{
 											var offsetParent = new CKEDITOR.dom.element(element.$.offsetParent),
 													scrollParent = offsetParent;
 
 											// Quirks returns <body>, but standards returns <html>.
-											if (scrollParent.getName() == 'html')
+											if(scrollParent.getName() == 'html')
 												scrollParent = scrollParent.getDocument().getBody();
 
-											if (scrollParent.getComputedStyle('direction') == 'rtl')
+											if(scrollParent.getComputedStyle('direction') == 'rtl')
 											{
 												// For IE8, there is not much logic on this, but it works.
-												if (CKEDITOR.env.ie8Compat)
+												if(CKEDITOR.env.ie8Compat)
 													left -= element.getDocument().getDocumentElement().$.scrollLeft * 2;
 												else
 													left -= (offsetParent.$.scrollWidth - offsetParent.$.clientWidth);
@@ -338,7 +338,7 @@
 										// incorrect styles from being applied (#6170)
 										var innerElement = element.getFirst(),
 												activePanel;
-										if ((activePanel = innerElement.getCustomData('activePanel')))
+										if((activePanel = innerElement.getCustomData('activePanel')))
 											activePanel.onHide && activePanel.onHide.call(this, 1);
 										innerElement.setCustomData('activePanel', this);
 
@@ -362,14 +362,14 @@
 								}, CKEDITOR.env.air ? 200 : 0, this);
 								this.visible = 1;
 
-								if (this.onShow)
+								if(this.onShow)
 									this.onShow.call(this);
 
 								isShowing = 0;
 							},
 							hide: function(returnFocus)
 							{
-								if (this.visible && (!this.onHide || this.onHide.call(this) !== true))
+								if(this.visible && (!this.onHide || this.onHide.call(this) !== true))
 								{
 									this.hideChild();
 									// Blur previously focused element. (#6671)
@@ -380,10 +380,10 @@
 
 									// Return focus properly. (#6247)
 									var focusReturn = returnFocus !== false && this._.returnFocus;
-									if (focusReturn)
+									if(focusReturn)
 									{
 										// Webkit requires focus moved out panel iframe first.
-										if (CKEDITOR.env.webkit && focusReturn.type)
+										if(CKEDITOR.env.webkit && focusReturn.type)
 											focusReturn.getWindow().$.focus();
 
 										focusReturn.focus();
@@ -393,7 +393,7 @@
 							allowBlur: function(allow)	// Prevent editor from hiding the panel. #3222.
 							{
 								var panel = this._.panel;
-								if (allow != undefined)
+								if(allow != undefined)
 									panel.allowBlur = allow;
 
 								return panel.allowBlur;
@@ -401,7 +401,7 @@
 							showAsChild: function(panel, blockName, offsetParent, corner, offsetX, offsetY)
 							{
 								// Skip reshowing of child which is already visible.
-								if (this._.activeChild == panel && panel._.panel._.offsetParentId == offsetParent.getId())
+								if(this._.activeChild == panel && panel._.panel._.offsetParentId == offsetParent.getId())
 									return;
 
 								this.hideChild();
@@ -412,7 +412,7 @@
 									// potentially focused.
 									CKEDITOR.tools.setTimeout(function()
 									{
-										if (!this._.focused)
+										if(!this._.focused)
 											this.hide();
 									},
 											0, this);
@@ -425,7 +425,7 @@
 								panel.showBlock(blockName, offsetParent, corner, offsetX, offsetY);
 
 								/* #3767 IE: Second level menu may not have borders */
-								if (CKEDITOR.env.ie7Compat || (CKEDITOR.env.ie8 && CKEDITOR.env.ie6Compat))
+								if(CKEDITOR.env.ie7Compat || (CKEDITOR.env.ie8 && CKEDITOR.env.ie6Compat))
 								{
 									setTimeout(function()
 									{
@@ -437,7 +437,7 @@
 							{
 								var activeChild = this._.activeChild;
 
-								if (activeChild)
+								if(activeChild)
 								{
 									delete activeChild.onHide;
 									// Sub panels don't manage focus. (#7881)
@@ -457,7 +457,7 @@
 		{
 			var panel = panels[ i ];
 			// Safe to destroy it since there're no more instances.(#4241)
-			if (isLastInstance)
+			if(isLastInstance)
 				panel.destroy();
 			// Panel might be used by other instances, just hide them.(#4552)
 			else

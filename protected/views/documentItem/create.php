@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Document Items' => array(
+	'Document Items'=>array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List DocumentItem',
-		'url' => array(
+		'label'=>'List DocumentItem',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Manage DocumentItem',
-		'url' => array(
+		'label'=>'Manage DocumentItem',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

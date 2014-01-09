@@ -55,16 +55,16 @@ class ExamQuestion extends CActiveRecord
 			array(
 				'status, questionType, startRange, stopRange',
 				'numerical',
-				'integerOnly' => true
+				'integerOnly'=>true
 			),
 			array(
 				'title',
 				'length',
-				'max' => 200),
+				'max'=>200),
 			array(
 				'weight',
 				'length',
-				'max' => 7),
+				'max'=>7),
 			array(
 				'description',
 				'safe'),
@@ -73,7 +73,7 @@ class ExamQuestion extends CActiveRecord
 			array(
 				'examQuestionId, status, title, description, questionType, startRange, stopRange, weight',
 				'safe',
-				'on' => 'search'
+				'on'=>'search'
 			),
 		);
 	}
@@ -86,7 +86,7 @@ class ExamQuestion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'examChoices' => array(
+			'examChoices'=>array(
 				self::MANY_MANY,
 				'ExamChoice',
 				'exam_question_exam_choice(examQuestionId, examChoiceId)'
@@ -100,14 +100,14 @@ class ExamQuestion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'examQuestionId' => 'Id Exam Question',
-			'status' => 'Status',
-			'title' => 'Title',
-			'description' => 'Description',
-			'questionType' => 'Question Type',
-			'startRange' => 'Start Range',
-			'stopRange' => 'Stop Range',
-			'weight' => 'Weight',
+			'examQuestionId'=>'Id Exam Question',
+			'status'=>'Status',
+			'title'=>'Title',
+			'description'=>'Description',
+			'questionType'=>'Question Type',
+			'startRange'=>'Start Range',
+			'stopRange'=>'Stop Range',
+			'weight'=>'Weight',
 		);
 	}
 
@@ -132,14 +132,14 @@ class ExamQuestion extends CActiveRecord
 		$criteria->compare('weight', $this->weight, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,));
+			'criteria'=>$criteria,));
 	}
 
 	public function getAllExamQuestionType()
 	{
 		return array(
-			self::EXAM_QUESTION_TYPE_MULTI => 'Multiple choice',
-			self::EXAM_QUESTION_TYPE_RANGE => 'Range'
+			self::EXAM_QUESTION_TYPE_MULTI=>'Multiple choice',
+			self::EXAM_QUESTION_TYPE_RANGE=>'Range'
 		);
 	}
 

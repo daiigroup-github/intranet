@@ -1,5 +1,4 @@
 <?php
-
 /*
   Invokes the mail() function in Swift Mailer.
 
@@ -22,7 +21,7 @@
 
 /**
  * This is the implementation class for {@link Swift_Transport_MailInvoker}.
- * 
+ *
  * @package Swift
  * @subpackage Transport
  * @author Chris Corbyn
@@ -32,20 +31,20 @@ class Swift_Transport_SimpleMailInvoker implements Swift_Transport_MailInvoker
 
 	/**
 	 * Send mail via the mail() function.
-	 * 
+	 *
 	 * This method takes the same arguments as PHP mail().
-	 * 
+	 *
 	 * @param string $to
 	 * @param string $subject
 	 * @param string $body
 	 * @param string $headers
 	 * @param string $extraParams
-	 * 
+	 *
 	 * @return boolean
 	 */
 	public function mail($to, $subject, $body, $headers = null, $extraParams = null)
 	{
-		if (!ini_get('safe_mode'))
+		if(!ini_get('safe_mode'))
 		{
 			return mail($to, $subject, $body, $headers, $extraParams);
 		}

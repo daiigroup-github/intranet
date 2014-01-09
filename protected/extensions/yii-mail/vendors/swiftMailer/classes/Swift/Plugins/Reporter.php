@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -18,8 +17,8 @@
  */
 interface Swift_Plugins_Reporter
 {
-	/** The recipient was accepted for delivery */
 
+	/** The recipient was accepted for delivery */
 	const RESULT_PASS = 0x01;
 
 	/** The recipient could not be accepted */

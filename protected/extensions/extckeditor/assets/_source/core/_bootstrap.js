@@ -10,7 +10,7 @@
 				(function()
 				{
 					// Disable HC detaction in WebKit. (#5429)
-					if (CKEDITOR.env.webkit)
+					if(CKEDITOR.env.webkit)
 					{
 						CKEDITOR.env.hc = false;
 						return;
@@ -29,12 +29,12 @@
 					{
 						CKEDITOR.env.hc = hcDetect.getComputedStyle('border-top-color') == hcDetect.getComputedStyle('border-right-color');
 					}
-					catch (e)
+					catch(e)
 					{
 						CKEDITOR.env.hc = false;
 					}
 
-					if (CKEDITOR.env.hc)
+					if(CKEDITOR.env.hc)
 						CKEDITOR.env.cssClass += ' cke_hc';
 
 					hcDetect.remove();
@@ -48,7 +48,7 @@
 
 			// Process all instances created by the "basic" implementation.
 			var pending = CKEDITOR._.pending;
-			if (pending)
+			if(pending)
 			{
 				delete CKEDITOR._.pending;
 
@@ -58,14 +58,14 @@
 		});
 
 // Needed for IE6 to not request image (HTTP 200 or 304) for every CSS background. (#6187)
-		if (CKEDITOR.env.ie)
+		if(CKEDITOR.env.ie)
 		{
 			// Remove IE mouse flickering on IE6 because of background images.
 			try
 			{
 				document.execCommand('BackgroundImageCache', false, true);
 			}
-			catch (e)
+			catch(e)
 			{
 				// We have been reported about loading problems caused by the above
 				// line. For safety, let's just ignore errors.

@@ -7,9 +7,9 @@
 		 * @class
 		 */
 		CKEDITOR.dom.nodeList = function(nativeList)
-{
-	this.$ = nativeList;
-};
+		{
+			this.$ = nativeList;
+		};
 
 CKEDITOR.dom.nodeList.prototype =
 		{

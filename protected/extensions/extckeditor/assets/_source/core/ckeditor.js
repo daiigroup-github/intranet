@@ -41,7 +41,7 @@ CKEDITOR.add = function(editor)
 
 	editor.on('focus', function()
 	{
-		if (CKEDITOR.currentInstance != editor)
+		if(CKEDITOR.currentInstance != editor)
 		{
 			CKEDITOR.currentInstance = editor;
 			CKEDITOR.fire('currentInstance');
@@ -50,7 +50,7 @@ CKEDITOR.add = function(editor)
 
 	editor.on('blur', function()
 	{
-		if (CKEDITOR.currentInstance == editor)
+		if(CKEDITOR.currentInstance == editor)
 		{
 			CKEDITOR.currentInstance = null;
 			CKEDITOR.fire('currentInstance');
@@ -76,7 +76,7 @@ CKEDITOR.remove = function(editor)
  */
 CKEDITOR.on('instanceDestroyed', function()
 {
-	if (CKEDITOR.tools.isEmpty(this.instances))
+	if(CKEDITOR.tools.isEmpty(this.instances))
 		CKEDITOR.fire('reset');
 });
 

@@ -36,7 +36,7 @@
 																blockLimit = path.blockLimit,
 																div = blockLimit.is('div') && blockLimit;
 
-														if (div && !div.data('cke-div-added'))
+														if(div && !div.data('cke-div-added'))
 														{
 															toRemove.push(div);
 															div.data('cke-div-added');
@@ -46,7 +46,7 @@
 													for (var i = 0; i < ranges.length; i++)
 													{
 														range = ranges[ i ];
-														if (range.collapsed)
+														if(range.collapsed)
 															findDiv(selection.getStartElement());
 														else
 														{
@@ -69,7 +69,7 @@
 												command: 'creatediv'
 											});
 
-									if (editor.addMenuItems)
+									if(editor.addMenuItems)
 									{
 										editor.addMenuItems(
 												{
@@ -89,17 +89,17 @@
 															}
 												});
 
-										if (editor.contextMenu)
+										if(editor.contextMenu)
 										{
 											editor.contextMenu.addListener(function(element, selection)
 											{
-												if (!element || element.isReadOnly())
+												if(!element || element.isReadOnly())
 													return null;
 
 												var elementPath = new CKEDITOR.dom.elementPath(element),
 														blockLimit = elementPath.blockLimit;
 
-												if (blockLimit && blockLimit.getAscendant('div', true))
+												if(blockLimit && blockLimit.getAscendant('div', true))
 												{
 													return {
 														editdiv: CKEDITOR.TRISTATE_OFF,

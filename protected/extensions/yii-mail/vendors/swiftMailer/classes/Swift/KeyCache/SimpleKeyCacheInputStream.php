@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -60,11 +59,11 @@ class Swift_KeyCache_SimpleKeyCacheInputStream implements Swift_KeyCache_KeyCach
 		$this->_keyCache->setString(
 			$this->_nsKey, $this->_itemKey, $bytes, Swift_KeyCache::MODE_APPEND
 		);
-		if (isset($is))
+		if(isset($is))
 		{
 			$is->write($bytes);
 		}
-		if (isset($this->_writeThrough))
+		if(isset($this->_writeThrough))
 		{
 			$this->_writeThrough->write($bytes);
 		}
@@ -75,7 +74,7 @@ class Swift_KeyCache_SimpleKeyCacheInputStream implements Swift_KeyCache_KeyCach
 	 */
 	public function commit()
 	{
-		
+
 	}
 
 	/**
@@ -83,7 +82,7 @@ class Swift_KeyCache_SimpleKeyCacheInputStream implements Swift_KeyCache_KeyCach
 	 */
 	public function bind(Swift_InputByteStream $is)
 	{
-		
+
 	}
 
 	/**
@@ -91,7 +90,7 @@ class Swift_KeyCache_SimpleKeyCacheInputStream implements Swift_KeyCache_KeyCach
 	 */
 	public function unbind(Swift_InputByteStream $is)
 	{
-		
+
 	}
 
 	/**

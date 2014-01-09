@@ -6,16 +6,16 @@ $this->breadcrumb .= '<li>แบบทดสอบ</li>';
 
 <p class="lead"><?php echo $model->title ?></p>
 <blockquote><?php echo $model->description ?></blockquote>
-<?php foreach ($model->examQuesitons as $examQuestionModel): ?>
+<?php foreach($model->examQuesitons as $examQuestionModel): ?>
 	<div class="row-fluid">
 		<div class="offset1 span10 well">
 			<h4><?php echo $examQuestionModel->title; ?><small>(<?php echo ExamQuestion::model()->examQuesitonText($examQuestionModel->questionType); ?>)</small></h4>
 			<blockquote><?php echo $examQuestionModel->description ?></blockquote>
 			<ul>
 				<?php
-				if ($examQuestionModel->questionType == 1)
+				if($examQuestionModel->questionType == 1)
 				{
-					foreach ($examQuestionModel->examChoices as $examChoiceModel)
+					foreach($examQuestionModel->examChoices as $examChoiceModel)
 					{
 						echo '<li>' . $examChoiceModel->title . '</li>';
 					}

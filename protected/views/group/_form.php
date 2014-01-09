@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'group-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'),
+	'id'=>'group-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'),
 	));
 ?>
 
@@ -11,7 +11,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class' => 'alert alert-error'));
+	'class'=>'alert alert-error'));
 $form->error($model, 'groupName');
 ?>
 
@@ -21,8 +21,8 @@ $form->error($model, 'groupName');
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'groupName', array(
-				'size' => 40,
-				'maxlength' => 40));
+				'size'=>40,
+				'maxlength'=>40));
 			?>
 		</div>
 	</div>
@@ -40,23 +40,23 @@ $form->error($model, 'groupName');
 
 		$groupMember = GroupMember::model()->getAllGroupMemberByGroupId($model->groupId);
 
-		foreach ($company as $k => $v)
+		foreach($company as $k=> $v)
 		{
-			if (!$k)
+			if(!$k)
 				continue;
 
 			$employee = Employee::model()->getAllEmployeeByCompanyId($k);
 
-			if (sizeof($employee) <= 1)
+			if(sizeof($employee) <= 1)
 				continue;
 
 			echo '<h3>' . $v . '</h3>';
 
 			echo '<ul class="thumbnails">';
 
-			foreach ($employee as $employeeId => $employeeName)
+			foreach($employee as $employeeId=> $employeeName)
 			{
-				if (!$employeeId)
+				if(!$employeeId)
 					continue;
 
 				$checked = (in_array($employeeId, $groupMember)) ? 'checked' : '';
@@ -64,8 +64,8 @@ $form->error($model, 'groupName');
 				echo '<li class="span3">
 							<label class="checkbox inline">' .
 				$form->checkbox($employeeModel, 'employeeId[' . $employeeId . ']', array(
-					'value' => $employeeId,
-					'checked' => $checked)) . ' ' . $employeeName .
+					'value'=>$employeeId,
+					'checked'=>$checked)) . ' ' . $employeeName .
 				'</label>
 						</li>';
 			}
@@ -81,7 +81,7 @@ $form->error($model, 'groupName');
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class' => 'btn btn-primary'));
+		'class'=>'btn btn-primary'));
 	?>
 </div>
 

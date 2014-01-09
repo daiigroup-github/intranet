@@ -8,7 +8,7 @@
 		 *		base for classes and objects that require event handling features.
 		 */
 
-		if (!CKEDITOR.event)
+		if(!CKEDITOR.event)
 {
 	/**
 	 * Creates an event class instance. This constructor is rearely used, being
@@ -44,7 +44,7 @@
 
 		for (var prop in eventProto)
 		{
-			if (targetObject[ prop ] == undefined)
+			if(targetObject[ prop ] == undefined)
 				targetObject[ prop ] = eventProto[ prop ];
 		}
 	};
@@ -72,7 +72,7 @@
 					{
 						for (var i = 0, listeners = this.listeners; i < listeners.length; i++)
 						{
-							if (listeners[i].fn == listenerFunction)
+							if(listeners[i].fn == listenerFunction)
 								return i;
 						}
 						return -1;
@@ -122,17 +122,17 @@
 				var events = getPrivate(this),
 						event = events[ eventName ] || (events[ eventName ] = new eventEntry(eventName));
 
-				if (event.getListenerIndex(listenerFunction) < 0)
+				if(event.getListenerIndex(listenerFunction) < 0)
 				{
 					// Get the listeners.
 					var listeners = event.listeners;
 
 					// Fill the scope.
-					if (!scopeObj)
+					if(!scopeObj)
 						scopeObj = this;
 
 					// Default the priority, if needed.
-					if (isNaN(priority))
+					if(isNaN(priority))
 						priority = 10;
 
 					var me = this;
@@ -167,7 +167,7 @@
 					for (var i = listeners.length - 1; i >= 0; i--)
 					{
 						// Find the item which should be before the new one.
-						if (listeners[ i ].priority <= priority)
+						if(listeners[ i ].priority <= priority)
 						{
 							// Insert the listener in the array.
 							listeners.splice(i + 1, 0, listenerFirer);
@@ -233,11 +233,11 @@
 					// Reset the stopped and canceled flags.
 					stopped = canceled = false;
 
-					if (event)
+					if(event)
 					{
 						var listeners = event.listeners;
 
-						if (listeners.length)
+						if(listeners.length)
 						{
 							// As some listeners may remove themselves from the
 							// event, the original array length is dinamic. So,
@@ -251,11 +251,11 @@
 								// Call the listener, passing the event data.
 								var retData = listeners[i].call(this, editor, data, stopEvent, cancelEvent);
 
-								if (typeof retData != 'undefined')
+								if(typeof retData != 'undefined')
 									data = retData;
 
 								// No further calls is stopped or canceled.
-								if (stopped || canceled)
+								if(stopped || canceled)
 									break;
 							}
 						}
@@ -313,10 +313,10 @@
 				// Get the event entry.
 				var event = getPrivate(this)[ eventName ];
 
-				if (event)
+				if(event)
 				{
 					var index = event.getListenerIndex(listenerFunction);
-					if (index >= 0)
+					if(index >= 0)
 						event.listeners.splice(index, 1);
 				}
 			},

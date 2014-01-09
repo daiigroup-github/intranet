@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Customer Sales' => array(
+	'Customer Sales'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List CustomerSale',
-		'url' => array(
+		'label'=>'List CustomerSale',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create CustomerSale',
-		'url' => array(
+		'label'=>'Create CustomerSale',
+		'url'=>array(
 			'create')),
 );
 
@@ -34,29 +34,29 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'customer-sale-grid',
-	'dataProvider' => $model->search(),
+	'id'=>'customer-sale-grid',
+	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
-	'columns' => array(
+	'columns'=>array(
 		'id',
 		'customerId',
 		'saleId',
 		'companyValue',
 		'createDateTime',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

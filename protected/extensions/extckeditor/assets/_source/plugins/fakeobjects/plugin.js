@@ -21,11 +21,11 @@
 
 				// Omit pixel length unit when necessary,
 				// e.g. replaceCssLength( 10, '20px' ) -> 20
-				if (parts1)
+				if(parts1)
 				{
-					if (!parts1[ 2 ] && parts2[ 2 ] == 'px')
+					if(!parts1[ 2 ] && parts2[ 2 ] == 'px')
 						return parts2[ 1 ];
-					if (parts1[ 2 ] == 'px' && !parts2[ 2 ])
+					if(parts1[ 2 ] == 'px' && !parts2[ 2 ])
 						return parts2[ 1 ] + 'px';
 				}
 
@@ -44,7 +44,7 @@
 												realElement = realFragment && realFragment.children[ 0 ];
 
 										// Width/height in the fake object are subjected to clone into the real element.
-										if (realElement && element.attributes[ 'data-cke-resizable' ])
+										if(realElement && element.attributes[ 'data-cke-resizable' ])
 										{
 											var styles = new cssStyle(element).rules,
 													realAttrs = realElement.attributes,
@@ -68,7 +68,7 @@
 							var dataProcessor = editor.dataProcessor,
 									htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 
-							if (htmlFilter)
+							if(htmlFilter)
 								htmlFilter.addRules(htmlFilterRules);
 						}
 					});
@@ -89,10 +89,10 @@
 							align: realElement.getAttribute('align') || ''
 						};
 
-				if (realElementType)
+				if(realElementType)
 					attributes[ 'data-cke-real-element-type' ] = realElementType;
 
-				if (isResizable)
+				if(isResizable)
 				{
 					attributes[ 'data-cke-resizable' ] = isResizable;
 
@@ -130,10 +130,10 @@
 							align: realElement.attributes.align || ''
 						};
 
-				if (realElementType)
+				if(realElementType)
 					attributes[ 'data-cke-real-element-type' ] = realElementType;
 
-				if (isResizable)
+				if(isResizable)
 				{
 					attributes[ 'data-cke-resizable' ] = isResizable;
 					var realAttrs = realElement.attributes,
@@ -152,14 +152,14 @@
 
 			CKEDITOR.editor.prototype.restoreRealElement = function(fakeElement)
 			{
-				if (fakeElement.data('cke-real-node-type') != CKEDITOR.NODE_ELEMENT)
+				if(fakeElement.data('cke-real-node-type') != CKEDITOR.NODE_ELEMENT)
 					return null;
 
 				var element = CKEDITOR.dom.element.createFromHtml(
 						decodeURIComponent(fakeElement.data('cke-realelement')),
 						this.document);
 
-				if (fakeElement.data('cke-resizable'))
+				if(fakeElement.data('cke-resizable'))
 				{
 					var width = fakeElement.getStyle('width'),
 							height = fakeElement.getStyle('height');

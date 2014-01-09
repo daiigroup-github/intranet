@@ -1,5 +1,4 @@
 <?php
-
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -91,33 +90,33 @@ class ExtCKEditor extends CInputWidget
 	private $width = '100%';
 	private $height = '400px';
 	private $fontFamilies = array(
-		'Arial' => 'Arial, Helvetica, sans-serif',
-		'Comic Sans MS' => 'Comic Sans MS, cursive',
-		'Courier New' => 'Courier New, Courier, monospace',
-		'Georgia' => 'Georgia, serif',
-		'Lucida Sans Unicode' => 'Lucida Sans Unicode, Lucida Grande, sans-serif',
-		'Tahoma' => 'Tahoma, Geneva, sans-serif',
-		'Times New Roman' => 'Times New Roman, Times, serif',
-		'Trebuchet MS' => 'Trebuchet MS, Helvetica, sans-serif',
-		'Verdana' => 'Verdana, Geneva, sans-serif',
+		'Arial'=>'Arial, Helvetica, sans-serif',
+		'Comic Sans MS'=>'Comic Sans MS, cursive',
+		'Courier New'=>'Courier New, Courier, monospace',
+		'Georgia'=>'Georgia, serif',
+		'Lucida Sans Unicode'=>'Lucida Sans Unicode, Lucida Grande, sans-serif',
+		'Tahoma'=>'Tahoma, Geneva, sans-serif',
+		'Times New Roman'=>'Times New Roman, Times, serif',
+		'Trebuchet MS'=>'Trebuchet MS, Helvetica, sans-serif',
+		'Verdana'=>'Verdana, Geneva, sans-serif',
 	);
 	private $fontSizes = array(
-		'8' => '8px',
-		'9' => '9px',
-		'10' => '10px',
-		'11' => '11px',
-		'12' => '12px',
-		'14' => '14px',
-		'16' => '16px',
-		'18' => '18px',
-		'20' => '20px',
-		'22' => '22px',
-		'24' => '24px',
-		'26' => '26px',
-		'28' => '28px',
-		'36' => '36px',
-		'48' => '48px',
-		'72' => '72px'
+		'8'=>'8px',
+		'9'=>'9px',
+		'10'=>'10px',
+		'11'=>'11px',
+		'12'=>'12px',
+		'14'=>'14px',
+		'16'=>'16px',
+		'18'=>'18px',
+		'20'=>'20px',
+		'22'=>'22px',
+		'24'=>'24px',
+		'26'=>'26px',
+		'28'=>'28px',
+		'36'=>'36px',
+		'48'=>'48px',
+		'72'=>'72px'
 	);
 	private $toolbar = array(
 		);
@@ -133,17 +132,17 @@ class ExtCKEditor extends CInputWidget
 	public function setLanguage($value)
 	{
 		$lang = (($p = strpos($value, '_')) !== false) ? str_replace('_', '-', $value) : $value;
-		if (in_array($lang, $this->allowedLanguages))
+		if(in_array($lang, $this->allowedLanguages))
 		{
 			$this->language = $lang;
 		}
 		else
 		{
 			$suffix = empty($lang) ? 'en' : ($p !== false) ? strtolower(substr($lang, 0, $p)) : strtolower($lang);
-			if (in_array($suffix, $this->allowedLanguages))
+			if(in_array($suffix, $this->allowedLanguages))
 				$this->language = $suffix;
 		}
-		if (isset($this->allowedLanguages[$lang]))
+		if(isset($this->allowedLanguages[$lang]))
 			$this->language = $lang;
 	}
 
@@ -155,7 +154,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setOptions($value)
 	{
-		if (!is_array($value))
+		if(!is_array($value))
 			throw new CException(Yii::t(__CLASS__, 'options must be an array'));
 
 		$this->options = $value;
@@ -168,7 +167,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setHeight($value)
 	{
-		if (!preg_match("/[\d]+[px|\%]/", $value))
+		if(!preg_match("/[\d]+[px|\%]/", $value))
 			throw new CException(Yii::t(__CLASS__, 'height must be a string of digits terminated by "%" or "px"'));
 		$this->height = $value;
 	}
@@ -180,7 +179,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setWidth($value)
 	{
-		if (!preg_match("/[\d]+[px|\%]/", $value))
+		if(!preg_match("/[\d]+[px|\%]/", $value))
 			throw new CException(Yii::t('ETinyMce', 'width must be a string of digits terminated by "%" or "px"'));
 		$this->width = $value;
 	}
@@ -192,7 +191,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setFontFamilies($value)
 	{
-		if (!is_array($value))
+		if(!is_array($value))
 			throw new CException(Yii::t(__CLASS__, 'fontFamilies must be an array of strings'));
 		$this->fontFamilies = $value;
 	}
@@ -204,7 +203,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setFontSizes($value)
 	{
-		if (!is_array($value))
+		if(!is_array($value))
 			throw new CException(Yii::t(__CLASS__, 'fontSizes must be an array of integers'));
 		$this->fontSizes = $value;
 	}
@@ -216,9 +215,9 @@ class ExtCKEditor extends CInputWidget
 
 	public function setEditorTemplate($value)
 	{
-		if (!in_array($value, $this->allowedEditorTemplates))
+		if(!in_array($value, $this->allowedEditorTemplates))
 			throw new CException(Yii::t(__CLASS__, 'editorTemplate must be one of {temp}', array(
-				'{temp}' => implode(',', $this->validEditorTemplates))));
+				'{temp}'=>implode(',', $this->validEditorTemplates))));
 		$this->editorTemplate = $value;
 	}
 
@@ -229,7 +228,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setPlugins($value)
 	{
-		if (!is_array($value))
+		if(!is_array($value))
 			throw new CException(Yii::t(__CLASS__, 'plugins must be an array of strings'));
 		$this->plugins = $value;
 	}
@@ -241,7 +240,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setContentCSS($value)
 	{
-		if (!is_string($value))
+		if(!is_string($value))
 			throw new CException(Yii::t(__CLASS__, 'contentCSS must be an URL'));
 		$this->contentCSS = $value;
 	}
@@ -253,7 +252,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setToolbar($value)
 	{
-		if (is_array($value) || is_string($value))
+		if(is_array($value) || is_string($value))
 		{
 			$this->toolbar = $value;
 		}
@@ -268,7 +267,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setSkin($value)
 	{
-		if (!is_string($value))
+		if(!is_string($value))
 			throw new CException(Yii::t(__CLASS__, 'Skin must be a string'));
 		$this->ckSkin = $value;
 	}
@@ -280,7 +279,7 @@ class ExtCKEditor extends CInputWidget
 
 	public function setTheme($value)
 	{
-		if (!is_string($value))
+		if(!is_string($value))
 			throw new CException(Yii::t(__CLASS__, 'Theme must be a string'));
 		$this->theme = $value;
 	}
@@ -297,12 +296,12 @@ class ExtCKEditor extends CInputWidget
 		$options['language'] = $this->language;
 
 		// to make the content look like if it were in your target page
-		if ($this->contentCSS !== '')
+		if($this->contentCSS !== '')
 		{
 			$options['contentsCss'] = $this->contentCSS;
 		}
 
-		switch ($this->editorTemplate)
+		switch($this->editorTemplate)
 		{
 			case 'full':
 				$options['toolbar'] = 'Full';
@@ -315,14 +314,14 @@ class ExtCKEditor extends CInputWidget
 		}
 
 		$fontFamilies = '';
-		foreach ($this->fontFamilies as $k => $v)
+		foreach($this->fontFamilies as $k=> $v)
 		{
 			$fontFamilies.=$k . '/' . $v . ';';
 		}
 		$options['font_names'] = $fontFamilies;
 
 		$fontSizes = '';
-		foreach ($this->fontSizes as $k => $v)
+		foreach($this->fontSizes as $k=> $v)
 		{
 			$fontSizes.=$k . '/' . $v . ';';
 		}
@@ -333,7 +332,7 @@ class ExtCKEditor extends CInputWidget
 		$options['skin'] = $this->ckSkin;
 		$options['theme'] = $this->theme;
 		// here any option is overriden by user's options
-		if (is_array($this->options))
+		if(is_array($this->options))
 		{
 			$options = array_merge($options, $this->options);
 		}
@@ -357,15 +356,15 @@ class ExtCKEditor extends CInputWidget
 		$cs->registerScriptFile($assets . '/ckeditor.js');
 
 		$this->htmlOptions['id'] = $id;
-		if (!array_key_exists('style', $this->htmlOptions))
+		if(!array_key_exists('style', $this->htmlOptions))
 		{
 			$this->htmlOptions['style'] = "width:{$this->width};height:{$this->height};";
 		}
-		if (!array_key_exists('cols', $this->htmlOptions))
+		if(!array_key_exists('cols', $this->htmlOptions))
 		{
 			$this->htmlOptions['cols'] = self::COLS;
 		}
-		if (!array_key_exists('rows', $this->htmlOptions))
+		if(!array_key_exists('rows', $this->htmlOptions))
 		{
 			$this->htmlOptions['rows'] = self::ROWS;
 		}
@@ -375,7 +374,7 @@ CKEDITOR.replace('{$name}',{$options});
 EOP;
 		$cs->registerScript('Yii.' . get_class($this) . '#' . $id, $js, CClientScript::POS_LOAD);
 
-		if ($this->hasModel())
+		if($this->hasModel())
 		{
 			$html = CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
 		}

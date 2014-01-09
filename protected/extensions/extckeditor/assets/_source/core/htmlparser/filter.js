@@ -17,14 +17,14 @@
 										attributes: {$length: 0}
 									};
 
-							if (rules)
+							if(rules)
 								this.addRules(rules, 10);
 						},
 						proto:
 								{
 									addRules: function(rules, priority)
 									{
-										if (typeof priority != 'number')
+										if(typeof priority != 'number')
 											priority = 10;
 
 										// Add the elementNames.
@@ -82,18 +82,18 @@
 										for (var i = 0; i < 3; i++)
 										{
 											filter = filters[ i ];
-											if (filter)
+											if(filter)
 											{
 												ret = filter.filter(element, this);
 
-												if (ret === false)
+												if(ret === false)
 													return null;
 
-												if (ret && ret != element)
+												if(ret && ret != element)
 													return this.onNode(ret);
 
 												// The non-root element has been dismissed by one of the filters.
-												if (element.parent && !element.name)
+												if(element.parent && !element.name)
 													break;
 											}
 										}
@@ -113,14 +113,14 @@
 									{
 										var filter = this._.attributes[ name ];
 
-										if (filter)
+										if(filter)
 										{
 											var ret = filter.filter(value, element, this);
 
-											if (ret === false)
+											if(ret === false)
 												return false;
 
-											if (typeof ret != 'undefined')
+											if(typeof ret != 'undefined')
 												return ret;
 										}
 
@@ -141,14 +141,14 @@
 
 			function addItemsToList(list, items, priority)
 			{
-				if (typeof items == 'function')
+				if(typeof items == 'function')
 					items = [items];
 
 				var i, j,
 						listLength = list.length,
 						itemsLength = items && items.length;
 
-				if (itemsLength)
+				if(itemsLength)
 				{
 					// Find the index to insert the items at.
 					for (i = 0; i < listLength && list[ i ].pri < priority; i++)
@@ -159,7 +159,7 @@
 					for (j = itemsLength - 1; j >= 0; j--)
 					{
 						var item = items[ j ];
-						if (item)
+						if(item)
 						{
 							item.pri = priority;
 							list.splice(i, 0, item);
@@ -170,7 +170,7 @@
 
 			function addNamedItems(hashTable, items, priority)
 			{
-				if (items)
+				if(items)
 				{
 					for (var name in items)
 					{
@@ -178,11 +178,11 @@
 
 						hashTable[ name ] =
 								transformNamedItem(
-								current,
-								items[ name ],
-								priority);
+										current,
+										items[ name ],
+										priority);
 
-						if (!current)
+						if(!current)
 							hashTable.$length++;
 					}
 				}
@@ -190,16 +190,16 @@
 
 			function transformNamedItem(current, item, priority)
 			{
-				if (item)
+				if(item)
 				{
 					item.pri = priority;
 
-					if (current)
+					if(current)
 					{
 						// If the current item is not an Array, transform it.
-						if (!current.splice)
+						if(!current.splice)
 						{
-							if (current.pri > priority)
+							if(current.pri > priority)
 								current = [item, current];
 							else
 								current = [current, item];
@@ -229,7 +229,7 @@
 				for (var i = 0; i < this.length; i++)
 				{
 					// Backup the node info before filtering.
-					if (isNode)
+					if(isNode)
 					{
 						var orgType = currentEntry.type,
 								orgName = currentEntry.name;
@@ -238,15 +238,15 @@
 					var item = this[ i ],
 							ret = item.apply(window, arguments);
 
-					if (ret === false)
+					if(ret === false)
 						return ret;
 
 					// We're filtering node (element/fragment).
-					if (isNode)
+					if(isNode)
 					{
 						// No further filtering if it's not anymore
 						// fitable for the subsequent filters.
-						if (ret && (ret.name != orgName
+						if(ret && (ret.name != orgName
 								|| ret.type != orgType))
 						{
 							return ret;
@@ -257,7 +257,7 @@
 					{
 						// No further filtering if it's not
 						// any more values.
-						if (typeof ret != 'string')
+						if(typeof ret != 'string')
 							return ret;
 					}
 

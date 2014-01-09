@@ -3,19 +3,19 @@
 /* @var $model ConstructionProject */
 
 $this->breadcrumbs = array(
-	'Construction Projects' => array(
+	'Construction Projects'=>array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List ConstructionProject',
-		'url' => array(
+		'label'=>'List ConstructionProject',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Manage ConstructionProject',
-		'url' => array(
+		'label'=>'Manage ConstructionProject',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -24,5 +24,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

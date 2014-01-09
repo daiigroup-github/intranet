@@ -97,10 +97,10 @@
 						{
 							// If no languageCode - fallback to browser or default.
 							// If languageCode - fallback to no-localized version or default.
-							if (!languageCode || !CKEDITOR.lang.languages[ languageCode ])
+							if(!languageCode || !CKEDITOR.lang.languages[ languageCode ])
 								languageCode = this.detect(defaultLanguage, languageCode);
 
-							if (!this[ languageCode ])
+							if(!this[ languageCode ])
 							{
 								CKEDITOR.scriptLoader.load(CKEDITOR.getUrl(
 										'_source/' + // @Packager.RemoveLine
@@ -139,9 +139,9 @@
 									lang = parts[1],
 									locale = parts[2];
 
-							if (languages[ lang + '-' + locale ])
+							if(languages[ lang + '-' + locale ])
 								lang = lang + '-' + locale;
-							else if (!languages[ lang ])
+							else if(!languages[ lang ])
 								lang = null;
 
 							CKEDITOR.lang.detect = lang ?

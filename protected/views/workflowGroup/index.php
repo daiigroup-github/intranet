@@ -26,22 +26,22 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'workflow-group-grid',
-	'dataProvider' => $model->search(),
+	'id'=>'workflow-group-grid',
+	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
-	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
-	'columns' => array(
+	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'columns'=>array(
 		//'workflowGroupId',
 		'workflowGroupName',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

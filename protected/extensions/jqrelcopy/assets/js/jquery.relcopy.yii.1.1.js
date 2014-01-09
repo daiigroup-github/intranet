@@ -53,7 +53,7 @@
 				var counter = $(rel).length;
 
 				// stop limit
-				if (settings.limit != 0 && counter >= settings.limit) {
+				if(settings.limit != 0 && counter >= settings.limit) {
 					return false;
 				}
 				;
@@ -79,19 +79,19 @@
 				funcAfterClone.call(clone);
 
 				//Remove Elements with excludeSelector
-				if (settings.excludeSelector) {
+				if(settings.excludeSelector) {
 					$(clone).find(settings.excludeSelector).remove();
 				}
 				;
 
 				//Empty Elements with emptySelector
-				if (settings.emptySelector) {
+				if(settings.emptySelector) {
 					$(clone).find(settings.emptySelector).empty();
 				}
 				;
 
 				// Increment Clone IDs
-				if ($(clone).attr('id')) {
+				if($(clone).attr('id')) {
 					var newid = $(clone).attr('id') + (counter + 1);
 					funcBeforeNewId.call(clone);
 					$(clone).attr('id', newid);
@@ -108,10 +108,10 @@
 				});
 
 				//Clear Inputs/Textarea
-				if (settings.clearInputs) {
+				if(settings.clearInputs) {
 					$(clone).find(':input').each(function() {
 						var type = $(this).attr('type');
-						switch (type)
+						switch(type)
 						{
 							case "button":
 								break;

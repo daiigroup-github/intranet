@@ -2,11 +2,12 @@
 
 class ElearningExamController extends Controller
 {
+
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/cl1';
+	public $layout = '//layouts/cl1';
 
 	/**
 	 * @return array action filters
@@ -27,11 +28,15 @@ class ElearningExamController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // deny all users
-				'users'=>array('*'),
+			array(
+				'allow', // deny all users
+				'users'=>array(
+					'*'),
 			),
-			array('deny',  // deny all users
-				'users'=>array('*'),
+			array(
+				'deny', // deny all users
+				'users'=>array(
+					'*'),
 			),
 		);
 	}
@@ -60,17 +65,18 @@ class ElearningExamController extends Controller
 			$elearningModels = Elearning::model()->findAll('status=1');
 			$i = 0;
 
-			foreach ($elearningModels as $elearningModel) 
+			foreach($elearningModels as $elearningModel)
 			{
 				$criteria = new CDbCriteria;
 				$criteria->condition = 'elearningId=:elearningId AND status=1';
-				$criteria->params = array(':elearningId'=>$elearningModel->elearningId);
+				$criteria->params = array(
+					':elearningId'=>$elearningModel->elearningId);
 				$criteria->limit = $elearningModel->numberOfQuestion;
 				$criteria->order = 'RAND()';
 
 				$questions = ElearningExamQuestion::model()->findAll($criteria);
 
-				foreach ($questions as $question) 
+				foreach($questions as $question)
 				{
 					$questionArray[$i]['questionId'] = $question->questionId;
 					$questionArray[$i]['title'] = $question->title;
@@ -78,12 +84,14 @@ class ElearningExamController extends Controller
 
 					$criteria2 = new CDbCriteria;
 					$criteria2->condition = 'questionId=:questionId';
-					$criteria2->params = array(':questionId'=>$question->questionId);
+					$criteria2->params = array(
+						':questionId'=>$question->questionId);
 					$criteria2->order = 'RAND()';
 
 					$choices = ElearningExamChoice::model()->findAll($criteria2);
 
-					foreach ($choices as $choice) {
+					foreach($choices as $choice)
+					{
 						$questionArray[$i]['choice'][$j]['choiceId'] = $choice->choiceId;
 						$questionArray[$i]['choice'][$j]['title'] = $choice->title;
 						$questionArray[$i]['choice'][$j]['description'] = $choice->description;
@@ -100,7 +108,7 @@ class ElearningExamController extends Controller
 			$model->status = 1;
 			$model->save();
 
-			$this->render('view',array(
+			$this->render('view', array(
 				'questionArray'=>$questionArray,
 				'elearningExamId'=>$id,
 			));
@@ -113,19 +121,21 @@ class ElearningExamController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new ElearningExam;
+		$model = new ElearningExam;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ElearningExam']))
 		{
-			$model->attributes=$_POST['ElearningExam'];
+			$model->attributes = $_POST['ElearningExam'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->elearningExamId));
+				$this->redirect(array(
+					'view',
+					'id'=>$model->elearningExamId));
 		}
 
-		$this->render('create',array(
+		$this->render('create', array(
 			'model'=>$model,
 		));
 	}
@@ -137,19 +147,21 @@ class ElearningExamController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model = $this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['ElearningExam']))
 		{
-			$model->attributes=$_POST['ElearningExam'];
+			$model->attributes = $_POST['ElearningExam'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->elearningExamId));
+				$this->redirect(array(
+					'view',
+					'id'=>$model->elearningExamId));
 		}
 
-		$this->render('update',array(
+		$this->render('update', array(
 			'model'=>$model,
 		));
 	}
@@ -165,7 +177,8 @@ class ElearningExamController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
+					'admin'));
 	}
 
 	/**
@@ -173,8 +186,8 @@ class ElearningExamController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('ElearningExam');
-		$this->render('index',array(
+		$dataProvider = new CActiveDataProvider('ElearningExam');
+		$this->render('index', array(
 			'dataProvider'=>$dataProvider,
 		));
 	}
@@ -184,12 +197,12 @@ class ElearningExamController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new ElearningExam('search');
+		$model = new ElearningExam('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ElearningExam']))
-			$model->attributes=$_GET['ElearningExam'];
+			$model->attributes = $_GET['ElearningExam'];
 
-		$this->render('admin',array(
+		$this->render('admin', array(
 			'model'=>$model,
 		));
 	}
@@ -203,9 +216,9 @@ class ElearningExamController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=ElearningExam::model()->findByPk($id);
-		if($model===null)
-			throw new CHttpException(404,'The requested page does not exist.');
+		$model = ElearningExam::model()->findByPk($id);
+		if($model === null)
+			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
 
@@ -215,7 +228,7 @@ class ElearningExamController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='elearning-exam-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'elearning-exam-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -227,14 +240,14 @@ class ElearningExamController extends Controller
 		if(isset($_POST['answer']))
 		{
 			$point = 0;
-			foreach ($_POST['answer'] as $questionId=>$choiceId) 
+			foreach($_POST['answer'] as $questionId=> $choiceId)
 			{
 				$elearningExamItemModel = new ElearningExamItem;
 				$choiceModel = ElearningExamChoice::model()->findByPk($choiceId);
 				$elearningExamItemModel->elearningExamId = $id;
 				$elearningExamItemModel->questionId = $questionId;
 				$elearningExamItemModel->choiceId = $choiceId;
-				$elearningExamItemModel->isCorrect= $choiceModel->isCorrect;
+				$elearningExamItemModel->isCorrect = $choiceModel->isCorrect;
 				$elearningExamItemModel->save();
 
 				if($choiceModel->isCorrect)
@@ -253,4 +266,5 @@ class ElearningExamController extends Controller
 			echo CJSON::encode($res);
 		}
 	}
+
 }

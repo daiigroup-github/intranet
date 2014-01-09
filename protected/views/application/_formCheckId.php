@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'customer-form',
-		'enableAjaxValidation' => false,
+		'id'=>'customer-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -12,7 +12,7 @@
 			<p class="note">Fields with <span class="required">*</span> are required.
 				<?php
 				echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-					'class' => 'alert alert-error'));
+					'class'=>'alert alert-error'));
 				?>
 			</p>
 		</div>
@@ -22,13 +22,13 @@
 		<label class="control-label"><?php echo $form->labelEx($model, 'citizenId'); ?></label>
 		<div class="controls">
 			<?php
-			//echo $form->textField($model,'citizenId'); 
+			//echo $form->textField($model,'citizenId');
 			$this->widget('CMaskedTextField', array(
-				'mask' => '9-9999-99999-99-9',
-				'name' => 'EmployeeInfo[citizenId]'));
+				'mask'=>'9-9999-99999-99-9',
+				'name'=>'EmployeeInfo[citizenId]'));
 			echo $form->hiddenField($model, 'citizenId', array(
-				'name' => 'EmployeeInfo[citizenFlag]',
-				'value' => $citizenFlag));
+				'name'=>'EmployeeInfo[citizenFlag]',
+				'value'=>$citizenFlag));
 			?></div>
 	</div>
 

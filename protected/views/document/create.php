@@ -1,5 +1,4 @@
 <?php
-
 $this->pageHeader = 'สร้างเอกสาร ' . $documentType->documentTypeName;
 ?>
 
@@ -9,12 +8,11 @@ $this->pageHeader = 'สร้างเอกสาร ' . $documentType->docume
  */ ?>
 
 <?php
-
 echo $this->renderPartial('_form', array(
-	'model' => $model,
-	'documentType' => $documentType,
-	'documentItem' => $documentItem,
+	'model'=>$model,
+	'documentType'=>$documentType,
+	'documentItem'=>$documentItem,
 	//'stockDetail' => $stockDetail,
-	'workflowLogModel' => $workflowLogModel,
+	'workflowLogModel'=>$workflowLogModel,
 ));
 ?>

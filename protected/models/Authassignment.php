@@ -47,7 +47,7 @@ class Authassignment extends CActiveRecord
 			array(
 				'itemname, userid',
 				'length',
-				'max' => 64),
+				'max'=>64),
 			array(
 				'bizrule, data',
 				'safe'),
@@ -56,7 +56,7 @@ class Authassignment extends CActiveRecord
 			array(
 				'itemname, userid, bizrule, data',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -68,7 +68,7 @@ class Authassignment extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'itemname0' => array(
+			'itemname0'=>array(
 				self::BELONGS_TO,
 				'Authitem',
 				'itemname'),
@@ -81,10 +81,10 @@ class Authassignment extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'itemname' => 'Itemname',
-			'userid' => 'Userid',
-			'bizrule' => 'Bizrule',
-			'data' => 'Data',
+			'itemname'=>'Itemname',
+			'userid'=>'Userid',
+			'bizrule'=>'Bizrule',
+			'data'=>'Data',
 		);
 	}
 
@@ -105,7 +105,7 @@ class Authassignment extends CActiveRecord
 		$criteria->compare('data', $this->data, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

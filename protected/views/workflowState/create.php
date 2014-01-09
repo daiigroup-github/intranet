@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflow States' => array(
+	'Workflow States'=>array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List WorkflowState',
-		'url' => array(
+		'label'=>'List WorkflowState',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Manage WorkflowState',
-		'url' => array(
+		'label'=>'Manage WorkflowState',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

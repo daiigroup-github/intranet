@@ -48,15 +48,15 @@ class ApplicationInterview extends CActiveRecord
 			array(
 				'isHeadManager, status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'applicationId, managerId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'score',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'interviewDate, scoreDateTime',
 				'safe'),
@@ -65,7 +65,7 @@ class ApplicationInterview extends CActiveRecord
 			array(
 				'id, applicationId, managerId, isHeadManager, interviewDate, scoreDateTime, score, status',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -77,21 +77,21 @@ class ApplicationInterview extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employeeInfo' => array(
+			'employeeInfo'=>array(
 				self::BELONGS_TO,
 				'EmployeeInfo',
 				array(
-					'applicationId' => 'id')),
-			'manager' => array(
+					'applicationId'=>'id')),
+			'manager'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'managerId' => 'employeeId')),
-			'appInterviewScore' => array(
+					'managerId'=>'employeeId')),
+			'appInterviewScore'=>array(
 				self::HAS_MANY,
 				'ApplicationInterviewScore',
 				array(
-					'applicationInterviewId' => 'id')),
+					'applicationInterviewId'=>'id')),
 		);
 	}
 
@@ -101,19 +101,19 @@ class ApplicationInterview extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'applicationId' => 'ผู้สมัคร',
-			'managerId' => 'ผู้สัมภาษณ์',
-			'isHeadManager' => 'หัวหน้าสัมภาษณ์',
+			'id'=>'ID',
+			'applicationId'=>'ผู้สมัคร',
+			'managerId'=>'ผู้สัมภาษณ์',
+			'isHeadManager'=>'หัวหน้าสัมภาษณ์',
 			/* 'examId' => 'Exam',
 			  'questionId' => 'คำถาม',
 			  'questionWeight' => 'ตัวคูณคำถาม',
 			  'choiceId' => 'คำตอบ',
 			  'choiceValue' => 'ค่าของคำตอบ', */
-			'interviewDate' => 'วันนัดสัมภาษณ์',
-			'scoreDateTime' => 'วันที่ให้คะแนนสัมภาษณ์',
-			'score' => 'คะแนน',
-			'status' => 'สถานะ',
+			'interviewDate'=>'วันนัดสัมภาษณ์',
+			'scoreDateTime'=>'วันที่ให้คะแนนสัมภาษณ์',
+			'score'=>'คะแนน',
+			'status'=>'สถานะ',
 		);
 	}
 
@@ -137,13 +137,13 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
 	public function switchAction()
 	{
-		switch (strtolower(Yii::app()->controller->action->id))
+		switch(strtolower(Yii::app()->controller->action->id))
 		{
 			case "jobinterview":
 				return EmployeeInfo::model()->findJobInterviewList();
@@ -170,7 +170,7 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('status', 1);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -182,7 +182,7 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('managerId', $managerId);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -193,7 +193,7 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('status', 3);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -205,7 +205,7 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('managerId', Yii::app()->user->id);
 		$criteria->compare('applicationId', $appInterId);
 		$res = $this->findAll($criteria);
-		if (count($res) > 0)
+		if(count($res) > 0)
 		{
 			return 0;
 		}
@@ -222,14 +222,14 @@ class ApplicationInterview extends CActiveRecord
 		$criteria->compare('status', 1);
 		$criteria->compare('applicationId', $appInterId);
 
-		if (count($this->findAll($criteria)) > 0)
+		if(count($this->findAll($criteria)) > 0)
 		{
-			if (count($this->findAll($criteria)) == 1)
+			if(count($this->findAll($criteria)) == 1)
 			{
 				$result = 0;
-				foreach ($this->findAll($criteria) as $item)
+				foreach($this->findAll($criteria) as $item)
 				{
-					if ($item->managerId == 1)
+					if($item->managerId == 1)
 					{
 						$result = 1;
 					}

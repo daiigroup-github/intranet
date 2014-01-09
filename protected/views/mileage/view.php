@@ -1,35 +1,35 @@
 <?php
 $this->breadcrumbs = array(
-	'Mileages' => array(
+	'Mileages'=>array(
 		'index'),
 	$model->mileageId,
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Mileage',
-		'url' => array(
+		'label'=>'List Mileage',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Mileage',
-		'url' => array(
+		'label'=>'Create Mileage',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'Update Mileage',
-		'url' => array(
+		'label'=>'Update Mileage',
+		'url'=>array(
 			'update',
-			'id' => $model->mileageId)),
+			'id'=>$model->mileageId)),
 	array(
-		'label' => 'Delete Mileage',
-		'url' => '#',
-		'linkOptions' => array(
-			'submit' => array(
+		'label'=>'Delete Mileage',
+		'url'=>'#',
+		'linkOptions'=>array(
+			'submit'=>array(
 				'delete',
-				'id' => $model->mileageId),
-			'confirm' => 'Are you sure you want to delete this item?')),
+				'id'=>$model->mileageId),
+			'confirm'=>'Are you sure you want to delete this item?')),
 	array(
-		'label' => 'Manage Mileage',
-		'url' => array(
+		'label'=>'Manage Mileage',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -38,8 +38,8 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'attributes' => array(
+	'data'=>$model,
+	'attributes'=>array(
 		'mileageId',
 		'status',
 		'createDate',

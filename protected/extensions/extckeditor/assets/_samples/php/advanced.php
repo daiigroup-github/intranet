@@ -79,8 +79,8 @@ $CKEditor->editor("textarea_id", $initialValue);
 
 // Change default textarea attributes.
 			$CKEditor->textareaAttributes = array(
-				"cols" => 80,
-				"rows" => 10);
+				"cols"=>80,
+				"rows"=>10);
 
 // The initial value to be displayed in the editor.
 			$initialValue = '<p>This is some <strong>sample text</strong>. You are using <a href="http://ckeditor.com/">CKEditor</a>.</p>';

@@ -63,33 +63,33 @@ class Customer extends CActiveRecord
 			array(
 				'customerType, branchId, provinceId',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'customerFnTh, city',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			array(
 				'customerLnTh, customerCompany, email',
 				'length',
-				'max' => 120),
+				'max'=>120),
 			array(
 				'password',
 				'length',
-				'max' => 40),
+				'max'=>40),
 			array(
 				'companyValue, engineerId, branchValue, zipcode',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'phone',
 				'length',
-				'max' => 30),
+				'max'=>30),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'customerId, customerType, customerFnTh, customerLnTh, customerCompany, email, companyValue, engineerId, branchId, branchValue, address, city, provinceId, zipcode, phone, searchText, companyId',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -101,11 +101,11 @@ class Customer extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customerInfo' => array(
+			'customerInfo'=>array(
 				self::HAS_MANY,
 				'CustomerInfo',
 				'customerId'),
-			'province' => array(
+			'province'=>array(
 				self::BELONGS_TO,
 				'Province',
 				'provinceId'),
@@ -118,23 +118,23 @@ class Customer extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'customerId' => 'ID',
-			'createDateTime' => 'วันที่สร้าง',
-			'customerType' => 'ประเภทลูกค้า',
-			'customerFnTh' => 'ชื่อไทย',
-			'customerLnTh' => 'นามสกุลไทย',
-			'customerCompany' => 'ลูกค้าบริษัท',
-			'email' => 'อีเมล์',
-			'password' => 'รหัสผ่าน',
-			'companyValue' => 'Company Value',
-			'engineerId' => 'Engineer',
-			'branchId' => 'Branch',
-			'branchValue' => 'Branch Value',
-			'address' => 'ที่อยู่',
-			'city' => 'เมือง',
-			'provinceId' => 'จังหวัด',
-			'zipcode' => 'รหัสไปรษณีย์',
-			'phone' => 'โทร',
+			'customerId'=>'ID',
+			'createDateTime'=>'วันที่สร้าง',
+			'customerType'=>'ประเภทลูกค้า',
+			'customerFnTh'=>'ชื่อไทย',
+			'customerLnTh'=>'นามสกุลไทย',
+			'customerCompany'=>'ลูกค้าบริษัท',
+			'email'=>'อีเมล์',
+			'password'=>'รหัสผ่าน',
+			'companyValue'=>'Company Value',
+			'engineerId'=>'Engineer',
+			'branchId'=>'Branch',
+			'branchValue'=>'Branch Value',
+			'address'=>'ที่อยู่',
+			'city'=>'เมือง',
+			'provinceId'=>'จังหวัด',
+			'zipcode'=>'รหัสไปรษณีย์',
+			'phone'=>'โทร',
 		);
 	}
 
@@ -153,18 +153,18 @@ class Customer extends CActiveRecord
 		$criteria->compare('customerCompany', $this->searchText, true, 'OR');
 		$criteria->compare('email', $this->searchText, true, 'OR');
 
-		if ($this->companyId)
+		if($this->companyId)
 		{
 			$criteria->addCondition('companyValue&' . $this->companyId . ' > 0');
 		}
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 			/* 'sort' => array(
 			  'defaultOrder' => 't.createDateTime DESC',
 			  ), */
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
@@ -177,7 +177,7 @@ class Customer extends CActiveRecord
 
 		$models = Customer::model()->findAll();
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$c[$model->customerId] = $model->customerFnTh . ' ' . $model->customerLnTh;
 		}
@@ -188,9 +188,9 @@ class Customer extends CActiveRecord
 	public function getCustomerType()
 	{
 		return array(
-			'' => '---',
-			self::CUSTOMER_TYPE_PERSON => self::CUSTOMER_TYPE_PERSON . ' : บุคคลธรรมดา',
-			self::CUSTOMER_TYPE_COMPANY => self::CUSTOMER_TYPE_COMPANY . ' : บริษัท',
+			''=>'---',
+			self::CUSTOMER_TYPE_PERSON=>self::CUSTOMER_TYPE_PERSON . ' : บุคคลธรรมดา',
+			self::CUSTOMER_TYPE_COMPANY=>self::CUSTOMER_TYPE_COMPANY . ' : บริษัท',
 		);
 	}
 
@@ -212,10 +212,10 @@ class Customer extends CActiveRecord
 		$criteria->join = " LEFT JOIN customer_sale cs ON t.customerId = cs.customerId ";
 		$criteria->condition = "cs.saleId = :saleId";
 		$criteria->params = array(
-			":saleId" => Yii::app()->user->id);
+			":saleId"=>Yii::app()->user->id);
 
 		$models = $this->findAll($criteria);
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$c[$model->customerId] = $model->customerFnTh . ' ' . $model->customerLnTh;
 		}

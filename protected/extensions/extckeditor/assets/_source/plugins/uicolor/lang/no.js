@@ -4,12 +4,12 @@
  */
 
 		CKEDITOR.plugins.setLang('uicolor', 'no',
-		{
-			uicolor:
-					{
-						title: 'Fargevelger for brukergrensesnitt',
-						preview: 'Forhåndsvisning i sanntid',
-						config: 'Lim inn følgende tekst i din config.js-fil',
-						predefined: 'Forhåndsdefinerte fargesett'
-					}
-		});
+				{
+					uicolor:
+							{
+								title: 'Fargevelger for brukergrensesnitt',
+								preview: 'Forhåndsvisning i sanntid',
+								config: 'Lim inn følgende tekst i din config.js-fil',
+								predefined: 'Forhåndsdefinerte fargesett'
+							}
+				});

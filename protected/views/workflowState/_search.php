@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action' => Yii::app()->createUrl($this->route),
-		'method' => 'get',
+		'action'=>Yii::app()->createUrl($this->route),
+		'method'=>'get',
 	));
 	?>
 
@@ -11,8 +11,8 @@
 		<?php echo $form->label($model, 'workflowStateId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStateId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 	</div>
 
@@ -20,8 +20,8 @@
 		<?php echo $form->label($model, 'workflowStateName'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStateName', array(
-			'size' => 60,
-			'maxlength' => 80));
+			'size'=>60,
+			'maxlength'=>80));
 		?>
 	</div>
 
@@ -29,8 +29,8 @@
 		<?php echo $form->label($model, 'currentState'); ?>
 		<?php
 		echo $form->textField($model, 'currentState', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 	</div>
 
@@ -38,8 +38,8 @@
 		<?php echo $form->label($model, 'nextState'); ?>
 		<?php
 		echo $form->textField($model, 'nextState', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 	</div>
 
@@ -47,8 +47,8 @@
 		<?php echo $form->label($model, 'workflowStatusId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStatusId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 	</div>
 
@@ -56,8 +56,8 @@
 		<?php echo $form->label($model, 'workflowGroupId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowGroupId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 	</div>
 

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -75,7 +74,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setSubject($subject)
 	{
-		if (!$this->_setHeaderFieldModel('Subject', $subject))
+		if(!$this->_setHeaderFieldModel('Subject', $subject))
 		{
 			$this->getHeaders()->addTextHeader('Subject', $subject);
 		}
@@ -97,7 +96,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setDate($date)
 	{
-		if (!$this->_setHeaderFieldModel('Date', $date))
+		if(!$this->_setHeaderFieldModel('Date', $date))
 		{
 			$this->getHeaders()->addDateHeader('Date', $date);
 		}
@@ -119,7 +118,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setReturnPath($address)
 	{
-		if (!$this->_setHeaderFieldModel('Return-Path', $address))
+		if(!$this->_setHeaderFieldModel('Return-Path', $address))
 		{
 			$this->getHeaders()->addPathHeader('Return-Path', $address);
 		}
@@ -143,13 +142,13 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setSender($address, $name = null)
 	{
-		if (!is_array($address) && isset($name))
+		if(!is_array($address) && isset($name))
 		{
 			$address = array(
-				$address => $name);
+				$address=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('Sender', (array) $address))
+		if(!$this->_setHeaderFieldModel('Sender', (array) $address))
 		{
 			$this->getHeaders()->addMailboxHeader('Sender', (array) $address);
 		}
@@ -167,9 +166,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Add a From: address to this message.
-	 * 
+	 *
 	 * If $name is passed this name will be associated with the address.
-	 * 
+	 *
 	 * @param string $address
 	 * @param string $name optional
 	 */
@@ -182,24 +181,24 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Set the from address of this message.
-	 * 
+	 *
 	 * You may pass an array of addresses if this message is from multiple people.
-	 * 
+	 *
 	 * If $name is passed and the first parameter is a string, this name will be
 	 * associated with the address.
-	 * 
+	 *
 	 * @param string $addresses
 	 * @param string $name optional
 	 */
 	public function setFrom($addresses, $name = null)
 	{
-		if (!is_array($addresses) && isset($name))
+		if(!is_array($addresses) && isset($name))
 		{
 			$addresses = array(
-				$addresses => $name);
+				$addresses=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('From', (array) $addresses))
+		if(!$this->_setHeaderFieldModel('From', (array) $addresses))
 		{
 			$this->getHeaders()->addMailboxHeader('From', (array) $addresses);
 		}
@@ -208,7 +207,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Get the from address of this message.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getFrom()
@@ -218,9 +217,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Add a Reply-To: address to this message.
-	 * 
+	 *
 	 * If $name is passed this name will be associated with the address.
-	 * 
+	 *
 	 * @param string $address
 	 * @param string $name optional
 	 */
@@ -233,9 +232,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Set the reply-to address of this message.
-	 * 
+	 *
 	 * You may pass an array of addresses if replies will go to multiple people.
-	 * 
+	 *
 	 * If $name is passed and the first parameter is a string, this name will be
 	 * associated with the address.
 	 *
@@ -244,13 +243,13 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setReplyTo($addresses, $name = null)
 	{
-		if (!is_array($addresses) && isset($name))
+		if(!is_array($addresses) && isset($name))
 		{
 			$addresses = array(
-				$addresses => $name);
+				$addresses=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('Reply-To', (array) $addresses))
+		if(!$this->_setHeaderFieldModel('Reply-To', (array) $addresses))
 		{
 			$this->getHeaders()->addMailboxHeader('Reply-To', (array) $addresses);
 		}
@@ -259,7 +258,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Get the reply-to address of this message.
-	 * 
+	 *
 	 * @return string
 	 */
 	public function getReplyTo()
@@ -269,9 +268,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Add a To: address to this message.
-	 * 
+	 *
 	 * If $name is passed this name will be associated with the address.
-	 * 
+	 *
 	 * @param string $address
 	 * @param string $name optional
 	 */
@@ -284,24 +283,24 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Set the to addresses of this message.
-	 * 
+	 *
 	 * If multiple recipients will receive the message and array should be used.
-	 * 
+	 *
 	 * If $name is passed and the first parameter is a string, this name will be
 	 * associated with the address.
-	 * 
+	 *
 	 * @param array $addresses
 	 * @param string $name optional
 	 */
 	public function setTo($addresses, $name = null)
 	{
-		if (!is_array($addresses) && isset($name))
+		if(!is_array($addresses) && isset($name))
 		{
 			$addresses = array(
-				$addresses => $name);
+				$addresses=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('To', (array) $addresses))
+		if(!$this->_setHeaderFieldModel('To', (array) $addresses))
 		{
 			$this->getHeaders()->addMailboxHeader('To', (array) $addresses);
 		}
@@ -310,7 +309,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Get the To addresses of this message.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getTo()
@@ -320,9 +319,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Add a Cc: address to this message.
-	 * 
+	 *
 	 * If $name is passed this name will be associated with the address.
-	 * 
+	 *
 	 * @param string $address
 	 * @param string $name optional
 	 */
@@ -335,7 +334,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Set the Cc addresses of this message.
-	 * 
+	 *
 	 * If $name is passed and the first parameter is a string, this name will be
 	 * associated with the address.
 	 *
@@ -344,13 +343,13 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setCc($addresses, $name = null)
 	{
-		if (!is_array($addresses) && isset($name))
+		if(!is_array($addresses) && isset($name))
 		{
 			$addresses = array(
-				$addresses => $name);
+				$addresses=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('Cc', (array) $addresses))
+		if(!$this->_setHeaderFieldModel('Cc', (array) $addresses))
 		{
 			$this->getHeaders()->addMailboxHeader('Cc', (array) $addresses);
 		}
@@ -359,7 +358,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Get the Cc address of this message.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getCc()
@@ -369,9 +368,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Add a Bcc: address to this message.
-	 * 
+	 *
 	 * If $name is passed this name will be associated with the address.
-	 * 
+	 *
 	 * @param string $address
 	 * @param string $name optional
 	 */
@@ -384,22 +383,22 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Set the Bcc addresses of this message.
-	 * 
+	 *
 	 * If $name is passed and the first parameter is a string, this name will be
 	 * associated with the address.
-	 * 
+	 *
 	 * @param array $addresses
 	 * @param string $name optional
 	 */
 	public function setBcc($addresses, $name = null)
 	{
-		if (!is_array($addresses) && isset($name))
+		if(!is_array($addresses) && isset($name))
 		{
 			$addresses = array(
-				$addresses => $name);
+				$addresses=>$name);
 		}
 
-		if (!$this->_setHeaderFieldModel('Bcc', (array) $addresses))
+		if(!$this->_setHeaderFieldModel('Bcc', (array) $addresses))
 		{
 			$this->getHeaders()->addMailboxHeader('Bcc', (array) $addresses);
 		}
@@ -408,7 +407,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 
 	/**
 	 * Get the Bcc addresses of this message.
-	 * 
+	 *
 	 * @return array
 	 */
 	public function getBcc()
@@ -424,22 +423,22 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	public function setPriority($priority)
 	{
 		$priorityMap = array(
-			1 => 'Highest',
-			2 => 'High',
-			3 => 'Normal',
-			4 => 'Low',
-			5 => 'Lowest'
+			1=>'Highest',
+			2=>'High',
+			3=>'Normal',
+			4=>'Low',
+			5=>'Lowest'
 		);
 		$pMapKeys = array_keys($priorityMap);
-		if ($priority > max($pMapKeys))
+		if($priority > max($pMapKeys))
 		{
 			$priority = max($pMapKeys);
 		}
-		elseif ($priority < min($pMapKeys))
+		elseif($priority < min($pMapKeys))
 		{
 			$priority = min($pMapKeys);
 		}
-		if (!$this->_setHeaderFieldModel('X-Priority', sprintf('%d (%s)', $priority, $priorityMap[$priority])))
+		if(!$this->_setHeaderFieldModel('X-Priority', sprintf('%d (%s)', $priority, $priorityMap[$priority])))
 		{
 			$this->getHeaders()->addTextHeader('X-Priority', sprintf('%d (%s)', $priority, $priorityMap[$priority]));
 		}
@@ -465,7 +464,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function setReadReceiptTo($addresses)
 	{
-		if (!$this->_setHeaderFieldModel('Disposition-Notification-To', $addresses))
+		if(!$this->_setHeaderFieldModel('Disposition-Notification-To', $addresses))
 		{
 			$this->getHeaders()
 				->addMailboxHeader('Disposition-Notification-To', $addresses);
@@ -501,9 +500,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	{
 		$newChildren = array(
 			);
-		foreach ($this->getChildren() as $child)
+		foreach($this->getChildren() as $child)
 		{
-			if ($entity !== $child)
+			if($entity !== $child)
 			{
 				$newChildren[] = $child;
 			}
@@ -530,7 +529,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function toString()
 	{
-		if (count($children = $this->getChildren()) > 0 && $this->getBody() != '')
+		if(count($children = $this->getChildren()) > 0 && $this->getBody() != '')
 		{
 			$this->setChildren(array_merge(array(
 				$this->_becomeMimePart()), $children));
@@ -562,7 +561,7 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	 */
 	public function toByteStream(Swift_InputByteStream $is)
 	{
-		if (count($children = $this->getChildren()) > 0 && $this->getBody() != '')
+		if(count($children = $this->getChildren()) > 0 && $this->getBody() != '')
 		{
 			$this->setChildren(array_merge(array(
 				$this->_becomeMimePart()), $children));
@@ -602,10 +601,10 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart implements Swift_Mime
 	private function _getTopNestingLevel()
 	{
 		$highestLevel = $this->getNestingLevel();
-		foreach ($this->getChildren() as $child)
+		foreach($this->getChildren() as $child)
 		{
 			$childLevel = $child->getNestingLevel();
-			if ($highestLevel < $childLevel)
+			if($highestLevel < $childLevel)
 			{
 				$highestLevel = $childLevel;
 			}

@@ -38,7 +38,7 @@
 											forceFromWord = 1;
 											editor.on('beforePaste', forceHtmlMode);
 
-											if (editor.execCommand('paste', 'html') === false)
+											if(editor.execCommand('paste', 'html') === false)
 											{
 												editor.on('dialogShow', function(evt)
 												{
@@ -74,15 +74,15 @@
 										mswordHtml;
 
 								// MS-WORD format sniffing.
-								if ((mswordHtml = data[ 'html' ])
+								if((mswordHtml = data[ 'html' ])
 										&& (forceFromWord || (/(class=\"?Mso|style=\"[^\"]*\bmso\-|w:WordDocument)/).test(mswordHtml)))
 								{
 									var isLazyLoad = this.loadFilterRules(function()
 									{
 										// Event continuation with the original data.
-										if (isLazyLoad)
+										if(isLazyLoad)
 											editor.fire('paste', data);
-										else if (!editor.config.pasteFromWordPromptCleanup
+										else if(!editor.config.pasteFromWordPromptCleanup
 												|| (forceFromWord || confirm(editor.lang.pastefromword.confirmCleanup)))
 										{
 											data[ 'html' ] = CKEDITOR.cleanWord(mswordHtml, editor);
@@ -100,7 +100,7 @@
 
 							var isLoaded = CKEDITOR.cleanWord;
 
-							if (isLoaded)
+							if(isLoaded)
 								callback();
 							else
 							{

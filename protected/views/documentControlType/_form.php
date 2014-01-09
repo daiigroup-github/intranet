@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'document-control-type-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'
+	'id'=>'document-control-type-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'
 	),
 	));
 ?>
@@ -12,7 +12,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class' => 'alert alert-error'));
+	'class'=>'alert alert-error'));
 $form->error($model, 'documentControlTypeName');
 ?>
 
@@ -22,8 +22,8 @@ $form->error($model, 'documentControlTypeName');
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'documentControlTypeName', array(
-				'size' => 60,
-				'maxlength' => 100));
+				'size'=>60,
+				'maxlength'=>100));
 			?>
 		</div>
 	</div>
@@ -32,7 +32,7 @@ $form->error($model, 'documentControlTypeName');
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class' => 'btn btn-primary'));
+		'class'=>'btn btn-primary'));
 	?>
 </div>
 

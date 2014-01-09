@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -163,15 +162,15 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
 	 */
 	public function afterEhlo(Swift_Transport_SmtpAgent $agent)
 	{
-		if ($this->_username)
+		if($this->_username)
 		{
 			$count = 0;
-			foreach ($this->_getAuthenticatorsForAgent() as $authenticator)
+			foreach($this->_getAuthenticatorsForAgent() as $authenticator)
 			{
-				if (in_array(strtolower($authenticator->getAuthKeyword()), array_map('strtolower', $this->_esmtpParams)))
+				if(in_array(strtolower($authenticator->getAuthKeyword()), array_map('strtolower', $this->_esmtpParams)))
 				{
 					$count++;
-					if ($authenticator->authenticate($agent, $this->_username, $this->_password))
+					if($authenticator->authenticate($agent, $this->_username, $this->_password))
 					{
 						return;
 					}
@@ -208,7 +207,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
 	public function onCommand(Swift_Transport_SmtpAgent $agent, $command, $codes = array(
 	), &$failedRecipients = null, &$stop = false)
 	{
-		
+
 	}
 
 	/**
@@ -242,7 +241,7 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
 	 */
 	public function resetState()
 	{
-		
+
 	}
 
 	// -- Protected methods
@@ -255,14 +254,14 @@ class Swift_Transport_Esmtp_AuthHandler implements Swift_Transport_EsmtpHandler
 	 */
 	protected function _getAuthenticatorsForAgent()
 	{
-		if (!$mode = strtolower($this->_auth_mode))
+		if(!$mode = strtolower($this->_auth_mode))
 		{
 			return $this->_authenticators;
 		}
 
-		foreach ($this->_authenticators as $authenticator)
+		foreach($this->_authenticators as $authenticator)
 		{
-			if (strtolower($authenticator->getAuthKeyword()) == $mode)
+			if(strtolower($authenticator->getAuthKeyword()) == $mode)
 			{
 				return array(
 					$authenticator);

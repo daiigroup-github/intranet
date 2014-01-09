@@ -5,34 +5,34 @@
 
 // Register a plugin named "sample".
 		CKEDITOR.plugins.add('keystrokes',
-		{
-			beforeInit: function(editor)
-			{
-				/**
-				 * Controls keystrokes typing in this editor instance.
-				 * @name CKEDITOR.editor.prototype.keystrokeHandler
-				 * @type CKEDITOR.keystrokeHandler
-				 * @example
-				 */
-				editor.keystrokeHandler = new CKEDITOR.keystrokeHandler(editor);
+				{
+					beforeInit: function(editor)
+					{
+						/**
+						 * Controls keystrokes typing in this editor instance.
+						 * @name CKEDITOR.editor.prototype.keystrokeHandler
+						 * @type CKEDITOR.keystrokeHandler
+						 * @example
+						 */
+						editor.keystrokeHandler = new CKEDITOR.keystrokeHandler(editor);
 
-				editor.specialKeys = {};
-			},
-			init: function(editor)
-			{
-				var keystrokesConfig = editor.config.keystrokes,
-						blockedConfig = editor.config.blockedKeystrokes;
+						editor.specialKeys = {};
+					},
+					init: function(editor)
+					{
+						var keystrokesConfig = editor.config.keystrokes,
+								blockedConfig = editor.config.blockedKeystrokes;
 
-				var keystrokes = editor.keystrokeHandler.keystrokes,
-						blockedKeystrokes = editor.keystrokeHandler.blockedKeystrokes;
+						var keystrokes = editor.keystrokeHandler.keystrokes,
+								blockedKeystrokes = editor.keystrokeHandler.blockedKeystrokes;
 
-				for (var i = 0; i < keystrokesConfig.length; i++)
-					keystrokes[ keystrokesConfig[i][0] ] = keystrokesConfig[i][1];
+						for (var i = 0; i < keystrokesConfig.length; i++)
+							keystrokes[ keystrokesConfig[i][0] ] = keystrokesConfig[i][1];
 
-				for (i = 0; i < blockedConfig.length; i++)
-					blockedKeystrokes[ blockedConfig[i] ] = 1;
-			}
-		});
+						for (i = 0; i < blockedConfig.length; i++)
+							blockedKeystrokes[ blockedConfig[i] ] = 1;
+					}
+				});
 
 /**
  * Controls keystrokes typing in an editor instance.
@@ -42,7 +42,7 @@
  */
 CKEDITOR.keystrokeHandler = function(editor)
 {
-	if (editor.keystrokeHandler)
+	if(editor.keystrokeHandler)
 		return editor.keystrokeHandler;
 
 	/**
@@ -85,25 +85,25 @@ CKEDITOR.keystrokeHandler = function(editor)
 
 		cancel = (editor.fire('key', {keyCode: keyCombination}) === true);
 
-		if (!cancel)
+		if(!cancel)
 		{
-			if (command)
+			if(command)
 			{
 				var data = {from: 'keystrokeHandler'};
 				cancel = (editor.execCommand(command, data) !== false);
 			}
 
-			if (!cancel)
+			if(!cancel)
 			{
 				var handler = editor.specialKeys[ keyCombination ];
 				cancel = (handler && handler(editor) === true);
 
-				if (!cancel)
+				if(!cancel)
 					cancel = !!this.blockedKeystrokes[ keyCombination ];
 			}
 		}
 
-		if (cancel)
+		if(cancel)
 			event.preventDefault(true);
 
 		return !cancel;
@@ -111,7 +111,7 @@ CKEDITOR.keystrokeHandler = function(editor)
 
 	var onKeyPress = function(event)
 	{
-		if (cancel)
+		if(cancel)
 		{
 			cancel = false;
 			event.data.preventDefault(true);
@@ -135,7 +135,7 @@ CKEDITOR.keystrokeHandler = function(editor)
 
 					// Some browsers instead, don't cancel key events in the keydown, but in the
 					// keypress. So we must do a longer trip in those cases.
-					if (CKEDITOR.env.opera || (CKEDITOR.env.gecko && CKEDITOR.env.mac))
+					if(CKEDITOR.env.opera || (CKEDITOR.env.gecko && CKEDITOR.env.mac))
 						domObject.on('keypress', onKeyPress, this);
 				}
 			};

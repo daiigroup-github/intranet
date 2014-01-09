@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'action' => Yii::app()->createUrl($this->route),
-	'method' => 'get',
-	'htmlOptions' => array(
-		'class' => 'well form-horizontal',
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
+	'htmlOptions'=>array(
+		'class'=>'well form-horizontal',
 	),
 	));
 ?>
@@ -14,8 +14,8 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'documentControlTypeId', array(
-				'size' => 20,
-				'maxlength' => 20));
+				'size'=>20,
+				'maxlength'=>20));
 			?>
 		</div>
 	</div>
@@ -25,17 +25,17 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'documentControlTypeName', array(
-				'size' => 60,
-				'maxlength' => 100));
+				'size'=>60,
+				'maxlength'=>100));
 			?>
 		</div>
 	</div>
 
 	<div class="control-group">
-		<div class="controls">	
+		<div class="controls">
 			<?php
 			echo CHtml::submitButton('ค้นหา', array(
-				'class' => 'btn btn-primary'));
+				'class'=>'btn btn-primary'));
 			?>
 		</div>
 	</div>

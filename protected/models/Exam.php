@@ -48,21 +48,21 @@ class Exam extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'examId, creator',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'title',
 				'length',
-				'max' => 200),
+				'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'examId, status, createDateTime, title, description, creator, searchText',
 				'safe',
-				'on' => 'search'
+				'on'=>'search'
 			),
 		);
 	}
@@ -75,7 +75,7 @@ class Exam extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'examQuesitons' => array(
+			'examQuesitons'=>array(
 				self::MANY_MANY,
 				'ExamQuestion',
 				'exam_exam_question(examId, examQuestionid)',
@@ -89,12 +89,12 @@ class Exam extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'examId' => 'Exam',
-			'status' => 'Status',
-			'createDateTime' => 'Create Date Time',
-			'title' => 'Exam Title',
-			'description' => 'Exam Description',
-			'creator' => 'Creator',
+			'examId'=>'Exam',
+			'status'=>'Status',
+			'createDateTime'=>'Create Date Time',
+			'title'=>'Exam Title',
+			'description'=>'Exam Description',
+			'creator'=>'Creator',
 		);
 	}
 
@@ -111,7 +111,7 @@ class Exam extends CActiveRecord
 		$criteria->compare('title', $this->searchText, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,));
+			'criteria'=>$criteria,));
 	}
 
 }

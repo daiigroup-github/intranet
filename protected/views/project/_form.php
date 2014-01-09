@@ -1,36 +1,36 @@
 <div class="form">
 	<?php
 	$this->widget('ext.jqrelcopy.JQRelcopy', array(
-		'id' => 'copyFieldLink1',
-		'removeText' => '<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
-		'removeHtmlOptions' => array(
-			'style' => 'color:red'),
-		'options' => array(
-			'copyClass' => 'newcopy',
-			'limit' => 0,
-			'clearInputs' => true,
-			'excludeSelector' => '.skipcopy',
+		'id'=>'copyFieldLink1',
+		'removeText'=>'<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
+		'removeHtmlOptions'=>array(
+			'style'=>'color:red'),
+		'options'=>array(
+			'copyClass'=>'newcopy',
+			'limit'=>0,
+			'clearInputs'=>true,
+			'excludeSelector'=>'.skipcopy',
 		),
 	));
 	?>
 	<?php
 	$this->widget('ext.jqrelcopy.JQRelcopy', array(
-		'id' => 'copyFieldLink2',
-		'removeText' => '<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
-		'removeHtmlOptions' => array(
-			'style' => 'color:red'),
-		'options' => array(
-			'copyClass' => 'newcopy',
-			'limit' => 0,
-			'clearInputs' => true,
-			'excludeSelector' => '.skipcopy',
+		'id'=>'copyFieldLink2',
+		'removeText'=>'<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
+		'removeHtmlOptions'=>array(
+			'style'=>'color:red'),
+		'options'=>array(
+			'copyClass'=>'newcopy',
+			'limit'=>0,
+			'clearInputs'=>true,
+			'excludeSelector'=>'.skipcopy',
 		),
 	));
 	?>
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'project-form',
-		'enableAjaxValidation' => false,
+		'id'=>'project-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -42,8 +42,8 @@
 		<?php echo $form->labelEx($model, 'projectName'); ?>
 		<?php
 		echo $form->textField($model, 'projectName', array(
-			'size' => 60,
-			'maxlength' => 100));
+			'size'=>60,
+			'maxlength'=>100));
 		?>
 		<?php echo $form->error($model, 'projectName'); ?>
 	</p>
@@ -52,8 +52,8 @@
 		<?php echo $form->labelEx($model, 'projectDetail'); ?>
 		<?php
 		echo $form->textField($model, 'projectDetail', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'projectDetail'); ?>
 	</p>
@@ -68,8 +68,8 @@
 		<?php echo $form->labelEx($model, 'projectImageName'); ?>
 		<?php
 		echo $form->textField($model, 'projectImageName', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'projectImageName'); ?>
 	</p>
@@ -78,8 +78,8 @@
 		<?php echo $form->labelEx($model, 'projectAddress'); ?>
 		<?php
 		echo $form->textField($model, 'projectAddress', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'projectAddress'); ?>
 	</p>
@@ -118,8 +118,8 @@
 		<?php echo $form->labelEx($model, 'branchValue'); ?>
 		<?php
 		echo $form->textField($model, 'branchValue', array(
-			'size' => 10,
-			'maxlength' => 10));
+			'size'=>10,
+			'maxlength'=>10));
 		?>
 		<?php echo $form->error($model, 'branchValue'); ?>
 	</p>
@@ -148,8 +148,8 @@
 			<?php echo $form->labelEx($process, 'processName'); ?>
 			<?php
 			echo $form->textField($process, 'processName', array(
-				'size' => 60,
-				'maxlength' => 100));
+				'size'=>60,
+				'maxlength'=>100));
 			?>
 			<?php echo $form->error($process, 'processName'); ?>
 		</p>
@@ -158,8 +158,8 @@
 			<?php echo $form->labelEx($process, 'processDetail'); ?>
 			<?php
 			echo $form->textField($process, 'processDetail', array(
-				'size' => 60,
-				'maxlength' => 255));
+				'size'=>60,
+				'maxlength'=>255));
 			?>
 			<?php echo $form->error($process, 'processDetail'); ?>
 		</p>
@@ -176,8 +176,8 @@
 				<?php echo $form->labelEx($subProcess, 'processName'); ?>
 				<?php
 				echo $form->textField($subProcess, 'processName', array(
-					'size' => 60,
-					'maxlength' => 100));
+					'size'=>60,
+					'maxlength'=>100));
 				?>
 				<?php echo $form->error($subProcess, 'processName'); ?>
 			</p>
@@ -186,8 +186,8 @@
 				<?php echo $form->labelEx($subProcess, 'processDetail'); ?>
 				<?php
 				echo $form->textField($subProcess, 'processDetail', array(
-					'size' => 60,
-					'maxlength' => 255));
+					'size'=>60,
+					'maxlength'=>255));
 				?>
 				<?php echo $form->error($subProcess, 'processDetail'); ?>
 			</p>
@@ -196,11 +196,11 @@
 				<?php echo $form->labelEx($subProcess, 'engineerId'); ?>
 				<?php echo $form->dropdownList($subProcess, 'engineerId', Employee::model()->getAllEngineer()); ?>
 				<?php echo $form->error($subProcess, 'engineerId'); ?>
-			</p>	
+			</p>
 			<?php
 			echo '<a id="copyFieldLink2" href="#" rel=".copy2" class="btn"><i class="icon-plus"></i>เพิ่ม Sub Process</a>';
 			?>
-		</div>			
+		</div>
 	</div>
 
 	<p>

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -32,7 +31,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function setString($nsKey, $itemKey, $string, $mode)
 	{
-		
+
 	}
 
 	/**
@@ -45,7 +44,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function importFromByteStream($nsKey, $itemKey, Swift_OutputByteStream $os, $mode)
 	{
-		
+
 	}
 
 	/**
@@ -57,7 +56,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function getInputByteStream($nsKey, $itemKey, Swift_InputByteStream $writeThrough = null)
 	{
-		
+
 	}
 
 	/**
@@ -68,7 +67,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function getString($nsKey, $itemKey)
 	{
-		
+
 	}
 
 	/**
@@ -79,7 +78,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function exportToByteStream($nsKey, $itemKey, Swift_InputByteStream $is)
 	{
-		
+
 	}
 
 	/**
@@ -100,7 +99,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function clearKey($nsKey, $itemKey)
 	{
-		
+
 	}
 
 	/**
@@ -109,7 +108,7 @@ class Swift_KeyCache_NullKeyCache implements Swift_KeyCache
 	 */
 	public function clearAll($nsKey)
 	{
-		
+
 	}
 
 }

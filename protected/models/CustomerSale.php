@@ -47,17 +47,17 @@ class CustomerSale extends CActiveRecord
 			array(
 				'customerId, saleId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'companyValue',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, customerId, saleId, companyValue, createDateTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -78,11 +78,11 @@ class CustomerSale extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'customerId' => 'Customer',
-			'saleId' => 'Sale',
-			'companyValue' => 'Company Value',
-			'createDateTime' => 'Create Date Time',
+			'id'=>'ID',
+			'customerId'=>'Customer',
+			'saleId'=>'Sale',
+			'companyValue'=>'Company Value',
+			'createDateTime'=>'Create Date Time',
 		);
 	}
 
@@ -104,7 +104,7 @@ class CustomerSale extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

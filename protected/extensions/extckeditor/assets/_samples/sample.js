@@ -7,7 +7,7 @@
 // It is just a helper file that displays a red message about browser compatibility
 // at the top of the samples (if incompatible browser is detected).
 
-		if (window.CKEDITOR)
+		if(window.CKEDITOR)
 {
 	(function()
 	{
@@ -29,9 +29,9 @@
 
 			for (var key in env)
 			{
-				if (browsers[ key ])
+				if(browsers[ key ])
 				{
-					if (env[key])
+					if(env[key])
 						html += ' CKEditor is compatible with ' + browsers[ key ] + ' or higher.';
 					else
 						alsoBrowsers += browsers[ key ] + '+, ';
@@ -52,14 +52,14 @@
 		{
 			// Show a friendly compatibility message as soon as the page is loaded,
 			// for those browsers that are not compatible with CKEditor.
-			if (!CKEDITOR.env.isCompatible)
+			if(!CKEDITOR.env.isCompatible)
 				showCompatibilityMsg();
 		};
 
 		// Register the onload listener.
-		if (window.addEventListener)
+		if(window.addEventListener)
 			window.addEventListener('load', onload, false);
-		else if (window.attachEvent)
+		else if(window.attachEvent)
 			window.attachEvent('onload', onload);
 	})();
 }

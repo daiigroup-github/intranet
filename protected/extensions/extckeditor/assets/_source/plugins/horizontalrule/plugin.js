@@ -23,7 +23,7 @@
 									// to make sure cursor is not trapped.
 									range.moveToPosition(hr, CKEDITOR.POSITION_AFTER_END);
 									var next = hr.getNext();
-									if (!next || next.type == CKEDITOR.NODE_ELEMENT && !next.isEditable())
+									if(!next || next.type == CKEDITOR.NODE_ELEMENT && !next.isEditable())
 										range.fixBlock(true, editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p');
 
 									range.select();

@@ -4,12 +4,12 @@ $this->pageHeader = 'รายงานใบลา';
 
 <?php
 $this->renderPartial('_searchForm', array(
-	'leaveModel' => $leaveModel));
+	'leaveModel'=>$leaveModel));
 ?>
 
 <?php
-if ($employeeModels)
+if($employeeModels)
 	$this->renderPartial('_leaveReportItem', array(
-		'employeeModels' => $employeeModels,
-		'leaveModel' => $leaveModel));
+		'employeeModels'=>$employeeModels,
+		'leaveModel'=>$leaveModel));
 ?>

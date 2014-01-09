@@ -126,7 +126,7 @@
 					{
 						var queryString = [];
 
-						if (!params)
+						if(!params)
 							return url;
 						else
 						{
@@ -172,7 +172,7 @@
 						var params = this.filebrowser.params || {};
 						params.CKEditor = editor.name;
 						params.CKEditorFuncNum = editor._.filebrowserFn;
-						if (!params.langCode)
+						if(!params.langCode)
 							params.langCode = editor.langCode;
 
 						var url = addQueryString(this.filebrowser.url, params);
@@ -196,10 +196,10 @@
 						editor._.filebrowserSe = this;
 
 						// If user didn't select the file, stop the upload.
-						if (!dialog.getContentElement(this[ 'for' ][ 0 ], this[ 'for' ][ 1 ]).getInputElement().$.value)
+						if(!dialog.getContentElement(this[ 'for' ][ 0 ], this[ 'for' ][ 1 ]).getInputElement().$.value)
 							return false;
 
-						if (!dialog.getContentElement(this[ 'for' ][ 0 ], this[ 'for' ][ 1 ]).getAction())
+						if(!dialog.getContentElement(this[ 'for' ][ 0 ], this[ 'for' ][ 1 ]).getAction())
 							return false;
 
 						return true;
@@ -219,7 +219,7 @@
 						var params = filebrowser.params || {};
 						params.CKEditor = editor.name;
 						params.CKEditorFuncNum = editor._.filebrowserFn;
-						if (!params.langCode)
+						if(!params.langCode)
 							params.langCode = editor.langCode;
 
 						fileInput.action = addQueryString(filebrowser.url, params);
@@ -246,13 +246,13 @@
 						{
 							element = elements[ i ];
 
-							if (element.type == 'hbox' || element.type == 'vbox' || element.type == 'fieldset')
+							if(element.type == 'hbox' || element.type == 'vbox' || element.type == 'fieldset')
 								attachFileBrowser(editor, dialogName, definition, element.children);
 
-							if (!element.filebrowser)
+							if(!element.filebrowser)
 								continue;
 
-							if (typeof element.filebrowser == 'string')
+							if(typeof element.filebrowser == 'string')
 							{
 								var fb =
 										{
@@ -262,34 +262,34 @@
 								element.filebrowser = fb;
 							}
 
-							if (element.filebrowser.action == 'Browse')
+							if(element.filebrowser.action == 'Browse')
 							{
 								var url = element.filebrowser.url;
-								if (url === undefined)
+								if(url === undefined)
 								{
 									url = editor.config[ 'filebrowser' + ucFirst(dialogName) + 'BrowseUrl' ];
-									if (url === undefined)
+									if(url === undefined)
 										url = editor.config.filebrowserBrowseUrl;
 								}
 
-								if (url)
+								if(url)
 								{
 									element.onClick = browseServer;
 									element.filebrowser.url = url;
 									element.hidden = false;
 								}
 							}
-							else if (element.filebrowser.action == 'QuickUpload' && element[ 'for' ])
+							else if(element.filebrowser.action == 'QuickUpload' && element[ 'for' ])
 							{
 								url = element.filebrowser.url;
-								if (url === undefined)
+								if(url === undefined)
 								{
 									url = editor.config[ 'filebrowser' + ucFirst(dialogName) + 'UploadUrl' ];
-									if (url === undefined)
+									if(url === undefined)
 										url = editor.config.filebrowserUploadUrl;
 								}
 
-								if (url)
+								if(url)
 								{
 									var onClick = element.onClick;
 									element.onClick = function(evt)
@@ -297,7 +297,7 @@
 										// "element" here means the definition object, so we need to find the correct
 										// button to scope the event call
 										var sender = evt.sender;
-										if (onClick && onClick.call(sender, evt) === false)
+										if(onClick && onClick.call(sender, evt) === false)
 											return false;
 
 										return uploadFile.call(sender, evt);
@@ -323,11 +323,11 @@
 						var targetElement = sourceElement.filebrowser.target || null;
 
 						// If there is a reference to targetElement, update it.
-						if (targetElement)
+						if(targetElement)
 						{
 							var target = targetElement.split(':');
 							var element = dialog.getContentElement(target[ 0 ], target[ 1 ]);
-							if (element)
+							if(element)
 							{
 								element.setValue(url);
 								dialog.selectPage(target[ 0 ]);
@@ -347,12 +347,12 @@
 					 */
 					function isConfigured(definition, tabId, elementId)
 					{
-						if (elementId.indexOf(";") !== -1)
+						if(elementId.indexOf(";") !== -1)
 						{
 							var ids = elementId.split(";");
 							for (var i = 0; i < ids.length; i++)
 							{
-								if (isConfigured(definition, tabId, ids[i]))
+								if(isConfigured(definition, tabId, ids[i]))
 									return true;
 							}
 							return false;
@@ -368,20 +368,20 @@
 								targetInput = this._.filebrowserSe[ 'for' ],
 								onSelect = this._.filebrowserSe.filebrowser.onSelect;
 
-						if (targetInput)
+						if(targetInput)
 							dialog.getContentElement(targetInput[ 0 ], targetInput[ 1 ]).reset();
 
-						if (typeof data == 'function' && data.call(this._.filebrowserSe) === false)
+						if(typeof data == 'function' && data.call(this._.filebrowserSe) === false)
 							return;
 
-						if (onSelect && onSelect.call(this._.filebrowserSe, fileUrl, data) === false)
+						if(onSelect && onSelect.call(this._.filebrowserSe, fileUrl, data) === false)
 							return;
 
 						// The "data" argument may be used to pass the error message to the editor.
-						if (typeof data == 'string' && data)
+						if(typeof data == 'string' && data)
 							alert(data);
 
-						if (fileUrl)
+						if(fileUrl)
 							updateTargetElement(fileUrl, this._.filebrowserSe);
 					}
 
@@ -403,10 +403,10 @@
 						// Associate filebrowser to elements with 'filebrowser' attribute.
 						for (var i in definition.contents)
 						{
-							if ((element = definition.contents[ i ]))
+							if((element = definition.contents[ i ]))
 							{
 								attachFileBrowser(evt.editor, evt.data.name, definition, element.elements);
-								if (element.hidden && element.filebrowser)
+								if(element.hidden && element.filebrowser)
 								{
 									element.hidden = !isConfigured(definition, element[ 'id' ], element.filebrowser);
 								}

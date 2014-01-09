@@ -37,11 +37,11 @@
 							editor.on('doubleclick', function(evt)
 							{
 								var element = evt.data.element;
-								if (element.is('img') && element.data('cke-real-element-type') == 'iframe')
+								if(element.is('img') && element.data('cke-real-element-type') == 'iframe')
 									evt.data.dialog = 'iframe';
 							});
 
-							if (editor.addMenuItems)
+							if(editor.addMenuItems)
 							{
 								editor.addMenuItems(
 										{
@@ -55,11 +55,11 @@
 							}
 
 							// If the "contextmenu" plugin is loaded, register the listeners.
-							if (editor.contextMenu)
+							if(editor.contextMenu)
 							{
 								editor.contextMenu.addListener(function(element, selection)
 								{
-									if (element && element.is('img') && element.data('cke-real-element-type') == 'iframe')
+									if(element && element.is('img') && element.data('cke-real-element-type') == 'iframe')
 										return {iframe: CKEDITOR.TRISTATE_OFF};
 								});
 							}
@@ -69,7 +69,7 @@
 							var dataProcessor = editor.dataProcessor,
 									dataFilter = dataProcessor && dataProcessor.dataFilter;
 
-							if (dataFilter)
+							if(dataFilter)
 							{
 								dataFilter.addRules(
 										{

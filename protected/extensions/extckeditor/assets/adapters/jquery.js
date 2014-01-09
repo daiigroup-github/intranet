@@ -6,17 +6,17 @@
 		(function() {
 			CKEDITOR.config.jqueryOverrideVal = typeof CKEDITOR.config.jqueryOverrideVal == 'undefined' ? true : CKEDITOR.config.jqueryOverrideVal;
 			var a = window.jQuery;
-			if (typeof a == 'undefined')
+			if(typeof a == 'undefined')
 				return;
 			a.extend(a.fn, {ckeditorGet: function() {
 					var b = this.eq(0).data('ckeditorInstance');
-					if (!b)
+					if(!b)
 						throw 'CKEditor not yet initialized, use ckeditor() with callback.';
 					return b;
 				}, ckeditor: function(b, c) {
-					if (!CKEDITOR.env.isCompatible)
+					if(!CKEDITOR.env.isCompatible)
 						return this;
-					if (!a.isFunction(b)) {
+					if(!a.isFunction(b)) {
 						var d = c;
 						c = b;
 						b = d;
@@ -24,11 +24,11 @@
 					c = c || {};
 					this.filter('textarea, div, p').each(function() {
 						var e = a(this), f = e.data('ckeditorInstance'), g = e.data('_ckeditorInstanceLock'), h = this;
-						if (f && !g) {
-							if (b)
+						if(f && !g) {
+							if(b)
 								b.apply(f, [this]);
-						} else if (!g) {
-							if (c.autoUpdateElement || typeof c.autoUpdateElement == 'undefined' && CKEDITOR.config.autoUpdateElement)
+						} else if(!g) {
+							if(c.autoUpdateElement || typeof c.autoUpdateElement == 'undefined' && CKEDITOR.config.autoUpdateElement)
 								c.autoUpdateElementJquery = true;
 							c.autoUpdateElement = false;
 							e.data('_ckeditorInstanceLock', true);
@@ -37,7 +37,7 @@
 							f.on('instanceReady', function(i) {
 								var j = i.editor;
 								setTimeout(function() {
-									if (!j.element) {
+									if(!j.element) {
 										setTimeout(arguments.callee, 100);
 										return;
 									}
@@ -51,7 +51,7 @@
 									j.on('destroy', function() {
 										e.trigger('destroy.ckeditor', [j]);
 									});
-									if (j.config.autoUpdateElementJquery && e.is('textarea') && e.parents('form').length) {
+									if(j.config.autoUpdateElementJquery && e.is('textarea') && e.parents('form').length) {
 										var k = function() {
 											e.ckeditor(function() {
 												j.updateElement();
@@ -69,7 +69,7 @@
 									});
 									e.data('_ckeditorInstanceLock', null);
 									e.trigger('instanceReady.ckeditor', [j]);
-									if (b)
+									if(b)
 										b.apply(j, [h]);
 								}, 0);
 							}, null, null, 9999);
@@ -77,32 +77,32 @@
 							CKEDITOR.on('instanceReady', function(i) {
 								var j = i.editor;
 								setTimeout(function() {
-									if (!j.element) {
+									if(!j.element) {
 										setTimeout(arguments.callee, 100);
 										return;
 									}
-									if (j.element.$ == h)
-										if (b)
+									if(j.element.$ == h)
+										if(b)
 											b.apply(j, [h]);
 								}, 0);
 							}, null, null, 9999);
 					});
 					return this;
 				}});
-			if (CKEDITOR.config.jqueryOverrideVal)
+			if(CKEDITOR.config.jqueryOverrideVal)
 				a.fn.val = CKEDITOR.tools.override(a.fn.val, function(b) {
 					return function(c, d) {
 						var e = typeof c != 'undefined', f;
 						this.each(function() {
 							var g = a(this), h = g.data('ckeditorInstance');
-							if (!d && g.is('textarea') && h) {
-								if (e)
+							if(!d && g.is('textarea') && h) {
+								if(e)
 									h.setData(c);
 								else {
 									f = h.getData();
 									return null;
 								}
-							} else if (e)
+							} else if(e)
 								b.call(g, c);
 							else {
 								f = b.call(g);

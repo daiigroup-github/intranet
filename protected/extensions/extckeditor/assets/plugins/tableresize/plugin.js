@@ -11,8 +11,8 @@
 			;
 			function d(k, l) {
 				var m = k.getComputedStyle('border-' + l + '-width'), n = {thin: '0px', medium: '1px', thick: '2px'};
-				if (m.indexOf('px') < 0)
-					if (m in n && k.getComputedStyle('border-style') != 'none')
+				if(m.indexOf('px') < 0)
+					if(m in n && k.getComputedStyle('border-style') != 'none')
 						m = n[m];
 					else
 						m = 0;
@@ -24,7 +24,7 @@
 				for (var q = 0, r = l.length; q < r; q++) {
 					p = l[q];
 					n = p.cells.length;
-					if (n > m) {
+					if(n > m) {
 						m = n;
 						o = p;
 					}
@@ -39,7 +39,7 @@
 					m += t.$.colSpan || 1;
 					var v, w, x, y = t.getDocumentPosition().x;
 					n ? w = y + d(t, 'left') : v = y + t.$.offsetWidth - d(t, 'right');
-					if (u) {
+					if(u) {
 						y = u.getDocumentPosition().x;
 						n ? v = y + u.$.offsetWidth - d(u, 'right') : w = y + d(u, 'left');
 					} else {
@@ -55,7 +55,7 @@
 			function g(k, l) {
 				for (var m = 0, n = k.length; m < n; m++) {
 					var o = k[m];
-					if (l >= o.x && l <= o.x + o.width)
+					if(l >= o.x && l <= o.x + o.width)
 						return o;
 				}
 				return null;
@@ -84,7 +84,7 @@
 						var M = E[K], N = M[D + (J ? 1 : 0)], O = M[D + (J ? 0 : 1)];
 						N = N && new CKEDITOR.dom.element(N);
 						O = O && new CKEDITOR.dom.element(O);
-						if (!N || !O || !N.equals(O)) {
+						if(!N || !O || !N.equals(O)) {
 							N && (H = Math.min(H, c(N)));
 							O && (I = Math.min(I, c(O)));
 							F.push(N);
@@ -121,7 +121,7 @@
 						CKEDITOR.tools.setTimeout(function(J, K, L, M, N, O) {
 							J && J.setStyle('width', a(Math.max(K + O, 0)));
 							L && L.setStyle('width', a(Math.max(M - O, 0)));
-							if (N)
+							if(N)
 								I.setStyle('width', a(N + O * (D ? -1 : 1)));
 						}, 0, this, [G, G && c(G), H, H && c(H), (!G || !H) && c(I) + d(I, 'left') + d(I, 'right'), q]);
 					}
@@ -144,12 +144,12 @@
 				;
 				m = k.document;
 				n = CKEDITOR.dom.element.createFromHtml('<div data-cke-temp=1 contenteditable=false unselectable=on style="position:absolute;cursor:col-resize;filter:alpha(opacity=0);opacity:0;padding:0;background-color:#004;background-image:none;border:0px none;z-index:10"></div>', m);
-				if (!b)
+				if(!b)
 					m.getDocumentElement().append(n);
 				this.attachTo = function(D) {
-					if (o)
+					if(o)
 						return;
-					if (b) {
+					if(b) {
 						m.getBody().append(n);
 						q = 0;
 					}
@@ -161,15 +161,15 @@
 					n.show();
 				};
 				var C = this.move = function(D) {
-					if (!l)
+					if(!l)
 						return 0;
-					if (!o && (D < l.x || D > l.x + l.width)) {
+					if(!o && (D < l.x || D > l.x + l.width)) {
 						v();
 						return 0;
 					}
 					var E = D - Math.round(n.$.offsetWidth / 2);
-					if (o) {
-						if (E == t || E == u)
+					if(o) {
+						if(E == t || E == u)
 							return 1;
 						E = Math.max(E, t);
 						E = Math.min(E, u);
@@ -182,13 +182,13 @@
 			;
 			function j(k) {
 				var l = k.data.getTarget();
-				if (k.name == 'mouseout') {
-					if (!l.is('table'))
+				if(k.name == 'mouseout') {
+					if(!l.is('table'))
 						return;
 					var m = new CKEDITOR.dom.element(k.data.$.relatedTarget || k.data.$.toElement);
-					while (m && m.$ && !m.equals(l) && !m.is('body'))
+					while(m && m.$ && !m.equals(l) && !m.is('body'))
 						m = m.getParent();
-					if (!m || m.equals(l))
+					if(!m || m.equals(l))
 						return;
 				}
 				l.getAscendant('table', 1).removeCustomData('_cke_table_pillars');
@@ -200,21 +200,21 @@
 						var l;
 						k.document.getBody().on('mousemove', function(m) {
 							m = m.data;
-							if (l && l.move(m.$.clientX)) {
+							if(l && l.move(m.$.clientX)) {
 								h(m);
 								return;
 							}
 							var n = m.getTarget(), o, p;
-							if (!n.is('table') && !n.getAscendant('tbody', 1))
+							if(!n.is('table') && !n.getAscendant('tbody', 1))
 								return;
 							o = n.getAscendant('table', 1);
-							if (!(p = o.getCustomData('_cke_table_pillars'))) {
+							if(!(p = o.getCustomData('_cke_table_pillars'))) {
 								o.setCustomData('_cke_table_pillars', p = f(o));
 								o.on('mouseout', j);
 								o.on('mousedown', j);
 							}
 							var q = g(p, m.$.clientX);
-							if (q) {
+							if(q) {
 								!l && (l = new i(k));
 								l.attachTo(q);
 							}

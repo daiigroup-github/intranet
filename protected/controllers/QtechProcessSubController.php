@@ -24,7 +24,7 @@ class QtechProcessSubController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -39,21 +39,21 @@ class QtechProcessSubController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['QtechProcessSub']))
+		if(isset($_POST['QtechProcessSub']))
 		{
 			$model->attributes = $_POST['QtechProcessSub'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(Yii::app()->createUrl('/qtechProject/' . $_POST['QtechProcessSub']['qtechProjectId']));
 		}
 
-		if (!isset($_GET['qtechProjectId']) || !isset($_GET['qtechProcessId']))
+		if(!isset($_GET['qtechProjectId']) || !isset($_GET['qtechProcessId']))
 			throw new CHttpException(404, "Error Processing Request");
 
 		$model->qtechProjectId = $_GET['qtechProjectId'];
 		$model->qtechProcessId = $_GET["qtechProcessId"];
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -69,17 +69,17 @@ class QtechProcessSubController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['QtechProcessSub']))
+		if(isset($_POST['QtechProcessSub']))
 		{
 			$model->attributes = $_POST['QtechProcessSub'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->processSubId));
+					'id'=>$model->processSubId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -90,13 +90,13 @@ class QtechProcessSubController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -111,7 +111,7 @@ class QtechProcessSubController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('QtechProcessSub');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -122,11 +122,11 @@ class QtechProcessSubController extends Controller
 	{
 		$model = new QtechProcessSub('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['QtechProcessSub']))
+		if(isset($_GET['QtechProcessSub']))
 			$model->attributes = $_GET['QtechProcessSub'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -138,7 +138,7 @@ class QtechProcessSubController extends Controller
 	public function loadModel($id)
 	{
 		$model = QtechProcessSub::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -149,7 +149,7 @@ class QtechProcessSubController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'qtech-process-sub-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'qtech-process-sub-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -7,29 +7,29 @@
 	<div class="controls">
 		<?php
 		echo $form->radioButtonList($workflowStateModel, 'workflowStatusId', $workflowStatus, array(
-			'class' => '',
-			'separator' => '&nbsp;',
-			'labelOptions' => array(
-				'style' => 'display:inline')));
+			'class'=>'',
+			'separator'=>'&nbsp;',
+			'labelOptions'=>array(
+				'style'=>'display:inline')));
 		?>
 	</div>
 </div>
 
 <?php
-if ($currentWorkflowState->requireConfirm)
+if($currentWorkflowState->requireConfirm)
 {
 	echo '<div>Confirm :';
 
-	if (isset($documentWorkflowModel->employee))
+	if(isset($documentWorkflowModel->employee))
 	{
 		$staffName = $documentWorkflowModel->employee->username;
 	}
 	else
 	{
 		$grorpMember = GroupMember::model()->findAll("groupId = :groupId", array(
-			":groupId" => $documentWorkflowModel->groupId));
+			":groupId"=>$documentWorkflowModel->groupId));
 		$employeeString = "";
-		foreach ($grorpMember as $item)
+		foreach($grorpMember as $item)
 		{
 			$employee = Employee::model()->findByPk($item->employeeId);
 			$employeeString .= $employee->username . " ";
@@ -38,7 +38,7 @@ if ($currentWorkflowState->requireConfirm)
 	}
 
 	$ownerName = (isset($documentWorkflowModel->document->employee)) ? $documentWorkflowModel->document->employee->username : " ";
-	if ($documentWorkflowModel->document->employee->status == 2)
+	if($documentWorkflowModel->document->employee->status == 2)
 	{
 		$ownerName .= " พนักงานลากออกแล้ว(สามารถจัดการได้เลยไม่ต้องระบุรหัสผ่าน) ";
 	}
@@ -58,6 +58,6 @@ if ($currentWorkflowState->requireConfirm)
 
 <div class="form-actions"><?php
 	echo CHtml::submitButton('Save', array(
-		'confirm' => 'คุณต้องการดำเนินการกับเอกสารนี้ ?',
-		'class' => 'btn btn-primary'));
+		'confirm'=>'คุณต้องการดำเนินการกับเอกสารนี้ ?',
+		'class'=>'btn btn-primary'));
 	?></div>

@@ -43,17 +43,17 @@ class WorkflowStatus extends CActiveRecord
 			array(
 				'workflowStatusName',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			array(
 				'workflowStatusGroup',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'workflowStatusId, workflowStatusName, workflowStatusGroup',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -74,9 +74,9 @@ class WorkflowStatus extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowStatusId' => 'สถานะ Workflow',
-			'workflowStatusName' => 'ชื่อ สถานะ Workflow',
-			'workflowStatusGroup' => 'กลุ่ม สถานะ Workflow',
+			'workflowStatusId'=>'สถานะ Workflow',
+			'workflowStatusName'=>'ชื่อ สถานะ Workflow',
+			'workflowStatusGroup'=>'กลุ่ม สถานะ Workflow',
 		);
 	}
 
@@ -96,7 +96,7 @@ class WorkflowStatus extends CActiveRecord
 		$criteria->compare('workflowStatusGroup', $this->workflowStatusGroup, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -106,9 +106,9 @@ class WorkflowStatus extends CActiveRecord
 		$models = WorkflowStatus::model()->findAll();
 
 		$w = array(
-			'' => 'Workflow Status');
+			''=>'Workflow Status');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$w[$model->workflowStatusId] = $model->workflowStatusName;
 		}

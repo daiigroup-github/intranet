@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'workflow-status-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'),
+	'id'=>'workflow-status-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'),
 	));
 ?>
 
@@ -14,7 +14,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 		<?php
 		echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-			'class' => 'alert alert-error'));
+			'class'=>'alert alert-error'));
 		$form->error($model, 'workflowStatusName');
 		?>
 	</div>
@@ -26,8 +26,8 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowStatusName', array(
-				'size' => 60,
-				'maxlength' => 80));
+				'size'=>60,
+				'maxlength'=>80));
 			?>
 		</div>
 	</div>
@@ -36,15 +36,15 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowStatusGroup', array(
-				'size' => 60,
-				'maxlength' => 100));
+				'size'=>60,
+				'maxlength'=>100));
 			?>
 		</div>
 	</div>
 	<div class="form-actions">
 		<?php
 		echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-			'class' => 'btn btn-primary'));
+			'class'=>'btn btn-primary'));
 		?>
 	</div>
 </fieldset>

@@ -4,13 +4,13 @@
  */
 
 		CKEDITOR.plugins.add('richcombo',
-		{
-			requires: ['floatpanel', 'listblock', 'button'],
-			beforeInit: function(editor)
-			{
-				editor.ui.addHandler(CKEDITOR.UI_RICHCOMBO, CKEDITOR.ui.richCombo.handler);
-			}
-		});
+				{
+					requires: ['floatpanel', 'listblock', 'button'],
+					beforeInit: function(editor)
+					{
+						editor.ui.addHandler(CKEDITOR.UI_RICHCOMBO, CKEDITOR.ui.richCombo.handler);
+					}
+				});
 
 /**
  * Button UI element.
@@ -91,12 +91,12 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 							{
 								var _ = this._;
 
-								if (_.state == CKEDITOR.TRISTATE_DISABLED)
+								if(_.state == CKEDITOR.TRISTATE_DISABLED)
 									return;
 
 								this.createPanel(editor);
 
-								if (_.on)
+								if(_.on)
 								{
 									_.panel.hide();
 									return;
@@ -104,7 +104,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 								this.commit();
 								var value = this.getValue();
-								if (value)
+								if(value)
 									_.list.mark(value);
 								else
 									_.list.unmarkAll();
@@ -140,7 +140,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 								ev = new CKEDITOR.dom.event(ev);
 
 								var keystroke = ev.getKeystroke();
-								switch (keystroke)
+								switch(keystroke)
 								{
 									case 13 :	// ENTER
 									case 32 :	// SPACE
@@ -168,7 +168,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 									'<span class="cke_rcombo" role="presentation">',
 									'<span id=', id);
 
-							if (this.className)
+							if(this.className)
 								output.push(' class="', this.className, ' cke_off"');
 
 							output.push(
@@ -181,7 +181,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 							// Some browsers don't cancel key events in the keydown but in the
 							// keypress.
 							// TODO: Check if really needed for Gecko+Mac.
-							if (CKEDITOR.env.opera || (CKEDITOR.env.gecko && CKEDITOR.env.mac))
+							if(CKEDITOR.env.opera || (CKEDITOR.env.gecko && CKEDITOR.env.mac))
 							{
 								output.push(
 										' onkeypress="return false;"');
@@ -189,7 +189,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 							// With Firefox, we need to force it to redraw, otherwise it
 							// will remain in the focus state.
-							if (CKEDITOR.env.gecko)
+							if(CKEDITOR.env.gecko)
 							{
 								output.push(
 										' onblur="this.style.cssText = this.style.cssText;"');
@@ -208,14 +208,14 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 									'</span>' +
 									'</span>');
 
-							if (this.onRender)
+							if(this.onRender)
 								this.onRender();
 
 							return instance;
 						},
 						createPanel: function(editor)
 						{
-							if (this._.panel)
+							if(this._.panel)
 								return;
 
 							var panelDefinition = this._.panelDefinition,
@@ -227,7 +227,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 							panel.onShow = function()
 							{
-								if (me.className)
+								if(me.className)
 									this.element.getFirst().addClass(me.className + '_panel');
 
 								me.setState(CKEDITOR.TRISTATE_ON);
@@ -236,20 +236,20 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 
 								me._.on = 1;
 
-								if (me.onOpen)
+								if(me.onOpen)
 									me.onOpen();
 							};
 
 							panel.onHide = function(preventOnClose)
 							{
-								if (me.className)
+								if(me.className)
 									this.element.getFirst().removeClass(me.className + '_panel');
 
 								me.setState(me.modes && me.modes[ editor.mode ] ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED);
 
 								me._.on = 0;
 
-								if (!preventOnClose && me.onClose)
+								if(!preventOnClose && me.onClose)
 									me.onClose();
 							};
 
@@ -265,10 +265,10 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 								// Opera will go a bit crazy.
 								me.document.getWindow().focus();
 
-								if (me.onClick)
+								if(me.onClick)
 									me.onClick.call(me, value, marked);
 
-								if (marked)
+								if(marked)
 									me.setValue(value, me._.items[ value ]);
 								else
 									me.setValue('');
@@ -285,7 +285,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 								me.setState(CKEDITOR.TRISTATE_OFF);
 							};
 
-							if (this.init)
+							if(this.init)
 								this.init();
 						},
 						setValue: function(value, text)
@@ -293,9 +293,9 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 							this._.value = value;
 
 							var textElement = this.document.getById('cke_' + this.id + '_text');
-							if (textElement)
+							if(textElement)
 							{
-								if (!(value || text))
+								if(!(value || text))
 								{
 									text = this.label;
 									textElement.addClass('cke_inline_label');
@@ -341,7 +341,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 						},
 						commit: function()
 						{
-							if (!this._.committed)
+							if(!this._.committed)
 							{
 								this._.list.commit();
 								this._.committed = 1;
@@ -351,7 +351,7 @@ CKEDITOR.ui.richCombo = CKEDITOR.tools.createClass(
 						},
 						setState: function(state)
 						{
-							if (this._.state == state)
+							if(this._.state == state)
 								return;
 
 							this.document.getById('cke_' + this.id).setState(state);

@@ -26,7 +26,7 @@
 		 return;
 		 @Packager.RemoveLine */
 
-		if (!window.CKEDITOR)
+		if(!window.CKEDITOR)
 {
 	/**
 	 * @name CKEDITOR
@@ -115,7 +115,7 @@
 								// Find out the editor directory path, based on its <script> tag.
 								var path = window.CKEDITOR_BASEPATH || '';
 
-								if (!path)
+								if(!path)
 								{
 									var scripts = document.getElementsByTagName('script');
 
@@ -123,7 +123,7 @@
 									{
 										var match = scripts[i].src.match(/(^|.*[\\\/])ckeditor(?:_basic)?(?:_source)?.js(?:\?.*)?$/i);
 
-										if (match)
+										if(match)
 										{
 											path = match[1];
 											break;
@@ -133,17 +133,17 @@
 
 								// In IE (only) the script.src string is the raw value entered in the
 								// HTML source. Other browsers return the full resolved URL instead.
-								if (path.indexOf(':/') == -1)
+								if(path.indexOf(':/') == -1)
 								{
 									// Absolute path.
-									if (path.indexOf('/') === 0)
+									if(path.indexOf('/') === 0)
 										path = location.href.match(/^.*?:\/\/[^\/]*/)[0] + path;
 									// Relative path.
 									else
 										path = location.href.match(/^[^\?]*\/(?:)/)[0] + path;
 								}
 
-								if (!path)
+								if(!path)
 									throw 'The CKEditor installation path could not be automatically detected. Please set the global variable "CKEDITOR_BASEPATH" before creating editor instances.';
 
 								return path;
@@ -174,11 +174,11 @@
 							getUrl: function(resource)
 							{
 								// If this is not a full or absolute path.
-								if (resource.indexOf(':/') == -1 && resource.indexOf('/') !== 0)
+								if(resource.indexOf(':/') == -1 && resource.indexOf('/') !== 0)
 									resource = this.basePath + resource;
 
 								// Add the timestamp, except for directories.
-								if (this.timestamp && resource.charAt(resource.length - 1) != '/' && !(/[&?]t=/).test(resource))
+								if(this.timestamp && resource.charAt(resource.length - 1) != '/' && !(/[&?]t=/).test(resource))
 									resource += (resource.indexOf('?') >= 0 ? '&' : '?') + 't=' + this.timestamp;
 
 								return resource;
@@ -188,7 +188,7 @@
 				// Make it possible to override the getUrl function with a custom
 				// implementation pointing to a global named CKEDITOR_GETURL.
 				var newGetUrl = window.CKEDITOR_GETURL;
-				if (newGetUrl)
+				if(newGetUrl)
 				{
 					var originalGetUrl = CKEDITOR.getUrl;
 					CKEDITOR.getUrl = function(resource)

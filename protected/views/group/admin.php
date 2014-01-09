@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Groups' => array(
+	'Groups'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Group',
-		'url' => array(
+		'label'=>'List Group',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Group',
-		'url' => array(
+		'label'=>'Create Group',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,27 +39,27 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'group-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'group-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'groupId',
 		'status',
 		'groupName',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

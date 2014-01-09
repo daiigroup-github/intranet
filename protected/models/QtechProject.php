@@ -59,32 +59,32 @@ class QtechProject extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'projectPrice',
 				'numerical'),
 			array(
 				'productCatId, productValue, customerId, employeeId, branchValue',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'projectName',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			array(
 				'projectDetail, projectImage, projectAddress',
 				'length',
-				'max' => 255),
+				'max'=>255),
 			array(
 				'latitude, longitude',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'qtechProjectId, status, createTime, productCatId, productValue, projectName, projectDetail, projectPrice, projectImage, projectAddress, customerId, employeeId, startDate, endDate, latitude, longitude, branchValue, searchText',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -96,31 +96,31 @@ class QtechProject extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customer' => array(
+			'customer'=>array(
 				self::BELONGS_TO,
 				'Customer',
 				array(
-					'customerId' => 'customerId')),
-			'productCat' => array(
+					'customerId'=>'customerId')),
+			'productCat'=>array(
 				self::BELONGS_TO,
 				'ProductCategory',
 				array(
-					'productCatId' => 'productCatId')),
-			'branch' => array(
+					'productCatId'=>'productCatId')),
+			'branch'=>array(
 				self::BELONGS_TO,
 				'Branch',
 				array(
-					'branchId' => 'branchId')),
-			'process' => array(
+					'branchId'=>'branchId')),
+			'process'=>array(
 				self::HAS_MANY,
 				'QtechProcess',
 				array(
-					'qtechProjectId' => 'qtechProjectId')),
-			'processSub' => array(
+					'qtechProjectId'=>'qtechProjectId')),
+			'processSub'=>array(
 				self::HAS_MANY,
 				'QtechProcessSub',
 				array(
-					'qtechProjectId' => 'qtechProjectId')),
+					'qtechProjectId'=>'qtechProjectId')),
 		);
 	}
 
@@ -130,24 +130,24 @@ class QtechProject extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'qtechProjectId' => 'Project',
-			'status' => 'Status',
-			'createTime' => 'Create Time',
-			'productCatId' => 'Product Cat',
-			'productValue' => 'Product Value',
-			'projectName' => 'Project Name',
-			'projectDetail' => 'Project Detail',
-			'projectPrice' => 'Project Price',
-			'projectImage' => 'Project Image',
-			'projectAddress' => 'Project Address',
-			'customerId' => 'Customer',
-			'employeeId' => 'Employee',
-			'startDate' => 'Start Date',
-			'endDate' => 'End Date',
-			'latitude' => 'Latitude',
-			'longitude' => 'Longitude',
-			'branchValue' => 'Branch Value',
-			'searchText' => 'Search Text',
+			'qtechProjectId'=>'Project',
+			'status'=>'Status',
+			'createTime'=>'Create Time',
+			'productCatId'=>'Product Cat',
+			'productValue'=>'Product Value',
+			'projectName'=>'Project Name',
+			'projectDetail'=>'Project Detail',
+			'projectPrice'=>'Project Price',
+			'projectImage'=>'Project Image',
+			'projectAddress'=>'Project Address',
+			'customerId'=>'Customer',
+			'employeeId'=>'Employee',
+			'startDate'=>'Start Date',
+			'endDate'=>'End Date',
+			'latitude'=>'Latitude',
+			'longitude'=>'Longitude',
+			'branchValue'=>'Branch Value',
+			'searchText'=>'Search Text',
 		);
 	}
 
@@ -168,7 +168,7 @@ class QtechProject extends CActiveRecord
 		$criteria->compare('projectName', $this->searchText, true, 'OR');
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

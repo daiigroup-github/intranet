@@ -51,11 +51,11 @@ class Authitem extends CActiveRecord
 			array(
 				'type',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'name',
 				'length',
-				'max' => 64),
+				'max'=>64),
 			array(
 				'description, bizrule, data',
 				'safe'),
@@ -64,7 +64,7 @@ class Authitem extends CActiveRecord
 			array(
 				'name, type, description, bizrule, data',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -76,19 +76,19 @@ class Authitem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'authassignments' => array(
+			'authassignments'=>array(
 				self::HAS_MANY,
 				'Authassignment',
 				'itemname'),
-			'authitemchildren' => array(
+			'authitemchildren'=>array(
 				self::HAS_MANY,
 				'Authitemchild',
 				'parent'),
-			'authitemchildren1' => array(
+			'authitemchildren1'=>array(
 				self::HAS_MANY,
 				'Authitemchild',
 				'child'),
-			'rights' => array(
+			'rights'=>array(
 				self::HAS_ONE,
 				'Rights',
 				'itemname'),
@@ -101,11 +101,11 @@ class Authitem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'name' => 'Name',
-			'type' => 'Type',
-			'description' => 'Description',
-			'bizrule' => 'Bizrule',
-			'data' => 'Data',
+			'name'=>'Name',
+			'type'=>'Type',
+			'description'=>'Description',
+			'bizrule'=>'Bizrule',
+			'data'=>'Data',
 		);
 	}
 
@@ -127,7 +127,7 @@ class Authitem extends CActiveRecord
 		$criteria->compare('data', $this->data, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

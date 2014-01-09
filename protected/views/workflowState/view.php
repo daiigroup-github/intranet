@@ -1,35 +1,35 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflow States' => array(
+	'Workflow States'=>array(
 		'index'),
 	$model->workflowStateId,
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List WorkflowState',
-		'url' => array(
+		'label'=>'List WorkflowState',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create WorkflowState',
-		'url' => array(
+		'label'=>'Create WorkflowState',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'Update WorkflowState',
-		'url' => array(
+		'label'=>'Update WorkflowState',
+		'url'=>array(
 			'update',
-			'id' => $model->workflowStateId)),
+			'id'=>$model->workflowStateId)),
 	array(
-		'label' => 'Delete WorkflowState',
-		'url' => '#',
-		'linkOptions' => array(
-			'submit' => array(
+		'label'=>'Delete WorkflowState',
+		'url'=>'#',
+		'linkOptions'=>array(
+			'submit'=>array(
 				'delete',
-				'id' => $model->workflowStateId),
-			'confirm' => 'Are you sure you want to delete this item?')),
+				'id'=>$model->workflowStateId),
+			'confirm'=>'Are you sure you want to delete this item?')),
 	array(
-		'label' => 'Manage WorkflowState',
-		'url' => array(
+		'label'=>'Manage WorkflowState',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -38,8 +38,8 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'attributes' => array(
+	'data'=>$model,
+	'attributes'=>array(
 		'workflowStateId',
 		'workflowStateName',
 		'currentState',

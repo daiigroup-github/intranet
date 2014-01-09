@@ -39,7 +39,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 				// Check if the definition is from the dialog we're
 				// interested on (the "Link" dialog).
-				if (dialogName == 'link')
+				if(dialogName == 'link')
 				{
 					// Get a reference to the "Link Info" tab.
 					var infoTab = dialogDefinition.getContents('info');
@@ -52,7 +52,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 						'default': 'Sample!',
 						validate: function()
 						{
-							if (/\d/.test(this.getValue()))
+							if(/\d/.test(this.getValue()))
 								return 'My Custom Field must not contain digits';
 						}
 					});
@@ -157,7 +157,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			editor.on('pluginsLoaded', function(ev)
 			{
 				// If our custom dialog has not been registered, do that now.
-				if (!CKEDITOR.dialog.exists('myDialog'))
+				if(!CKEDITOR.dialog.exists('myDialog'))
 				{
 					// We need to do the following trick to find out the dialog
 					// definition file URL path. In the real world, you would simply

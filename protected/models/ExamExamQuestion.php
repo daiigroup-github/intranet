@@ -41,17 +41,17 @@ class ExamExamQuestion extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'examId, examQuestionId',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, status, examId, examQuestionId',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -72,10 +72,10 @@ class ExamExamQuestion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'status' => 'Status',
-			'examId' => 'Exam',
-			'examQuestionId' => 'Exam Question',
+			'id'=>'ID',
+			'status'=>'Status',
+			'examId'=>'Exam',
+			'examQuestionId'=>'Exam Question',
 		);
 	}
 
@@ -96,7 +96,7 @@ class ExamExamQuestion extends CActiveRecord
 		$criteria->compare('examQuestionId', $this->examQuestionId, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

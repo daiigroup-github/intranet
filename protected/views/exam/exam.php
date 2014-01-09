@@ -3,17 +3,17 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'exam-form',
+	'id'=>'exam-form',
 	//'enableAjaxValidation' => true,
-	'enableClientValidation' => true,
-	'clientOptions' => array(
-		'validateOnSubmit' => true,),
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,),
 	));
 
 $i = 1;
 ?>
 
-<?php foreach ($model->examQuesitons as $examQuestionModel): ?>
+<?php foreach($model->examQuesitons as $examQuestionModel): ?>
 	<div class="row-fluid">
 		<div class="offset1 span10 well">
 			<h4><?php echo $i . ' : ' . $examQuestionModel->title; ?><small>(<?php echo ExamQuestion::model()->examQuesitonText($examQuestionModel->questionType); ?>)</small></h4>
@@ -21,13 +21,13 @@ $i = 1;
 
 			<ul>
 				<?php
-				if ($examQuestionModel->questionType == 1)
+				if($examQuestionModel->questionType == 1)
 				{
-					foreach ($examQuestionModel->examChoices as $examChoiceModel)
+					foreach($examQuestionModel->examChoices as $examChoiceModel)
 					{
 						echo '<label class="radio">';
 						echo $form->radioButton($examChoiceModel, '[' . $examQuestionModel->examQuestionId . ']title', array(
-							'value' => $examChoiceModel->examChoiceId));
+							'value'=>$examChoiceModel->examChoiceId));
 						echo $examChoiceModel->title;
 						echo '</label>';
 					}
@@ -35,13 +35,13 @@ $i = 1;
 				else
 				{
 					echo $form->dropDownList($examQuestionModel, 'selectedRange', range($examQuestionModel->startRange, $examQuestionModel->stopRange), array(
-						'class' => 'input-small',
-						'prompt' => '---'));
+						'class'=>'input-small',
+						'prompt'=>'---'));
 				}
 
 				$i++;
 				?>
-			</ul>	
+			</ul>
 		</div>
 	</div>
 
@@ -50,7 +50,7 @@ $i = 1;
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton('Submit', array(
-		'class' => 'btn btn-primary'));
+		'class'=>'btn btn-primary'));
 	?>
 </div>
 <?php $this->endWidget(); ?>

@@ -53,7 +53,7 @@ class AuthItemController extends RController
 		return array(
 			array(
 				'allow', // Allow superusers to access Rights
-				'actions' => array(
+				'actions'=>array(
 					'permissions',
 					'operations',
 					'tasks',
@@ -67,7 +67,7 @@ class AuthItemController extends RController
 					'revoke',
 					'sortable',
 				),
-				'users' => $this->_authorizer->getSuperusers(),
+				'users'=>$this->_authorizer->getSuperusers(),
 			),
 			/* array('deny', // Deny all users
 			  'users'=>array('*'),
@@ -90,34 +90,34 @@ class AuthItemController extends RController
 		// Initialize the columns
 		$columns = array(
 			array(
-				'name' => 'description',
-				'header' => Rights::t('core', 'Item'),
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'class' => 'permission-column',
-					'style' => 'width:25%',
+				'name'=>'description',
+				'header'=>Rights::t('core', 'Item'),
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'class'=>'permission-column',
+					'style'=>'width:25%',
 				),
 			),
 		);
 
 		// Add a column for each role
-		foreach ($roles as $roleName => $role)
+		foreach($roles as $roleName=> $role)
 		{
 			$columns[] = array(
-				'name' => strtolower($roleName),
-				'header' => $role->getNameText(),
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'class' => 'role-column',
-					'style' => 'width:' . $roleColumnWidth . '%',
+				'name'=>strtolower($roleName),
+				'header'=>$role->getNameText(),
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'class'=>'role-column',
+					'style'=>'width:' . $roleColumnWidth . '%',
 				),
 			);
 		}
 
 		$view = 'permissions';
 		$params = array(
-			'dataProvider' => $dataProvider,
-			'columns' => $columns,
+			'dataProvider'=>$dataProvider,
+			'columns'=>$columns,
 		);
 
 		// Render the view
@@ -133,19 +133,19 @@ class AuthItemController extends RController
 			'authItem/operations');
 
 		$dataProvider = new RAuthItemDataProvider('operations', array(
-			'type' => CAuthItem::TYPE_OPERATION,
-			'sortable' => array(
-				'id' => 'RightsOperationTableSort',
-				'element' => '.operation-table',
-				'url' => $this->createUrl('authItem/sortable'),
+			'type'=>CAuthItem::TYPE_OPERATION,
+			'sortable'=>array(
+				'id'=>'RightsOperationTableSort',
+				'element'=>'.operation-table',
+				'url'=>$this->createUrl('authItem/sortable'),
 			),
 		));
 
 		// Render the view
 		$this->render('operations', array(
-			'dataProvider' => $dataProvider,
-			'isBizRuleEnabled' => $this->module->enableBizRule,
-			'isBizRuleDataEnabled' => $this->module->enableBizRuleData,
+			'dataProvider'=>$dataProvider,
+			'isBizRuleEnabled'=>$this->module->enableBizRule,
+			'isBizRuleDataEnabled'=>$this->module->enableBizRuleData,
 		));
 	}
 
@@ -158,19 +158,19 @@ class AuthItemController extends RController
 			'authItem/tasks');
 
 		$dataProvider = new RAuthItemDataProvider('tasks', array(
-			'type' => CAuthItem::TYPE_TASK,
-			'sortable' => array(
-				'id' => 'RightsTaskTableSort',
-				'element' => '.task-table',
-				'url' => $this->createUrl('authItem/sortable'),
+			'type'=>CAuthItem::TYPE_TASK,
+			'sortable'=>array(
+				'id'=>'RightsTaskTableSort',
+				'element'=>'.task-table',
+				'url'=>$this->createUrl('authItem/sortable'),
 			),
 		));
 
 		// Render the view
 		$this->render('tasks', array(
-			'dataProvider' => $dataProvider,
-			'isBizRuleEnabled' => $this->module->enableBizRule,
-			'isBizRuleDataEnabled' => $this->module->enableBizRuleData,
+			'dataProvider'=>$dataProvider,
+			'isBizRuleEnabled'=>$this->module->enableBizRule,
+			'isBizRuleDataEnabled'=>$this->module->enableBizRuleData,
 		));
 	}
 
@@ -183,19 +183,19 @@ class AuthItemController extends RController
 			'authItem/roles');
 
 		$dataProvider = new RAuthItemDataProvider('roles', array(
-			'type' => CAuthItem::TYPE_ROLE,
-			'sortable' => array(
-				'id' => 'RightsRoleTableSort',
-				'element' => '.role-table',
-				'url' => $this->createUrl('authItem/sortable'),
+			'type'=>CAuthItem::TYPE_ROLE,
+			'sortable'=>array(
+				'id'=>'RightsRoleTableSort',
+				'element'=>'.role-table',
+				'url'=>$this->createUrl('authItem/sortable'),
 			),
 		));
 
 		// Render the view
 		$this->render('roles', array(
-			'dataProvider' => $dataProvider,
-			'isBizRuleEnabled' => $this->module->enableBizRule,
-			'isBizRuleDataEnabled' => $this->module->enableBizRuleData,
+			'dataProvider'=>$dataProvider,
+			'isBizRuleEnabled'=>$this->module->enableBizRule,
+			'isBizRuleDataEnabled'=>$this->module->enableBizRuleData,
 		));
 	}
 
@@ -211,25 +211,25 @@ class AuthItemController extends RController
 		$model = new GenerateForm();
 
 		// Form has been submitted
-		if (isset($_POST['GenerateForm']) === true)
+		if(isset($_POST['GenerateForm']) === true)
 		{
 			// Form is valid
 			$model->attributes = $_POST['GenerateForm'];
-			if ($model->validate() === true)
+			if($model->validate() === true)
 			{
 				$items = array(
-					'tasks' => array(
+					'tasks'=>array(
 					),
-					'operations' => array(
+					'operations'=>array(
 					),
 				);
 
 				// Get the chosen items
-				foreach ($model->items as $itemname => $value)
+				foreach($model->items as $itemname=> $value)
 				{
-					if ((bool) $value === true)
+					if((bool) $value === true)
 					{
-						if (strpos($itemname, '*') !== false)
+						if(strpos($itemname, '*') !== false)
 							$items['tasks'][] = $itemname;
 						else
 							$items['operations'][] = $itemname;
@@ -239,7 +239,7 @@ class AuthItemController extends RController
 				// Add the items to the generator as tasks and operations and run the generator.
 				$generator->addItems($items['tasks'], CAuthItem::TYPE_TASK);
 				$generator->addItems($items['operations'], CAuthItem::TYPE_OPERATION);
-				if (($generatedItems = $generator->run()) !== false && $generatedItems !== array(
+				if(($generatedItems = $generator->run()) !== false && $generatedItems !== array(
 					))
 				{
 					Yii::app()->getUser()->setFlash($this->module->flashSuccessKey, Rights::t('core', 'Authorization items created.')
@@ -260,7 +260,7 @@ class AuthItemController extends RController
 		));
 		$existingItems = array(
 			);
-		foreach ($authItems as $itemName => $item)
+		foreach($authItems as $itemName=> $item)
 			$existingItems[$itemName] = $itemName;
 
 		Yii::app()->clientScript->registerScript('rightsGenerateItemTableSelectRows', "jQuery('.generate-item-table').rightsSelectRows();"
@@ -268,9 +268,9 @@ class AuthItemController extends RController
 
 		// Render the view
 		$this->render('generate', array(
-			'model' => $model,
-			'items' => $items,
-			'existingItems' => $existingItems,
+			'model'=>$model,
+			'items'=>$items,
+			'existingItems'=>$existingItems,
 		));
 	}
 
@@ -285,10 +285,10 @@ class AuthItemController extends RController
 		// Create the authorization item form
 		$formModel = new AuthItemForm('create');
 
-		if (isset($_POST['AuthItemForm']) === true)
+		if(isset($_POST['AuthItemForm']) === true)
 		{
 			$formModel->attributes = $_POST['AuthItemForm'];
-			if ($formModel->validate() === true)
+			if($formModel->validate() === true)
 			{
 				// Create the item
 				$item = $this->_authorizer->createAuthItem($formModel->name, $type, $formModel->description, $formModel->bizRule, $formModel->data);
@@ -296,7 +296,7 @@ class AuthItemController extends RController
 
 				// Set a flash message for creating the item
 				Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', ':name created.', array(
-						':name' => $item->getNameText()))
+						':name'=>$item->getNameText()))
 				);
 
 				// Redirect to the correct destination
@@ -307,7 +307,7 @@ class AuthItemController extends RController
 
 		// Render the view
 		$this->render('create', array(
-			'formModel' => $formModel,
+			'formModel'=>$formModel,
 		));
 	}
 
@@ -323,10 +323,10 @@ class AuthItemController extends RController
 		// Create the authorization item form
 		$formModel = new AuthItemForm('update');
 
-		if (isset($_POST['AuthItemForm']) === true)
+		if(isset($_POST['AuthItemForm']) === true)
 		{
 			$formModel->attributes = $_POST['AuthItemForm'];
-			if ($formModel->validate() === true)
+			if($formModel->validate() === true)
 			{
 				// Update the item and load it
 				$this->_authorizer->updateAuthItem($itemName, $formModel->name, $formModel->description, $formModel->bizRule, $formModel->data);
@@ -335,7 +335,7 @@ class AuthItemController extends RController
 
 				// Set a flash message for updating the item
 				Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', ':name updated.', array(
-						':name' => $item->getNameText()))
+						':name'=>$item->getNameText()))
 				);
 
 				// Redirect to the correct destination
@@ -349,16 +349,16 @@ class AuthItemController extends RController
 			$this->module->superuserName);
 		$childSelectOptions = Rights::getParentAuthItemSelectOptions($model, $type, $exclude);
 
-		if ($childSelectOptions !== array(
+		if($childSelectOptions !== array(
 			))
 		{
 			$childFormModel = new AuthChildForm();
 
 			// Child form is submitted and data is valid
-			if (isset($_POST['AuthChildForm']) === true)
+			if(isset($_POST['AuthChildForm']) === true)
 			{
 				$childFormModel->attributes = $_POST['AuthChildForm'];
-				if ($childFormModel->validate() === true)
+				if($childFormModel->validate() === true)
 				{
 					// Add the child and load it
 					$this->_authorizer->authManager->addItemChild($itemName, $childFormModel->itemname);
@@ -367,13 +367,13 @@ class AuthItemController extends RController
 
 					// Set a flash message for adding the child
 					Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', 'Child :name added.', array(
-							':name' => $child->getNameText()))
+							':name'=>$child->getNameText()))
 					);
 
 					// Reidrect to the same page
 					$this->redirect(array(
 						'authItem/update',
-						'name' => urlencode($itemName)));
+						'name'=>urlencode($itemName)));
 				}
 			}
 		}
@@ -394,12 +394,12 @@ class AuthItemController extends RController
 
 		// Render the view
 		$this->render('update', array(
-			'model' => $model,
-			'formModel' => $formModel,
-			'childFormModel' => $childFormModel,
-			'childSelectOptions' => $childSelectOptions,
-			'parentDataProvider' => $parentDataProvider,
-			'childDataProvider' => $childDataProvider,
+			'model'=>$model,
+			'formModel'=>$formModel,
+			'childFormModel'=>$childFormModel,
+			'childSelectOptions'=>$childSelectOptions,
+			'parentDataProvider'=>$parentDataProvider,
+			'childDataProvider'=>$childDataProvider,
 		));
 	}
 
@@ -409,7 +409,7 @@ class AuthItemController extends RController
 	public function actionDelete()
 	{
 		// We only allow deletion via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$itemName = $this->getItemName();
 
@@ -422,11 +422,11 @@ class AuthItemController extends RController
 
 			// Set a flash message for deleting the item
 			Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', ':name deleted.', array(
-					':name' => $item->getNameText()))
+					':name'=>$item->getNameText()))
 			);
 
 			// If AJAX request, we should not redirect the browser
-			if (isset($_POST['ajax']) === false)
+			if(isset($_POST['ajax']) === false)
 				$this->redirect(Yii::app()->user->getRightsReturnUrl(array(
 						'authItem/permissions')));
 		}
@@ -442,7 +442,7 @@ class AuthItemController extends RController
 	public function actionRemoveChild()
 	{
 		// We only allow deletion via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$itemName = $this->getItemName();
 			$childName = $this->getChildName();
@@ -454,14 +454,14 @@ class AuthItemController extends RController
 
 			// Set a flash message for removing the child
 			Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', 'Child :name removed.', array(
-					':name' => $child->getNameText()))
+					':name'=>$child->getNameText()))
 			);
 
 			// If AJAX request, we should not redirect the browser
-			if (isset($_POST['ajax']) === false)
+			if(isset($_POST['ajax']) === false)
 				$this->redirect(array(
 					'authItem/update',
-					'name' => urlencode($itemName)));
+					'name'=>urlencode($itemName)));
 		}
 		else
 		{
@@ -475,16 +475,16 @@ class AuthItemController extends RController
 	public function actionAssign()
 	{
 		// We only allow deletion via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$model = $this->loadModel();
 			$childName = $this->getChildName();
 
-			if ($childName !== null && $model->hasChild($childName) === false)
+			if($childName !== null && $model->hasChild($childName) === false)
 				$model->addChild($childName);
 
 			// if AJAX request, we should not redirect the browser
-			if (isset($_POST['ajax']) === false)
+			if(isset($_POST['ajax']) === false)
 				$this->redirect(array(
 					'authItem/permissions'));
 		}
@@ -500,16 +500,16 @@ class AuthItemController extends RController
 	public function actionRevoke()
 	{
 		// We only allow deletion via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$model = $this->loadModel();
 			$childName = $this->getChildName();
 
-			if ($childName !== null && $model->hasChild($childName) === true)
+			if($childName !== null && $model->hasChild($childName) === true)
 				$model->removeChild($childName);
 
 			// if AJAX request, we should not redirect the browser
-			if (isset($_POST['ajax']) === false)
+			if(isset($_POST['ajax']) === false)
 				$this->redirect(array(
 					'authItem/permissions'));
 		}
@@ -525,7 +525,7 @@ class AuthItemController extends RController
 	public function actionSortable()
 	{
 		// We only allow sorting via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$this->_authorizer->authManager->updateItemWeight($_POST['result']);
 		}
@@ -562,7 +562,7 @@ class AuthItemController extends RController
 			CAuthItem::TYPE_OPERATION,
 			CAuthItem::TYPE_TASK,
 			CAuthItem::TYPE_ROLE);
-		if (in_array($type, $validTypes) === true)
+		if(in_array($type, $validTypes) === true)
 			return $type;
 		else
 			throw new CException(Rights::t('core', 'Invalid authorization item type.'));
@@ -574,17 +574,17 @@ class AuthItemController extends RController
 	 */
 	public function loadModel()
 	{
-		if ($this->_model === null)
+		if($this->_model === null)
 		{
 			$itemName = $this->getItemName();
 
-			if ($itemName !== null)
+			if($itemName !== null)
 			{
 				$this->_model = $this->_authorizer->authManager->getAuthItem($itemName);
 				$this->_model = $this->_authorizer->attachAuthItemBehavior($this->_model);
 			}
 
-			if ($this->_model === null)
+			if($this->_model === null)
 				throw new CHttpException(404, Rights::t('core', 'The requested page does not exist.'));
 		}
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
+<!DOCTYPE html
 	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -18,7 +18,7 @@
 			imgMinus.src = "media/images/minus.gif";
 
 			function showNode(Node) {
-				switch (navigator.family) {
+				switch(navigator.family) {
 					case 'nn4':
 						// Nav 4.x code fork...
 						var oTable = document.layers["span" + Node];
@@ -40,7 +40,7 @@
 			}
 
 			function hideNode(Node) {
-				switch (navigator.family) {
+				switch(navigator.family) {
 					case 'nn4':
 						// Nav 4.x code fork...
 						var oTable = document.layers["span" + Node];
@@ -62,7 +62,7 @@
 			}
 
 			function nodeIsVisible(Node) {
-				switch (navigator.family) {
+				switch(navigator.family) {
 					case 'nn4':
 						// Nav 4.x code fork...
 						var oTable = document.layers["span" + Node];
@@ -80,7 +80,7 @@
 			}
 
 			function toggleNodeVisibility(Node) {
-				if (nodeIsVisible(Node)) {
+				if(nodeIsVisible(Node)) {
 					hideNode(Node);
 				} else {
 					showNode(Node);
@@ -91,7 +91,7 @@
 		<body bgcolor="#ffffff"  topmargin="3" leftmargin="3" rightmargin="2" bottommargin="3">
 			<h3>Navigation: Yii-Mail</h3>
 			<script language="Javascript">
-				if (document.getElementById) {
+				if(document.getElementById) {
 					var tree = new WebFXTree('Help : Yii-Mail', 'blank.html');
 					tree.setBehavior('classic');
 					tree.openIcon = 'media/images/Disk.gif';

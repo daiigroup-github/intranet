@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Memos' => array(
+	'Memos'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Memo',
-		'url' => array(
+		'label'=>'List Memo',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Memo',
-		'url' => array(
+		'label'=>'Create Memo',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,29 +39,29 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'memo-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'memo-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'memoId',
 		'subject',
 		'detail',
 		'createBy',
 		'createDateTime',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

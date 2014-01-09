@@ -3,7 +3,7 @@
 	  <b><?php echo CHtml::encode($data->getAttributeLabel('qtechProjectId')); ?>:</b>
 	  <?php echo CHtml::link(CHtml::encode($data->qtechProjectId), array('view', 'id'=>$data->qtechProjectId)); ?>
 	  <br />
-	 */ ?>	
+	 */ ?>
 	<div class="row">
 		<!-- Image -->
 		<!--
@@ -16,23 +16,23 @@
 	<div class="row">
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data' => $data,
-			'attributes' => array(
+			'data'=>$data,
+			'attributes'=>array(
 				array(
-					'name' => 'Project',
-					'value' => CHtml::encode($data->project->customer->customerName . ' : ' . $data->project->projectName),
+					'name'=>'Project',
+					'value'=>CHtml::encode($data->project->customer->customerName . ' : ' . $data->project->projectName),
 				),
 				array(
-					'name' => 'Detail',
-					'value' => CHtml::encode($data->imageDetail),
+					'name'=>'Detail',
+					'value'=>CHtml::encode($data->imageDetail),
 				),
 				array(
-					'name' => 'Labour(s)',
-					'value' => CHtml::encode($data->labour),
+					'name'=>'Labour(s)',
+					'value'=>CHtml::encode($data->labour),
 				),
 				array(
-					'name' => 'Data Time',
-					'value' => CHtml::encode($data->imageDate . ' ' . $data->imageTime),
+					'name'=>'Data Time',
+					'value'=>CHtml::encode($data->imageDate . ' ' . $data->imageTime),
 				),
 			),
 		));

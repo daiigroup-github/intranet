@@ -8,7 +8,7 @@
 		 *		environment and browser information.
 		 */
 
-		if (!CKEDITOR.env)
+		if(!CKEDITOR.env)
 {
 	/**
 	 * @namespace Environment and browser information.
@@ -96,7 +96,7 @@
 							 */
 							isCustomDomain: function()
 							{
-								if (!this.ie)
+								if(!this.ie)
 									return false;
 
 								var domain = document.domain,
@@ -129,7 +129,7 @@
 				var version = 0;
 
 				// Internet Explorer 6.0+
-				if (env.ie)
+				if(env.ie)
 				{
 					version = parseFloat(agent.match(/msie (\d+)/)[1]);
 
@@ -189,10 +189,10 @@
 				}
 
 				// Gecko.
-				if (env.gecko)
+				if(env.gecko)
 				{
 					var geckoRelease = agent.match(/rv:([\d\.]+)/);
-					if (geckoRelease)
+					if(geckoRelease)
 					{
 						geckoRelease = geckoRelease[1].split('.');
 						version = geckoRelease[0] * 10000 + (geckoRelease[1] || 0) * 100 + (geckoRelease[2] || 0) * 1;
@@ -200,17 +200,17 @@
 				}
 
 				// Opera 9.50+
-				if (env.opera)
+				if(env.opera)
 					version = parseFloat(opera.version());
 
 				// Adobe AIR 1.0+
 				// Checked before Safari because AIR have the WebKit rich text editor
 				// features from Safari 3.0.4, but the version reported is 420.
-				if (env.air)
+				if(env.air)
 					version = parseFloat(agent.match(/ adobeair\/(\d+)/)[1]);
 
 				// WebKit 522+ (Safari 3+)
-				if (env.webkit)
+				if(env.webkit)
 					version = parseFloat(agent.match(/ applewebkit\/(\d+)/)[1]);
 
 				/**
@@ -242,12 +242,12 @@
 						// White list of mobile devices that supports.
 						env.iOS && version >= 534 ||
 						!env.mobile && (
-						(env.ie && version >= 6) ||
-						(env.gecko && version >= 10801) ||
-						(env.opera && version >= 9.5) ||
-						(env.air && version >= 1) ||
-						(env.webkit && version >= 522) ||
-						false);
+								(env.ie && version >= 6) ||
+								(env.gecko && version >= 10801) ||
+								(env.opera && version >= 9.5) ||
+								(env.air && version >= 1) ||
+								(env.webkit && version >= 522) ||
+								false);
 
 				/**
 				 * The CSS class to be appended on the main UI containers, making it
@@ -259,30 +259,30 @@
 				 */
 				env.cssClass =
 						'cke_browser_' + (
-						env.ie ? 'ie' :
-						env.gecko ? 'gecko' :
-						env.opera ? 'opera' :
-						env.webkit ? 'webkit' :
-						'unknown');
+								env.ie ? 'ie' :
+								env.gecko ? 'gecko' :
+								env.opera ? 'opera' :
+								env.webkit ? 'webkit' :
+								'unknown');
 
-				if (env.quirks)
+				if(env.quirks)
 					env.cssClass += ' cke_browser_quirks';
 
-				if (env.ie)
+				if(env.ie)
 				{
 					env.cssClass += ' cke_browser_ie' + (
 							env.version < 7 ? '6' :
 							env.version >= 8 ? document.documentMode :
 							'7');
 
-					if (env.quirks)
+					if(env.quirks)
 						env.cssClass += ' cke_browser_iequirks';
 				}
 
-				if (env.gecko && version < 10900)
+				if(env.gecko && version < 10900)
 					env.cssClass += ' cke_browser_gecko18';
 
-				if (env.air)
+				if(env.air)
 					env.cssClass += ' cke_browser_air';
 
 				return env;

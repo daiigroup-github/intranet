@@ -50,7 +50,7 @@ class DocumentControlDataController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -65,7 +65,7 @@ class DocumentControlDataController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['DocumentControlData']))
+		if(isset($_POST['DocumentControlData']))
 		{
 			$model->attributes = $_POST['DocumentControlData'];
 			/* if($model->save())
@@ -74,18 +74,18 @@ class DocumentControlDataController extends Controller
 			try
 			{
 				$flag = 1;
-				if ($model->save())
+				if($model->save())
 				{
 					$documentControlDataId = Yii::app()->db->lastInsertID;
 
-					foreach ($_POST['DocumentControlDataItem']['documentControlDataItemValue'] as $k => $v)
+					foreach($_POST['DocumentControlDataItem']['documentControlDataItemValue'] as $k=> $v)
 					{
 
 						$documentControlDataItem = new DocumentControlDataItem();
 						$w = array(
 							);
 						$documentControlDataItem->documentControlDataId = $documentControlDataId;
-						if (isset($_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k]))
+						if(isset($_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k]))
 						{
 							$w['documentControlDataItemUseId'] = $_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k];
 						}
@@ -104,7 +104,7 @@ class DocumentControlDataController extends Controller
 						  $documentTemplate->documentTemplateFieldId = $documentTemplateFieldId;
 						  $documentTemplate->save(); */
 					}
-					if ($flag)
+					if($flag)
 					{
 						$transaction->commit();
 						$this->redirect(array(
@@ -113,7 +113,7 @@ class DocumentControlDataController extends Controller
 				}
 				$transaction->rollback();
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -121,8 +121,8 @@ class DocumentControlDataController extends Controller
 		}
 
 		$this->render('create', array(
-			'model' => $model,
-			'documentControlDataItem' => $documentControlDataItem,
+			'model'=>$model,
+			'documentControlDataItem'=>$documentControlDataItem,
 		));
 	}
 
@@ -136,28 +136,28 @@ class DocumentControlDataController extends Controller
 		$model = $this->loadModel($id);
 		$documentControlDataItem = new DocumentControlDataItem();
 		$documentControlDataItemOld = null;
-		if (empty($model->dataModel))
+		if(empty($model->dataModel))
 		{
 			$documentControlDataItemOld = DocumentControlDataItem::model()->findAll("documentControlDataId =:documentControlDataId", array(
-				":documentControlDataId" => $id));
+				":documentControlDataId"=>$id));
 		}
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-		if (isset($_POST['DocumentControlData']))
+		if(isset($_POST['DocumentControlData']))
 		{
 			$model->attributes = $_POST['DocumentControlData'];
-			if ($model->save())
+			if($model->save())
 			{
 				$documentControlDataId = $id;
 
 
-				foreach ($_POST['DocumentControlDataItem']['documentControlDataItemValue'] as $k => $v)
+				foreach($_POST['DocumentControlDataItem']['documentControlDataItemValue'] as $k=> $v)
 				{
 
 					$documentControlDataItem = new DocumentControlDataItem();
 					$documentControlDataItem->documentControlDataId = $documentControlDataId;
 					$documentControlDataItem->documentControlDataItemValue = $v;
-					if (isset($_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k]))
+					if(isset($_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k]))
 					{
 						$w['documentControlDataItemUseId'] = $_POST['DocumentControlDataItem']['documentControlDataItemUseId'][$k];
 					}
@@ -174,15 +174,15 @@ class DocumentControlDataController extends Controller
 					  $documentTemplate->documentTemplateFieldId = $documentTemplateFieldId;
 					  $documentTemplate->save(); */
 				}
-				if (isset($_POST['documentControlDataItem']['update']))
+				if(isset($_POST['documentControlDataItem']['update']))
 				{
-					foreach ($_POST["documentControlDataItem"]['update']["documentControlDataItemValue"] as $k => $v)
+					foreach($_POST["documentControlDataItem"]['update']["documentControlDataItemValue"] as $k=> $v)
 					{
 
 						$docControlItem = DocumentControlDataItem::model()->findByPk($k);
-						if (!empty($v))
+						if(!empty($v))
 						{
-							if (isset($_POST['documentControlDataItem']['update']['documentControlDataItemUseId'][$k]))
+							if(isset($_POST['documentControlDataItem']['update']['documentControlDataItemUseId'][$k]))
 							{
 								$docControlItem->documentControlDataItemUseId = $_POST['documentControlDataItem']['update']['documentControlDataItemUseId'][$k];
 							}
@@ -202,9 +202,9 @@ class DocumentControlDataController extends Controller
 		}
 
 		$this->render('update', array(
-			'model' => $model,
-			'documentControlDataItem' => $documentControlDataItem,
-			'documentControlDataItemOld' => $documentControlDataItemOld
+			'model'=>$model,
+			'documentControlDataItem'=>$documentControlDataItem,
+			'documentControlDataItemOld'=>$documentControlDataItemOld
 		));
 	}
 
@@ -215,13 +215,13 @@ class DocumentControlDataController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -236,7 +236,7 @@ class DocumentControlDataController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('DocumentControlData');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -247,11 +247,11 @@ class DocumentControlDataController extends Controller
 	{
 		$model = new DocumentControlData('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['DocumentControlData']))
+		if(isset($_GET['DocumentControlData']))
 			$model->attributes = $_GET['DocumentControlData'];
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -263,7 +263,7 @@ class DocumentControlDataController extends Controller
 	public function loadModel($id)
 	{
 		$model = DocumentControlData::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -274,7 +274,7 @@ class DocumentControlDataController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'document-control-data-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'document-control-data-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

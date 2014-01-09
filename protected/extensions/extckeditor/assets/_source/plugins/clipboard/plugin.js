@@ -51,7 +51,7 @@
 									// Other browsers throw an error if the command is disabled.
 									return editor.document.$.execCommand(type, false, null);
 								}
-								catch (e)
+								catch(e)
 								{
 									return false;
 								}
@@ -73,7 +73,7 @@
 
 									var success = tryToCutCopy(editor, this.type);
 
-									if (!success)
+									if(!success)
 										alert(editor.lang.clipboard[ this.type + 'Error' ]);		// Show cutError or copyError.
 
 									return success;
@@ -91,7 +91,7 @@
 											// Prevent IE from pasting at the begining of the document.
 											editor.focus();
 
-											if (!editor.document.getBody().fire('beforepaste')
+											if(!editor.document.getBody().fire('beforepaste')
 													&& !execIECommand(editor, 'paste'))
 											{
 												editor.fire('pasteDialog');
@@ -103,13 +103,13 @@
 										{
 											try
 											{
-												if (!editor.document.getBody().fire('beforepaste')
+												if(!editor.document.getBody().fire('beforepaste')
 														&& !editor.document.$.execCommand('Paste', false, null))
 												{
 													throw 0;
 												}
 											}
-											catch (e)
+											catch(e)
 											{
 												setTimeout(function()
 												{
@@ -123,10 +123,10 @@
 					// Listens for some clipboard related keystrokes, so they get customized.
 					var onKey = function(event)
 					{
-						if (this.mode != 'wysiwyg')
+						if(this.mode != 'wysiwyg')
 							return;
 
-						switch (event.data.keyCode)
+						switch(event.data.keyCode)
 						{
 							// Paste
 							case CKEDITOR.CTRL + 86 :		// CTRL+V
@@ -135,7 +135,7 @@
 								var body = this.document.getBody();
 
 								// Simulate 'paste' event for Opera/Firefox2.
-								if (CKEDITOR.env.opera
+								if(CKEDITOR.env.opera
 										|| CKEDITOR.env.gecko && CKEDITOR.env.version < 10900)
 									body.fire('paste');
 								return;
@@ -165,15 +165,15 @@
 						var doc = this.document;
 
 						// Avoid recursions on 'paste' event or consequent paste too fast. (#5730)
-						if (doc.getById('cke_pastebin'))
+						if(doc.getById('cke_pastebin'))
 							return;
 
 						// If the browser supports it, get the data directly
-						if (mode == 'text' && evt.data && evt.data.$.clipboardData)
+						if(mode == 'text' && evt.data && evt.data.$.clipboardData)
 						{
 							// evt.data.$.clipboardData.types contains all the flavours in Mac's Safari, but not on windows.
 							var plain = evt.data.$.clipboardData.getData('text/plain');
-							if (plain)
+							if(plain)
 							{
 								evt.data.preventDefault();
 								callback(plain);
@@ -211,7 +211,7 @@
 						this.on('selectionChange', cancel, null, null, 0);
 
 						// Turn off design mode temporarily before give focus to the paste bin.
-						if (mode == 'text')
+						if(mode == 'text')
 							pastebin.$.focus();
 						else
 						{
@@ -249,12 +249,12 @@
 					// Cutting off control type element in IE standards breaks the selection entirely. (#4881)
 					function fixCut(editor)
 					{
-						if (!CKEDITOR.env.ie || CKEDITOR.env.quirks)
+						if(!CKEDITOR.env.ie || CKEDITOR.env.quirks)
 							return;
 
 						var sel = editor.getSelection();
 						var control;
-						if ((sel.getType() == CKEDITOR.SELECTION_ELEMENT) && (control = sel.getSelectedElement()))
+						if((sel.getType() == CKEDITOR.SELECTION_ELEMENT) && (control = sel.getSelectedElement()))
 						{
 							var range = sel.getRanges()[ 0 ];
 							var dummy = editor.document.createText('');
@@ -267,7 +267,7 @@
 							setTimeout(function()
 							{
 								// Element still online?
-								if (control.getParent())
+								if(control.getParent())
 								{
 									dummy.remove();
 									sel.selectElement(control);
@@ -287,7 +287,7 @@
 						var retval = CKEDITOR.TRISTATE_OFF;
 						try {
 							retval = editor.document.$.queryCommandEnabled(command) ? CKEDITOR.TRISTATE_OFF : CKEDITOR.TRISTATE_DISABLED;
-						} catch (er) {
+						} catch(er) {
 						}
 
 						depressBeforeEvent = 0;
@@ -297,7 +297,7 @@
 					var inReadOnly;
 					function setToolbarStates()
 					{
-						if (this.mode != 'wysiwyg')
+						if(this.mode != 'wysiwyg')
 							return;
 
 						this.getCommand('cut').setState(inReadOnly ? CKEDITOR.TRISTATE_DISABLED : stateFromNamedCommand('Cut', this));
@@ -318,9 +318,9 @@
 									editor.on('paste', function(evt)
 									{
 										var data = evt.data;
-										if (data[ 'html' ])
+										if(data[ 'html' ])
 											editor.insertHtml(data[ 'html' ]);
-										else if (data[ 'text' ])
+										else if(data[ 'text' ])
 											editor.insertText(data[ 'text' ]);
 
 										setTimeout(function() {
@@ -355,7 +355,7 @@
 												});
 
 										// If the "menu" plugin is loaded, register the menu item.
-										if (editor.addMenuItems)
+										if(editor.addMenuItems)
 										{
 											editor.addMenuItem(commandName,
 													{
@@ -385,12 +385,12 @@
 										// Intercept the paste before it actually takes place.
 										body.on(!CKEDITOR.env.ie ? 'paste' : 'beforepaste', function(evt)
 										{
-											if (depressBeforeEvent)
+											if(depressBeforeEvent)
 												return;
 
 											// Dismiss the (wrong) 'beforepaste' event fired on toolbar menu open.
 											var domEvent = evt.data && evt.data.$;
-											if (CKEDITOR.env.ie && domEvent && !domEvent.ctrlKey)
+											if(CKEDITOR.env.ie && domEvent && !domEvent.ctrlKey)
 												return;
 
 											// Fire 'beforePaste' event so clipboard flavor get customized
@@ -402,7 +402,7 @@
 											{
 												// The very last guard to make sure the
 												// paste has successfully happened.
-												if (!(data = CKEDITOR.tools.trim(data.replace(/<span[^>]+data-cke-bookmark[^<]*?<\/span>/ig, ''))))
+												if(!(data = CKEDITOR.tools.trim(data.replace(/<span[^>]+data-cke-bookmark[^<]*?<\/span>/ig, ''))))
 													return;
 
 												var dataTransfer = {};
@@ -411,7 +411,7 @@
 											});
 										});
 
-										if (CKEDITOR.env.ie)
+										if(CKEDITOR.env.ie)
 										{
 											// Dismiss the (wrong) 'beforepaste' event fired on context menu open. (#7953)
 											body.on('contextmenu', function()
@@ -427,7 +427,7 @@
 											// browser toolbar/context menu.
 											body.on('paste', function(evt)
 											{
-												if (!editor.document.getById('cke_pastebin'))
+												if(!editor.document.getById('cke_pastebin'))
 												{
 													// Prevent native paste.
 													evt.data.preventDefault();
@@ -459,7 +459,7 @@
 									});
 
 									// If the "contextmenu" plugin is loaded, register the listeners.
-									if (editor.contextMenu)
+									if(editor.contextMenu)
 									{
 										editor.contextMenu.addListener(function(element, selection)
 										{

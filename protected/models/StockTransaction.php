@@ -55,21 +55,21 @@ class StockTransaction extends CActiveRecord
 			array(
 				'stockTransactionQuantity',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'stockId, documentId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'stockTransactionUnitPrice, stockTransactionTotalPrice',
 				'length',
-				'max' => 15),
+				'max'=>15),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'stockTransactionId, stockId, documentId, stockTransactionQuantity, stockTransactionUnitPrice, stockTransactionTotalPrice, createDateTime, month, company ,companyId',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -81,7 +81,7 @@ class StockTransaction extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'stock' => array(
+			'stock'=>array(
 				self::BELONGS_TO,
 				'Stock',
 				'stockId'),
@@ -94,14 +94,14 @@ class StockTransaction extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'stockTransactionId' => 'Stock Transaction',
-			'stockId' => 'Stock',
-			'documentId' => 'Document',
-			'stockTransactionQuantity' => 'จำนวน',
-			'stockTransactionUnitPrice' => 'ราคาต่อหน่วย',
-			'stockTransactionTotalPrice' => 'รวมเป็นเงิน',
-			'createDateTime' => 'วันที่สร้าง',
-			'company' => 'บริษัท'
+			'stockTransactionId'=>'Stock Transaction',
+			'stockId'=>'Stock',
+			'documentId'=>'Document',
+			'stockTransactionQuantity'=>'จำนวน',
+			'stockTransactionUnitPrice'=>'ราคาต่อหน่วย',
+			'stockTransactionTotalPrice'=>'รวมเป็นเงิน',
+			'createDateTime'=>'วันที่สร้าง',
+			'company'=>'บริษัท'
 		);
 	}
 
@@ -125,7 +125,7 @@ class StockTransaction extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -140,7 +140,7 @@ class StockTransaction extends CActiveRecord
 		$criteria->group = "t.stockId";
 
 		$result = $this->find($criteria);
-		if (isset($result))
+		if(isset($result))
 		{
 			return $result->sumTransactionQuantity;
 		}
@@ -158,12 +158,12 @@ class StockTransaction extends CActiveRecord
 		$criteria->join = " LEFT JOIN stock s ON s.stockId = t.stockId ";
 		$criteria->condition = "MONTH(t.createDateTime) > :month AND s.companyId = :companyId";
 		$criteria->params = array(
-			":month" => $this->month,
-			":companyId" => $companyId);
+			":month"=>$this->month,
+			":companyId"=>$companyId);
 		$criteria->group = "t.stockId";
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -189,11 +189,11 @@ class StockTransaction extends CActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'ERememberFiltersBehavior' => array(
-				'class' => 'application.components.ERememberFiltersBehavior',
-				'defaults' => array(
+			'ERememberFiltersBehavior'=>array(
+				'class'=>'application.components.ERememberFiltersBehavior',
+				'defaults'=>array(
 				), /* optional line */
-				'defaultStickOnClear' => false /* optional line */
+				'defaultStickOnClear'=>false /* optional line */
 			),
 		);
 	}

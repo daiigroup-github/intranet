@@ -24,7 +24,7 @@ class WorkflowLogController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -39,17 +39,17 @@ class WorkflowLogController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['WorkflowLog']))
+		if(isset($_POST['WorkflowLog']))
 		{
 			$model->attributes = $_POST['WorkflowLog'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->workflowLogId));
+					'id'=>$model->workflowLogId));
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -65,17 +65,17 @@ class WorkflowLogController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['WorkflowLog']))
+		if(isset($_POST['WorkflowLog']))
 		{
 			$model->attributes = $_POST['WorkflowLog'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->workflowLogId));
+					'id'=>$model->workflowLogId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -86,13 +86,13 @@ class WorkflowLogController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -107,7 +107,7 @@ class WorkflowLogController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('WorkflowLog');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -118,11 +118,11 @@ class WorkflowLogController extends Controller
 	{
 		$model = new WorkflowLog('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['WorkflowLog']))
+		if(isset($_GET['WorkflowLog']))
 			$model->attributes = $_GET['WorkflowLog'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -134,7 +134,7 @@ class WorkflowLogController extends Controller
 	public function loadModel($id)
 	{
 		$model = WorkflowLog::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -145,7 +145,7 @@ class WorkflowLogController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'workflow-log-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'workflow-log-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -44,17 +44,17 @@ class GroupMember extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'groupId, employeeId',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'groupMemberId, status, groupId, employeeId',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -66,15 +66,15 @@ class GroupMember extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'group' => array(
+			'group'=>array(
 				self::BELONGS_TO,
 				'Group',
 				'groupId'),
-			'employee' => array(
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'employeeId' => 'employeeId')),
+					'employeeId'=>'employeeId')),
 		);
 	}
 
@@ -84,10 +84,10 @@ class GroupMember extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'groupMemberId' => 'Group Member',
-			'status' => 'Status',
-			'groupId' => 'Group',
-			'employeeId' => 'Employee',
+			'groupMemberId'=>'Group Member',
+			'status'=>'Status',
+			'groupId'=>'Group',
+			'employeeId'=>'Employee',
 		);
 	}
 
@@ -108,7 +108,7 @@ class GroupMember extends CActiveRecord
 		$criteria->compare('employeeId', $this->employeeId, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -118,14 +118,14 @@ class GroupMember extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'groupId=:groupId';
 		$criteria->params = array(
-			':groupId' => $groupId);
+			':groupId'=>$groupId);
 
 		$models = $this->findAll($criteria);
 
 		$e = array(
 			);
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$e[] = $model->employeeId;
 		}

@@ -2,10 +2,10 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'notice-form',
-		'enableAjaxValidation' => false,
-		'htmlOptions' => array(
-			'enctype' => 'multipart/form-data',
+		'id'=>'notice-form',
+		'enableAjaxValidation'=>false,
+		'htmlOptions'=>array(
+			'enctype'=>'multipart/form-data',
 		)
 	));
 	$baseUrl = Yii::app()->baseUrl;
@@ -27,15 +27,15 @@
 
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
 
 	<p>
 		<?php echo $form->labelEx($model, 'title'); ?>
 		<?php
 		echo $form->textField($model, 'title', array(
-			'size' => 60,
-			'maxlength' => 500));
+			'size'=>60,
+			'maxlength'=>500));
 		?>
 		<?php echo $form->error($model, 'title'); ?>
 	</p>
@@ -44,8 +44,8 @@
 		<?php echo $form->labelEx($model, 'headline'); ?>
 		<?php
 		echo $form->textField($model, 'headline', array(
-			'size' => 60,
-			'maxlength' => 500));
+			'size'=>60,
+			'maxlength'=>500));
 		?>
 		<?php echo $form->error($model, 'headline'); ?>
 	</p>
@@ -55,10 +55,10 @@
 		<?php //echo $form->textArea($model,'description',array('size'=>60,'maxlength'=>2000)); ?>
 		<?php
 		$this->widget('application.extensions.extckeditor.ExtCKEditor', array(
-			'model' => $model,
-			'attribute' => 'description', // model atribute
-			'language' => 'en', /* default lang, If not declared the language of the project will be used in case of using multiple languages */
-			'editorTemplate' => 'full', // Toolbar settings (full, basic, advanced)
+			'model'=>$model,
+			'attribute'=>'description', // model atribute
+			'language'=>'en', /* default lang, If not declared the language of the project will be used in case of using multiple languages */
+			'editorTemplate'=>'full', // Toolbar settings (full, basic, advanced)
 		));
 		?>
 		<?php echo $form->error($model, 'description'); ?>
@@ -68,9 +68,9 @@
 	<p>
 		<?php echo $form->labelEx($model, 'imageUrl'); ?>
 		<?php
-		if (isset($model->imageUrl))
+		if(isset($model->imageUrl))
 		{
-			if (strpos($model->imageUrl, ".pdf"))
+			if(strpos($model->imageUrl, ".pdf"))
 			{
 				echo "<a class='pdf' Title='$model->title' href='$model->imageUrl'>อ่านไฟล์</a> ";
 			}
@@ -80,9 +80,9 @@
 			}
 		}
 		echo $form->hiddenField($model, "imageUrl", array(
-			"name" => "oldImage"));
+			"name"=>"oldImage"));
 		echo CHtml::activeFileField($model, "imageUrl", array(
-			'class' => 'input-small'));
+			'class'=>'input-small'));
 		?>
 		<?php echo $form->error($model, 'description'); ?>
 	</p>

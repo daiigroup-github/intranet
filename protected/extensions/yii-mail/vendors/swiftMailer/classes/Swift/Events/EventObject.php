@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -12,7 +11,7 @@
 
 /**
  * A base Event which all Event classes inherit from.
- * 
+ *
  * @package Swift
  * @subpackage Events
  * @author Chris Corbyn

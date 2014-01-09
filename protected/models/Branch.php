@@ -46,25 +46,25 @@ class Branch extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'branchValue',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'branchName',
 				'length',
-				'max' => 120),
+				'max'=>120),
 			array(
 				'latitude, longitude',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'branchId, status, branchValue, branchName, latitude, longitude',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -85,12 +85,12 @@ class Branch extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'branchId' => 'Branch',
-			'status' => 'Status',
-			'branchValue' => 'Branch Value',
-			'branchName' => 'Branch Name',
-			'latitude' => 'Latitude',
-			'longitude' => 'Longitude',
+			'branchId'=>'Branch',
+			'status'=>'Status',
+			'branchValue'=>'Branch Value',
+			'branchName'=>'Branch Name',
+			'latitude'=>'Latitude',
+			'longitude'=>'Longitude',
 		);
 	}
 
@@ -113,7 +113,7 @@ class Branch extends CActiveRecord
 		$criteria->compare('longitude', $this->longitude, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -123,14 +123,14 @@ class Branch extends CActiveRecord
 		$b = new Branch;
 
 		$models = $b->findAll(array(
-			'condition' => 'status=1',
-			'order' => 'branchName',
+			'condition'=>'status=1',
+			'order'=>'branchName',
 		));
 
 		$branch = array(
-			'' => '- สาขา');
+			''=>'- สาขา');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$branch[$model->branchId] = $model->branchName;
 		}

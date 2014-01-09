@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -58,7 +57,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	public function createMailboxHeader($name, $addresses = null)
 	{
 		$header = new Swift_Mime_Headers_MailboxHeader($name, $this->_encoder);
-		if (isset($addresses))
+		if(isset($addresses))
 		{
 			$header->setFieldBodyModel($addresses);
 		}
@@ -75,7 +74,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	public function createDateHeader($name, $timestamp = null)
 	{
 		$header = new Swift_Mime_Headers_DateHeader($name);
-		if (isset($timestamp))
+		if(isset($timestamp))
 		{
 			$header->setFieldBodyModel($timestamp);
 		}
@@ -92,7 +91,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	public function createTextHeader($name, $value = null)
 	{
 		$header = new Swift_Mime_Headers_UnstructuredHeader($name, $this->_encoder);
-		if (isset($value))
+		if(isset($value))
 		{
 			$header->setFieldBodyModel($value);
 		}
@@ -112,11 +111,11 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	{
 		$header = new Swift_Mime_Headers_ParameterizedHeader($name, $this->_encoder, (strtolower($name) == 'content-disposition') ? $this->_paramEncoder : null
 		);
-		if (isset($value))
+		if(isset($value))
 		{
 			$header->setFieldBodyModel($value);
 		}
-		foreach ($params as $k => $v)
+		foreach($params as $k=> $v)
 		{
 			$header->setParameter($k, $v);
 		}
@@ -133,7 +132,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	public function createIdHeader($name, $ids = null)
 	{
 		$header = new Swift_Mime_Headers_IdentificationHeader($name);
-		if (isset($ids))
+		if(isset($ids))
 		{
 			$header->setFieldBodyModel($ids);
 		}
@@ -150,7 +149,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	public function createPathHeader($name, $path = null)
 	{
 		$header = new Swift_Mime_Headers_PathHeader($name);
-		if (isset($path))
+		if(isset($path))
 		{
 			$header->setFieldBodyModel($path);
 		}
@@ -174,7 +173,7 @@ class Swift_Mime_SimpleHeaderFactory implements Swift_Mime_HeaderFactory
 	/** Apply the charset to the Header */
 	private function _setHeaderCharset(Swift_Mime_Header $header)
 	{
-		if (isset($this->_charset))
+		if(isset($this->_charset))
 		{
 			$header->setCharset($this->_charset);
 		}

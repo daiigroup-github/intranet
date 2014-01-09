@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Customers' => array(
+	'Customers'=>array(
 		'index'),
-	$model->customerId => array(
+	$model->customerId=>array(
 		'view',
-		'id' => $model->customerId),
+		'id'=>$model->customerId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Customer',
-		'url' => array(
+		'label'=>'List Customer',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Customer',
-		'url' => array(
+		'label'=>'Create Customer',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'View Customer',
-		'url' => array(
+		'label'=>'View Customer',
+		'url'=>array(
 			'view',
-			'id' => $model->customerId)),
+			'id'=>$model->customerId)),
 	array(
-		'label' => 'Manage Customer',
-		'url' => array(
+		'label'=>'Manage Customer',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -33,6 +33,6 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model,
-	'customerSale' => $customerSale,));
+	'model'=>$model,
+	'customerSale'=>$customerSale,));
 ?>

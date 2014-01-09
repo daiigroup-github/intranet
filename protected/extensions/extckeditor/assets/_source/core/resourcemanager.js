@@ -17,59 +17,59 @@
 		 * @example
 		 */
 		CKEDITOR.resourceManager = function(basePath, fileName)
-{
-	/**
-	 * The base directory containing all resources.
-	 * @name CKEDITOR.resourceManager.prototype.basePath
-	 * @type String
-	 * @example
-	 */
-	this.basePath = basePath;
+		{
+			/**
+			 * The base directory containing all resources.
+			 * @name CKEDITOR.resourceManager.prototype.basePath
+			 * @type String
+			 * @example
+			 */
+			this.basePath = basePath;
 
-	/**
-	 * The name used for resource files.
-	 * @name CKEDITOR.resourceManager.prototype.fileName
-	 * @type String
-	 * @example
-	 */
-	this.fileName = fileName;
+			/**
+			 * The name used for resource files.
+			 * @name CKEDITOR.resourceManager.prototype.fileName
+			 * @type String
+			 * @example
+			 */
+			this.fileName = fileName;
 
-	/**
-	 * Contains references to all resources that have already been registered
-	 * with {@link #add}.
-	 * @name CKEDITOR.resourceManager.prototype.registered
-	 * @type Object
-	 * @example
-	 */
-	this.registered = {};
+			/**
+			 * Contains references to all resources that have already been registered
+			 * with {@link #add}.
+			 * @name CKEDITOR.resourceManager.prototype.registered
+			 * @type Object
+			 * @example
+			 */
+			this.registered = {};
 
-	/**
-	 * Contains references to all resources that have already been loaded
-	 * with {@link #load}.
-	 * @name CKEDITOR.resourceManager.prototype.loaded
-	 * @type Object
-	 * @example
-	 */
-	this.loaded = {};
+			/**
+			 * Contains references to all resources that have already been loaded
+			 * with {@link #load}.
+			 * @name CKEDITOR.resourceManager.prototype.loaded
+			 * @type Object
+			 * @example
+			 */
+			this.loaded = {};
 
-	/**
-	 * Contains references to all resources that have already been registered
-	 * with {@link #addExternal}.
-	 * @name CKEDITOR.resourceManager.prototype.externals
-	 * @type Object
-	 * @example
-	 */
-	this.externals = {};
+			/**
+			 * Contains references to all resources that have already been registered
+			 * with {@link #addExternal}.
+			 * @name CKEDITOR.resourceManager.prototype.externals
+			 * @type Object
+			 * @example
+			 */
+			this.externals = {};
 
-	/**
-	 * @private
-	 */
-	this._ =
-			{
-				// List of callbacks waiting for plugins to be loaded.
-				waitingList: {}
-			};
-};
+			/**
+			 * @private
+			 */
+			this._ =
+					{
+						// List of callbacks waiting for plugins to be loaded.
+						waitingList: {}
+					};
+		};
 
 CKEDITOR.resourceManager.prototype =
 		{
@@ -83,7 +83,7 @@ CKEDITOR.resourceManager.prototype =
 			 */
 			add: function(name, definition)
 			{
-				if (this.registered[ name ])
+				if(this.registered[ name ])
 					throw '[CKEDITOR.resourceManager.add] The resource name "' + name + '" is already registered.';
 
 				CKEDITOR.fire(name + CKEDITOR.tools.capitalize(this.fileName) + 'Ready',
@@ -176,7 +176,7 @@ CKEDITOR.resourceManager.prototype =
 			load: function(names, callback, scope)
 			{
 				// Ensure that we have an array of names.
-				if (!CKEDITOR.tools.isArray(names))
+				if(!CKEDITOR.tools.isArray(names))
 					names = names ? [names] : [];
 
 				var loaded = this.loaded,
@@ -190,15 +190,15 @@ CKEDITOR.resourceManager.prototype =
 				{
 					var name = names[ i ];
 
-					if (!name)
+					if(!name)
 						continue;
 
 					// If not available yet.
-					if (!loaded[ name ] && !registered[ name ])
+					if(!loaded[ name ] && !registered[ name ])
 					{
 						var url = this.getFilePath(name);
 						urls.push(url);
-						if (!(url in urlsNames))
+						if(!(url in urlsNames))
 							urlsNames[ url ] = [];
 						urlsNames[ url ].push(name);
 					}
@@ -208,7 +208,7 @@ CKEDITOR.resourceManager.prototype =
 
 				CKEDITOR.scriptLoader.load(urls, function(completed, failed)
 				{
-					if (failed.length)
+					if(failed.length)
 					{
 						throw '[CKEDITOR.resourceManager.load] Resource name "' + urlsNames[ failed[ 0 ] ].join(',')
 								+ '" was not found at "' + failed[ 0 ] + '".';

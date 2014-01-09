@@ -10,23 +10,23 @@
 		 * @example
 		 */
 		CKEDITOR.ui = function(editor)
-{
-	if (editor.ui)
-		return editor.ui;
+		{
+			if(editor.ui)
+				return editor.ui;
 
-	/**
-	 * Object used to hold private stuff.
-	 * @private
-	 */
-	this._ =
-			{
-				handlers: {},
-				items: {},
-				editor: editor
-			};
+			/**
+			 * Object used to hold private stuff.
+			 * @private
+			 */
+			this._ =
+					{
+						handlers: {},
+						items: {},
+						editor: editor
+					};
 
-	return this;
-};
+			return this;
+		};
 
 // PACKAGER_RENAME( CKEDITOR.ui )
 
@@ -74,7 +74,7 @@ CKEDITOR.ui.prototype =
 				item && (result = CKEDITOR.tools.extend(result, this._.editor.skin[ item.type ], true));
 
 				// Add reference inside command object.
-				if (command)
+				if(command)
 					command.uiItems.push(result);
 
 				return result;

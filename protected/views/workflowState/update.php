@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflow States' => array(
+	'Workflow States'=>array(
 		'index'),
-	$model->workflowStateId => array(
+	$model->workflowStateId=>array(
 		'view',
-		'id' => $model->workflowStateId),
+		'id'=>$model->workflowStateId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List WorkflowState',
-		'url' => array(
+		'label'=>'List WorkflowState',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create WorkflowState',
-		'url' => array(
+		'label'=>'Create WorkflowState',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'View WorkflowState',
-		'url' => array(
+		'label'=>'View WorkflowState',
+		'url'=>array(
 			'view',
-			'id' => $model->workflowStateId)),
+			'id'=>$model->workflowStateId)),
 	array(
-		'label' => 'Manage WorkflowState',
-		'url' => array(
+		'label'=>'Manage WorkflowState',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -33,5 +33,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

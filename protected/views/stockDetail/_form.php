@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'stock-detail-form',
-		'enableAjaxValidation' => false,
+		'id'=>'stock-detail-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -11,16 +11,16 @@
 
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
 
 	<p>
 		<?php echo $form->labelEx($model, 'stockDetailCode'); ?>
 		<?php
 		echo $form->textField($model, 'stockDetailCode', array(
-			'size' => 20,
-			'maxlength' => 20,
-			'readonly' => 'readonly'));
+			'size'=>20,
+			'maxlength'=>20,
+			'readonly'=>'readonly'));
 		?>
 		<?php echo $form->error($model, 'stockDetailCode'); ?>
 	</p>
@@ -29,8 +29,8 @@
 		<?php echo $form->labelEx($model, 'stockDetailName'); ?>
 		<?php
 		echo $form->textField($model, 'stockDetailName', array(
-			'size' => 60,
-			'maxlength' => 500));
+			'size'=>60,
+			'maxlength'=>500));
 		?>
 		<?php echo $form->error($model, 'stockDetailName'); ?>
 	</p>
@@ -39,8 +39,8 @@
 		<?php echo $form->labelEx($model, 'stockDetailUnit'); ?>
 		<?php
 		echo $form->textField($model, 'stockDetailUnit', array(
-			'size' => 30,
-			'maxlength' => 30));
+			'size'=>30,
+			'maxlength'=>30));
 		?>
 		<?php echo $form->error($model, 'stockDetailUnit'); ?>
 	</p>

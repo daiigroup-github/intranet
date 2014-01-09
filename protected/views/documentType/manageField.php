@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Document Template Fields' => array(
+	'Document Template Fields'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List DocumentTemplateField',
-		'url' => array(
+		'label'=>'List DocumentTemplateField',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create DocumentTemplateField',
-		'url' => array(
+		'label'=>'Create DocumentTemplateField',
+		'url'=>array(
 			'create')),
 );
 
@@ -41,23 +41,23 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php print_r($documentTypeModel); ?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'document-template-field-grid',
-	'dataProvider' => $model,
+	'id'=>'document-template-field-grid',
+	'dataProvider'=>$model,
 	//'filter'=>$model,
-	'columns' => array(
+	'columns'=>array(
 		/* 'documentTemplateFieldId',
 		  'documentTemplateFieldName',
 		  'documentTemplateFieldType',
 		  'active',
 		  'createDateTime', */
 		array(
-			'name' => 'DocumentTemplateFieldName',
-			'type' => 'raw',
-			'htmlOptions' => array(
-				'style' => 'text-align:right'),
+			'name'=>'DocumentTemplateFieldName',
+			'type'=>'raw',
+			'htmlOptions'=>array(
+				'style'=>'text-align:right'),
 			//'value' => 'CHtml::encode(number_format($data->advertiser_balance,2))',
 			//'value' => 'CHtml::encode($data->documentTemplates->documentTemplateField->documentTemplateFieldName)',
-			'value' => 'CHtml::encode($data->documentTypeName)',
+			'value'=>'CHtml::encode($data->documentTypeName)',
 		),
 		/* array(
 		  'name' => 'advertiser_balance',
@@ -67,7 +67,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 		  ), */
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

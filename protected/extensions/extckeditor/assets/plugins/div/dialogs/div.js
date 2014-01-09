@@ -5,7 +5,7 @@
 
 		(function() {
 			function a(d, e, f) {
-				if (!e.is || !e.getCustomData('block_processed')) {
+				if(!e.is || !e.getCustomData('block_processed')) {
 					e.is && CKEDITOR.dom.element.setMarker(f, e, 'block_processed', true);
 					d.push(e);
 				}
@@ -15,7 +15,7 @@
 				var e = [], f = d.getChildren();
 				for (var g = 0; g < f.count(); g++) {
 					var h = f.getItem(g);
-					if (!(h.type === CKEDITOR.NODE_TEXT && /^[ \t\n\r]+$/.test(h.getText())))
+					if(!(h.type === CKEDITOR.NODE_TEXT && /^[ \t\n\r]+$/.test(h.getText())))
 						e.push(h);
 				}
 				return e;
@@ -25,7 +25,7 @@
 				var f = (function() {
 					var p = CKEDITOR.tools.extend({}, CKEDITOR.dtd.$blockLimit);
 					delete p.div;
-					if (d.config.div_wrapTable) {
+					if(d.config.div_wrapTable) {
 						delete p.td;
 						delete p.th;
 					}
@@ -34,7 +34,7 @@
 				function h(p) {
 					var q = new CKEDITOR.dom.elementPath(p).elements, r;
 					for (var s = 0; s < q.length; s++) {
-						if (q[s].getName() in f) {
+						if(q[s].getName() in f) {
 							r = q[s];
 							break;
 						}
@@ -44,17 +44,17 @@
 				;
 				function i() {
 					this.foreach(function(p) {
-						if (/^(?!vbox|hbox)/.test(p.type)) {
-							if (!p.setup)
+						if(/^(?!vbox|hbox)/.test(p.type)) {
+							if(!p.setup)
 								p.setup = function(q) {
 									p.setValue(q.getAttribute(p.id) || '');
 								};
-							if (!p.commit)
+							if(!p.commit)
 								p.commit = function(q) {
 									var r = this.getValue();
-									if ('dir' == p.id && q.getComputedStyle('direction') == r)
+									if('dir' == p.id && q.getComputedStyle('direction') == r)
 										return;
-									if (r)
+									if(r)
 										q.setAttribute(p.id, r);
 									else
 										q.removeAttribute(p.id);
@@ -67,13 +67,13 @@
 					var q = [], r = {}, s = [], t, u = p.document.getSelection(), v = u.getRanges(), w = u.createBookmarks(), x, y, z = p.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p';
 					for (x = 0; x < v.length; x++) {
 						y = v[x].createIterator();
-						while (t = y.getNextParagraph()) {
-							if (t.getName() in f) {
+						while(t = y.getNextParagraph()) {
+							if(t.getName() in f) {
 								var A, B = t.getChildren();
 								for (A = 0; A < B.count(); A++)
 									a(s, B.getItem(A), r);
 							} else {
-								while (!g[t.getName()] && t.getName() != 'body')
+								while(!g[t.getName()] && t.getName() != 'body')
 									t = t.getParent();
 								a(s, t, r);
 							}
@@ -89,16 +89,16 @@
 						F = new CKEDITOR.dom.element('div', p.document);
 						for (A = 0; A < C[x].length; A++) {
 							G = C[x][A];
-							while (!G.getParent().equals(D))
+							while(!G.getParent().equals(D))
 								G = G.getParent();
 							C[x][A] = G;
 						}
 						var H = null;
 						for (A = 0; A < C[x].length; A++) {
 							G = C[x][A];
-							if (!(G.getCustomData && G.getCustomData('block_processed'))) {
+							if(!(G.getCustomData && G.getCustomData('block_processed'))) {
 								G.is && CKEDITOR.dom.element.setMarker(r, G, 'block_processed', true);
-								if (!A)
+								if(!A)
 									F.insertBefore(G);
 								F.append(G);
 							}
@@ -120,7 +120,7 @@
 					for (var u = 0; u < p.length; u++) {
 						t = p[u];
 						var v = h(t);
-						if (!v.equals(r)) {
+						if(!v.equals(r)) {
 							r = v;
 							q.push([]);
 						}
@@ -148,7 +148,7 @@
 													n[q].checkElementRemovable(p, true) && this.setValue(q);
 											}, commit: function(p) {
 												var q;
-												if (q = this.getValue()) {
+												if(q = this.getValue()) {
 													var r = n[q], s = p.getCustomData('elementStyle') || '';
 													r.applyToObject(p);
 													p.setCustomData('elementStyle', s + r._.definition.attributes.style);
@@ -161,10 +161,10 @@
 						var p = this, q = this.getContentElement('info', 'elementStyle');
 						d.getStylesSet(function(r) {
 							var s;
-							if (r)
+							if(r)
 								for (var t = 0; t < r.length; t++) {
 									var u = r[t];
-									if (u.element && u.element == 'div') {
+									if(u.element && u.element == 'div') {
 										s = u.name;
 										n[s] = new CKEDITOR.style(u);
 										q.items.push([s, s]);
@@ -177,12 +177,12 @@
 							}, 0);
 						});
 					}, onShow: function() {
-						if (e == 'editdiv') {
+						if(e == 'editdiv') {
 							var p = k(d);
 							p && this.setupContent(this._element = p);
 						}
 					}, onOk: function() {
-						if (e == 'editdiv')
+						if(e == 'editdiv')
 							o = [this._element];
 						else
 							o = j(d, true);
@@ -193,7 +193,7 @@
 						}
 						this.hide();
 					}, onHide: function() {
-						if (e == 'editdiv')
+						if(e == 'editdiv')
 							this._element.removeCustomData('elementStyle');
 						delete this._element;
 					}};

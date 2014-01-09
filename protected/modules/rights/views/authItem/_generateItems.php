@@ -1,12 +1,12 @@
 <?php
-if ($items['controllers'] !== array(
+if($items['controllers'] !== array(
 	)):
 	?>
 
-	<?php foreach ($items['controllers'] as $key => $item): ?>
+	<?php foreach($items['controllers'] as $key=> $item): ?>
 
 		<?php
-		if (isset($item['actions']) === true && $item['actions'] !== array(
+		if(isset($item['actions']) === true && $item['actions'] !== array(
 			)):
 			?>
 
@@ -21,7 +21,7 @@ if ($items['controllers'] !== array(
 
 			<?php
 			$i = 0;
-			foreach ($item['actions'] as $action):
+			foreach($item['actions'] as $action):
 				?>
 
 				<?php $actionKey = $controllerKey . '.' . ucfirst($action['name']); ?>
@@ -46,29 +46,29 @@ if ($items['controllers'] !== array(
 <?php endif; ?>
 
 <?php
-if ($items['modules'] !== array(
+if($items['modules'] !== array(
 	)):
 	?>
 
-	<?php if ($displayModuleHeadingRow === true): ?>
+	<?php if($displayModuleHeadingRow === true): ?>
 
 		<tr><th class="module-heading-row" colspan="3"><?php echo Rights::t('core', 'Modules'); ?></th></tr>
 
 	<?php endif; ?>
 
-	<?php foreach ($items['modules'] as $moduleName => $moduleItems): ?>
+	<?php foreach($items['modules'] as $moduleName=> $moduleItems): ?>
 
 		<tr><th class="module-row" colspan="3"><?php echo ucfirst($moduleName) . 'Module'; ?></th></tr>
 
 		<?php
 		$this->renderPartial('_generateItems', array(
-			'model' => $model,
-			'form' => $form,
-			'items' => $moduleItems,
-			'existingItems' => $existingItems,
-			'moduleName' => $moduleName,
-			'displayModuleHeadingRow' => false,
-			'basePathLength' => $basePathLength,
+			'model'=>$model,
+			'form'=>$form,
+			'items'=>$moduleItems,
+			'existingItems'=>$existingItems,
+			'moduleName'=>$moduleName,
+			'displayModuleHeadingRow'=>false,
+			'basePathLength'=>$basePathLength,
 		));
 		?>
 

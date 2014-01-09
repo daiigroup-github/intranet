@@ -30,7 +30,7 @@
 						var customConfig = editor.config.customConfig;
 
 						// Check if there is a custom config to load.
-						if (!customConfig)
+						if(!customConfig)
 							return false;
 
 						customConfig = CKEDITOR.getUrl(customConfig);
@@ -38,7 +38,7 @@
 						var loadedConfig = loadConfigLoaded[ customConfig ] || (loadConfigLoaded[ customConfig ] = {});
 
 						// If the custom config has already been downloaded, reuse it.
-						if (loadedConfig.fn)
+						if(loadedConfig.fn)
 						{
 							// Call the cached CKEDITOR.editorConfig defined in the custom
 							// config file for the editor instance depending on it.
@@ -46,7 +46,7 @@
 
 							// If there is no other customConfig in the chain, fire the
 							// "configLoaded" event.
-							if (CKEDITOR.getUrl(editor.config.customConfig) == customConfig || !loadConfig(editor))
+							if(CKEDITOR.getUrl(editor.config.customConfig) == customConfig || !loadConfig(editor))
 								editor.fireOnce('customConfigLoaded');
 						}
 						else
@@ -56,7 +56,7 @@
 							{
 								// If the CKEDITOR.editorConfig function has been properly
 								// defined in the custom configuration file, cache it.
-								if (CKEDITOR.editorConfig)
+								if(CKEDITOR.editorConfig)
 									loadedConfig.fn = CKEDITOR.editorConfig;
 								else
 									loadedConfig.fn = function() {
@@ -76,11 +76,11 @@
 						// Setup the lister for the "customConfigLoaded" event.
 						editor.on('customConfigLoaded', function()
 						{
-							if (instanceConfig)
+							if(instanceConfig)
 							{
 								// Register the events that may have been set at the instance
 								// configuration object.
-								if (instanceConfig.on)
+								if(instanceConfig.on)
 								{
 									for (var eventName in instanceConfig.on)
 									{
@@ -99,11 +99,11 @@
 
 						// The instance config may override the customConfig setting to avoid
 						// loading the default ~/config.js file.
-						if (instanceConfig && instanceConfig.customConfig != undefined)
+						if(instanceConfig && instanceConfig.customConfig != undefined)
 							editor.config.customConfig = instanceConfig.customConfig;
 
 						// Load configs from the custom configuration files.
-						if (!loadConfig(editor))
+						if(!loadConfig(editor))
 							editor.fireOnce('customConfigLoaded');
 					};
 
@@ -116,8 +116,8 @@
 						var skin = editor.config.skin.split(','),
 								skinName = skin[ 0 ],
 								skinPath = CKEDITOR.getUrl(skin[ 1 ] || (
-								'_source/' + // @Packager.RemoveLine
-								'skins/' + skinName + '/'));
+										'_source/' + // @Packager.RemoveLine
+										'skins/' + skinName + '/'));
 
 						/**
 						 * The name of the skin used by this editor instance. The skin name can
@@ -205,7 +205,7 @@
 							editor.lang = CKEDITOR.tools.prototypedCopy(lang);
 
 							// We're not able to support RTL in Firefox 2 at this time.
-							if (CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 && editor.lang.dir == 'rtl')
+							if(CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 && editor.lang.dir == 'rtl')
 								editor.lang.dir = 'ltr';
 
 							editor.fire('langLoaded');
@@ -224,7 +224,7 @@
 								extraPlugins = config.extraPlugins,
 								removePlugins = config.removePlugins;
 
-						if (extraPlugins)
+						if(extraPlugins)
 						{
 							// Remove them first to avoid duplications.
 							var removeRegex = new RegExp('(?:^|,)(?:' + extraPlugins.replace(/\s*,\s*/g, '|') + ')(?=,|$)', 'g');
@@ -233,7 +233,7 @@
 							plugins += ',' + extraPlugins;
 						}
 
-						if (removePlugins)
+						if(removePlugins)
 						{
 							removeRegex = new RegExp('(?:^|,)(?:' + removePlugins.replace(/\s*,\s*/g, '|') + ')(?=,|$)', 'g');
 							plugins = plugins.replace(removeRegex, '');
@@ -278,13 +278,13 @@
 								plugin.path = pluginPath;
 
 								// If the plugin has "lang".
-								if (pluginLangs)
+								if(pluginLangs)
 								{
 									// Resolve the plugin language. If the current language
 									// is not available, get the first one (default one).
 									lang = (CKEDITOR.tools.indexOf(pluginLangs, editor.langCode) >= 0 ? editor.langCode : pluginLangs[ 0 ]);
 
-									if (!plugin.langEntries || !plugin.langEntries[ lang ])
+									if(!plugin.langEntries || !plugin.langEntries[ lang ])
 									{
 										// Put the language file URL into the list of files to
 										// get downloaded.
@@ -316,11 +316,11 @@
 										var plugin = pluginsArray[ i ];
 
 										// Uses the first loop to update the language entries also.
-										if (m === 0 && languageCodes[ i ] && plugin.lang)
+										if(m === 0 && languageCodes[ i ] && plugin.lang)
 											CKEDITOR.tools.extend(editor.lang, plugin.langEntries[ languageCodes[ i ] ]);
 
 										// Call the plugin method (beforeInit and init).
-										if (plugin[ methods[ m ] ])
+										if(plugin[ methods[ m ] ])
 											plugin[ methods[ m ] ](editor);
 									}
 								}
@@ -356,7 +356,7 @@
 							editorTheme.path = CKEDITOR.themes.getPath(theme);
 							editorTheme.build(editor);
 
-							if (editor.config.autoUpdateElement)
+							if(editor.config.autoUpdateElement)
 								attachToForm(editor);
 						});
 					};
@@ -366,10 +366,10 @@
 						var element = editor.element;
 
 						// If are replacing a textarea, we must
-						if (editor.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE && element.is('textarea'))
+						if(editor.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE && element.is('textarea'))
 						{
 							var form = element.$.form && new CKEDITOR.dom.element(element.$.form);
-							if (form)
+							if(form)
 							{
 								function onSubmit()
 								{
@@ -379,7 +379,7 @@
 
 								// Setup the submit function because it doesn't fire the
 								// "submit" event.
-								if (!form.$.submit.nodeName && !form.$.submit.length)
+								if(!form.$.submit.nodeName && !form.$.submit.length)
 								{
 									form.$.submit = CKEDITOR.tools.override(form.$.submit, function(originalSubmit)
 									{
@@ -389,7 +389,7 @@
 
 											// For IE, the DOM submit function is not a
 											// function, so we need thid check.
-											if (originalSubmit.apply)
+											if(originalSubmit.apply)
 												originalSubmit.apply(this, arguments);
 											else
 												originalSubmit();
@@ -412,7 +412,7 @@
 								commands = this._.commands,
 								mode = this.mode;
 
-						if (!mode)
+						if(!mode)
 							return;
 
 						for (var name in commands)
@@ -465,7 +465,7 @@
 								&& (element.getId() || element.getNameAtt()))
 								|| getNewName();
 
-						if (this.name in CKEDITOR.instances)
+						if(this.name in CKEDITOR.instances)
 							throw '[CKEDITOR.editor] The instance "' + this.name + '" already exists.';
 
 						/**
@@ -561,7 +561,7 @@
 							 */
 							destroy: function(noUpdate)
 							{
-								if (!noUpdate)
+								if(!noUpdate)
 									this.updateElement();
 
 								this.fire('destroy');
@@ -591,14 +591,14 @@
 											command: command
 										};
 
-								if (command && command.state != CKEDITOR.TRISTATE_DISABLED)
+								if(command && command.state != CKEDITOR.TRISTATE_DISABLED)
 								{
-									if (this.fire('beforeCommandExec', eventData) !== true)
+									if(this.fire('beforeCommandExec', eventData) !== true)
 									{
 										eventData.returnValue = command.exec(eventData.commandData);
 
 										// Fire the 'afterCommandExec' immediately if command is synchronous.
-										if (!command.async && this.fire('afterCommandExec', eventData) !== true)
+										if(!command.async && this.fire('afterCommandExec', eventData) !== true)
 											return eventData.returnValue;
 									}
 								}
@@ -637,10 +637,10 @@
 
 								var eventData = this._.data;
 
-								if (typeof eventData != 'string')
+								if(typeof eventData != 'string')
 								{
 									var element = this.element;
-									if (element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
+									if(element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
 										eventData = element.is('textarea') ? element.getValue() : element.getHtml();
 									else
 										eventData = '';
@@ -669,10 +669,10 @@
 							{
 								var data = this.fire('getSnapshot');
 
-								if (typeof data != 'string')
+								if(typeof data != 'string')
 								{
 									var element = this.element;
-									if (element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
+									if(element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
 										data = element.is('textarea') ? element.getValue() : element.getHtml();
 								}
 
@@ -713,7 +713,7 @@
 							 */
 							setData: function(data, callback, internal)
 							{
-								if (callback)
+								if(callback)
 								{
 									this.on('dataReady', function(evt)
 									{
@@ -745,7 +745,7 @@
 							{
 								isReadOnly = (isReadOnly == undefined) || isReadOnly;
 
-								if (this.readOnly != isReadOnly)
+								if(this.readOnly != isReadOnly)
 								{
 									this.readOnly = isReadOnly;
 
@@ -825,7 +825,7 @@
 							 */
 							resetDirty: function()
 							{
-								if (this.mayBeDirty)
+								if(this.mayBeDirty)
 									this._.previousValue = this.getSnapshot();
 							},
 							/**
@@ -839,14 +839,14 @@
 							updateElement: function()
 							{
 								var element = this.element;
-								if (element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
+								if(element && this.elementMode == CKEDITOR.ELEMENT_MODE_REPLACE)
 								{
 									var data = this.getData();
 
-									if (this.config.htmlEncodeOutput)
+									if(this.config.htmlEncodeOutput)
 										data = CKEDITOR.tools.htmlEncode(data);
 
-									if (element.is('textarea'))
+									if(element.is('textarea'))
 										element.setValue(data);
 									else
 										element.setHtml(data);
@@ -858,7 +858,7 @@
 				{
 					// Run the full initialization for pending editors.
 					var pending = CKEDITOR.editor._pending;
-					if (pending)
+					if(pending)
 					{
 						delete CKEDITOR.editor._pending;
 

@@ -54,7 +54,7 @@ class MasterConstructionController extends Controller
 	public function loadModel($id)
 	{
 		$model = ConstructionProject::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -65,7 +65,7 @@ class MasterConstructionController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'construction-project-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'construction-project-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

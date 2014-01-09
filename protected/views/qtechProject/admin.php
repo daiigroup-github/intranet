@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Qtech Projects' => array(
+	'Qtech Projects'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List QtechProject',
-		'url' => array(
+		'label'=>'List QtechProject',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create QtechProject',
-		'url' => array(
+		'label'=>'Create QtechProject',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'qtech-project-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'qtech-project-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'qtechProjectId',
 		'status',
 		'createTime',
@@ -75,7 +75,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		  'branchValue',
 		 */
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

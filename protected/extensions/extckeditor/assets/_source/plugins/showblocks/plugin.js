@@ -88,7 +88,7 @@
 								},
 								refresh: function(editor)
 								{
-									if (editor.document)
+									if(editor.document)
 									{
 										var funcName = (this.state == CKEDITOR.TRISTATE_ON) ? 'addClass' : 'removeClass';
 										editor.document.getBody()[ funcName ]('cke_show_blocks');
@@ -104,7 +104,7 @@
 									var command = editor.addCommand('showblocks', commandDefinition);
 									command.canUndo = false;
 
-									if (editor.config.startupOutlineBlocks)
+									if(editor.config.startupOutlineBlocks)
 										command.setState(CKEDITOR.TRISTATE_ON);
 
 									editor.addCss(cssTemplate
@@ -121,14 +121,14 @@
 									// Refresh the command on setData.
 									editor.on('mode', function()
 									{
-										if (command.state != CKEDITOR.TRISTATE_DISABLED)
+										if(command.state != CKEDITOR.TRISTATE_DISABLED)
 											command.refresh(editor);
 									});
 
 									// Refresh the command on setData.
 									editor.on('contentDom', function()
 									{
-										if (command.state != CKEDITOR.TRISTATE_DISABLED)
+										if(command.state != CKEDITOR.TRISTATE_DISABLED)
 											command.refresh(editor);
 									});
 								}

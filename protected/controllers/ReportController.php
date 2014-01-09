@@ -7,7 +7,7 @@ class ReportController extends Controller
 
 	public function actionIndex()
 	{
-		
+
 	}
 
 	public function actionRequisitionAdmin()
@@ -15,8 +15,7 @@ class ReportController extends Controller
 
 		$model = Report::model();
 		$this->render('/report/admin/requisition', array(
-			'model' => $model));
+			'model'=>$model));
 	}
 
 }
-

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -42,7 +41,7 @@ class Swift_Plugins_ReporterPlugin implements Swift_Events_SendListener
 	 */
 	public function beforeSendPerformed(Swift_Events_SendEvent $evt)
 	{
-		
+
 	}
 
 	/**
@@ -53,19 +52,19 @@ class Swift_Plugins_ReporterPlugin implements Swift_Events_SendListener
 	{
 		$message = $evt->getMessage();
 		$failures = array_flip($evt->getFailedRecipients());
-		foreach ((array) $message->getTo() as $address => $null)
+		foreach((array) $message->getTo() as $address=> $null)
 		{
 			$this->_reporter->notify(
 				$message, $address, (array_key_exists($address, $failures) ? Swift_Plugins_Reporter::RESULT_FAIL : Swift_Plugins_Reporter::RESULT_PASS)
 			);
 		}
-		foreach ((array) $message->getCc() as $address => $null)
+		foreach((array) $message->getCc() as $address=> $null)
 		{
 			$this->_reporter->notify(
 				$message, $address, (array_key_exists($address, $failures) ? Swift_Plugins_Reporter::RESULT_FAIL : Swift_Plugins_Reporter::RESULT_PASS)
 			);
 		}
-		foreach ((array) $message->getBcc() as $address => $null)
+		foreach((array) $message->getBcc() as $address=> $null)
 		{
 			$this->_reporter->notify(
 				$message, $address, (array_key_exists($address, $failures) ? Swift_Plugins_Reporter::RESULT_FAIL : Swift_Plugins_Reporter::RESULT_PASS)

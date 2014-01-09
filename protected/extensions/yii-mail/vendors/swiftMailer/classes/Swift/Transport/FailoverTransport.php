@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -48,24 +47,24 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
 		$maxTransports = count($this->_transports);
 		$sent = 0;
 
-		for ($i = 0; $i < $maxTransports && $transport = $this->_getNextTransport(); ++$i)
+		for($i = 0; $i < $maxTransports && $transport = $this->_getNextTransport(); ++$i)
 		{
 			try
 			{
-				if (!$transport->isStarted())
+				if(!$transport->isStarted())
 				{
 					$transport->start();
 				}
 
 				return $transport->send($message, $failedRecipients);
 			}
-			catch (Swift_TransportException $e)
+			catch(Swift_TransportException $e)
 			{
 				$this->_killCurrentTransport();
 			}
 		}
 
-		if (count($this->_transports) == 0)
+		if(count($this->_transports) == 0)
 		{
 			throw new Swift_TransportException(
 			'All Transports in FailoverTransport failed, or no Transports available'
@@ -79,7 +78,7 @@ class Swift_Transport_FailoverTransport extends Swift_Transport_LoadBalancedTran
 
 	protected function _getNextTransport()
 	{
-		if (!isset($this->_currentTransport))
+		if(!isset($this->_currentTransport))
 		{
 			$this->_currentTransport = parent::_getNextTransport();
 		}

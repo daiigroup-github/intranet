@@ -30,26 +30,26 @@ class ApplicationController extends Controller
 		return array(
 			array(
 				'allow', // allow all users to perform 'index' and 'view' actions
-				'actions' => array(
+				'actions'=>array(
 					'index',
 					'view'),
-				'users' => array(
+				'users'=>array(
 					'*'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions' => array(
+				'actions'=>array(
 					'create',
 					'update'),
-				'users' => array(
+				'users'=>array(
 					'@'),
 			),
 			array(
 				'allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions' => array(
+				'actions'=>array(
 					'admin',
 					'delete'),
-				'users' => array(
+				'users'=>array(
 					'admin'),
 			),
 			/* array('deny',  // deny all users
@@ -68,24 +68,24 @@ class ApplicationController extends Controller
 		$dateNow = new CDbExpression('NOW()');
 		$exam = Exam::model()->find("title = 'ใบประเมิณสัมภาษณ์งาน'");
 		$appInter = ApplicationInterview::model()->find("applicationId =:id AND managerId =:managerId", array(
-			":id" => $id,
-			":managerId" => Yii::app()->user->id));
-		if (isset($_POST["Exam"]))
+			":id"=>$id,
+			":managerId"=>Yii::app()->user->id));
+		if(isset($_POST["Exam"]))
 		{
 			$total = 0;
 			$appInterId = null;
-			if (isset($_GET["appInterId"]))
+			if(isset($_GET["appInterId"]))
 			{
 				$appInterId = $_GET["appInterId"];
 			}
 			//Save result in table application_interview_score
-			foreach ($_POST["Exam"]["SelectChoice"] as $k => $v)
+			foreach($_POST["Exam"]["SelectChoice"] as $k=> $v)
 			{
 
 				$question = ExamQuestion::model()->findByPk($k);
 				$score = new ApplicationInterviewScore();
 				$score->applicationInterviewId = $appInterId;
-				if (isset($_POST["Exam"]["examId"]))
+				if(isset($_POST["Exam"]["examId"]))
 				{
 					$score->examId = $_POST["Exam"]["examId"];
 				}
@@ -96,11 +96,11 @@ class ApplicationController extends Controller
 				$score->choiceValue = $v;
 				$score->status = 1;
 				$score->createDateTime = $dateNow;
-				if (is_numeric($v))
+				if(is_numeric($v))
 				{
 					$total +=$v * $question->weight;
 				}
-				if (!$score->save())
+				if(!$score->save())
 				{
 					echo "error";
 				}
@@ -112,12 +112,12 @@ class ApplicationController extends Controller
 			//Save result in table application_interview_score
 			//save score result in table application_interview
 			$appInterview = ApplicationInterview::model()->find("id = :Id ", array(
-				":Id" => $appInterId));
-			if (isset($appInterview) && count($appInterview) > 0)
+				":Id"=>$appInterId));
+			if(isset($appInterview) && count($appInterview) > 0)
 			{
-				if (isset($appInterview->score))
+				if(isset($appInterview->score))
 				{
-					// return ว่า ประเมิณแล้ว					
+					// return ว่า ประเมิณแล้ว
 				}
 				else
 				{
@@ -132,9 +132,9 @@ class ApplicationController extends Controller
 				'interview'));
 		}
 		$this->render('view', array(
-			'model' => $model,
-			'exam' => $exam,
-			'appInter' => $appInter
+			'model'=>$model,
+			'exam'=>$exam,
+			'appInter'=>$appInter
 		));
 	}
 
@@ -149,17 +149,17 @@ class ApplicationController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['EmployeeInfo']))
+		if(isset($_POST['EmployeeInfo']))
 		{
 			$model->attributes = $_POST['EmployeeInfo'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->id));
+					'id'=>$model->id));
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -175,17 +175,17 @@ class ApplicationController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['EmployeeInfo']))
+		if(isset($_POST['EmployeeInfo']))
 		{
 			$model->attributes = $_POST['EmployeeInfo'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->id));
+					'id'=>$model->id));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -199,7 +199,7 @@ class ApplicationController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax']))
+		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 	}
@@ -220,15 +220,15 @@ class ApplicationController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['EmployeeInfo']))
+		if(isset($_POST['EmployeeInfo']))
 		{
-			if (isset($_POST["EmployeeInfo"]["citizenFlag"]))
+			if(isset($_POST["EmployeeInfo"]["citizenFlag"]))
 			{
-				if ($_POST["EmployeeInfo"]["citizenFlag"] == 0)
+				if($_POST["EmployeeInfo"]["citizenFlag"] == 0)
 				{
-					if (!empty($_POST["EmployeeInfo"]["citizenId"]))
+					if(!empty($_POST["EmployeeInfo"]["citizenId"]))
 					{
-						if ($model->checkIsExistingCitizenId($_POST["EmployeeInfo"]["citizenId"]))
+						if($model->checkIsExistingCitizenId($_POST["EmployeeInfo"]["citizenId"]))
 						{
 							$model->addError("citizenId", "มีเลขที่บัตรประชาชนในระบบแล้ว");
 							$citizenFlag = 0;
@@ -255,7 +255,7 @@ class ApplicationController extends Controller
 				$citizenFlag = 1;
 				$model->attributes = $_POST['EmployeeInfo'];
 				$model->status = EmployeeInfo::STATUS_APP_CREATE;
-				if ($model->save())
+				if($model->save())
 				{
 					$this->redirect(array(
 						'admin'));
@@ -272,8 +272,8 @@ class ApplicationController extends Controller
 		}
 
 		$this->render('index', array(
-			'model' => $model,
-			'citizenFlag' => $citizenFlag
+			'model'=>$model,
+			'citizenFlag'=>$citizenFlag
 		));
 	}
 
@@ -285,11 +285,11 @@ class ApplicationController extends Controller
 		$this->layout = "//layouts/cl2";
 		$model = new EmployeeInfo('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['EmployeeInfo']))
+		if(isset($_GET['EmployeeInfo']))
 			$model->attributes = $_GET['EmployeeInfo'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -298,11 +298,11 @@ class ApplicationController extends Controller
 		$this->layout = "//layouts/cl2";
 		$model = new EmployeeInfo('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['EmployeeInfo']))
+		if(isset($_GET['EmployeeInfo']))
 			$model->attributes = $_GET['EmployeeInfo'];
 
 		$this->render('jobInterview', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -310,32 +310,32 @@ class ApplicationController extends Controller
 	{
 		$application = EmployeeInfo::model()->findByPk($id);
 		$oldAppInter = ApplicationInterview::model()->findAll("applicationId =:applicationId", array(
-			":applicationId" => $id));
+			":applicationId"=>$id));
 		$applicationInterview = new ApplicationInterview();
 
-		if (isset($_POST["ApplicationInterview"]))
+		if(isset($_POST["ApplicationInterview"]))
 		{
 			$flag = true;
-			if (!empty($_POST["ApplicationInterview"]["interviewDate"]))
+			if(!empty($_POST["ApplicationInterview"]["interviewDate"]))
 			{
 
-				foreach ($_POST["Employee"]["managerId"] as $k => $v)
+				foreach($_POST["Employee"]["managerId"] as $k=> $v)
 				{
-					if ($v != '0')
+					if($v != '0')
 					{
 						$appInterview = new ApplicationInterview();
 						$appInterview->interviewDate = $_POST["ApplicationInterview"]["interviewDate"];
-						if (isset($_POST["EmployeeInfo"]["id"]) && !empty($_POST["EmployeeInfo"]["id"]))
+						if(isset($_POST["EmployeeInfo"]["id"]) && !empty($_POST["EmployeeInfo"]["id"]))
 						{
 							$appInterview->applicationId = $_POST["EmployeeInfo"]["id"];
 						}
 						$appInterview->managerId = $v;
 
-						foreach ($_POST["ApplicationInterview"]["isHeadManager"] as $a => $b)
+						foreach($_POST["ApplicationInterview"]["isHeadManager"] as $a=> $b)
 						{
-							if (!empty($b))
+							if(!empty($b))
 							{
-								if ($b == $v)
+								if($b == $v)
 								{
 									$appInterview->isHeadManager = 1;
 								}
@@ -346,14 +346,14 @@ class ApplicationController extends Controller
 							}
 						}
 						$appInterview->status = EmployeeInfo::STATUS_APP_INTERVIEW;
-						if (!$appInterview->save())
+						if(!$appInterview->save())
 						{
 							$flag = false;
 						}
 						else
 						{
 							$app = EmployeeInfo::model()->find("id=:id", array(
-								":id" => $id));
+								":id"=>$id));
 							$app->status = EmployeeInfo::STATUS_APP_INTERVIEW;
 							$app->save(false);
 						}
@@ -361,8 +361,8 @@ class ApplicationController extends Controller
 				}
 
 				$ceoResult = ApplicationInterview::model()->find("managerId = 1 AND applicationId =:appId", array(
-					"appId" => $_POST["EmployeeInfo"]["id"]));
-				if (!isset($ceoResult))
+					"appId"=>$_POST["EmployeeInfo"]["id"]));
+				if(!isset($ceoResult))
 				{
 					$ceo = new ApplicationInterview();
 					$ceo->applicationId = $_POST["EmployeeInfo"]["id"];
@@ -376,10 +376,10 @@ class ApplicationController extends Controller
 
 
 
-				if ($flag)
+				if($flag)
 				{
 					//----- begin new code --------------------
-					if (!empty($_GET['asDialog']))
+					if(!empty($_GET['asDialog']))
 					{
 						//Close the dialog, reset the iframe and update the grid
 						echo CHtml::script("window.parent.$('#cru-dialog').dialog('close');window.parent.$('#cru-frame').attr('src','');window.parent.$.fn.yiiGridView.update('{$_GET['gridId']}');");
@@ -394,11 +394,11 @@ class ApplicationController extends Controller
 			}
 			else
 			{
-				if (Yii::app()->request->isAjaxRequest)
+				if(Yii::app()->request->isAjaxRequest)
 				{
 					echo CJSON::encode(array(
-						'status' => 'remark',
-						'div' => "กรุณากรอกเหตุผลเพื่อลบเอกสาร"
+						'status'=>'remark',
+						'div'=>"กรุณากรอกเหตุผลเพื่อลบเอกสาร"
 					));
 					exit;
 				}
@@ -409,16 +409,16 @@ class ApplicationController extends Controller
 		}
 
 		//----- begin new code --------------------
-		if (!empty($_GET['asDialog']))
+		if(!empty($_GET['asDialog']))
 		{
 			$this->layout = '//layouts/iframe';
 		}
 		//----- end new code -------------------
 
 		$this->render('_selectInterviewerForm', array(
-			'model' => $application,
-			'applicationInterview' => $applicationInterview,
-			'oldAppInter' => $oldAppInter));
+			'model'=>$application,
+			'applicationInterview'=>$applicationInterview,
+			'oldAppInter'=>$oldAppInter));
 	}
 
 	public function actionInterview()
@@ -426,7 +426,7 @@ class ApplicationController extends Controller
 		$this->layout = "//layouts/cl2";
 		$applicationInterview = new ApplicationInterview();
 		$this->render('interviewerList', array(
-			'model' => $applicationInterview,));
+			'model'=>$applicationInterview,));
 	}
 
 	public function actionWaitSendCeo($id)
@@ -435,27 +435,27 @@ class ApplicationController extends Controller
 		$dateNow = new CDbExpression('NOW()');
 		$exam = Exam::model()->find("title = 'ใบประเมิณสัมภาษณ์งาน'");
 		$appInter = ApplicationInterview::model()->findAll("applicationId =:id", array(
-			":id" => $id));
-		if (isset($_POST["ApplicationInterview"]["applicationId"]))
+			":id"=>$id));
+		if(isset($_POST["ApplicationInterview"]["applicationId"]))
 		{
 			$applicationId = $_POST["ApplicationInterview"]["applicationId"];
 			$empInfo = EmployeeInfo::model()->findByPk($applicationId);
 			$empInfo->status = 2;
-			if ($empInfo->save(false))
+			if($empInfo->save(false))
 			{
 				$appInterView = ApplicationInterview::model()->find("applicationId = :applicationId AND managerId = 1", array(
-					":applicationId" => $applicationId));
+					":applicationId"=>$applicationId));
 				$appInterView->status = 2;
-				if ($appInterView->save())
+				if($appInterView->save())
 				{
 					$this->redirect("interview");
 				}
 			}
 		}
 		$this->render('waitSendCeo', array(
-			'model' => $model,
-			'exam' => $exam,
-			'appInter' => $appInter,
+			'model'=>$model,
+			'exam'=>$exam,
+			'appInter'=>$appInter,
 		));
 	}
 
@@ -464,11 +464,11 @@ class ApplicationController extends Controller
 		$this->layout = "//layouts/cl2";
 		$model = new EmployeeInfo('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['EmployeeInfo']))
+		if(isset($_GET['EmployeeInfo']))
 			$model->attributes = $_GET['EmployeeInfo'];
 
 		$this->render('interviewToCeoList', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -477,12 +477,12 @@ class ApplicationController extends Controller
 		$this->layout = "//layouts/cl2";
 		$applicationInterview = new ApplicationInterview();
 		$this->render('interviewerList', array(
-			'model' => $applicationInterview,));
+			'model'=>$applicationInterview,));
 	}
 
 	public function changeApplicationStatus($statusToChange)
 	{
-		
+
 	}
 
 	/**
@@ -493,7 +493,7 @@ class ApplicationController extends Controller
 	public function loadModel($id)
 	{
 		$model = EmployeeInfo::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -504,7 +504,7 @@ class ApplicationController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'employee-info-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'employee-info-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

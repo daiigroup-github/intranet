@@ -18,19 +18,19 @@
 		 * @example
 		 */
 		CKEDITOR.dom.domObject = function(nativeDomObject)
-{
-	if (nativeDomObject)
-	{
-		/**
-		 * The native DOM object represented by this class instance.
-		 * @type Object
-		 * @example
-		 * var element = new CKEDITOR.dom.element( 'span' );
-		 * alert( element.$.nodeType );  // "1"
-		 */
-		this.$ = nativeDomObject;
-	}
-};
+		{
+			if(nativeDomObject)
+			{
+				/**
+				 * The native DOM object represented by this class instance.
+				 * @type Object
+				 * @example
+				 * var element = new CKEDITOR.dom.element( 'span' );
+				 * alert( element.$.nodeType );  // "1"
+				 */
+				this.$ = nativeDomObject;
+			}
+		};
 
 CKEDITOR.dom.domObject.prototype = (function()
 {
@@ -44,7 +44,7 @@ CKEDITOR.dom.domObject.prototype = (function()
 			// In FF, when reloading the page with the editor focused, it may
 			// throw an error because the CKEDITOR global is not anymore
 			// available. So, we check it here first. (#2923)
-			if (typeof CKEDITOR != 'undefined')
+			if(typeof CKEDITOR != 'undefined')
 				domObject.fire(eventName, new CKEDITOR.dom.event(domEvent));
 		};
 	};
@@ -56,7 +56,7 @@ CKEDITOR.dom.domObject.prototype = (function()
 
 			// Get the main private function from the custom data. Create it if not
 			// defined.
-			if (!(priv = this.getCustomData('_')))
+			if(!(priv = this.getCustomData('_')))
 				this.setCustomData('_', (priv = {}));
 
 			return priv;
@@ -71,20 +71,20 @@ CKEDITOR.dom.domObject.prototype = (function()
 			// Get the listeners holder object.
 			var nativeListeners = this.getCustomData('_cke_nativeListeners');
 
-			if (!nativeListeners)
+			if(!nativeListeners)
 			{
 				nativeListeners = {};
 				this.setCustomData('_cke_nativeListeners', nativeListeners);
 			}
 
 			// Check if we have a listener for that event.
-			if (!nativeListeners[ eventName ])
+			if(!nativeListeners[ eventName ])
 			{
 				var listener = nativeListeners[ eventName ] = getNativeListener(this, eventName);
 
-				if (this.$.addEventListener)
+				if(this.$.addEventListener)
 					this.$.addEventListener(eventName, listener, !!CKEDITOR.event.useCapture);
-				else if (this.$.attachEvent)
+				else if(this.$.attachEvent)
 					this.$.attachEvent('on' + eventName, listener);
 			}
 
@@ -98,15 +98,15 @@ CKEDITOR.dom.domObject.prototype = (function()
 			CKEDITOR.event.prototype.removeListener.apply(this, arguments);
 
 			// If we don't have listeners for this event, clean the DOM up.
-			if (!this.hasListeners(eventName))
+			if(!this.hasListeners(eventName))
 			{
 				var nativeListeners = this.getCustomData('_cke_nativeListeners');
 				var listener = nativeListeners && nativeListeners[ eventName ];
-				if (listener)
+				if(listener)
 				{
-					if (this.$.removeEventListener)
+					if(this.$.removeEventListener)
 						this.$.removeEventListener(eventName, listener, false);
-					else if (this.$.detachEvent)
+					else if(this.$.detachEvent)
 						this.$.detachEvent('on' + eventName, listener);
 
 					delete nativeListeners[ eventName ];
@@ -124,9 +124,9 @@ CKEDITOR.dom.domObject.prototype = (function()
 			for (var eventName in nativeListeners)
 			{
 				var listener = nativeListeners[ eventName ];
-				if (this.$.detachEvent)
+				if(this.$.detachEvent)
 					this.$.detachEvent('on' + eventName, listener);
-				else if (this.$.removeEventListener)
+				else if(this.$.removeEventListener)
 					this.$.removeEventListener(eventName, listener, false);
 
 				delete nativeListeners[ eventName ];
@@ -214,7 +214,7 @@ CKEDITOR.dom.domObject.prototype = (function()
 				dataSlot = expandoNumber && customData[ expandoNumber ],
 				retval = dataSlot && dataSlot[ key ];
 
-		if (typeof retval != 'undefined')
+		if(typeof retval != 'undefined')
 			delete dataSlot[ key ];
 
 		return retval || null;

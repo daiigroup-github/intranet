@@ -11,7 +11,7 @@
 				try {
 					range = editor.getSelection().getRanges()[ 0 ];
 				}
-				catch (e) {
+				catch(e) {
 					return null;
 				}
 
@@ -37,7 +37,7 @@
 			function listStyle(editor, startupPage)
 			{
 				var lang = editor.lang.list;
-				if (startupPage == 'bulletedListStyle')
+				if(startupPage == 'bulletedListStyle')
 				{
 					return {
 						title: lang.bulletedTitle,
@@ -75,7 +75,7 @@
 														commit: function(element)
 														{
 															var value = this.getValue();
-															if (value)
+															if(value)
 																element.setStyle('list-style-type', value);
 															else
 																element.removeStyle('list-style-type');
@@ -100,7 +100,7 @@
 						}
 					};
 				}
-				else if (startupPage == 'numberedListStyle')
+				else if(startupPage == 'numberedListStyle')
 				{
 
 					var listStyleOptions =
@@ -113,7 +113,7 @@
 								[lang.decimal, 'decimal']
 							];
 
-					if (!CKEDITOR.env.ie || CKEDITOR.env.version > 7)
+					if(!CKEDITOR.env.ie || CKEDITOR.env.version > 7)
 					{
 						listStyleOptions.concat([
 							[lang.armenian, 'armenian'],
@@ -158,16 +158,16 @@
 																			// Force start number on list root.
 																			element.getFirst(listItem).removeAttribute('value');
 																			var val = parseInt(this.getValue(), 10);
-																			if (isNaN(val))
+																			if(isNaN(val))
 																				element.removeAttribute('start');
 																			else
 																				element.setAttribute('start', val);
 
 																			// Update consequent list item numbering.
 																			var nextItem = firstItem, conseq = oldStart, startNumber = isNaN(val) ? 1 : val;
-																			while ((nextItem = nextItem.getNext(listItem)) && conseq++)
+																			while((nextItem = nextItem.getNext(listItem)) && conseq++)
 																			{
-																				if (nextItem.getAttribute('value') == conseq)
+																				if(nextItem.getAttribute('value') == conseq)
 																					nextItem.setAttribute('value', startNumber + conseq - oldStart);
 																			}
 																		}
@@ -190,7 +190,7 @@
 																		commit: function(element)
 																		{
 																			var value = this.getValue();
-																			if (value)
+																			if(value)
 																				element.setStyle('list-style-type', value);
 																			else
 																				element.removeStyle('list-style-type');

@@ -4,20 +4,20 @@
  */
 
 		CKEDITOR.plugins.add('removeformat',
-		{
-			requires: ['selection'],
-			init: function(editor)
-			{
-				editor.addCommand('removeFormat', CKEDITOR.plugins.removeformat.commands.removeformat);
-				editor.ui.addButton('RemoveFormat',
-						{
-							label: editor.lang.removeFormat,
-							command: 'removeFormat'
-						});
+				{
+					requires: ['selection'],
+					init: function(editor)
+					{
+						editor.addCommand('removeFormat', CKEDITOR.plugins.removeformat.commands.removeformat);
+						editor.ui.addButton('RemoveFormat',
+								{
+									label: editor.lang.removeFormat,
+									command: 'removeFormat'
+								});
 
-				editor._.removeFormat = {filters: []};
-			}
-		});
+						editor._.removeFormat = {filters: []};
+					}
+				});
 
 CKEDITOR.plugins.removeformat =
 		{
@@ -38,9 +38,9 @@ CKEDITOR.plugins.removeformat =
 												iterator = ranges.createIterator(),
 												range;
 
-										while ((range = iterator.getNextRange()))
+										while((range = iterator.getNextRange()))
 										{
-											if (!range.collapsed)
+											if(!range.collapsed)
 												range.enlarge(CKEDITOR.ENLARGE_ELEMENT);
 
 											// Bookmark the range so we can re-select it after processing.
@@ -68,27 +68,27 @@ CKEDITOR.plugins.removeformat =
 
 												for (var i = 1, pathElement; pathElement = pathElements[ i ]; i++)
 												{
-													if (pathElement.equals(path.block) || pathElement.equals(path.blockLimit))
+													if(pathElement.equals(path.block) || pathElement.equals(path.blockLimit))
 														break;
 
 													// If this element can be removed (even partially).
-													if (tagsRegex.test(pathElement.getName()) && filter(editor, pathElement))
+													if(tagsRegex.test(pathElement.getName()) && filter(editor, pathElement))
 														node.breakParent(pathElement);
 												}
 											};
 
 											breakParent(startNode);
-											if (endNode)
+											if(endNode)
 											{
 												breakParent(endNode);
 
 												// Navigate through all nodes between the bookmarks.
 												currentNode = startNode.getNextSourceNode(true, CKEDITOR.NODE_ELEMENT);
 
-												while (currentNode)
+												while(currentNode)
 												{
 													// If we have reached the end of the selection, stop looping.
-													if (currentNode.equals(endNode))
+													if(currentNode.equals(endNode))
 														break;
 
 													// Cache the next node to be processed. Do it now, because
@@ -96,12 +96,12 @@ CKEDITOR.plugins.removeformat =
 													var nextNode = currentNode.getNextSourceNode(false, CKEDITOR.NODE_ELEMENT);
 
 													// This node must not be a fake element.
-													if (!(currentNode.getName() == 'img'
+													if(!(currentNode.getName() == 'img'
 															&& currentNode.data('cke-realelement'))
 															&& filter(editor, currentNode))
 													{
 														// Remove elements nodes that match with this style rules.
-														if (tagsRegex.test(currentNode.getName()))
+														if(tagsRegex.test(currentNode.getName()))
 															currentNode.remove(1);
 														else
 														{
@@ -131,7 +131,7 @@ CKEDITOR.plugins.removeformat =
 				var filters = editor._.removeFormat.filters;
 				for (var i = 0; i < filters.length; i++)
 				{
-					if (filters[ i ](element) === false)
+					if(filters[ i ](element) === false)
 						return false;
 				}
 				return true;

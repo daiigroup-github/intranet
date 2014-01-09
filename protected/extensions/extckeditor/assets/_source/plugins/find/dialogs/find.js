@@ -38,10 +38,10 @@
 
 			var pages = ['find', 'replace'],
 					fieldsMapping = [
-				['txtFindFind', 'txtFindReplace'],
-				['txtFindCaseChk', 'txtReplaceCaseChk'],
-				['txtFindWordChk', 'txtReplaceWordChk'],
-				['txtFindCyclic', 'txtReplaceCyclic']];
+						['txtFindFind', 'txtFindReplace'],
+						['txtFindCaseChk', 'txtReplaceCaseChk'],
+						['txtFindWordChk', 'txtReplaceWordChk'],
+						['txtFindCyclic', 'txtReplaceCyclic']];
 
 			/**
 			 * Synchronize corresponding filed values between 'replace' and 'find' pages.
@@ -73,9 +73,9 @@
 				// 2. Must be apply onto inner-most text to avoid conflicting with ordinary text color styles visually.
 				var highlightStyle = new CKEDITOR.style(
 						CKEDITOR.tools.extend({attributes: {'data-cke-highlight': 1}, fullMatch: 1, ignoreReadonly: 1, childRule: function() {
-						return 0;
-					}},
-				editor.config.find_highlight, true));
+								return 0;
+							}},
+						editor.config.find_highlight, true));
 
 				/**
 				 * Iterator which walk through the specified range char by char. By
@@ -96,7 +96,7 @@
 					walker[ 'evaluator' ] = findEvaluator;
 					walker.breakOnFalse = 1;
 
-					if (range.startContainer.type == CKEDITOR.NODE_TEXT)
+					if(range.startContainer.type == CKEDITOR.NODE_TEXT)
 					{
 						this.textNode = range.startContainer;
 						this.offset = range.startOffset - 1;
@@ -122,20 +122,20 @@
 					{
 						var currentTextNode = this.textNode;
 						// Already at the end of document, no more character available.
-						if (currentTextNode === null)
+						if(currentTextNode === null)
 							return cursorStep.call(this);
 
 						this._.matchBoundary = false;
 
 						// There are more characters in the text node, step forward.
-						if (currentTextNode
+						if(currentTextNode
 								&& rtl
 								&& this.offset > 0)
 						{
 							this.offset--;
 							return cursorStep.call(this);
 						}
-						else if (currentTextNode
+						else if(currentTextNode
 								&& this.offset < currentTextNode.getLength() - 1)
 						{
 							this.offset++;
@@ -145,20 +145,20 @@
 						{
 							currentTextNode = null;
 							// At the end of the text node, walking foward for the next.
-							while (!currentTextNode)
+							while(!currentTextNode)
 							{
 								currentTextNode =
 										this._.walker[ rtl ? 'previous' : 'next' ].call(this._.walker);
 
 								// Stop searching if we're need full word match OR
 								// already reach document end.
-								if (this._.matchWord && !currentTextNode
+								if(this._.matchWord && !currentTextNode
 										|| this._.walker._.end)
 									break;
 							}
 							// Found a fresh text node.
 							this.textNode = currentTextNode;
-							if (currentTextNode)
+							if(currentTextNode)
 								this.offset = rtl ? currentTextNode.getLength() - 1 : 0;
 							else
 								this.offset = 0;
@@ -192,10 +192,10 @@
 					{
 						var range = new CKEDITOR.dom.range(editor.document);
 						var cursors = this._.cursors;
-						if (cursors.length < 1)
+						if(cursors.length < 1)
 						{
 							var textNode = this._.walker.textNode;
-							if (textNode)
+							if(textNode)
 								range.setStartAfter(textNode);
 							else
 								return null;
@@ -222,10 +222,10 @@
 						do
 						{
 							cursor = walker.next();
-							if (cursor.character)
+							if(cursor.character)
 								this._.cursors.push(cursor);
 						}
-						while (cursor.character);
+						while(cursor.character);
 						this._.rangeLength = this._.cursors.length;
 					},
 					setMatched: function()
@@ -246,11 +246,11 @@
 					highlight: function()
 					{
 						// Do not apply if nothing is found.
-						if (this._.cursors.length < 1)
+						if(this._.cursors.length < 1)
 							return;
 
 						// Remove the previous highlight if there's one.
-						if (this._.highlightRange)
+						if(this._.highlightRange)
 							this.removeHighlight();
 
 						// Apply the highlight.
@@ -262,7 +262,7 @@
 
 						// Scroll the editor to the highlighted area.
 						var element = range.startContainer;
-						if (element.type != CKEDITOR.NODE_ELEMENT)
+						if(element.type != CKEDITOR.NODE_ELEMENT)
 							element = element.getParent();
 						element.scrollIntoView();
 
@@ -274,7 +274,7 @@
 					 */
 					removeHighlight: function()
 					{
-						if (!this._.highlightRange)
+						if(!this._.highlightRange)
 							return;
 
 						var bookmark = this._.highlightRange.createBookmark();
@@ -285,7 +285,7 @@
 					},
 					isReadOnly: function()
 					{
-						if (!this._.highlightRange)
+						if(!this._.highlightRange)
 							return 0;
 
 						return this._.highlightRange.startContainer.isReadOnly();
@@ -295,11 +295,11 @@
 						var retval = this._.walker.back(),
 								cursors = this._.cursors;
 
-						if (retval.hitMatchBoundary)
+						if(retval.hitMatchBoundary)
 							this._.cursors = cursors = [];
 
 						cursors.unshift(retval);
-						if (cursors.length > this._.rangeLength)
+						if(cursors.length > this._.rangeLength)
 							cursors.pop();
 
 						return retval;
@@ -310,11 +310,11 @@
 								cursors = this._.cursors;
 
 						// Clear the cursors queue if we've crossed a match boundary.
-						if (retval.hitMatchBoundary)
+						if(retval.hitMatchBoundary)
 							this._.cursors = cursors = [];
 
 						cursors.push(retval);
-						if (cursors.length > this._.rangeLength)
+						if(cursors.length > this._.rangeLength)
 							cursors.shift();
 
 						return retval;
@@ -322,7 +322,7 @@
 					getEndCharacter: function()
 					{
 						var cursors = this._.cursors;
-						if (cursors.length < 1)
+						if(cursors.length < 1)
 							return null;
 
 						return cursors[ cursors.length - 1 ].character;
@@ -333,7 +333,7 @@
 								nextRangeWalker,
 								cursors = this._.cursors;
 
-						if ((lastCursor = cursors[ cursors.length - 1 ]) && lastCursor.textNode)
+						if((lastCursor = cursors[ cursors.length - 1 ]) && lastCursor.textNode)
 							nextRangeWalker = new characterWalker(getRangeAfterCursor(lastCursor));
 						// In case it's an empty range (no cursors), figure out next range from walker (#4951).
 						else
@@ -378,12 +378,12 @@
 				var kmpMatcher = function(pattern, ignoreCase)
 				{
 					var overlap = [-1];
-					if (ignoreCase)
+					if(ignoreCase)
 						pattern = pattern.toLowerCase();
 					for (var i = 0; i < pattern.length; i++)
 					{
 						overlap.push(overlap[i] + 1);
-						while (overlap[ i + 1 ] > 0
+						while(overlap[ i + 1 ] > 0
 								&& pattern.charAt(i) != pattern
 								.charAt(overlap[ i + 1 ] - 1))
 							overlap[ i + 1 ] = overlap[ overlap[ i + 1 ] - 1 ] + 1;
@@ -401,22 +401,22 @@
 						{
 							feedCharacter: function(c)
 							{
-								if (this._.ignoreCase)
+								if(this._.ignoreCase)
 									c = c.toLowerCase();
 
-								while (true)
+								while(true)
 								{
-									if (c == this._.pattern.charAt(this._.state))
+									if(c == this._.pattern.charAt(this._.state))
 									{
 										this._.state++;
-										if (this._.state == this._.pattern.length)
+										if(this._.state == this._.pattern.length)
 										{
 											this._.state = 0;
 											return KMP_MATCHED;
 										}
 										return KMP_ADVANCED;
 									}
-									else if (!this._.state)
+									else if(!this._.state)
 										return KMP_NOMATCH;
 									else
 										this._.state = this._.overlap[ this._.state ];
@@ -435,7 +435,7 @@
 
 				var isWordSeparator = function(c)
 				{
-					if (!c)
+					if(!c)
 						return true;
 					var code = c.charCodeAt(0);
 					return (code >= 9 && code <= 0xd)
@@ -448,11 +448,11 @@
 					matchRange: null,
 					find: function(pattern, matchCase, matchWord, matchCyclic, highlightMatched, cyclicRerun)
 					{
-						if (!this.matchRange)
+						if(!this.matchRange)
 							this.matchRange =
 									new characterRange(
-									new characterWalker(this.searchRange),
-									pattern.length);
+											new characterWalker(this.searchRange),
+											pattern.length);
 						else
 						{
 							this.matchRange.removeHighlight();
@@ -463,21 +463,21 @@
 								matchState = KMP_NOMATCH,
 								character = '%';
 
-						while (character !== null)
+						while(character !== null)
 						{
 							this.matchRange.moveNext();
-							while ((character = this.matchRange.getEndCharacter()))
+							while((character = this.matchRange.getEndCharacter()))
 							{
 								matchState = matcher.feedCharacter(character);
-								if (matchState == KMP_MATCHED)
+								if(matchState == KMP_MATCHED)
 									break;
-								if (this.matchRange.moveNext().hitMatchBoundary)
+								if(this.matchRange.moveNext().hitMatchBoundary)
 									matcher.reset();
 							}
 
-							if (matchState == KMP_MATCHED)
+							if(matchState == KMP_MATCHED)
 							{
-								if (matchWord)
+								if(matchWord)
 								{
 									var cursors = this.matchRange.getCursors(),
 											tail = cursors[ cursors.length - 1 ],
@@ -486,12 +486,12 @@
 									var headWalker = new characterWalker(getRangeBeforeCursor(head), true),
 											tailWalker = new characterWalker(getRangeAfterCursor(tail), true);
 
-									if (!(isWordSeparator(headWalker.back().character)
+									if(!(isWordSeparator(headWalker.back().character)
 											&& isWordSeparator(tailWalker.next().character)))
 										continue;
 								}
 								this.matchRange.setMatched();
-								if (highlightMatched !== false)
+								if(highlightMatched !== false)
 									this.matchRange.highlight();
 								return true;
 							}
@@ -502,7 +502,7 @@
 						// Clear current session and restart with the default search
 						// range.
 						// Re-run the finding once for cyclic.(#3517)
-						if (matchCyclic && !cyclicRerun)
+						if(matchCyclic && !cyclicRerun)
 						{
 							this.searchRange = getSearchRange(1);
 							this.matchRange = null;
@@ -526,14 +526,14 @@
 
 						// 1. Perform the replace when there's already a match here.
 						// 2. Otherwise perform the find but don't replace it immediately.
-						if (this.matchRange && this.matchRange.isMatched()
+						if(this.matchRange && this.matchRange.isMatched()
 								&& !this.matchRange._.isReplaced && !this.matchRange.isReadOnly())
 						{
 							// Turn off highlight for a while when saving snapshots.
 							this.matchRange.removeHighlight();
 							var domRange = this.matchRange.toDomRange();
 							var text = editor.document.createText(newString);
-							if (!isReplaceAll)
+							if(!isReplaceAll)
 							{
 								// Save undo snaps before and after the replacement.
 								var selection = editor.getSelection();
@@ -542,13 +542,13 @@
 							}
 							domRange.deleteContents();
 							domRange.insertNode(text);
-							if (!isReplaceAll)
+							if(!isReplaceAll)
 							{
 								selection.selectRanges([domRange]);
 								editor.fire('saveSnapshot');
 							}
 							this.matchRange.updateFromDomRange(domRange);
-							if (!isReplaceAll)
+							if(!isReplaceAll)
 								this.matchRange.highlight();
 							this.matchRange._.isReplaced = true;
 							this.replaceCounter++;
@@ -572,7 +572,7 @@
 					var searchRange,
 							sel = editor.getSelection(),
 							body = editor.document.getBody();
-					if (sel && !isDefault)
+					if(sel && !isDefault)
 					{
 						searchRange = sel.getRanges()[ 0 ].clone();
 						searchRange.collapse(true);
@@ -622,7 +622,7 @@
 													onClick: function()
 													{
 														var dialog = this.getDialog();
-														if (!finder.find(dialog.getValueOf('find', 'txtFindFind'),
+														if(!finder.find(dialog.getValueOf('find', 'txtFindFind'),
 																dialog.getValueOf('find', 'txtFindCaseChk'),
 																dialog.getValueOf('find', 'txtFindWordChk'),
 																dialog.getValueOf('find', 'txtFindCyclic')))
@@ -695,7 +695,7 @@
 													onClick: function()
 													{
 														var dialog = this.getDialog();
-														if (!finder.replace(dialog,
+														if(!finder.replace(dialog,
 																dialog.getValueOf('replace', 'txtFindReplace'),
 																dialog.getValueOf('replace', 'txtReplace'),
 																dialog.getValueOf('replace', 'txtReplaceCaseChk'),
@@ -736,13 +736,13 @@
 
 														// Scope to full document.
 														finder.searchRange = getSearchRange(1);
-														if (finder.matchRange)
+														if(finder.matchRange)
 														{
 															finder.matchRange.removeHighlight();
 															finder.matchRange = null;
 														}
 														editor.fire('saveSnapshot');
-														while (finder.replace(dialog,
+														while(finder.replace(dialog,
 																dialog.getValueOf('replace', 'txtFindReplace'),
 																dialog.getValueOf('replace', 'txtReplace'),
 																dialog.getValueOf('replace', 'txtReplaceCaseChk'),
@@ -751,7 +751,7 @@
 														{ /*jsl:pass*/
 														}
 
-														if (finder.replaceCounter)
+														if(finder.replaceCounter)
 														{
 															alert(lang.replaceSuccessMsg.replace(/%1/, finder.replaceCounter));
 															editor.fire('saveSnapshot');
@@ -833,7 +833,7 @@
 										wholeWordChkFieldId);
 
 								// Prepare for check pattern text filed 'keyup' event
-								if (!currPage.initialized)
+								if(!currPage.initialized)
 								{
 									patternFieldInput = CKEDITOR.document
 											.getById(patternField._.inputId);
@@ -841,7 +841,7 @@
 								}
 
 								// Synchronize fields on tab switch.
-								if (isUserSelect)
+								if(isUserSelect)
 									syncFieldsBetweenTabs.call(this, pageId);
 							};
 						});
@@ -867,13 +867,13 @@
 					onHide: function()
 					{
 						var range;
-						if (finder.matchRange && finder.matchRange.isMatched())
+						if(finder.matchRange && finder.matchRange.isMatched())
 						{
 							finder.matchRange.removeHighlight();
 							editor.focus();
 
 							range = finder.matchRange.toDomRange();
-							if (range)
+							if(range)
 								editor.getSelection().selectRanges([range]);
 						}
 
@@ -882,7 +882,7 @@
 					},
 					onFocus: function()
 					{
-						if (startupPage == 'replace')
+						if(startupPage == 'replace')
 							return this.getContentElement('replace', 'txtFindReplace');
 						else
 							return this.getContentElement('find', 'txtFindFind');

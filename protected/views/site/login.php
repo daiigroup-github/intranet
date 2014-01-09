@@ -37,24 +37,24 @@ $this->pageHeader = 'เข้าสู่ระบบ';
 </style>
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'login-form',
-	'enableClientValidation' => true,
-	'clientOptions' => array(
-		'validateOnSubmit' => true,),
-	'htmlOptions' => array(
-		'class' => 'form-signin'),));
+	'id'=>'login-form',
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,),
+	'htmlOptions'=>array(
+		'class'=>'form-signin'),));
 ?>
 
 <?php
 echo $form->textField($model, 'username', array(
-	'placeholder' => 'Username',
-	'class' => 'input-block-level'));
+	'placeholder'=>'Username',
+	'class'=>'input-block-level'));
 ?>
 
 <?php
 echo $form->passwordField($model, 'password', array(
-	'placeholder' => 'Password',
-	'class' => 'input-block-level'));
+	'placeholder'=>'Password',
+	'class'=>'input-block-level'));
 ?>
 
 <label class="checkbox">
@@ -68,16 +68,16 @@ echo $form->passwordField($model, 'password', array(
 
 <?php
 echo CHtml::submitButton('เข้าสู่ระบบ', array(
-	'class' => 'btn btn-primary',));
+	'class'=>'btn btn-primary',));
 ?>
 
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class' => 'alert alert-error'));
+	'class'=>'alert alert-error'));
 ?>
 
 <?php
-if (isset($_GET["resetMessage"]))
+if(isset($_GET["resetMessage"]))
 	echo "<p style='color:red'>กรุณา ตรวจสอบ อีเมล์ ของท่านเพื่อรับ รหัสผ่านใหม่</p>";
 ?>
 

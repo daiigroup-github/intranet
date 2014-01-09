@@ -5,7 +5,7 @@
 		 http://developer.yahoo.net/yui/license.txt
 		 version: 2.7.0
 		 */
-		if (typeof YAHOO == "undefined" || !YAHOO) {
+		if(typeof YAHOO == "undefined" || !YAHOO) {
 	var YAHOO = {};
 }
 YAHOO.namespace = function() {
@@ -22,7 +22,7 @@ YAHOO.namespace = function() {
 };
 YAHOO.log = function(D, A, C) {
 	var B = YAHOO.widget.Logger;
-	if (B && B.log) {
+	if(B && B.log) {
 		return B.log(D, A, C);
 	} else {
 		return false;
@@ -30,7 +30,7 @@ YAHOO.log = function(D, A, C) {
 };
 YAHOO.register = function(A, E, D) {
 	var I = YAHOO.env.modules, B, H, G, F, C;
-	if (!I[A]) {
+	if(!I[A]) {
 		I[A] = {versions: [], builds: []};
 	}
 	B = I[A];
@@ -46,7 +46,7 @@ YAHOO.register = function(A, E, D) {
 	for (C = 0; C < F.length; C = C + 1) {
 		F[C](B);
 	}
-	if (E) {
+	if(E) {
 		E.VERSION = H;
 		E.BUILD = G;
 	} else {
@@ -59,43 +59,43 @@ YAHOO.env.getVersion = function(A) {
 };
 YAHOO.env.ua = function() {
 	var C = {ie: 0, opera: 0, gecko: 0, webkit: 0, mobile: null, air: 0, caja: 0}, B = navigator.userAgent, A;
-	if ((/KHTML/).test(B)) {
+	if((/KHTML/).test(B)) {
 		C.webkit = 1;
 	}
 	A = B.match(/AppleWebKit\/([^\s]*)/);
-	if (A && A[1]) {
+	if(A && A[1]) {
 		C.webkit = parseFloat(A[1]);
-		if (/ Mobile\//.test(B)) {
+		if(/ Mobile\//.test(B)) {
 			C.mobile = "Apple";
 		} else {
 			A = B.match(/NokiaN[^\/]*/);
-			if (A) {
+			if(A) {
 				C.mobile = A[0];
 			}
 		}
 		A = B.match(/AdobeAIR\/([^\s]*)/);
-		if (A) {
+		if(A) {
 			C.air = A[0];
 		}
 	}
-	if (!C.webkit) {
+	if(!C.webkit) {
 		A = B.match(/Opera[\s\/]([^\s]*)/);
-		if (A && A[1]) {
+		if(A && A[1]) {
 			C.opera = parseFloat(A[1]);
 			A = B.match(/Opera Mini[^;]*/);
-			if (A) {
+			if(A) {
 				C.mobile = A[0];
 			}
 		} else {
 			A = B.match(/MSIE\s([^;]*)/);
-			if (A && A[1]) {
+			if(A && A[1]) {
 				C.ie = parseFloat(A[1]);
 			} else {
 				A = B.match(/Gecko\/([^\s]*)/);
-				if (A) {
+				if(A) {
 					C.gecko = 1;
 					A = B.match(/rv:([^\s\)]*)/);
-					if (A && A[1]) {
+					if(A && A[1]) {
 						C.gecko = parseFloat(A[1]);
 					}
 				}
@@ -103,23 +103,23 @@ YAHOO.env.ua = function() {
 		}
 	}
 	A = B.match(/Caja\/([^\s]*)/);
-	if (A && A[1]) {
+	if(A && A[1]) {
 		C.caja = parseFloat(A[1]);
 	}
 	return C;
 }();
 (function() {
 	YAHOO.namespace("util", "widget", "example");
-	if ("undefined" !== typeof YAHOO_config) {
+	if("undefined" !== typeof YAHOO_config) {
 		var B = YAHOO_config.listener, A = YAHOO.env.listeners, D = true, C;
-		if (B) {
+		if(B) {
 			for (C = 0; C < A.length; C = C + 1) {
-				if (A[C] == B) {
+				if(A[C] == B) {
 					D = false;
 					break;
 				}
 			}
-			if (D) {
+			if(D) {
 				A.push(B);
 			}
 		}
@@ -148,13 +148,13 @@ YAHOO.lang = YAHOO.lang || {};
 			for (G = 0; G < E.length; G = G + 1) {
 				K = E[G];
 				J = H[K];
-				if (B.isFunction(J) && J != A[K]) {
+				if(B.isFunction(J) && J != A[K]) {
 					I[K] = J;
 				}
 			}
 		} : function() {
 		}, extend: function(J, K, I) {
-			if (!K || !J) {
+			if(!K || !J) {
 				throw new Error("extend failed, please check that " + "all dependencies are included.");
 			}
 			var H = function() {
@@ -163,36 +163,36 @@ YAHOO.lang = YAHOO.lang || {};
 			J.prototype = new H();
 			J.prototype.constructor = J;
 			J.superclass = K.prototype;
-			if (K.prototype.constructor == A.constructor) {
+			if(K.prototype.constructor == A.constructor) {
 				K.prototype.constructor = K;
 			}
-			if (I) {
+			if(I) {
 				for (G in I) {
-					if (B.hasOwnProperty(I, G)) {
+					if(B.hasOwnProperty(I, G)) {
 						J.prototype[G] = I[G];
 					}
 				}
 				B._IEEnumFix(J.prototype, I);
 			}
 		}, augmentObject: function(K, J) {
-			if (!J || !K) {
+			if(!J || !K) {
 				throw new Error("Absorb failed, verify dependencies.");
 			}
 			var G = arguments, I, L, H = G[2];
-			if (H && H !== true) {
+			if(H && H !== true) {
 				for (I = 2; I < G.length; I = I + 1) {
 					K[G[I]] = J[G[I]];
 				}
 			} else {
 				for (L in J) {
-					if (H || !(L in K)) {
+					if(H || !(L in K)) {
 						K[L] = J[L];
 					}
 				}
 				B._IEEnumFix(K, J);
 			}
 		}, augmentProto: function(J, I) {
-			if (!I || !J) {
+			if(!I || !J) {
 				throw new Error("Augment failed, verify dependencies.");
 			}
 			var G = [J.prototype, I.prototype], H;
@@ -202,38 +202,38 @@ YAHOO.lang = YAHOO.lang || {};
 			B.augmentObject.apply(this, G);
 		}, dump: function(G, L) {
 			var I, K, N = [], O = "{...}", H = "f(){...}", M = ", ", J = " => ";
-			if (!B.isObject(G)) {
+			if(!B.isObject(G)) {
 				return G + "";
 			} else {
-				if (G instanceof Date || ("nodeType" in G && "tagName" in G)) {
+				if(G instanceof Date || ("nodeType" in G && "tagName" in G)) {
 					return G;
 				} else {
-					if (B.isFunction(G)) {
+					if(B.isFunction(G)) {
 						return H;
 					}
 				}
 			}
 			L = (B.isNumber(L)) ? L : 3;
-			if (B.isArray(G)) {
+			if(B.isArray(G)) {
 				N.push("[");
 				for (I = 0, K = G.length; I < K; I = I + 1) {
-					if (B.isObject(G[I])) {
+					if(B.isObject(G[I])) {
 						N.push((L > 0) ? B.dump(G[I], L - 1) : O);
 					} else {
 						N.push(G[I]);
 					}
 					N.push(M);
 				}
-				if (N.length > 1) {
+				if(N.length > 1) {
 					N.pop();
 				}
 				N.push("]");
 			} else {
 				N.push("{");
 				for (I in G) {
-					if (B.hasOwnProperty(G, I)) {
+					if(B.hasOwnProperty(G, I)) {
 						N.push(I + J);
-						if (B.isObject(G[I])) {
+						if(B.isObject(G[I])) {
 							N.push((L > 0) ? B.dump(G[I], L - 1) : O);
 						} else {
 							N.push(G[I]);
@@ -241,7 +241,7 @@ YAHOO.lang = YAHOO.lang || {};
 						N.push(M);
 					}
 				}
-				if (N.length > 1) {
+				if(N.length > 1) {
 					N.pop();
 				}
 				N.push("}");
@@ -251,42 +251,42 @@ YAHOO.lang = YAHOO.lang || {};
 			var L, K, J, R, S, U, Q = [], I, M = "dump", P = " ", G = "{", T = "}", N;
 			for (; ; ) {
 				L = V.lastIndexOf(G);
-				if (L < 0) {
+				if(L < 0) {
 					break;
 				}
 				K = V.indexOf(T, L);
-				if (L + 1 >= K) {
+				if(L + 1 >= K) {
 					break;
 				}
 				I = V.substring(L + 1, K);
 				R = I;
 				U = null;
 				J = R.indexOf(P);
-				if (J > -1) {
+				if(J > -1) {
 					U = R.substring(J + 1);
 					R = R.substring(0, J);
 				}
 				S = H[R];
-				if (O) {
+				if(O) {
 					S = O(R, S, U);
 				}
-				if (B.isObject(S)) {
-					if (B.isArray(S)) {
+				if(B.isObject(S)) {
+					if(B.isArray(S)) {
 						S = B.dump(S, parseInt(U, 10));
 					} else {
 						U = U || "";
 						N = U.indexOf(M);
-						if (N > -1) {
+						if(N > -1) {
 							U = U.substring(4);
 						}
-						if (S.toString === A.toString || N > -1) {
+						if(S.toString === A.toString || N > -1) {
 							S = B.dump(S, parseInt(U, 10));
 						} else {
 							S = S.toString();
 						}
 					}
 				} else {
-					if (!B.isString(S) && !B.isNumber(S)) {
+					if(!B.isString(S) && !B.isNumber(S)) {
 						S = "~-" + Q.length + "-~";
 						Q[Q.length] = I;
 					}
@@ -300,7 +300,7 @@ YAHOO.lang = YAHOO.lang || {};
 		}, trim: function(G) {
 			try {
 				return G.replace(/^\s+|\s+$/g, "");
-			} catch (H) {
+			} catch(H) {
 				return G;
 			}
 		}, merge: function() {
@@ -313,13 +313,13 @@ YAHOO.lang = YAHOO.lang || {};
 			N = N || 0;
 			H = H || {};
 			var I = O, M = J, L, G;
-			if (B.isString(O)) {
+			if(B.isString(O)) {
 				I = H[O];
 			}
-			if (!I) {
+			if(!I) {
 				throw new TypeError("method undefined");
 			}
-			if (!B.isArray(M)) {
+			if(!B.isArray(M)) {
 				M = [J];
 			}
 			L = function() {
@@ -327,7 +327,7 @@ YAHOO.lang = YAHOO.lang || {};
 			};
 			G = (K) ? setInterval(L, N) : setTimeout(L, N);
 			return{interval: K, cancel: function() {
-					if (this.interval) {
+					if(this.interval) {
 						clearInterval(G);
 					} else {
 						clearTimeout(G);
@@ -353,21 +353,21 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 	var E = YAHOO.util, L = YAHOO.lang, m = YAHOO.env.ua, A = YAHOO.lang.trim, d = {}, h = {}, N = /^t(?:able|d|h)$/i, X = /color$/i, K = window.document, W = K.documentElement, e = "ownerDocument", n = "defaultView", v = "documentElement", t = "compatMode", b = "offsetLeft", P = "offsetTop", u = "offsetParent", Z = "parentNode", l = "nodeType", C = "tagName", O = "scrollLeft", i = "scrollTop", Q = "getBoundingClientRect", w = "getComputedStyle", a = "currentStyle", M = "CSS1Compat", c = "BackCompat", g = "class", F = "className", J = "", B = " ", s = "(?:^|\\s)", k = "(?= |$)", U = "g", p = "position", f = "fixed", V = "relative", j = "left", o = "top", r = "medium", q = "borderLeftWidth", R = "borderTopWidth", D = m.opera, I = m.webkit, H = m.gecko, T = m.ie;
 	E.Dom = {CUSTOM_ATTRIBUTES: (!W.hasAttribute) ? {"for": "htmlFor", "class": F} : {"htmlFor": "for", "className": g}, get: function(y) {
 			var AA, Y, z, x, G;
-			if (y) {
-				if (y[l] || y.item) {
+			if(y) {
+				if(y[l] || y.item) {
 					return y;
 				}
-				if (typeof y === "string") {
+				if(typeof y === "string") {
 					AA = y;
 					y = K.getElementById(y);
-					if (y && y.id === AA) {
+					if(y && y.id === AA) {
 						return y;
 					} else {
-						if (y && K.all) {
+						if(y && K.all) {
 							y = null;
 							Y = K.all[AA];
 							for (x = 0, G = Y.length; x < G; ++x) {
-								if (Y[x].id === AA) {
+								if(Y[x].id === AA) {
 									return Y[x];
 								}
 							}
@@ -375,10 +375,10 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 					}
 					return y;
 				}
-				if (y.DOM_EVENTS) {
+				if(y.DOM_EVENTS) {
 					y = y.get("element");
 				}
-				if ("length" in y) {
+				if("length" in y) {
 					z = [];
 					for (x = 0, G = y.length; x < G; ++x) {
 						z[z.length] = E.Dom.get(y[x]);
@@ -389,41 +389,41 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			}
 			return null;
 		}, getComputedStyle: function(G, Y) {
-			if (window[w]) {
+			if(window[w]) {
 				return G[e][n][w](G, null)[Y];
 			} else {
-				if (G[a]) {
+				if(G[a]) {
 					return E.Dom.IE_ComputedStyle.get(G, Y);
 				}
 			}
 		}, getStyle: function(G, Y) {
 			return E.Dom.batch(G, E.Dom._getStyle, Y);
 		}, _getStyle: function() {
-			if (window[w]) {
+			if(window[w]) {
 				return function(G, y) {
 					y = (y === "float") ? y = "cssFloat" : E.Dom._toCamel(y);
 					var x = G.style[y], Y;
-					if (!x) {
+					if(!x) {
 						Y = G[e][n][w](G, null);
-						if (Y) {
+						if(Y) {
 							x = Y[y];
 						}
 					}
 					return x;
 				};
 			} else {
-				if (W[a]) {
+				if(W[a]) {
 					return function(G, y) {
 						var x;
-						switch (y) {
+						switch(y) {
 							case"opacity":
 								x = 100;
 								try {
 									x = G.filters["DXImageTransform.Microsoft.Alpha"].opacity;
-								} catch (z) {
+								} catch(z) {
 									try {
 										x = G.filters("alpha").opacity;
-									} catch (Y) {
+									} catch(Y) {
 									}
 								}
 								return x / 100;
@@ -440,15 +440,15 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}(), setStyle: function(G, Y, x) {
 			E.Dom.batch(G, E.Dom._setStyle, {prop: Y, val: x});
 		}, _setStyle: function() {
-			if (T) {
+			if(T) {
 				return function(Y, G) {
 					var x = E.Dom._toCamel(G.prop), y = G.val;
-					if (Y) {
-						switch (x) {
+					if(Y) {
+						switch(x) {
 							case"opacity":
-								if (L.isString(Y.style.filter)) {
+								if(L.isString(Y.style.filter)) {
 									Y.style.filter = "alpha(opacity=" + y * 100 + ")";
-									if (!Y[a] || !Y[a].hasLayout) {
+									if(!Y[a] || !Y[a].hasLayout) {
 										Y.style.zoom = 1;
 									}
 								}
@@ -464,8 +464,8 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			} else {
 				return function(Y, G) {
 					var x = E.Dom._toCamel(G.prop), y = G.val;
-					if (Y) {
-						if (x == "float") {
+					if(Y) {
+						if(x == "float") {
 							x = "cssFloat";
 						}
 						Y.style[x] = y;
@@ -478,39 +478,39 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, _canPosition: function(G) {
 			return(E.Dom._getStyle(G, "display") !== "none" && E.Dom._inDoc(G));
 		}, _getXY: function() {
-			if (K[v][Q]) {
+			if(K[v][Q]) {
 				return function(y) {
 					var z, Y, AA, AF, AE, AD, AC, G, x, AB = Math.floor, AG = false;
-					if (E.Dom._canPosition(y)) {
+					if(E.Dom._canPosition(y)) {
 						AA = y[Q]();
 						AF = y[e];
 						z = E.Dom.getDocumentScrollLeft(AF);
 						Y = E.Dom.getDocumentScrollTop(AF);
 						AG = [AB(AA[j]), AB(AA[o])];
-						if (T && m.ie < 8) {
+						if(T && m.ie < 8) {
 							AE = 2;
 							AD = 2;
 							AC = AF[t];
 							G = S(AF[v], q);
 							x = S(AF[v], R);
-							if (m.ie === 6) {
-								if (AC !== c) {
+							if(m.ie === 6) {
+								if(AC !== c) {
 									AE = 0;
 									AD = 0;
 								}
 							}
-							if ((AC == c)) {
-								if (G !== r) {
+							if((AC == c)) {
+								if(G !== r) {
 									AE = parseInt(G, 10);
 								}
-								if (x !== r) {
+								if(x !== r) {
 									AD = parseInt(x, 10);
 								}
 							}
 							AG[0] -= AE;
 							AG[1] -= AD;
 						}
-						if ((Y || z)) {
+						if((Y || z)) {
 							AG[0] += z;
 							AG[1] += Y;
 						}
@@ -523,27 +523,27 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			} else {
 				return function(y) {
 					var x, Y, AA, AB, AC, z = false, G = y;
-					if (E.Dom._canPosition(y)) {
+					if(E.Dom._canPosition(y)) {
 						z = [y[b], y[P]];
 						x = E.Dom.getDocumentScrollLeft(y[e]);
 						Y = E.Dom.getDocumentScrollTop(y[e]);
 						AC = ((H || m.webkit > 519) ? true : false);
-						while ((G = G[u])) {
+						while((G = G[u])) {
 							z[0] += G[b];
 							z[1] += G[P];
-							if (AC) {
+							if(AC) {
 								z = E.Dom._calcBorders(G, z);
 							}
 						}
-						if (E.Dom._getStyle(y, p) !== f) {
+						if(E.Dom._getStyle(y, p) !== f) {
 							G = y;
-							while ((G = G[Z]) && G[C]) {
+							while((G = G[Z]) && G[C]) {
 								AA = G[i];
 								AB = G[O];
-								if (H && (E.Dom._getStyle(G, "overflow") !== "visible")) {
+								if(H && (E.Dom._getStyle(G, "overflow") !== "visible")) {
 									z = E.Dom._calcBorders(G, z);
 								}
-								if (AA || AB) {
+								if(AA || AB) {
 									z[0] -= AB;
 									z[1] -= AA;
 								}
@@ -551,11 +551,11 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 							z[0] += x;
 							z[1] += Y;
 						} else {
-							if (D) {
+							if(D) {
 								z[0] -= x;
 								z[1] -= Y;
 							} else {
-								if (I || H) {
+								if(I || H) {
 									z[0] += x;
 									z[1] += Y;
 								}
@@ -582,29 +582,29 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			E.Dom.batch(G, E.Dom._setXY, {pos: x, noRetry: Y});
 		}, _setXY: function(G, z) {
 			var AA = E.Dom._getStyle(G, p), y = E.Dom.setStyle, AD = z.pos, Y = z.noRetry, AB = [parseInt(E.Dom.getComputedStyle(G, j), 10), parseInt(E.Dom.getComputedStyle(G, o), 10)], AC, x;
-			if (AA == "static") {
+			if(AA == "static") {
 				AA = V;
 				y(G, p, AA);
 			}
 			AC = E.Dom._getXY(G);
-			if (!AD || AC === false) {
+			if(!AD || AC === false) {
 				return false;
 			}
-			if (isNaN(AB[0])) {
+			if(isNaN(AB[0])) {
 				AB[0] = (AA == V) ? 0 : G[b];
 			}
-			if (isNaN(AB[1])) {
+			if(isNaN(AB[1])) {
 				AB[1] = (AA == V) ? 0 : G[P];
 			}
-			if (AD[0] !== null) {
+			if(AD[0] !== null) {
 				y(G, j, AD[0] - AC[0] + AB[0] + "px");
 			}
-			if (AD[1] !== null) {
+			if(AD[1] !== null) {
 				y(G, o, AD[1] - AC[1] + AB[1] + "px");
 			}
-			if (!Y) {
+			if(!Y) {
 				x = E.Dom._getXY(G);
-				if ((AD[0] !== null && x[0] != AD[0]) || (AD[1] !== null && x[1] != AD[1])) {
+				if((AD[0] !== null && x[0] != AD[0]) || (AD[1] !== null && x[1] != AD[1])) {
 					E.Dom._setXY(G, {pos: AD, noRetry: true});
 				}
 			}
@@ -615,7 +615,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, getRegion: function(G) {
 			var Y = function(x) {
 				var y = false;
-				if (E.Dom._canPosition(x)) {
+				if(E.Dom._canPosition(x)) {
 					y = E.Region.getRegion(x);
 				} else {
 				}
@@ -630,16 +630,16 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			AB = L.trim(AB);
 			AF = AF || "*";
 			AC = (AC) ? E.Dom.get(AC) : null || K;
-			if (!AC) {
+			if(!AC) {
 				return[];
 			}
 			var Y = [], G = AC.getElementsByTagName(AF), z = E.Dom.hasClass;
 			for (var y = 0, AA = G.length; y < AA; ++y) {
-				if (z(G[y], AB)) {
+				if(z(G[y], AB)) {
 					Y[Y.length] = G[y];
 				}
 			}
-			if (AE) {
+			if(AE) {
 				E.Dom.batch(Y, AE, x, AD);
 			}
 			return Y;
@@ -647,9 +647,9 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom.batch(Y, E.Dom._hasClass, G);
 		}, _hasClass: function(x, Y) {
 			var G = false, y;
-			if (x && Y) {
+			if(x && Y) {
 				y = E.Dom.getAttribute(x, F) || J;
-				if (Y.exec) {
+				if(Y.exec) {
 					G = Y.test(y);
 				} else {
 					G = Y && (B + y + B).indexOf(B + Y + B) > -1;
@@ -661,9 +661,9 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom.batch(Y, E.Dom._addClass, G);
 		}, _addClass: function(x, Y) {
 			var G = false, y;
-			if (x && Y) {
+			if(x && Y) {
 				y = E.Dom.getAttribute(x, F) || J;
-				if (!E.Dom._hasClass(x, Y)) {
+				if(!E.Dom._hasClass(x, Y)) {
 					E.Dom.setAttribute(x, F, A(y + B + Y));
 					G = true;
 				}
@@ -674,14 +674,14 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom.batch(Y, E.Dom._removeClass, G);
 		}, _removeClass: function(y, x) {
 			var Y = false, AA, z, G;
-			if (y && x) {
+			if(y && x) {
 				AA = E.Dom.getAttribute(y, F) || J;
 				E.Dom.setAttribute(y, F, AA.replace(E.Dom._getClassRegex(x), J));
 				z = E.Dom.getAttribute(y, F);
-				if (AA !== z) {
+				if(AA !== z) {
 					E.Dom.setAttribute(y, F, A(z));
 					Y = true;
-					if (E.Dom.getAttribute(y, F) === "") {
+					if(E.Dom.getAttribute(y, F) === "") {
 						G = (y.hasAttribute && y.hasAttribute(g)) ? g : F;
 						y.removeAttribute(G);
 					}
@@ -693,16 +693,16 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom.batch(x, E.Dom._replaceClass, {from: Y, to: G});
 		}, _replaceClass: function(y, x) {
 			var Y, AB, AA, G = false, z;
-			if (y && x) {
+			if(y && x) {
 				AB = x.from;
 				AA = x.to;
-				if (!AA) {
+				if(!AA) {
 					G = false;
 				} else {
-					if (!AB) {
+					if(!AB) {
 						G = E.Dom._addClass(y, x.to);
 					} else {
-						if (AB !== AA) {
+						if(AB !== AA) {
 							z = E.Dom.getAttribute(y, F) || J;
 							Y = (B + z.replace(E.Dom._getClassRegex(AB), B + AA)).split(E.Dom._getClassRegex(AA));
 							Y.splice(1, 0, B + AA);
@@ -717,12 +717,12 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, generateId: function(G, x) {
 			x = x || "yui-gen";
 			var Y = function(y) {
-				if (y && y.id) {
+				if(y && y.id) {
 					return y.id;
 				}
 				var z = x + YAHOO.env._id_counter++;
-				if (y) {
-					if (y[e].getElementById(z)) {
+				if(y) {
+					if(y[e].getElementById(z)) {
 						return E.Dom.generateId(y, z + x);
 					}
 					y.id = z;
@@ -734,11 +734,11 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			Y = E.Dom.get(Y);
 			x = E.Dom.get(x);
 			var G = false;
-			if ((Y && x) && (Y[l] && x[l])) {
-				if (Y.contains && Y !== x) {
+			if((Y && x) && (Y[l] && x[l])) {
+				if(Y.contains && Y !== x) {
 					G = Y.contains(x);
 				} else {
-					if (Y.compareDocumentPosition) {
+					if(Y.compareDocumentPosition) {
 						G = !!(Y.compareDocumentPosition(x) & 16);
 					}
 				}
@@ -749,7 +749,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom._inDoc(E.Dom.get(G), Y);
 		}, _inDoc: function(Y, x) {
 			var G = false;
-			if (Y && Y[C]) {
+			if(Y && Y[C]) {
 				x = x || Y[e];
 				G = E.Dom.isAncestor(x[v], Y);
 			} else {
@@ -758,13 +758,13 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, getElementsBy: function(Y, AF, AB, AD, y, AC, AE) {
 			AF = AF || "*";
 			AB = (AB) ? E.Dom.get(AB) : null || K;
-			if (!AB) {
+			if(!AB) {
 				return[];
 			}
 			var x = [], G = AB.getElementsByTagName(AF);
 			for (var z = 0, AA = G.length; z < AA; ++z) {
-				if (Y(G[z])) {
-					if (AE) {
+				if(Y(G[z])) {
+					if(AE) {
 						x = G[z];
 						break;
 					} else {
@@ -772,7 +772,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 					}
 				}
 			}
-			if (AD) {
+			if(AD) {
 				E.Dom.batch(x, AD, y, AC);
 			}
 			return x;
@@ -781,8 +781,8 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, batch: function(x, AB, AA, z) {
 			var y = [], Y = (z) ? AA : window;
 			x = (x && (x[C] || x.item)) ? x : E.Dom.get(x);
-			if (x && AB) {
-				if (x[C] || x.length === undefined) {
+			if(x && AB) {
+				if(x[C] || x.length === undefined) {
 					return AB.call(Y, x, AA);
 				}
 				for (var G = 0; G < x.length; ++G) {
@@ -800,26 +800,26 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return G;
 		}, getViewportHeight: function() {
 			var G = self.innerHeight, Y = K[t];
-			if ((Y || T) && !D) {
+			if((Y || T) && !D) {
 				G = (Y == M) ? W.clientHeight : K.body.clientHeight;
 			}
 			return G;
 		}, getViewportWidth: function() {
 			var G = self.innerWidth, Y = K[t];
-			if (Y || T) {
+			if(Y || T) {
 				G = (Y == M) ? W.clientWidth : K.body.clientWidth;
 			}
 			return G;
 		}, getAncestorBy: function(G, Y) {
-			while ((G = G[Z])) {
-				if (E.Dom._testElement(G, Y)) {
+			while((G = G[Z])) {
+				if(E.Dom._testElement(G, Y)) {
 					return G;
 				}
 			}
 			return null;
 		}, getAncestorByClassName: function(Y, G) {
 			Y = E.Dom.get(Y);
-			if (!Y) {
+			if(!Y) {
 				return null;
 			}
 			var x = function(y) {
@@ -828,7 +828,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return E.Dom.getAncestorBy(Y, x);
 		}, getAncestorByTagName: function(Y, G) {
 			Y = E.Dom.get(Y);
-			if (!Y) {
+			if(!Y) {
 				return null;
 			}
 			var x = function(y) {
@@ -836,30 +836,30 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			};
 			return E.Dom.getAncestorBy(Y, x);
 		}, getPreviousSiblingBy: function(G, Y) {
-			while (G) {
+			while(G) {
 				G = G.previousSibling;
-				if (E.Dom._testElement(G, Y)) {
+				if(E.Dom._testElement(G, Y)) {
 					return G;
 				}
 			}
 			return null;
 		}, getPreviousSibling: function(G) {
 			G = E.Dom.get(G);
-			if (!G) {
+			if(!G) {
 				return null;
 			}
 			return E.Dom.getPreviousSiblingBy(G);
 		}, getNextSiblingBy: function(G, Y) {
-			while (G) {
+			while(G) {
 				G = G.nextSibling;
-				if (E.Dom._testElement(G, Y)) {
+				if(E.Dom._testElement(G, Y)) {
 					return G;
 				}
 			}
 			return null;
 		}, getNextSibling: function(G) {
 			G = E.Dom.get(G);
-			if (!G) {
+			if(!G) {
 				return null;
 			}
 			return E.Dom.getNextSiblingBy(G);
@@ -868,12 +868,12 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return Y || E.Dom.getNextSiblingBy(G.firstChild, x);
 		}, getFirstChild: function(G, Y) {
 			G = E.Dom.get(G);
-			if (!G) {
+			if(!G) {
 				return null;
 			}
 			return E.Dom.getFirstChildBy(G);
 		}, getLastChildBy: function(G, x) {
-			if (!G) {
+			if(!G) {
 				return null;
 			}
 			var Y = (E.Dom._testElement(G.lastChild, x)) ? G.lastChild : null;
@@ -884,7 +884,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, getChildrenBy: function(Y, y) {
 			var x = E.Dom.getFirstChildBy(Y, y), G = x ? [x] : [];
 			E.Dom.getNextSiblingBy(x, function(z) {
-				if (!y || y(z)) {
+				if(!y || y(z)) {
 					G[G.length] = z;
 				}
 				return false;
@@ -892,7 +892,7 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return G;
 		}, getChildren: function(G) {
 			G = E.Dom.get(G);
-			if (!G) {
+			if(!G) {
 			}
 			return E.Dom.getChildrenBy(G);
 		}, getDocumentScrollLeft: function(G) {
@@ -904,17 +904,17 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 		}, insertBefore: function(Y, G) {
 			Y = E.Dom.get(Y);
 			G = E.Dom.get(G);
-			if (!Y || !G || !G[Z]) {
+			if(!Y || !G || !G[Z]) {
 				return null;
 			}
 			return G[Z].insertBefore(Y, G);
 		}, insertAfter: function(Y, G) {
 			Y = E.Dom.get(Y);
 			G = E.Dom.get(G);
-			if (!Y || !G || !G[Z]) {
+			if(!Y || !G || !G[Z]) {
 				return null;
 			}
-			if (G.nextSibling) {
+			if(G.nextSibling) {
 				return G[Z].insertBefore(Y, G.nextSibling);
 			} else {
 				return G[Z].appendChild(Y);
@@ -936,12 +936,12 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return x[Y] || (x[Y] = Y.indexOf("-") === -1 ? Y : Y.replace(/-([a-z])/gi, G));
 		}, _getClassRegex: function(Y) {
 			var G;
-			if (Y !== undefined) {
-				if (Y.exec) {
+			if(Y !== undefined) {
+				if(Y.exec) {
 					G = Y;
 				} else {
 					G = h[Y];
-					if (!G) {
+					if(!G) {
 						Y = Y.replace(E.Dom._patterns.CLASS_RE_TOKENS, "\\$1");
 						G = h[Y] = new RegExp(s + Y + k, U);
 					}
@@ -952,8 +952,8 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return G && G[l] == 1 && (!Y || Y(G));
 		}, _calcBorders: function(x, y) {
 			var Y = parseInt(E.Dom[w](x, R), 10) || 0, G = parseInt(E.Dom[w](x, q), 10) || 0;
-			if (H) {
-				if (N.test(x[C])) {
+			if(H) {
+				if(N.test(x[C])) {
 					Y = 0;
 					G = 0;
 				}
@@ -963,19 +963,19 @@ YAHOO.register("yahoo", YAHOO, {version: "2.7.0", build: "1796"});
 			return y;
 		}};
 	var S = E.Dom[w];
-	if (m.opera) {
+	if(m.opera) {
 		E.Dom[w] = function(Y, G) {
 			var x = S(Y, G);
-			if (X.test(G)) {
+			if(X.test(G)) {
 				x = E.Dom.Color.toRGB(x);
 			}
 			return x;
 		};
 	}
-	if (m.webkit) {
+	if(m.webkit) {
 		E.Dom[w] = function(Y, G) {
 			var x = S(Y, G);
-			if (x === "rgba(0, 0, 0, 0)") {
+			if(x === "rgba(0, 0, 0, 0)") {
 				x = "transparent";
 			}
 			return x;
@@ -1002,7 +1002,7 @@ YAHOO.util.Region.prototype.getArea = function() {
 };
 YAHOO.util.Region.prototype.intersect = function(E) {
 	var C = Math.max(this.top, E.top), D = Math.min(this.right, E.right), A = Math.min(this.bottom, E.bottom), B = Math.max(this.left, E.left);
-	if (A >= C && D >= B) {
+	if(A >= C && D >= B) {
 		return new YAHOO.util.Region(C, D, A, B);
 	} else {
 		return null;
@@ -1020,7 +1020,7 @@ YAHOO.util.Region.getRegion = function(D) {
 	return new YAHOO.util.Region(C, E, A, B);
 };
 YAHOO.util.Point = function(A, B) {
-	if (YAHOO.lang.isArray(A)) {
+	if(YAHOO.lang.isArray(A)) {
 		B = A[1];
 		A = A[0];
 	}
@@ -1030,16 +1030,16 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 (function() {
 	var B = YAHOO.util, A = "clientTop", F = "clientLeft", J = "parentNode", K = "right", W = "hasLayout", I = "px", U = "opacity", L = "auto", D = "borderLeftWidth", G = "borderTopWidth", P = "borderRightWidth", V = "borderBottomWidth", S = "visible", Q = "transparent", N = "height", E = "width", H = "style", T = "currentStyle", R = /^width|height$/, O = /^(\d[.\d]*)+(em|ex|px|gd|rem|vw|vh|vm|ch|mm|cm|in|pt|pc|deg|rad|ms|s|hz|khz|%){1}?/i, M = {get: function(X, Z) {
 			var Y = "", a = X[T][Z];
-			if (Z === U) {
+			if(Z === U) {
 				Y = B.Dom.getStyle(X, U);
 			} else {
-				if (!a || (a.indexOf && a.indexOf(I) > -1)) {
+				if(!a || (a.indexOf && a.indexOf(I) > -1)) {
 					Y = a;
 				} else {
-					if (B.Dom.IE_COMPUTED[Z]) {
+					if(B.Dom.IE_COMPUTED[Z]) {
 						Y = B.Dom.IE_COMPUTED[Z](X, Z);
 					} else {
-						if (O.test(a)) {
+						if(O.test(a)) {
 							Y = B.Dom.IE.ComputedStyle.getPixel(X, Z);
 						} else {
 							Y = a;
@@ -1050,21 +1050,21 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 			return Y;
 		}, getOffset: function(Z, e) {
 			var b = Z[T][e], X = e.charAt(0).toUpperCase() + e.substr(1), c = "offset" + X, Y = "pixel" + X, a = "", d;
-			if (b == L) {
+			if(b == L) {
 				d = Z[c];
-				if (d === undefined) {
+				if(d === undefined) {
 					a = 0;
 				}
 				a = d;
-				if (R.test(e)) {
+				if(R.test(e)) {
 					Z[H][e] = d;
-					if (Z[c] > d) {
+					if(Z[c] > d) {
 						a = d - (Z[c] - d);
 					}
 					Z[H][e] = L;
 				}
 			} else {
-				if (!Z[H][Y] && !Z[H][e]) {
+				if(!Z[H][Y] && !Z[H][e]) {
 					Z[H][e] = b;
 				}
 				a = Z[H][Y];
@@ -1072,10 +1072,10 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 			return a + I;
 		}, getBorderWidth: function(X, Z) {
 			var Y = null;
-			if (!X[T][W]) {
+			if(!X[T][W]) {
 				X[H].zoom = 1;
 			}
-			switch (Z) {
+			switch(Z) {
 				case G:
 					Y = X[A];
 					break;
@@ -1098,7 +1098,7 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 			return a + I;
 		}, getMargin: function(Y, X) {
 			var Z;
-			if (Y[T][X] == L) {
+			if(Y[T][X] == L) {
 				Z = 0 + I;
 			} else {
 				Z = B.Dom.IE.ComputedStyle.getPixel(Y, X);
@@ -1106,7 +1106,7 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 			return Z;
 		}, getVisibility: function(Y, X) {
 			var Z;
-			while ((Z = Y[T]) && Z[X] == "inherit") {
+			while((Z = Y[T]) && Z[X] == "inherit") {
 				Y = Y[J];
 			}
 			return(Z) ? Z[X] : S;
@@ -1128,23 +1128,23 @@ YAHOO.extend(YAHOO.util.Point, YAHOO.util.Region);
 (function() {
 	var C = "toString", A = parseInt, B = RegExp, D = YAHOO.util;
 	D.Dom.Color = {KEYWORDS: {black: "000", silver: "c0c0c0", gray: "808080", white: "fff", maroon: "800000", red: "f00", purple: "800080", fuchsia: "f0f", green: "008000", lime: "0f0", olive: "808000", yellow: "ff0", navy: "000080", blue: "00f", teal: "008080", aqua: "0ff"}, re_RGB: /^rgb\(([0-9]+)\s*,\s*([0-9]+)\s*,\s*([0-9]+)\)$/i, re_hex: /^#?([0-9A-F]{2})([0-9A-F]{2})([0-9A-F]{2})$/i, re_hex3: /([0-9A-F])/gi, toRGB: function(E) {
-			if (!D.Dom.Color.re_RGB.test(E)) {
+			if(!D.Dom.Color.re_RGB.test(E)) {
 				E = D.Dom.Color.toHex(E);
 			}
-			if (D.Dom.Color.re_hex.exec(E)) {
+			if(D.Dom.Color.re_hex.exec(E)) {
 				E = "rgb(" + [A(B.$1, 16), A(B.$2, 16), A(B.$3, 16)].join(", ") + ")";
 			}
 			return E;
 		}, toHex: function(H) {
 			H = D.Dom.Color.KEYWORDS[H] || H;
-			if (D.Dom.Color.re_RGB.exec(H)) {
+			if(D.Dom.Color.re_RGB.exec(H)) {
 				var G = (B.$1.length === 1) ? "0" + B.$1 : Number(B.$1), F = (B.$2.length === 1) ? "0" + B.$2 : Number(B.$2), E = (B.$3.length === 1) ? "0" + B.$3 : Number(B.$3);
 				H = [G[C](16), F[C](16), E[C](16)].join("");
 			}
-			if (H.length < 6) {
+			if(H.length < 6) {
 				H = H.replace(D.Dom.Color.re_hex3, "$1$1");
 			}
-			if (H !== "transparent" && H.indexOf("#") < 0) {
+			if(H !== "transparent" && H.indexOf("#") < 0) {
 				H = "#" + H;
 			}
 			return H.toLowerCase();
@@ -1157,10 +1157,10 @@ YAHOO.util.CustomEvent = function(D, C, B, A) {
 	this.silent = B;
 	this.signature = A || YAHOO.util.CustomEvent.LIST;
 	this.subscribers = [];
-	if (!this.silent) {
+	if(!this.silent) {
 	}
 	var E = "_YUICEOnSubscribe";
-	if (D !== E) {
+	if(D !== E) {
 		this.subscribeEvent = new YAHOO.util.CustomEvent(E, this, true);
 	}
 	this.lastError = null;
@@ -1168,21 +1168,21 @@ YAHOO.util.CustomEvent = function(D, C, B, A) {
 YAHOO.util.CustomEvent.LIST = 0;
 YAHOO.util.CustomEvent.FLAT = 1;
 YAHOO.util.CustomEvent.prototype = {subscribe: function(A, B, C) {
-		if (!A) {
+		if(!A) {
 			throw new Error("Invalid callback for subscriber to '" + this.type + "'");
 		}
-		if (this.subscribeEvent) {
+		if(this.subscribeEvent) {
 			this.subscribeEvent.fire(A, B, C);
 		}
 		this.subscribers.push(new YAHOO.util.Subscriber(A, B, C));
 	}, unsubscribe: function(D, F) {
-		if (!D) {
+		if(!D) {
 			return this.unsubscribeAll();
 		}
 		var E = false;
 		for (var B = 0, A = this.subscribers.length; B < A; ++B) {
 			var C = this.subscribers[B];
-			if (C && C.contains(D, F)) {
+			if(C && C.contains(D, F)) {
 				this._delete(B);
 				E = true;
 			}
@@ -1191,46 +1191,46 @@ YAHOO.util.CustomEvent.prototype = {subscribe: function(A, B, C) {
 	}, fire: function() {
 		this.lastError = null;
 		var K = [], E = this.subscribers.length;
-		if (!E && this.silent) {
+		if(!E && this.silent) {
 			return true;
 		}
 		var I = [].slice.call(arguments, 0), G = true, D, J = false;
-		if (!this.silent) {
+		if(!this.silent) {
 		}
 		var C = this.subscribers.slice(), A = YAHOO.util.Event.throwErrors;
 		for (D = 0; D < E; ++D) {
 			var M = C[D];
-			if (!M) {
+			if(!M) {
 				J = true;
 			} else {
-				if (!this.silent) {
+				if(!this.silent) {
 				}
 				var L = M.getScope(this.scope);
-				if (this.signature == YAHOO.util.CustomEvent.FLAT) {
+				if(this.signature == YAHOO.util.CustomEvent.FLAT) {
 					var B = null;
-					if (I.length > 0) {
+					if(I.length > 0) {
 						B = I[0];
 					}
 					try {
 						G = M.fn.call(L, B, M.obj);
-					} catch (F) {
+					} catch(F) {
 						this.lastError = F;
-						if (A) {
+						if(A) {
 							throw F;
 						}
 					}
 				} else {
 					try {
 						G = M.fn.call(L, this.type, I, M.obj);
-					} catch (H) {
+					} catch(H) {
 						this.lastError = H;
-						if (A) {
+						if(A) {
 							throw H;
 						}
 					}
 				}
-				if (false === G) {
-					if (!this.silent) {
+				if(false === G) {
+					if(!this.silent) {
 					}
 					break;
 				}
@@ -1246,7 +1246,7 @@ YAHOO.util.CustomEvent.prototype = {subscribe: function(A, B, C) {
 		return A;
 	}, _delete: function(A) {
 		var B = this.subscribers[A];
-		if (B) {
+		if(B) {
 			delete B.fn;
 			delete B.obj;
 		}
@@ -1260,8 +1260,8 @@ YAHOO.util.Subscriber = function(A, B, C) {
 	this.overrideContext = C;
 };
 YAHOO.util.Subscriber.prototype.getScope = function(A) {
-	if (this.overrideContext) {
-		if (this.overrideContext === true) {
+	if(this.overrideContext) {
+		if(this.overrideContext === true) {
 			return this.obj;
 		} else {
 			return this.overrideContext;
@@ -1270,7 +1270,7 @@ YAHOO.util.Subscriber.prototype.getScope = function(A) {
 	return A;
 };
 YAHOO.util.Subscriber.prototype.contains = function(A, B) {
-	if (B) {
+	if(B) {
 		return(this.fn == A && this.obj == B);
 	} else {
 		return(this.fn == A);
@@ -1279,7 +1279,7 @@ YAHOO.util.Subscriber.prototype.contains = function(A, B) {
 YAHOO.util.Subscriber.prototype.toString = function() {
 	return"Subscriber { obj: " + this.obj + ", overrideContext: " + (this.overrideContext || "no") + " }";
 };
-if (!YAHOO.util.Event) {
+if(!YAHOO.util.Event) {
 	YAHOO.util.Event = function() {
 		var H = false;
 		var I = [];
@@ -1294,7 +1294,7 @@ if (!YAHOO.util.Event) {
 		var K = YAHOO.env.ua.ie ? "focusin" : "focus";
 		var L = YAHOO.env.ua.ie ? "focusout" : "blur";
 		return{POLL_RETRYS: 2000, POLL_INTERVAL: 20, EL: 0, TYPE: 1, FN: 2, WFN: 3, UNLOAD_OBJ: 3, ADJ_SCOPE: 4, OBJ: 5, OVERRIDE: 6, lastError: null, isSafari: YAHOO.env.ua.webkit, webkit: YAHOO.env.ua.webkit, isIE: YAHOO.env.ua.ie, _interval: null, _dri: null, DOMReady: false, throwErrors: false, startInterval: function() {
-				if (!this._interval) {
+				if(!this._interval) {
 					var M = this;
 					var N = function() {
 						M._tryPreloadAttach();
@@ -1311,11 +1311,11 @@ if (!YAHOO.util.Event) {
 			}, onContentReady: function(P, M, N, O) {
 				this.onAvailable(P, M, N, O, true);
 			}, onDOMReady: function(M, N, O) {
-				if (this.DOMReady) {
+				if(this.DOMReady) {
 					setTimeout(function() {
 						var P = window;
-						if (O) {
-							if (O === true) {
+						if(O) {
+							if(O === true) {
 								P = N;
 							} else {
 								P = O;
@@ -1327,19 +1327,19 @@ if (!YAHOO.util.Event) {
 					this.DOMReadyEvent.subscribe(M, N, O);
 				}
 			}, _addListener: function(O, M, Y, S, W, b) {
-				if (!Y || !Y.call) {
+				if(!Y || !Y.call) {
 					return false;
 				}
-				if (this._isValidCollection(O)) {
+				if(this._isValidCollection(O)) {
 					var Z = true;
 					for (var T = 0, V = O.length; T < V; ++T) {
 						Z = this.on(O[T], M, Y, S, W) && Z;
 					}
 					return Z;
 				} else {
-					if (YAHOO.lang.isString(O)) {
+					if(YAHOO.lang.isString(O)) {
 						var R = this.getEl(O);
-						if (R) {
+						if(R) {
 							O = R;
 						} else {
 							this.onAvailable(O, function() {
@@ -1349,16 +1349,16 @@ if (!YAHOO.util.Event) {
 						}
 					}
 				}
-				if (!O) {
+				if(!O) {
 					return false;
 				}
-				if ("unload" == M && S !== this) {
+				if("unload" == M && S !== this) {
 					J[J.length] = [O, M, Y, S, W];
 					return true;
 				}
 				var N = O;
-				if (W) {
-					if (W === true) {
+				if(W) {
+					if(W === true) {
 						N = S;
 					} else {
 						N = W;
@@ -1370,9 +1370,9 @@ if (!YAHOO.util.Event) {
 				var a = [O, M, Y, P, N, S, W];
 				var U = I.length;
 				I[U] = a;
-				if (this.useLegacyEvent(O, M)) {
+				if(this.useLegacyEvent(O, M)) {
 					var Q = this.getLegacyIndex(O, M);
-					if (Q == -1 || O != G[Q][0]) {
+					if(Q == -1 || O != G[Q][0]) {
 						Q = G.length;
 						B[O.id + M] = Q;
 						G[Q] = [O, M, O["on" + M]];
@@ -1385,7 +1385,7 @@ if (!YAHOO.util.Event) {
 				} else {
 					try {
 						this._simpleAdd(O, M, P, b);
-					} catch (X) {
+					} catch(X) {
 						this.lastError = X;
 						this.removeListener(O, M, Y);
 						return false;
@@ -1407,20 +1407,20 @@ if (!YAHOO.util.Event) {
 				V = E[P].slice();
 				for (var O = 0, Q = V.length; O < Q; ++O) {
 					U = V[O];
-					if (U && U[this.WFN]) {
+					if(U && U[this.WFN]) {
 						N = U[this.ADJ_SCOPE];
 						S = U[this.WFN].call(N, R);
 						T = (T && S);
 					}
 				}
 				M = G[P];
-				if (M && M[2]) {
+				if(M && M[2]) {
 					M[2](R);
 				}
 				return T;
 			}, getLegacyIndex: function(N, O) {
 				var M = this.generateId(N) + O;
-				if (typeof B[M] == "undefined") {
+				if(typeof B[M] == "undefined") {
 					return -1;
 				} else {
 					return B[M];
@@ -1429,10 +1429,10 @@ if (!YAHOO.util.Event) {
 				return(this.webkit && this.webkit < 419 && ("click" == N || "dblclick" == N));
 			}, removeListener: function(N, M, V) {
 				var Q, T, X;
-				if (typeof N == "string") {
+				if(typeof N == "string") {
 					N = this.getEl(N);
 				} else {
-					if (this._isValidCollection(N)) {
+					if(this._isValidCollection(N)) {
 						var W = true;
 						for (Q = N.length - 1; Q > -1; Q--) {
 							W = (this.removeListener(N[Q], M, V) && W);
@@ -1440,13 +1440,13 @@ if (!YAHOO.util.Event) {
 						return W;
 					}
 				}
-				if (!V || !V.call) {
+				if(!V || !V.call) {
 					return this.purgeElement(N, false, M);
 				}
-				if ("unload" == M) {
+				if("unload" == M) {
 					for (Q = J.length - 1; Q > -1; Q--) {
 						X = J[Q];
-						if (X && X[0] == N && X[1] == M && X[2] == V) {
+						if(X && X[0] == N && X[1] == M && X[2] == V) {
 							J.splice(Q, 1);
 							return true;
 						}
@@ -1455,22 +1455,22 @@ if (!YAHOO.util.Event) {
 				}
 				var R = null;
 				var S = arguments[3];
-				if ("undefined" === typeof S) {
+				if("undefined" === typeof S) {
 					S = this._getCacheIndex(N, M, V);
 				}
-				if (S >= 0) {
+				if(S >= 0) {
 					R = I[S];
 				}
-				if (!N || !R) {
+				if(!N || !R) {
 					return false;
 				}
-				if (this.useLegacyEvent(N, M)) {
+				if(this.useLegacyEvent(N, M)) {
 					var P = this.getLegacyIndex(N, M);
 					var O = E[P];
-					if (O) {
+					if(O) {
 						for (Q = 0, T = O.length; Q < T; ++Q) {
 							X = O[Q];
-							if (X && X[this.EL] == N && X[this.TYPE] == M && X[this.FN] == V) {
+							if(X && X[this.EL] == N && X[this.TYPE] == M && X[this.FN] == V) {
 								O.splice(Q, 1);
 								break;
 							}
@@ -1479,7 +1479,7 @@ if (!YAHOO.util.Event) {
 				} else {
 					try {
 						this._simpleRemove(N, M, R[this.WFN], false);
-					} catch (U) {
+					} catch(U) {
 						this.lastError = U;
 						return false;
 					}
@@ -1493,26 +1493,26 @@ if (!YAHOO.util.Event) {
 				return this.resolveTextNode(M);
 			}, resolveTextNode: function(N) {
 				try {
-					if (N && 3 == N.nodeType) {
+					if(N && 3 == N.nodeType) {
 						return N.parentNode;
 					}
-				} catch (M) {
+				} catch(M) {
 				}
 				return N;
 			}, getPageX: function(N) {
 				var M = N.pageX;
-				if (!M && 0 !== M) {
+				if(!M && 0 !== M) {
 					M = N.clientX || 0;
-					if (this.isIE) {
+					if(this.isIE) {
 						M += this._getScrollLeft();
 					}
 				}
 				return M;
 			}, getPageY: function(M) {
 				var N = M.pageY;
-				if (!N && 0 !== N) {
+				if(!N && 0 !== N) {
 					N = M.clientY || 0;
-					if (this.isIE) {
+					if(this.isIE) {
 						N += this._getScrollTop();
 					}
 				}
@@ -1521,22 +1521,22 @@ if (!YAHOO.util.Event) {
 				return[this.getPageX(M), this.getPageY(M)];
 			}, getRelatedTarget: function(N) {
 				var M = N.relatedTarget;
-				if (!M) {
-					if (N.type == "mouseout") {
+				if(!M) {
+					if(N.type == "mouseout") {
 						M = N.toElement;
 					} else {
-						if (N.type == "mouseover") {
+						if(N.type == "mouseover") {
 							M = N.fromElement;
 						}
 					}
 				}
 				return this.resolveTextNode(M);
 			}, getTime: function(O) {
-				if (!O.time) {
+				if(!O.time) {
 					var N = new Date().getTime();
 					try {
 						O.time = N;
-					} catch (M) {
+					} catch(M) {
 						this.lastError = M;
 						return N;
 					}
@@ -1546,24 +1546,24 @@ if (!YAHOO.util.Event) {
 				this.stopPropagation(M);
 				this.preventDefault(M);
 			}, stopPropagation: function(M) {
-				if (M.stopPropagation) {
+				if(M.stopPropagation) {
 					M.stopPropagation();
 				} else {
 					M.cancelBubble = true;
 				}
 			}, preventDefault: function(M) {
-				if (M.preventDefault) {
+				if(M.preventDefault) {
 					M.preventDefault();
 				} else {
 					M.returnValue = false;
 				}
 			}, getEvent: function(O, M) {
 				var N = O || window.event;
-				if (!N) {
+				if(!N) {
 					var P = this.getEvent.caller;
-					while (P) {
+					while(P) {
 						N = P.arguments[0];
-						if (N && Event == N.constructor) {
+						if(N && Event == N.constructor) {
 							break;
 						}
 						P = P.caller;
@@ -1572,21 +1572,21 @@ if (!YAHOO.util.Event) {
 				return N;
 			}, getCharCode: function(N) {
 				var M = N.keyCode || N.charCode || 0;
-				if (YAHOO.env.ua.webkit && (M in D)) {
+				if(YAHOO.env.ua.webkit && (M in D)) {
 					M = D[M];
 				}
 				return M;
 			}, _getCacheIndex: function(Q, R, P) {
 				for (var O = 0, N = I.length; O < N; O = O + 1) {
 					var M = I[O];
-					if (M && M[this.FN] == P && M[this.EL] == Q && M[this.TYPE] == R) {
+					if(M && M[this.FN] == P && M[this.EL] == Q && M[this.TYPE] == R) {
 						return O;
 					}
 				}
 				return -1;
 			}, generateId: function(M) {
 				var N = M.id;
-				if (!N) {
+				if(!N) {
 					N = "yuievtautoid-" + A;
 					++A;
 					M.id = N;
@@ -1595,14 +1595,14 @@ if (!YAHOO.util.Event) {
 			}, _isValidCollection: function(N) {
 				try {
 					return(N && typeof N !== "string" && N.length && !N.tagName && !N.alert && typeof N[0] !== "undefined");
-				} catch (M) {
+				} catch(M) {
 					return false;
 				}
 			}, elCache: {}, getEl: function(M) {
 				return(typeof M === "string") ? document.getElementById(M) : M;
 			}, clearCache: function() {
 			}, DOMReadyEvent: new YAHOO.util.CustomEvent("DOMReady", this), _load: function(N) {
-				if (!H) {
+				if(!H) {
 					H = true;
 					var M = YAHOO.util.Event;
 					M._ready();
@@ -1610,39 +1610,39 @@ if (!YAHOO.util.Event) {
 				}
 			}, _ready: function(N) {
 				var M = YAHOO.util.Event;
-				if (!M.DOMReady) {
+				if(!M.DOMReady) {
 					M.DOMReady = true;
 					M.DOMReadyEvent.fire();
 					M._simpleRemove(document, "DOMContentLoaded", M._ready);
 				}
 			}, _tryPreloadAttach: function() {
-				if (F.length === 0) {
+				if(F.length === 0) {
 					C = 0;
-					if (this._interval) {
+					if(this._interval) {
 						clearInterval(this._interval);
 						this._interval = null;
 					}
 					return;
 				}
-				if (this.locked) {
+				if(this.locked) {
 					return;
 				}
-				if (this.isIE) {
-					if (!this.DOMReady) {
+				if(this.isIE) {
+					if(!this.DOMReady) {
 						this.startInterval();
 						return;
 					}
 				}
 				this.locked = true;
 				var S = !H;
-				if (!S) {
+				if(!S) {
 					S = (C > 0 && F.length > 0);
 				}
 				var R = [];
 				var T = function(V, W) {
 					var U = V;
-					if (W.overrideContext) {
-						if (W.overrideContext === true) {
+					if(W.overrideContext) {
+						if(W.overrideContext === true) {
 							U = W.obj;
 						} else {
 							U = W.overrideContext;
@@ -1653,11 +1653,11 @@ if (!YAHOO.util.Event) {
 				var N, M, Q, P, O = [];
 				for (N = 0, M = F.length; N < M; N = N + 1) {
 					Q = F[N];
-					if (Q) {
+					if(Q) {
 						P = this.getEl(Q.id);
-						if (P) {
-							if (Q.checkReady) {
-								if (H || P.nextSibling || !S) {
+						if(P) {
+							if(Q.checkReady) {
+								if(H || P.nextSibling || !S) {
 									O.push(Q);
 									F[N] = null;
 								}
@@ -1675,16 +1675,16 @@ if (!YAHOO.util.Event) {
 					T(this.getEl(Q.id), Q);
 				}
 				C--;
-				if (S) {
+				if(S) {
 					for (N = F.length - 1; N > -1; N--) {
 						Q = F[N];
-						if (!Q || !Q.id) {
+						if(!Q || !Q.id) {
 							F.splice(N, 1);
 						}
 					}
 					this.startInterval();
 				} else {
-					if (this._interval) {
+					if(this._interval) {
 						clearInterval(this._interval);
 						this._interval = null;
 					}
@@ -1693,23 +1693,23 @@ if (!YAHOO.util.Event) {
 			}, purgeElement: function(Q, R, T) {
 				var O = (YAHOO.lang.isString(Q)) ? this.getEl(Q) : Q;
 				var S = this.getListeners(O, T), P, M;
-				if (S) {
+				if(S) {
 					for (P = S.length - 1; P > -1; P--) {
 						var N = S[P];
 						this.removeListener(O, N.type, N.fn);
 					}
 				}
-				if (R && O && O.childNodes) {
+				if(R && O && O.childNodes) {
 					for (P = 0, M = O.childNodes.length; P < M; ++P) {
 						this.purgeElement(O.childNodes[P], R, T);
 					}
 				}
 			}, getListeners: function(O, M) {
 				var R = [], N;
-				if (!M) {
+				if(!M) {
 					N = [I, J];
 				} else {
-					if (M === "unload") {
+					if(M === "unload") {
 						N = [J];
 					} else {
 						N = [I];
@@ -1718,10 +1718,10 @@ if (!YAHOO.util.Event) {
 				var T = (YAHOO.lang.isString(O)) ? this.getEl(O) : O;
 				for (var Q = 0; Q < N.length; Q = Q + 1) {
 					var V = N[Q];
-					if (V) {
+					if(V) {
 						for (var S = 0, U = V.length; S < U; ++S) {
 							var P = V[S];
-							if (P && P[this.EL] === T && (!M || M === P[this.TYPE])) {
+							if(P && P[this.EL] === T && (!M || M === P[this.TYPE])) {
 								R.push({type: P[this.TYPE], fn: P[this.FN], obj: P[this.OBJ], adjust: P[this.OVERRIDE], scope: P[this.ADJ_SCOPE], index: S});
 							}
 						}
@@ -1732,10 +1732,10 @@ if (!YAHOO.util.Event) {
 				var N = YAHOO.util.Event, Q, P, O, S, R, U = J.slice(), M;
 				for (Q = 0, S = J.length; Q < S; ++Q) {
 					O = U[Q];
-					if (O) {
+					if(O) {
 						M = window;
-						if (O[N.ADJ_SCOPE]) {
-							if (O[N.ADJ_SCOPE] === true) {
+						if(O[N.ADJ_SCOPE]) {
+							if(O[N.ADJ_SCOPE] === true) {
 								M = O[N.UNLOAD_OBJ];
 							} else {
 								M = O[N.ADJ_SCOPE];
@@ -1748,10 +1748,10 @@ if (!YAHOO.util.Event) {
 				O = null;
 				M = null;
 				J = null;
-				if (I) {
+				if(I) {
 					for (P = I.length - 1; P > -1; P--) {
 						O = I[P];
-						if (O) {
+						if(O) {
 							N.removeListener(O[N.EL], O[N.TYPE], O[N.FN], P);
 						}
 					}
@@ -1765,10 +1765,10 @@ if (!YAHOO.util.Event) {
 				return this._getScroll()[0];
 			}, _getScroll: function() {
 				var M = document.documentElement, N = document.body;
-				if (M && (M.scrollTop || M.scrollLeft)) {
+				if(M && (M.scrollTop || M.scrollLeft)) {
 					return[M.scrollTop, M.scrollLeft];
 				} else {
-					if (N) {
+					if(N) {
 						return[N.scrollTop, N.scrollLeft];
 					} else {
 						return[0, 0];
@@ -1776,12 +1776,12 @@ if (!YAHOO.util.Event) {
 				}
 			}, regCE: function() {
 			}, _simpleAdd: function() {
-				if (window.addEventListener) {
+				if(window.addEventListener) {
 					return function(O, P, N, M) {
 						O.addEventListener(P, N, (M));
 					};
 				} else {
-					if (window.attachEvent) {
+					if(window.attachEvent) {
 						return function(O, P, N, M) {
 							O.attachEvent("on" + P, N);
 						};
@@ -1791,12 +1791,12 @@ if (!YAHOO.util.Event) {
 					}
 				}
 			}(), _simpleRemove: function() {
-				if (window.removeEventListener) {
+				if(window.removeEventListener) {
 					return function(O, P, N, M) {
 						O.removeEventListener(P, N, (M));
 					};
 				} else {
-					if (window.detachEvent) {
+					if(window.detachEvent) {
 						return function(N, O, M) {
 							N.detachEvent("on" + O, M);
 						};
@@ -1813,7 +1813,7 @@ if (!YAHOO.util.Event) {
 		EU.onFocus = EU.addFocusListener;
 		EU.onBlur = EU.addBlurListener;
 		/* DOMReady: based on work by: Dean Edwards/John Resig/Matthias Miller */
-		if (EU.isIE) {
+		if(EU.isIE) {
 			YAHOO.util.Event.onDOMReady(YAHOO.util.Event._tryPreloadAttach, YAHOO.util.Event, true);
 			var n = document.createElement("p");
 			EU._dri = setInterval(function() {
@@ -1823,14 +1823,14 @@ if (!YAHOO.util.Event) {
 					EU._dri = null;
 					EU._ready();
 					n = null;
-				} catch (ex) {
+				} catch(ex) {
 				}
 			}, EU.POLL_INTERVAL);
 		} else {
-			if (EU.webkit && EU.webkit < 525) {
+			if(EU.webkit && EU.webkit < 525) {
 				EU._dri = setInterval(function() {
 					var rs = document.readyState;
-					if ("loaded" == rs || "complete" == rs) {
+					if("loaded" == rs || "complete" == rs) {
 						clearInterval(EU._dri);
 						EU._dri = null;
 						EU._ready();
@@ -1850,12 +1850,12 @@ YAHOO.util.EventProvider = function() {
 YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: null, subscribe: function(A, C, F, E) {
 		this.__yui_events = this.__yui_events || {};
 		var D = this.__yui_events[A];
-		if (D) {
+		if(D) {
 			D.subscribe(C, F, E);
 		} else {
 			this.__yui_subscribers = this.__yui_subscribers || {};
 			var B = this.__yui_subscribers;
-			if (!B[A]) {
+			if(!B[A]) {
 				B[A] = [];
 			}
 			B[A].push({fn: C, obj: F, overrideContext: E});
@@ -1863,15 +1863,15 @@ YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: nul
 	}, unsubscribe: function(C, E, G) {
 		this.__yui_events = this.__yui_events || {};
 		var A = this.__yui_events;
-		if (C) {
+		if(C) {
 			var F = A[C];
-			if (F) {
+			if(F) {
 				return F.unsubscribe(E, G);
 			}
 		} else {
 			var B = true;
 			for (var D in A) {
-				if (YAHOO.lang.hasOwnProperty(A, D)) {
+				if(YAHOO.lang.hasOwnProperty(A, D)) {
 					B = B && A[D].unsubscribe(E, G);
 				}
 			}
@@ -1884,18 +1884,18 @@ YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: nul
 		this.__yui_events = this.__yui_events || {};
 		var A = D || {};
 		var I = this.__yui_events;
-		if (I[G]) {
+		if(I[G]) {
 		} else {
 			var H = A.scope || this;
 			var E = (A.silent);
 			var B = new YAHOO.util.CustomEvent(G, H, E, YAHOO.util.CustomEvent.FLAT);
 			I[G] = B;
-			if (A.onSubscribeCallback) {
+			if(A.onSubscribeCallback) {
 				B.subscribeEvent.subscribe(A.onSubscribeCallback);
 			}
 			this.__yui_subscribers = this.__yui_subscribers || {};
 			var F = this.__yui_subscribers[G];
-			if (F) {
+			if(F) {
 				for (var C = 0; C < F.length; ++C) {
 					B.subscribe(F[C].fn, F[C].obj, F[C].overrideContext);
 				}
@@ -1905,7 +1905,7 @@ YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: nul
 	}, fireEvent: function(E, D, A, C) {
 		this.__yui_events = this.__yui_events || {};
 		var G = this.__yui_events[E];
-		if (!G) {
+		if(!G) {
 			return null;
 		}
 		var B = [];
@@ -1914,8 +1914,8 @@ YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: nul
 		}
 		return G.fire.apply(G, B);
 	}, hasEvent: function(A) {
-		if (this.__yui_events) {
-			if (this.__yui_events[A]) {
+		if(this.__yui_events) {
+			if(this.__yui_events[A]) {
 				return true;
 			}
 		}
@@ -1924,66 +1924,66 @@ YAHOO.util.EventProvider.prototype = {__yui_events: null, __yui_subscribers: nul
 (function() {
 	var A = YAHOO.util.Event, C = YAHOO.lang;
 	YAHOO.util.KeyListener = function(D, I, E, F) {
-		if (!D) {
+		if(!D) {
 		} else {
-			if (!I) {
+			if(!I) {
 			} else {
-				if (!E) {
+				if(!E) {
 				}
 			}
 		}
-		if (!F) {
+		if(!F) {
 			F = YAHOO.util.KeyListener.KEYDOWN;
 		}
 		var G = new YAHOO.util.CustomEvent("keyPressed");
 		this.enabledEvent = new YAHOO.util.CustomEvent("enabled");
 		this.disabledEvent = new YAHOO.util.CustomEvent("disabled");
-		if (C.isString(D)) {
+		if(C.isString(D)) {
 			D = document.getElementById(D);
 		}
-		if (C.isFunction(E)) {
+		if(C.isFunction(E)) {
 			G.subscribe(E);
 		} else {
 			G.subscribe(E.fn, E.scope, E.correctScope);
 		}
 		function H(O, N) {
-			if (!I.shift) {
+			if(!I.shift) {
 				I.shift = false;
 			}
-			if (!I.alt) {
+			if(!I.alt) {
 				I.alt = false;
 			}
-			if (!I.ctrl) {
+			if(!I.ctrl) {
 				I.ctrl = false;
 			}
-			if (O.shiftKey == I.shift && O.altKey == I.alt && O.ctrlKey == I.ctrl) {
+			if(O.shiftKey == I.shift && O.altKey == I.alt && O.ctrlKey == I.ctrl) {
 				var J, M = I.keys, L;
-				if (YAHOO.lang.isArray(M)) {
+				if(YAHOO.lang.isArray(M)) {
 					for (var K = 0; K < M.length; K++) {
 						J = M[K];
 						L = A.getCharCode(O);
-						if (J == L) {
+						if(J == L) {
 							G.fire(L, O);
 							break;
 						}
 					}
 				} else {
 					L = A.getCharCode(O);
-					if (M == L) {
+					if(M == L) {
 						G.fire(L, O);
 					}
 				}
 			}
 		}
 		this.enable = function() {
-			if (!this.enabled) {
+			if(!this.enabled) {
 				A.on(D, F, H);
 				this.enabledEvent.fire(I);
 			}
 			this.enabled = true;
 		};
 		this.disable = function() {
-			if (this.enabled) {
+			if(this.enabled) {
 				A.removeListener(D, F, H);
 				this.disabledEvent.fire(I);
 			}
@@ -2006,13 +2006,13 @@ YAHOO.register("yahoo-dom-event", YAHOO, {version: "2.7.0", build: "1796"});
  http://developer.yahoo.net/yui/license.txt
  version: 2.7.0
  */
-if (!YAHOO.util.DragDropMgr) {
+if(!YAHOO.util.DragDropMgr) {
 	YAHOO.util.DragDropMgr = function() {
 		var A = YAHOO.util.Event, B = YAHOO.util.Dom;
 		return{useShim: false, _shimActive: false, _shimState: false, _debugShim: false, _createShim: function() {
 				var C = document.createElement("div");
 				C.id = "yui-ddm-shim";
-				if (document.body.firstChild) {
+				if(document.body.firstChild) {
 					document.body.insertBefore(C, document.body.firstChild);
 				} else {
 					document.body.appendChild(C);
@@ -2027,7 +2027,7 @@ if (!YAHOO.util.DragDropMgr) {
 				A.on(C, "mousemove", this.handleMouseMove, this, true);
 				A.on(window, "scroll", this._sizeShim, this, true);
 			}, _sizeShim: function() {
-				if (this._shimActive) {
+				if(this._shimActive) {
 					var C = this._shim;
 					C.style.height = B.getDocumentHeight() + "px";
 					C.style.width = B.getDocumentWidth() + "px";
@@ -2035,13 +2035,13 @@ if (!YAHOO.util.DragDropMgr) {
 					C.style.left = "0";
 				}
 			}, _activateShim: function() {
-				if (this.useShim) {
-					if (!this._shim) {
+				if(this.useShim) {
+					if(!this._shim) {
 						this._createShim();
 					}
 					this._shimActive = true;
 					var C = this._shim, D = "0";
-					if (this._debugShim) {
+					if(this._debugShim) {
 						D = ".5";
 					}
 					B.setStyle(C, "opacity", D);
@@ -2057,7 +2057,7 @@ if (!YAHOO.util.DragDropMgr) {
 				for (var F in this.ids) {
 					for (var C in this.ids[F]) {
 						var G = this.ids[F][C];
-						if (!this.isTypeOfDD(G)) {
+						if(!this.isTypeOfDD(G)) {
 							continue;
 						}
 						G[E].apply(G, D);
@@ -2078,33 +2078,33 @@ if (!YAHOO.util.DragDropMgr) {
 			}, isLocked: function() {
 				return this.locked;
 			}, locationCache: {}, useCache: true, clickPixelThresh: 3, clickTimeThresh: 1000, dragThreshMet: false, clickTimeout: null, startX: 0, startY: 0, fromTimeout: false, regDragDrop: function(D, C) {
-				if (!this.initialized) {
+				if(!this.initialized) {
 					this.init();
 				}
-				if (!this.ids[C]) {
+				if(!this.ids[C]) {
 					this.ids[C] = {};
 				}
 				this.ids[C][D.id] = D;
 			}, removeDDFromGroup: function(E, C) {
-				if (!this.ids[C]) {
+				if(!this.ids[C]) {
 					this.ids[C] = {};
 				}
 				var D = this.ids[C];
-				if (D && D[E.id]) {
+				if(D && D[E.id]) {
 					delete D[E.id];
 				}
 			}, _remove: function(E) {
 				for (var D in E.groups) {
-					if (D) {
+					if(D) {
 						var C = this.ids[D];
-						if (C && C[E.id]) {
+						if(C && C[E.id]) {
 							delete C[E.id];
 						}
 					}
 				}
 				delete this.handleIds[E.id];
 			}, regHandle: function(D, C) {
-				if (!this.handleIds[D]) {
+				if(!this.handleIds[D]) {
 					this.handleIds[D] = {};
 				}
 				this.handleIds[D][C] = C;
@@ -2115,10 +2115,10 @@ if (!YAHOO.util.DragDropMgr) {
 				for (var F in H.groups) {
 					for (var E in this.ids[F]) {
 						var C = this.ids[F][E];
-						if (!this.isTypeOfDD(C)) {
+						if(!this.isTypeOfDD(C)) {
 							continue;
 						}
-						if (!D || C.isTarget) {
+						if(!D || C.isTarget) {
 							G[G.length] = C;
 						}
 					}
@@ -2127,7 +2127,7 @@ if (!YAHOO.util.DragDropMgr) {
 			}, isLegalTarget: function(G, F) {
 				var D = this.getRelated(G, true);
 				for (var E = 0, C = D.length; E < C; ++E) {
-					if (D[E].id == F.id) {
+					if(D[E].id == F.id) {
 						return true;
 					}
 				}
@@ -2138,7 +2138,7 @@ if (!YAHOO.util.DragDropMgr) {
 				return(this.handleIds[D] && this.handleIds[D][C]);
 			}, getDDById: function(D) {
 				for (var C in this.ids) {
-					if (this.ids[C][D]) {
+					if(this.ids[C][D]) {
 						return this.ids[C][D];
 					}
 				}
@@ -2158,27 +2158,27 @@ if (!YAHOO.util.DragDropMgr) {
 					F.fromTimeout = true;
 				}, this.clickTimeThresh);
 			}, startDrag: function(C, E) {
-				if (this.dragCurrent && this.dragCurrent.useShim) {
+				if(this.dragCurrent && this.dragCurrent.useShim) {
 					this._shimState = this.useShim;
 					this.useShim = true;
 				}
 				this._activateShim();
 				clearTimeout(this.clickTimeout);
 				var D = this.dragCurrent;
-				if (D && D.events.b4StartDrag) {
+				if(D && D.events.b4StartDrag) {
 					D.b4StartDrag(C, E);
 					D.fireEvent("b4StartDragEvent", {x: C, y: E});
 				}
-				if (D && D.events.startDrag) {
+				if(D && D.events.startDrag) {
 					D.startDrag(C, E);
 					D.fireEvent("startDragEvent", {x: C, y: E});
 				}
 				this.dragThreshMet = true;
 			}, handleMouseUp: function(C) {
-				if (this.dragCurrent) {
+				if(this.dragCurrent) {
 					clearTimeout(this.clickTimeout);
-					if (this.dragThreshMet) {
-						if (this.fromTimeout) {
+					if(this.dragThreshMet) {
+						if(this.fromTimeout) {
 							this.fromTimeout = false;
 							this.handleMouseMove(C);
 						}
@@ -2190,33 +2190,33 @@ if (!YAHOO.util.DragDropMgr) {
 					this.stopEvent(C);
 				}
 			}, stopEvent: function(C) {
-				if (this.stopPropagation) {
+				if(this.stopPropagation) {
 					YAHOO.util.Event.stopPropagation(C);
 				}
-				if (this.preventDefault) {
+				if(this.preventDefault) {
 					YAHOO.util.Event.preventDefault(C);
 				}
 			}, stopDrag: function(E, D) {
 				var C = this.dragCurrent;
-				if (C && !D) {
-					if (this.dragThreshMet) {
-						if (C.events.b4EndDrag) {
+				if(C && !D) {
+					if(this.dragThreshMet) {
+						if(C.events.b4EndDrag) {
 							C.b4EndDrag(E);
 							C.fireEvent("b4EndDragEvent", {e: E});
 						}
-						if (C.events.endDrag) {
+						if(C.events.endDrag) {
 							C.endDrag(E);
 							C.fireEvent("endDragEvent", {e: E});
 						}
 					}
-					if (C.events.mouseUp) {
+					if(C.events.mouseUp) {
 						C.onMouseUp(E);
 						C.fireEvent("mouseUpEvent", {e: E});
 					}
 				}
-				if (this._shimActive) {
+				if(this._shimActive) {
 					this._deactivateShim();
-					if (this.dragCurrent && this.dragCurrent.useShim) {
+					if(this.dragCurrent && this.dragCurrent.useShim) {
 						this.useShim = this._shimState;
 						this._shimState = false;
 					}
@@ -2225,31 +2225,31 @@ if (!YAHOO.util.DragDropMgr) {
 				this.dragOvers = {};
 			}, handleMouseMove: function(F) {
 				var C = this.dragCurrent;
-				if (C) {
-					if (YAHOO.util.Event.isIE && !F.button) {
+				if(C) {
+					if(YAHOO.util.Event.isIE && !F.button) {
 						this.stopEvent(F);
 						return this.handleMouseUp(F);
 					} else {
-						if (F.clientX < 0 || F.clientY < 0) {
+						if(F.clientX < 0 || F.clientY < 0) {
 						}
 					}
-					if (!this.dragThreshMet) {
+					if(!this.dragThreshMet) {
 						var E = Math.abs(this.startX - YAHOO.util.Event.getPageX(F));
 						var D = Math.abs(this.startY - YAHOO.util.Event.getPageY(F));
-						if (E > this.clickPixelThresh || D > this.clickPixelThresh) {
+						if(E > this.clickPixelThresh || D > this.clickPixelThresh) {
 							this.startDrag(this.startX, this.startY);
 						}
 					}
-					if (this.dragThreshMet) {
-						if (C && C.events.b4Drag) {
+					if(this.dragThreshMet) {
+						if(C && C.events.b4Drag) {
 							C.b4Drag(F);
 							C.fireEvent("b4DragEvent", {e: F});
 						}
-						if (C && C.events.drag) {
+						if(C && C.events.drag) {
 							C.onDrag(F);
 							C.fireEvent("dragEvent", {e: F});
 						}
-						if (C) {
+						if(C) {
 							this.fireEvents(F, false);
 						}
 					}
@@ -2257,37 +2257,37 @@ if (!YAHOO.util.DragDropMgr) {
 				}
 			}, fireEvents: function(V, L) {
 				var a = this.dragCurrent;
-				if (!a || a.isLocked() || a.dragOnly) {
+				if(!a || a.isLocked() || a.dragOnly) {
 					return;
 				}
 				var N = YAHOO.util.Event.getPageX(V), M = YAHOO.util.Event.getPageY(V), P = new YAHOO.util.Point(N, M), K = a.getTargetCoord(P.x, P.y), F = a.getDragEl(), E = ["out", "over", "drop", "enter"], U = new YAHOO.util.Region(K.y, K.x + F.offsetWidth, K.y + F.offsetHeight, K.x), I = [], D = {}, Q = [], c = {outEvts: [], overEvts: [], dropEvts: [], enterEvts: []};
 				for (var S in this.dragOvers) {
 					var d = this.dragOvers[S];
-					if (!this.isTypeOfDD(d)) {
+					if(!this.isTypeOfDD(d)) {
 						continue;
 					}
-					if (!this.isOverTarget(P, d, this.mode, U)) {
+					if(!this.isOverTarget(P, d, this.mode, U)) {
 						c.outEvts.push(d);
 					}
 					I[S] = true;
 					delete this.dragOvers[S];
 				}
 				for (var R in a.groups) {
-					if ("string" != typeof R) {
+					if("string" != typeof R) {
 						continue;
 					}
 					for (S in this.ids[R]) {
 						var G = this.ids[R][S];
-						if (!this.isTypeOfDD(G)) {
+						if(!this.isTypeOfDD(G)) {
 							continue;
 						}
-						if (G.isTarget && !G.isLocked() && G != a) {
-							if (this.isOverTarget(P, G, this.mode, U)) {
+						if(G.isTarget && !G.isLocked() && G != a) {
+							if(this.isOverTarget(P, G, this.mode, U)) {
 								D[R] = true;
-								if (L) {
+								if(L) {
 									c.dropEvts.push(G);
 								} else {
-									if (!I[G.id]) {
+									if(!I[G.id]) {
 										c.enterEvts.push(G);
 									} else {
 										c.overEvts.push(G);
@@ -2302,36 +2302,36 @@ if (!YAHOO.util.DragDropMgr) {
 				for (var C in D) {
 					Q.push(C);
 				}
-				if (L && !c.dropEvts.length) {
+				if(L && !c.dropEvts.length) {
 					this.interactionInfo.validDrop = false;
-					if (a.events.invalidDrop) {
+					if(a.events.invalidDrop) {
 						a.onInvalidDrop(V);
 						a.fireEvent("invalidDropEvent", {e: V});
 					}
 				}
 				for (S = 0; S < E.length; S++) {
 					var Y = null;
-					if (c[E[S] + "Evts"]) {
+					if(c[E[S] + "Evts"]) {
 						Y = c[E[S] + "Evts"];
 					}
-					if (Y && Y.length) {
+					if(Y && Y.length) {
 						var H = E[S].charAt(0).toUpperCase() + E[S].substr(1), X = "onDrag" + H, J = "b4Drag" + H, O = "drag" + H + "Event", W = "drag" + H;
-						if (this.mode) {
-							if (a.events[J]) {
+						if(this.mode) {
+							if(a.events[J]) {
 								a[J](V, Y, Q);
 								a.fireEvent(J + "Event", {event: V, info: Y, group: Q});
 							}
-							if (a.events[W]) {
+							if(a.events[W]) {
 								a[X](V, Y, Q);
 								a.fireEvent(O, {event: V, info: Y, group: Q});
 							}
 						} else {
 							for (var Z = 0, T = Y.length; Z < T; ++Z) {
-								if (a.events[J]) {
+								if(a.events[J]) {
 									a[J](V, Y[Z].id, Q[0]);
 									a.fireEvent(J + "Event", {event: V, info: Y[Z].id, group: Q[0]});
 								}
-								if (a.events[W]) {
+								if(a.events[W]) {
 									a[X](V, Y[Z].id, Q[0]);
 									a.fireEvent(O, {event: V, info: Y[Z].id, group: Q[0]});
 								}
@@ -2342,16 +2342,16 @@ if (!YAHOO.util.DragDropMgr) {
 			}, getBestMatch: function(E) {
 				var G = null;
 				var D = E.length;
-				if (D == 1) {
+				if(D == 1) {
 					G = E[0];
 				} else {
 					for (var F = 0; F < D; ++F) {
 						var C = E[F];
-						if (this.mode == this.INTERSECT && C.cursorIsOver) {
+						if(this.mode == this.INTERSECT && C.cursorIsOver) {
 							G = C;
 							break;
 						} else {
-							if (!G || !G.overlap || (C.overlap && G.overlap.getArea() < C.overlap.getArea())) {
+							if(!G || !G.overlap || (C.overlap && G.overlap.getArea() < C.overlap.getArea())) {
 								G = C;
 							}
 						}
@@ -2361,14 +2361,14 @@ if (!YAHOO.util.DragDropMgr) {
 			}, refreshCache: function(D) {
 				var F = D || this.ids;
 				for (var C in F) {
-					if ("string" != typeof C) {
+					if("string" != typeof C) {
 						continue;
 					}
 					for (var E in this.ids[C]) {
 						var G = this.ids[C][E];
-						if (this.isTypeOfDD(G)) {
+						if(this.isTypeOfDD(G)) {
 							var H = this.getLocation(G);
-							if (H) {
+							if(H) {
 								this.locationCache[G.id] = H;
 							} else {
 								delete this.locationCache[G.id];
@@ -2378,25 +2378,25 @@ if (!YAHOO.util.DragDropMgr) {
 				}
 			}, verifyEl: function(D) {
 				try {
-					if (D) {
+					if(D) {
 						var C = D.offsetParent;
-						if (C) {
+						if(C) {
 							return true;
 						}
 					}
-				} catch (E) {
+				} catch(E) {
 				}
 				return false;
 			}, getLocation: function(H) {
-				if (!this.isTypeOfDD(H)) {
+				if(!this.isTypeOfDD(H)) {
 					return null;
 				}
 				var F = H.getEl(), K, E, D, M, L, N, C, J, G;
 				try {
 					K = YAHOO.util.Dom.getXY(F);
-				} catch (I) {
+				} catch(I) {
 				}
-				if (!K) {
+				if(!K) {
 					return null;
 				}
 				E = K[0];
@@ -2410,26 +2410,26 @@ if (!YAHOO.util.DragDropMgr) {
 				return new YAHOO.util.Region(N, C, J, G);
 			}, isOverTarget: function(K, C, E, F) {
 				var G = this.locationCache[C.id];
-				if (!G || !this.useCache) {
+				if(!G || !this.useCache) {
 					G = this.getLocation(C);
 					this.locationCache[C.id] = G;
 				}
-				if (!G) {
+				if(!G) {
 					return false;
 				}
 				C.cursorIsOver = G.contains(K);
 				var J = this.dragCurrent;
-				if (!J || (!E && !J.constrainX && !J.constrainY)) {
+				if(!J || (!E && !J.constrainX && !J.constrainY)) {
 					return C.cursorIsOver;
 				}
 				C.overlap = null;
-				if (!F) {
+				if(!F) {
 					var H = J.getTargetCoord(K.x, K.y);
 					var D = J.getDragEl();
 					F = new YAHOO.util.Region(H.y, H.x + D.offsetWidth, H.y + D.offsetHeight, H.x);
 				}
 				var I = F.intersect(G);
-				if (I) {
+				if(I) {
 					C.overlap = I;
 					return(E) ? true : C.cursorIsOver;
 				} else {
@@ -2438,7 +2438,7 @@ if (!YAHOO.util.DragDropMgr) {
 			}, _onUnload: function(D, C) {
 				this.unregAll();
 			}, unregAll: function() {
-				if (this.dragCurrent) {
+				if(this.dragCurrent) {
 					this.stopDrag();
 					this.dragCurrent = null;
 				}
@@ -2446,7 +2446,7 @@ if (!YAHOO.util.DragDropMgr) {
 				this.ids = {};
 			}, elementCache: {}, getElWrapper: function(D) {
 				var C = this.elementCache[D];
-				if (!C || !C.el) {
+				if(!C || !C.el) {
 					C = this.elementCache[D] = new this.ElementWrapper(YAHOO.util.Dom.get(D));
 				}
 				return C;
@@ -2464,15 +2464,15 @@ if (!YAHOO.util.DragDropMgr) {
 			}, getPosY: function(C) {
 				return YAHOO.util.Dom.getY(C);
 			}, swapNode: function(E, C) {
-				if (E.swapNode) {
+				if(E.swapNode) {
 					E.swapNode(C);
 				} else {
 					var F = C.parentNode;
 					var D = C.nextSibling;
-					if (D == E) {
+					if(D == E) {
 						F.insertBefore(E, C);
 					} else {
-						if (C == E.nextSibling) {
+						if(C == E.nextSibling) {
 							F.insertBefore(C, E);
 						} else {
 							E.parentNode.replaceChild(C, E);
@@ -2482,11 +2482,11 @@ if (!YAHOO.util.DragDropMgr) {
 				}
 			}, getScroll: function() {
 				var E, C, F = document.documentElement, D = document.body;
-				if (F && (F.scrollTop || F.scrollLeft)) {
+				if(F && (F.scrollTop || F.scrollLeft)) {
 					E = F.scrollTop;
 					C = F.scrollLeft;
 				} else {
-					if (D) {
+					if(D) {
 						E = D.scrollTop;
 						C = D.scrollLeft;
 					} else {
@@ -2510,24 +2510,24 @@ if (!YAHOO.util.DragDropMgr) {
 				return(D - C);
 			}, _timeoutCount: 0, _addListeners: function() {
 				var C = YAHOO.util.DDM;
-				if (YAHOO.util.Event && document) {
+				if(YAHOO.util.Event && document) {
 					C._onLoad();
 				} else {
-					if (C._timeoutCount > 2000) {
+					if(C._timeoutCount > 2000) {
 					} else {
 						setTimeout(C._addListeners, 10);
-						if (document && document.body) {
+						if(document && document.body) {
 							C._timeoutCount += 1;
 						}
 					}
 				}
 			}, handleWasClicked: function(C, E) {
-				if (this.isHandle(E, C.id)) {
+				if(this.isHandle(E, C.id)) {
 					return true;
 				} else {
 					var D = C.parentNode;
-					while (D) {
-						if (this.isHandle(E, D.id)) {
+					while(D) {
+						if(this.isHandle(E, D.id)) {
 							return true;
 						} else {
 							D = D.parentNode;
@@ -2544,7 +2544,7 @@ if (!YAHOO.util.DragDropMgr) {
 	var A = YAHOO.util.Event;
 	var B = YAHOO.util.Dom;
 	YAHOO.util.DragDrop = function(E, C, D) {
-		if (E) {
+		if(E) {
 			this.init(E, C, D);
 		}
 	};
@@ -2573,7 +2573,7 @@ if (!YAHOO.util.DragDropMgr) {
 		}, onMouseUp: function(C) {
 		}, onAvailable: function() {
 		}, getEl: function() {
-			if (!this._domRef) {
+			if(!this._domRef) {
 				this._domRef = B.get(this.id);
 			}
 			return this._domRef;
@@ -2590,7 +2590,7 @@ if (!YAHOO.util.DragDropMgr) {
 			this.events = {};
 			this.DDM = YAHOO.util.DDM;
 			this.groups = {};
-			if (typeof E !== "string") {
+			if(typeof E !== "string") {
 				this._domRef = E;
 				E = B.generateId(E);
 			}
@@ -2605,9 +2605,9 @@ if (!YAHOO.util.DragDropMgr) {
 			this.applyConfig();
 		}, applyConfig: function() {
 			this.events = {mouseDown: true, b4MouseDown: true, mouseUp: true, b4StartDrag: true, startDrag: true, b4EndDrag: true, endDrag: true, drag: true, b4Drag: true, invalidDrop: true, b4DragOut: true, dragOut: true, dragEnter: true, b4DragOver: true, dragOver: true, b4DragDrop: true, dragDrop: true};
-			if (this.config.events) {
+			if(this.config.events) {
 				for (var C in this.config.events) {
-					if (this.config.events[C] === false) {
+					if(this.config.events[C] === false) {
 						this.events[C] = false;
 					}
 				}
@@ -2623,10 +2623,10 @@ if (!YAHOO.util.DragDropMgr) {
 			this.resetConstraints();
 			this.onAvailable();
 		}, setPadding: function(E, C, F, D) {
-			if (!C && 0 !== C) {
+			if(!C && 0 !== C) {
 				this.padding = [E, E, E, E];
 			} else {
-				if (!F && 0 !== F) {
+				if(!F && 0 !== F) {
 					this.padding = [E, C, E, C];
 				} else {
 					this.padding = [E, C, F, D];
@@ -2634,8 +2634,8 @@ if (!YAHOO.util.DragDropMgr) {
 			}
 		}, setInitPosition: function(F, E) {
 			var G = this.getEl();
-			if (!this.DDM.verifyEl(G)) {
-				if (G && G.style && (G.style.display == "none")) {
+			if(!this.DDM.verifyEl(G)) {
+				if(G && G.style && (G.style.display == "none")) {
 				} else {
 				}
 				return;
@@ -2657,20 +2657,20 @@ if (!YAHOO.util.DragDropMgr) {
 			this.groups[C] = true;
 			this.DDM.regDragDrop(this, C);
 		}, removeFromGroup: function(C) {
-			if (this.groups[C]) {
+			if(this.groups[C]) {
 				delete this.groups[C];
 			}
 			this.DDM.removeDDFromGroup(this, C);
 		}, setDragElId: function(C) {
 			this.dragElId = C;
 		}, setHandleElId: function(C) {
-			if (typeof C !== "string") {
+			if(typeof C !== "string") {
 				C = B.generateId(C);
 			}
 			this.handleElId = C;
 			this.DDM.regHandle(this.id, C);
 		}, setOuterHandleElId: function(C) {
-			if (typeof C !== "string") {
+			if(typeof C !== "string") {
 				C = B.generateId(C);
 			}
 			A.on(C, "mousedown", this.handleMouseDown, this, true);
@@ -2684,28 +2684,28 @@ if (!YAHOO.util.DragDropMgr) {
 			return(this.DDM.isLocked() || this.locked);
 		}, handleMouseDown: function(J, I) {
 			var D = J.which || J.button;
-			if (this.primaryButtonOnly && D > 1) {
+			if(this.primaryButtonOnly && D > 1) {
 				return;
 			}
-			if (this.isLocked()) {
+			if(this.isLocked()) {
 				return;
 			}
 			var C = this.b4MouseDown(J), F = true;
-			if (this.events.b4MouseDown) {
+			if(this.events.b4MouseDown) {
 				F = this.fireEvent("b4MouseDownEvent", J);
 			}
 			var E = this.onMouseDown(J), H = true;
-			if (this.events.mouseDown) {
+			if(this.events.mouseDown) {
 				H = this.fireEvent("mouseDownEvent", J);
 			}
-			if ((C === false) || (E === false) || (F === false) || (H === false)) {
+			if((C === false) || (E === false) || (F === false) || (H === false)) {
 				return;
 			}
 			this.DDM.refreshCache(this.groups);
 			var G = new YAHOO.util.Point(A.getPageX(J), A.getPageY(J));
-			if (!this.hasOuterHandles && !this.DDM.isOverTarget(G, this)) {
+			if(!this.hasOuterHandles && !this.DDM.isOverTarget(G, this)) {
 			} else {
-				if (this.clickValidator(J)) {
+				if(this.clickValidator(J)) {
 					this.setStartPosition();
 					this.DDM.handleMouseDown(J, this);
 					this.DDM.stopEvent(J);
@@ -2718,19 +2718,19 @@ if (!YAHOO.util.DragDropMgr) {
 		}, getTargetCoord: function(E, D) {
 			var C = E - this.deltaX;
 			var F = D - this.deltaY;
-			if (this.constrainX) {
-				if (C < this.minX) {
+			if(this.constrainX) {
+				if(C < this.minX) {
 					C = this.minX;
 				}
-				if (C > this.maxX) {
+				if(C > this.maxX) {
 					C = this.maxX;
 				}
 			}
-			if (this.constrainY) {
-				if (F < this.minY) {
+			if(this.constrainY) {
+				if(F < this.minY) {
 					F = this.minY;
 				}
-				if (F > this.maxY) {
+				if(F > this.maxY) {
 					F = this.maxY;
 				}
 			}
@@ -2741,7 +2741,7 @@ if (!YAHOO.util.DragDropMgr) {
 			var D = C.toUpperCase();
 			this.invalidHandleTypes[D] = D;
 		}, addInvalidHandleId: function(C) {
-			if (typeof C !== "string") {
+			if(typeof C !== "string") {
 				C = B.generateId(C);
 			}
 			this.invalidHandleIds[C] = C;
@@ -2751,13 +2751,13 @@ if (!YAHOO.util.DragDropMgr) {
 			var D = C.toUpperCase();
 			delete this.invalidHandleTypes[D];
 		}, removeInvalidHandleId: function(C) {
-			if (typeof C !== "string") {
+			if(typeof C !== "string") {
 				C = B.generateId(C);
 			}
 			delete this.invalidHandleIds[C];
 		}, removeInvalidHandleClass: function(D) {
 			for (var E = 0, C = this.invalidHandleClasses.length; E < C; ++E) {
-				if (this.invalidHandleClasses[E] == D) {
+				if(this.invalidHandleClasses[E] == D) {
 					delete this.invalidHandleClasses[E];
 				}
 			}
@@ -2766,7 +2766,7 @@ if (!YAHOO.util.DragDropMgr) {
 			var H;
 			try {
 				H = F.nodeName.toUpperCase();
-			} catch (G) {
+			} catch(G) {
 				H = F.nodeName;
 			}
 			E = E && !this.invalidHandleTypes[H];
@@ -2780,13 +2780,13 @@ if (!YAHOO.util.DragDropMgr) {
 			this.xTickSize = C;
 			var E = {};
 			for (var D = this.initPageX; D >= this.minX; D = D - C) {
-				if (!E[D]) {
+				if(!E[D]) {
 					this.xTicks[this.xTicks.length] = D;
 					E[D] = true;
 				}
 			}
 			for (D = this.initPageX; D <= this.maxX; D = D + C) {
-				if (!E[D]) {
+				if(!E[D]) {
 					this.xTicks[this.xTicks.length] = D;
 					E[D] = true;
 				}
@@ -2797,13 +2797,13 @@ if (!YAHOO.util.DragDropMgr) {
 			this.yTickSize = C;
 			var E = {};
 			for (var D = this.initPageY; D >= this.minY; D = D - C) {
-				if (!E[D]) {
+				if(!E[D]) {
 					this.yTicks[this.yTicks.length] = D;
 					E[D] = true;
 				}
 			}
 			for (D = this.initPageY; D <= this.maxY; D = D + C) {
-				if (!E[D]) {
+				if(!E[D]) {
 					this.yTicks[this.yTicks.length] = D;
 					E[D] = true;
 				}
@@ -2814,7 +2814,7 @@ if (!YAHOO.util.DragDropMgr) {
 			this.rightConstraint = parseInt(D, 10);
 			this.minX = this.initPageX - this.leftConstraint;
 			this.maxX = this.initPageX + this.rightConstraint;
-			if (C) {
+			if(C) {
 				this.setXTicks(this.initPageX, C);
 			}
 			this.constrainX = true;
@@ -2832,34 +2832,34 @@ if (!YAHOO.util.DragDropMgr) {
 			this.bottomConstraint = parseInt(E, 10);
 			this.minY = this.initPageY - this.topConstraint;
 			this.maxY = this.initPageY + this.bottomConstraint;
-			if (D) {
+			if(D) {
 				this.setYTicks(this.initPageY, D);
 			}
 			this.constrainY = true;
 		}, resetConstraints: function() {
-			if (this.initPageX || this.initPageX === 0) {
+			if(this.initPageX || this.initPageX === 0) {
 				var D = (this.maintainOffset) ? this.lastPageX - this.initPageX : 0;
 				var C = (this.maintainOffset) ? this.lastPageY - this.initPageY : 0;
 				this.setInitPosition(D, C);
 			} else {
 				this.setInitPosition();
 			}
-			if (this.constrainX) {
+			if(this.constrainX) {
 				this.setXConstraint(this.leftConstraint, this.rightConstraint, this.xTickSize);
 			}
-			if (this.constrainY) {
+			if(this.constrainY) {
 				this.setYConstraint(this.topConstraint, this.bottomConstraint, this.yTickSize);
 			}
 		}, getTick: function(I, F) {
-			if (!F) {
+			if(!F) {
 				return I;
 			} else {
-				if (F[0] >= I) {
+				if(F[0] >= I) {
 					return F[0];
 				} else {
 					for (var D = 0, C = F.length; D < C; ++D) {
 						var E = D + 1;
-						if (F[E] && F[E] >= I) {
+						if(F[E] && F[E] >= I) {
 							var H = I - F[D];
 							var G = F[E] - I;
 							return(G > H) ? F[D] : F[E];
@@ -2874,7 +2874,7 @@ if (!YAHOO.util.DragDropMgr) {
 	YAHOO.augment(YAHOO.util.DragDrop, YAHOO.util.EventProvider);
 })();
 YAHOO.util.DD = function(C, A, B) {
-	if (C) {
+	if(C) {
 		this.init(C, A, B);
 	}
 };
@@ -2890,7 +2890,7 @@ YAHOO.extend(YAHOO.util.DD, YAHOO.util.DragDrop, {scroll: true, autoOffset: func
 		this.alignElWithMouse(A, C, B);
 	}, alignElWithMouse: function(C, G, F) {
 		var E = this.getTargetCoord(G, F);
-		if (!this.deltaSetXY) {
+		if(!this.deltaSetXY) {
 			var H = [E.x, E.y];
 			YAHOO.util.Dom.setXY(C, H);
 			var D = parseInt(YAHOO.util.Dom.getStyle(C, "left"), 10);
@@ -2906,7 +2906,7 @@ YAHOO.extend(YAHOO.util.DD, YAHOO.util.DragDrop, {scroll: true, autoOffset: func
 			A.autoScroll.call(A, E.x, E.y, C.offsetHeight, C.offsetWidth);
 		}, 0);
 	}, cachePosition: function(B, A) {
-		if (B) {
+		if(B) {
 			this.lastPageX = B;
 			this.lastPageY = A;
 		} else {
@@ -2915,7 +2915,7 @@ YAHOO.extend(YAHOO.util.DD, YAHOO.util.DragDrop, {scroll: true, autoOffset: func
 			this.lastPageY = C[1];
 		}
 	}, autoScroll: function(J, I, E, K) {
-		if (this.scroll) {
+		if(this.scroll) {
 			var L = this.DDM.getClientHeight();
 			var B = this.DDM.getClientWidth();
 			var N = this.DDM.getScrollTop();
@@ -2926,16 +2926,16 @@ YAHOO.extend(YAHOO.util.DD, YAHOO.util.DragDrop, {scroll: true, autoOffset: func
 			var F = (B + D - J - this.deltaX);
 			var C = 40;
 			var A = (document.all) ? 80 : 30;
-			if (H > L && G < C) {
+			if(H > L && G < C) {
 				window.scrollTo(D, N + A);
 			}
-			if (I < N && N > 0 && I - N < C) {
+			if(I < N && N > 0 && I - N < C) {
 				window.scrollTo(D, N - A);
 			}
-			if (M > B && F < C) {
+			if(M > B && F < C) {
 				window.scrollTo(D + A, N);
 			}
-			if (J < D && D > 0 && J - D < C) {
+			if(J < D && D > 0 && J - D < C) {
 				window.scrollTo(D - A, N);
 			}
 		}
@@ -2951,7 +2951,7 @@ YAHOO.extend(YAHOO.util.DD, YAHOO.util.DragDrop, {scroll: true, autoOffset: func
 		return("DD " + this.id);
 	}});
 YAHOO.util.DDProxy = function(C, A, B) {
-	if (C) {
+	if(C) {
 		this.init(C, A, B);
 		this.initFrame();
 	}
@@ -2959,14 +2959,14 @@ YAHOO.util.DDProxy = function(C, A, B) {
 YAHOO.util.DDProxy.dragElId = "ygddfdiv";
 YAHOO.extend(YAHOO.util.DDProxy, YAHOO.util.DD, {resizeFrame: true, centerFrame: false, createFrame: function() {
 		var B = this, A = document.body;
-		if (!A || !A.firstChild) {
+		if(!A || !A.firstChild) {
 			setTimeout(function() {
 				B.createFrame();
 			}, 50);
 			return;
 		}
 		var F = this.getDragEl(), E = YAHOO.util.Dom;
-		if (!F) {
+		if(!F) {
 			F = document.createElement("div");
 			F.id = this.dragElId;
 			var D = F.style;
@@ -2997,13 +2997,13 @@ YAHOO.extend(YAHOO.util.DDProxy, YAHOO.util.DD, {resizeFrame: true, centerFrame:
 		var A = this.getDragEl();
 		var B = A.style;
 		this._resizeProxy();
-		if (this.centerFrame) {
+		if(this.centerFrame) {
 			this.setDelta(Math.round(parseInt(B.width, 10) / 2), Math.round(parseInt(B.height, 10) / 2));
 		}
 		this.setDragElPos(E, D);
 		YAHOO.util.Dom.setStyle(A, "visibility", "visible");
 	}, _resizeProxy: function() {
-		if (this.resizeFrame) {
+		if(this.resizeFrame) {
 			var H = YAHOO.util.Dom;
 			var B = this.getEl();
 			var C = this.getDragEl();
@@ -3011,16 +3011,16 @@ YAHOO.extend(YAHOO.util.DDProxy, YAHOO.util.DD, {resizeFrame: true, centerFrame:
 			var I = parseInt(H.getStyle(C, "borderRightWidth"), 10);
 			var F = parseInt(H.getStyle(C, "borderBottomWidth"), 10);
 			var D = parseInt(H.getStyle(C, "borderLeftWidth"), 10);
-			if (isNaN(G)) {
+			if(isNaN(G)) {
 				G = 0;
 			}
-			if (isNaN(I)) {
+			if(isNaN(I)) {
 				I = 0;
 			}
-			if (isNaN(F)) {
+			if(isNaN(F)) {
 				F = 0;
 			}
-			if (isNaN(D)) {
+			if(isNaN(D)) {
 				D = 0;
 			}
 			var E = Math.max(0, B.offsetWidth - I - D);
@@ -3050,7 +3050,7 @@ YAHOO.extend(YAHOO.util.DDProxy, YAHOO.util.DD, {resizeFrame: true, centerFrame:
 		return("DDProxy " + this.id);
 	}});
 YAHOO.util.DDTarget = function(C, A, B) {
-	if (C) {
+	if(C) {
 		this.initTarget(C, A, B);
 	}
 };
@@ -3067,7 +3067,7 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 	var B = YAHOO.util.Dom.getXY, A = YAHOO.util.Event, D = Array.prototype.slice;
 	function C(G, E, F, H) {
 		C.ANIM_AVAIL = (!YAHOO.lang.isUndefined(YAHOO.util.Anim));
-		if (G) {
+		if(G) {
 			this.init(G, E, true);
 			this.initSlider(H);
 			this.initThumb(F);
@@ -3102,10 +3102,10 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			var E = this;
 			this.thumb = F;
 			F.cacheBetweenDrags = true;
-			if (F._isHoriz && F.xTicks && F.xTicks.length) {
+			if(F._isHoriz && F.xTicks && F.xTicks.length) {
 				this.tickPause = Math.round(360 / F.xTicks.length);
 			} else {
-				if (F.yTicks && F.yTicks.length) {
+				if(F.yTicks && F.yTicks.length) {
 					this.tickPause = Math.round(360 / F.yTicks.length);
 				}
 			}
@@ -3131,9 +3131,9 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			A.on(this.id, "keydown", this.handleKeyDown, this, true);
 			A.on(this.id, "keypress", this.handleKeyPress, this, true);
 		}, handleKeyPress: function(F) {
-			if (this.enableKeys) {
+			if(this.enableKeys) {
 				var E = A.getCharCode(F);
-				switch (E) {
+				switch(E) {
 					case 37:
 					case 38:
 					case 39:
@@ -3146,9 +3146,9 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 				}
 			}
 		}, handleKeyDown: function(J) {
-			if (this.enableKeys) {
+			if(this.enableKeys) {
 				var G = A.getCharCode(J), F = this.thumb, H = this.getXValue(), E = this.getYValue(), I = true;
-				switch (G) {
+				switch(G) {
 					case 37:
 						H -= this.keyIncrement;
 						break;
@@ -3172,8 +3172,8 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 					default:
 						I = false;
 				}
-				if (I) {
-					if (F._isRegion) {
+				if(I) {
+					if(F._isRegion) {
 						this._setRegionValue(C.SOURCE_KEY_EVENT, H, E, true);
 					} else {
 						this._setValue(C.SOURCE_KEY_EVENT, (F._isHoriz ? H : E), true);
@@ -3185,15 +3185,15 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			this.setThumbCenterPoint();
 			this.baselinePos = B(this.getEl());
 			this.thumb.startOffset = this.thumb.getOffsetFromParent(this.baselinePos);
-			if (this.thumb._isRegion) {
-				if (this.deferredSetRegionValue) {
+			if(this.thumb._isRegion) {
+				if(this.deferredSetRegionValue) {
 					this._setRegionValue.apply(this, this.deferredSetRegionValue);
 					this.deferredSetRegionValue = null;
 				} else {
 					this.setRegionValue(0, 0, true, true, true);
 				}
 			} else {
-				if (this.deferredSetValue) {
+				if(this.deferredSetValue) {
 					this._setValue.apply(this, this.deferredSetValue);
 					this.deferredSetValue = null;
 				} else {
@@ -3202,7 +3202,7 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			}
 		}, setThumbCenterPoint: function() {
 			var E = this.thumb.getEl();
-			if (E) {
+			if(E) {
 				this.thumbCenterPoint = {x: parseInt(E.offsetWidth / 2, 10), y: parseInt(E.offsetHeight / 2, 10)};
 			}
 		}, lock: function() {
@@ -3213,12 +3213,12 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			this.locked = false;
 		}, thumbMouseUp: function() {
 			this._mouseDown = false;
-			if (!this.isLocked() && !this.moveComplete) {
+			if(!this.isLocked() && !this.moveComplete) {
 				this.endMove();
 			}
 		}, onMouseUp: function() {
 			this._mouseDown = false;
-			if (this.backgroundEnabled && !this.isLocked() && !this.moveComplete) {
+			if(this.backgroundEnabled && !this.isLocked() && !this.moveComplete) {
 				this.endMove();
 			}
 		}, getThumb: function() {
@@ -3226,10 +3226,10 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 		}, focus: function() {
 			this.valueChangeSource = C.SOURCE_UI_EVENT;
 			var E = this.getEl();
-			if (E.focus) {
+			if(E.focus) {
 				try {
 					E.focus();
-				} catch (F) {
+				} catch(F) {
 				}
 			}
 			this.verifyOffset();
@@ -3249,17 +3249,17 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			return this._setValue.apply(this, E);
 		}, _setValue: function(I, L, G, H, E) {
 			var F = this.thumb, K, J;
-			if (!F.available) {
+			if(!F.available) {
 				this.deferredSetValue = arguments;
 				return false;
 			}
-			if (this.isLocked() && !H) {
+			if(this.isLocked() && !H) {
 				return false;
 			}
-			if (isNaN(L)) {
+			if(isNaN(L)) {
 				return false;
 			}
-			if (F._isRegion) {
+			if(F._isRegion) {
 				return false;
 			}
 			this._silent = E;
@@ -3267,7 +3267,7 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			F.lastOffset = [L, L];
 			this.verifyOffset(true);
 			this._slideStart();
-			if (F._isHoriz) {
+			if(F._isHoriz) {
 				K = F.initPageX + L + this.thumbCenterPoint.x;
 				this.moveThumb(K, F.initPageY, G);
 			} else {
@@ -3281,17 +3281,17 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			return this._setRegionValue.apply(this, E);
 		}, _setRegionValue: function(F, J, H, I, G, K) {
 			var L = this.thumb, E, M;
-			if (!L.available) {
+			if(!L.available) {
 				this.deferredSetRegionValue = arguments;
 				return false;
 			}
-			if (this.isLocked() && !G) {
+			if(this.isLocked() && !G) {
 				return false;
 			}
-			if (isNaN(J)) {
+			if(isNaN(J)) {
 				return false;
 			}
-			if (!L._isRegion) {
+			if(!L._isRegion) {
 				return false;
 			}
 			this._silent = K;
@@ -3305,11 +3305,11 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			return true;
 		}, verifyOffset: function(F) {
 			var G = B(this.getEl()), E = this.thumb;
-			if (!this.thumbCenterPoint || !this.thumbCenterPoint.x) {
+			if(!this.thumbCenterPoint || !this.thumbCenterPoint.x) {
 				this.setThumbCenterPoint();
 			}
-			if (G) {
-				if (G[0] != this.baselinePos[0] || G[1] != this.baselinePos[1]) {
+			if(G) {
+				if(G[0] != this.baselinePos[0] || G[1] != this.baselinePos[1]) {
 					this.setInitPosition();
 					this.baselinePos = G;
 					E.initPageX = this.initPageX + E.startOffset[0];
@@ -3322,13 +3322,13 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			return true;
 		}, moveThumb: function(K, J, I, G) {
 			var L = this.thumb, M = this, F, E, H;
-			if (!L.available) {
+			if(!L.available) {
 				return;
 			}
 			L.setDelta(this.thumbCenterPoint.x, this.thumbCenterPoint.y);
 			E = L.getTargetCoord(K, J);
 			F = [Math.round(E.x), Math.round(E.y)];
-			if (this.animate && L._graduated && !I) {
+			if(this.animate && L._graduated && !I) {
 				this.lock();
 				this.curCoord = B(this.thumb.getEl());
 				this.curCoord = [Math.round(this.curCoord[0]), Math.round(this.curCoord[1])];
@@ -3336,84 +3336,84 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 					M.moveOneTick(F);
 				}, this.tickPause);
 			} else {
-				if (this.animate && C.ANIM_AVAIL && !I) {
+				if(this.animate && C.ANIM_AVAIL && !I) {
 					this.lock();
 					H = new YAHOO.util.Motion(L.id, {points: {to: F}}, this.animationDuration, YAHOO.util.Easing.easeOut);
 					H.onComplete.subscribe(function() {
 						M.unlock();
-						if (!M._mouseDown) {
+						if(!M._mouseDown) {
 							M.endMove();
 						}
 					});
 					H.animate();
 				} else {
 					L.setDragElPos(K, J);
-					if (!G && !this._mouseDown) {
+					if(!G && !this._mouseDown) {
 						this.endMove();
 					}
 				}
 			}
 		}, _slideStart: function() {
-			if (!this._sliding) {
-				if (!this._silent) {
+			if(!this._sliding) {
+				if(!this._silent) {
 					this.onSlideStart();
 					this.fireEvent("slideStart");
 				}
 				this._sliding = true;
 			}
 		}, _slideEnd: function() {
-			if (this._sliding && this.moveComplete) {
+			if(this._sliding && this.moveComplete) {
 				var E = this._silent;
 				this._sliding = false;
 				this._silent = false;
 				this.moveComplete = false;
-				if (!E) {
+				if(!E) {
 					this.onSlideEnd();
 					this.fireEvent("slideEnd");
 				}
 			}
 		}, moveOneTick: function(F) {
 			var H = this.thumb, G = this, I = null, E, J;
-			if (H._isRegion) {
+			if(H._isRegion) {
 				I = this._getNextX(this.curCoord, F);
 				E = (I !== null) ? I[0] : this.curCoord[0];
 				I = this._getNextY(this.curCoord, F);
 				J = (I !== null) ? I[1] : this.curCoord[1];
 				I = E !== this.curCoord[0] || J !== this.curCoord[1] ? [E, J] : null;
 			} else {
-				if (H._isHoriz) {
+				if(H._isHoriz) {
 					I = this._getNextX(this.curCoord, F);
 				} else {
 					I = this._getNextY(this.curCoord, F);
 				}
 			}
-			if (I) {
+			if(I) {
 				this.curCoord = I;
 				this.thumb.alignElWithMouse(H.getEl(), I[0] + this.thumbCenterPoint.x, I[1] + this.thumbCenterPoint.y);
-				if (!(I[0] == F[0] && I[1] == F[1])) {
+				if(!(I[0] == F[0] && I[1] == F[1])) {
 					setTimeout(function() {
 						G.moveOneTick(F);
 					}, this.tickPause);
 				} else {
 					this.unlock();
-					if (!this._mouseDown) {
+					if(!this._mouseDown) {
 						this.endMove();
 					}
 				}
 			} else {
 				this.unlock();
-				if (!this._mouseDown) {
+				if(!this._mouseDown) {
 					this.endMove();
 				}
 			}
 		}, _getNextX: function(E, F) {
 			var H = this.thumb, J, G = [], I = null;
-			if (E[0] > F[0]) {
+			if(E[0] > F[0]) {
 				J = H.tickSize - this.thumbCenterPoint.x;
 				G = H.getTargetCoord(E[0] - J, E[1]);
 				I = [G.x, G.y];
 			} else {
-				if (E[0] < F[0]) {
+				if(E[0] < F[0]) {
 					J = H.tickSize + this.thumbCenterPoint.x;
 					G = H.getTargetCoord(E[0] + J, E[1]);
 					I = [G.x, G.y];
@@ -3423,12 +3423,12 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			return I;
 		}, _getNextY: function(E, F) {
 			var H = this.thumb, J, G = [], I = null;
-			if (E[1] > F[1]) {
+			if(E[1] > F[1]) {
 				J = H.tickSize - this.thumbCenterPoint.y;
 				G = H.getTargetCoord(E[0], E[1] - J);
 				I = [G.x, G.y];
 			} else {
-				if (E[1] < F[1]) {
+				if(E[1] < F[1]) {
 					J = H.tickSize + this.thumbCenterPoint.y;
 					G = H.getTargetCoord(E[0], E[1] + J);
 					I = [G.x, G.y];
@@ -3437,13 +3437,13 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			}
 			return I;
 		}, b4MouseDown: function(E) {
-			if (!this.backgroundEnabled) {
+			if(!this.backgroundEnabled) {
 				return false;
 			}
 			this.thumb.autoOffset();
 			this.resetThumbConstraints();
 		}, onMouseDown: function(F) {
-			if (!this.backgroundEnabled || this.isLocked()) {
+			if(!this.backgroundEnabled || this.isLocked()) {
 				return false;
 			}
 			this._mouseDown = true;
@@ -3452,7 +3452,7 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			this._slideStart();
 			this.moveThumb(E, G);
 		}, onDrag: function(F) {
-			if (this.backgroundEnabled && !this.isLocked()) {
+			if(this.backgroundEnabled && !this.isLocked()) {
 				var E = A.getPageX(F), G = A.getPageY(F);
 				this.moveThumb(E, G, true, true);
 				this.fireEvents();
@@ -3468,15 +3468,15 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 			E.setYConstraint(E.topConstraint, E.bottomConstraint, E.xTickSize);
 		}, fireEvents: function(G) {
 			var F = this.thumb, I, H, E;
-			if (!G) {
+			if(!G) {
 				F.cachePosition();
 			}
-			if (!this.isLocked()) {
-				if (F._isRegion) {
+			if(!this.isLocked()) {
+				if(F._isRegion) {
 					I = F.getXValue();
 					H = F.getYValue();
-					if (I != this.previousX || H != this.previousY) {
-						if (!this._silent) {
+					if(I != this.previousX || H != this.previousY) {
+						if(!this._silent) {
 							this.onChange(I, H);
 							this.fireEvent("change", {x: I, y: H});
 						}
@@ -3485,8 +3485,8 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 					this.previousY = H;
 				} else {
 					E = F.getValue();
-					if (E != this.previousVal) {
-						if (!this._silent) {
+					if(E != this.previousVal) {
+						if(!this._silent) {
 							this.onChange(E);
 							this.fireEvent("change", E);
 						}
@@ -3501,7 +3501,7 @@ YAHOO.register("dragdrop", YAHOO.util.DragDropMgr, {version: "2.7.0", build: "17
 	YAHOO.widget.Slider = C;
 })();
 YAHOO.widget.SliderThumb = function(G, B, E, D, A, F, C) {
-	if (G) {
+	if(G) {
 		YAHOO.widget.SliderThumb.superclass.constructor.call(this, G, B);
 		this.parentElId = B;
 	}
@@ -3516,7 +3516,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 		return[(A[0] - B[0]), (A[1] - B[1])];
 	}, getOffsetFromParent: function(H) {
 		var A = this.getEl(), E, I, F, B, K, D, C, J, G;
-		if (!this.deltaOffset) {
+		if(!this.deltaOffset) {
 			I = YAHOO.util.Dom.getXY(A);
 			F = H || YAHOO.util.Dom.getXY(this.parentElId);
 			E = [(I[0] - F[0]), (I[1] - F[1])];
@@ -3524,7 +3524,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			K = parseInt(YAHOO.util.Dom.getStyle(A, "top"), 10);
 			D = B - E[0];
 			C = K - E[1];
-			if (isNaN(D) || isNaN(C)) {
+			if(isNaN(D) || isNaN(C)) {
 			} else {
 				this.deltaOffset = [D, C];
 			}
@@ -3541,7 +3541,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 		this.initDown = E;
 		this.setXConstraint(D, C, B);
 		this.setYConstraint(A, E, B);
-		if (B && B > 1) {
+		if(B && B > 1) {
 			this._graduated = true;
 		}
 		this._isHoriz = (D || C);
@@ -3554,22 +3554,22 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 	}, getValue: function() {
 		return(this._isHoriz) ? this.getXValue() : this.getYValue();
 	}, getXValue: function() {
-		if (!this.available) {
+		if(!this.available) {
 			return 0;
 		}
 		var A = this.getOffsetFromParent();
-		if (YAHOO.lang.isNumber(A[0])) {
+		if(YAHOO.lang.isNumber(A[0])) {
 			this.lastOffset = A;
 			return(A[0] - this.startOffset[0]);
 		} else {
 			return(this.lastOffset[0] - this.startOffset[0]);
 		}
 	}, getYValue: function() {
-		if (!this.available) {
+		if(!this.available) {
 			return 0;
 		}
 		var A = this.getOffsetFromParent();
-		if (YAHOO.lang.isNumber(A[1])) {
+		if(YAHOO.lang.isNumber(A[1])) {
 			this.lastOffset = A;
 			return(A[1] - this.startOffset[1]);
 		} else {
@@ -3600,14 +3600,14 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 		this.minSlider.thumb.onAvailable = function() {
 			I.setStartSliderState();
 			J.min = true;
-			if (J.max) {
+			if(J.max) {
 				G.fireEvent("ready", G);
 			}
 		};
 		this.maxSlider.thumb.onAvailable = function() {
 			F.setStartSliderState();
 			J.max = true;
-			if (J.min) {
+			if(J.min) {
 				G.fireEvent("ready", G);
 			}
 		};
@@ -3638,7 +3638,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 		D = YAHOO.lang.isArray(D) ? D : [0, H];
 		D[0] = Math.min(Math.max(parseInt(D[0], 10) | 0, 0), H);
 		D[1] = Math.max(Math.min(parseInt(D[1], 10) | 0, H), 0);
-		if (D[0] > D[1]) {
+		if(D[0] > D[1]) {
 			D.splice(0, 2, D[1], D[0]);
 		}
 		this.minVal = D[0];
@@ -3667,7 +3667,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			this.activeSlider.handleKeyPress.apply(this.activeSlider, arguments);
 		}, setValues: function(H, K, I, E, J) {
 			var F = this.minSlider, M = this.maxSlider, D = F.thumb, L = M.thumb, N = this, G = {min: false, max: false};
-			if (D._isHoriz) {
+			if(D._isHoriz) {
 				D.setXConstraint(D.leftConstraint, L.rightConstraint, D.tickSize);
 				L.setXConstraint(D.leftConstraint, L.rightConstraint, L.tickSize);
 			} else {
@@ -3676,7 +3676,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			}
 			this._oneTimeCallback(F, "slideEnd", function() {
 				G.min = true;
-				if (G.max) {
+				if(G.max) {
 					N.updateValue(J);
 					setTimeout(function() {
 						N._cleanEvent(F, "slideEnd");
@@ -3686,7 +3686,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			});
 			this._oneTimeCallback(M, "slideEnd", function() {
 				G.max = true;
-				if (G.min) {
+				if(G.min) {
 					N.updateValue(J);
 					setTimeout(function() {
 						N._cleanEvent(F, "slideEnd");
@@ -3719,7 +3719,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			G.setValue(D, H, I);
 		}, updateValue: function(J) {
 			var E = this.minSlider.getValue(), K = this.maxSlider.getValue(), F = false, D, M, H, I, L, G;
-			if (E != this.minVal || K != this.maxVal) {
+			if(E != this.minVal || K != this.maxVal) {
 				F = true;
 				D = this.minSlider.thumb;
 				M = this.maxSlider.thumb;
@@ -3727,7 +3727,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 				G = this.minSlider.thumbCenterPoint[H] + this.maxSlider.thumbCenterPoint[H];
 				I = Math.max(K - G - this.minRange, 0);
 				L = Math.min(-E - G - this.minRange, 0);
-				if (this.isHoriz) {
+				if(this.isHoriz) {
 					I = Math.min(I, M.rightConstraint);
 					D.setXConstraint(D.leftConstraint, I, D.tickSize);
 					M.setXConstraint(L, M.rightConstraint, M.tickSize);
@@ -3739,15 +3739,15 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			}
 			this.minVal = E;
 			this.maxVal = K;
-			if (F && !J) {
+			if(F && !J) {
 				this.fireEvent("change", this);
 			}
 		}, selectActiveSlider: function(H) {
 			var E = this.minSlider, D = this.maxSlider, J = E.isLocked() || !E.backgroundEnabled, G = D.isLocked() || !E.backgroundEnabled, F = YAHOO.util.Event, I;
-			if (J || G) {
+			if(J || G) {
 				this.activeSlider = J ? D : E;
 			} else {
-				if (this.isHoriz) {
+				if(this.isHoriz) {
 					I = F.getPageX(H) - E.thumb.initPageX - E.thumbCenterPoint.x;
 				} else {
 					I = F.getPageY(H) - E.thumb.initPageY - E.thumbCenterPoint.y;
@@ -3755,7 +3755,7 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 				this.activeSlider = I * 2 > D.getValue() + E.getValue() ? D : E;
 			}
 		}, _handleMouseDown: function(D) {
-			if (!D._handled) {
+			if(!D._handled) {
 				D._handled = true;
 				this.selectActiveSlider(D);
 				return B.Slider.prototype.onMouseDown.call(this.activeSlider, D);
@@ -3771,19 +3771,19 @@ YAHOO.extend(YAHOO.widget.SliderThumb, YAHOO.util.DD, {startOffset: null, dragOn
 			});
 		}, _cleanEvent: function(K, E) {
 			var J, I, D, G, H, F;
-			if (K.__yui_events && K.events[E]) {
+			if(K.__yui_events && K.events[E]) {
 				for (I = K.__yui_events.length; I >= 0; --I) {
-					if (K.__yui_events[I].type === E) {
+					if(K.__yui_events[I].type === E) {
 						J = K.__yui_events[I];
 						break;
 					}
 				}
-				if (J) {
+				if(J) {
 					H = J.subscribers;
 					F = [];
 					G = 0;
 					for (I = 0, D = H.length; I < D; ++I) {
-						if (H[I]) {
+						if(H[I]) {
 							F[G++] = H[I];
 						}
 					}
@@ -3809,57 +3809,57 @@ YAHOO.register("slider", YAHOO.widget.Slider, {version: "2.7.0", build: "1796"})
  version: 2.7.0
  */
 YAHOO.util.Attribute = function(B, A) {
-	if (A) {
+	if(A) {
 		this.owner = A;
 		this.configure(B, true);
 	}
 };
 YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, readOnly: false, writeOnce: false, _initialConfig: null, _written: false, method: null, setter: null, getter: null, validator: null, getValue: function() {
 		var A = this.value;
-		if (this.getter) {
+		if(this.getter) {
 			A = this.getter.call(this.owner, this.name);
 		}
 		return A;
 	}, setValue: function(F, B) {
 		var E, A = this.owner, C = this.name;
 		var D = {type: C, prevValue: this.getValue(), newValue: F};
-		if (this.readOnly || (this.writeOnce && this._written)) {
+		if(this.readOnly || (this.writeOnce && this._written)) {
 			return false;
 		}
-		if (this.validator && !this.validator.call(A, F)) {
+		if(this.validator && !this.validator.call(A, F)) {
 			return false;
 		}
-		if (!B) {
+		if(!B) {
 			E = A.fireBeforeChangeEvent(D);
-			if (E === false) {
+			if(E === false) {
 				return false;
 			}
 		}
-		if (this.setter) {
+		if(this.setter) {
 			F = this.setter.call(A, F, this.name);
-			if (F === undefined) {
+			if(F === undefined) {
 			}
 		}
-		if (this.method) {
+		if(this.method) {
 			this.method.call(A, F, this.name);
 		}
 		this.value = F;
 		this._written = true;
 		D.type = C;
-		if (!B) {
+		if(!B) {
 			this.owner.fireChangeEvent(D);
 		}
 		return true;
 	}, configure: function(B, C) {
 		B = B || {};
-		if (C) {
+		if(C) {
 			this._written = false;
 		}
 		this._initialConfig = this._initialConfig || {};
 		for (var A in B) {
-			if (B.hasOwnProperty(A)) {
+			if(B.hasOwnProperty(A)) {
 				this[A] = B[A];
-				if (C) {
+				if(C) {
 					this._initialConfig[A] = B[A];
 				}
 			}
@@ -3878,14 +3878,14 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 	YAHOO.util.AttributeProvider.prototype = {_configs: null, get: function(C) {
 			this._configs = this._configs || {};
 			var B = this._configs[C];
-			if (!B || !this._configs.hasOwnProperty(C)) {
+			if(!B || !this._configs.hasOwnProperty(C)) {
 				return null;
 			}
 			return B.getValue();
 		}, set: function(D, E, B) {
 			this._configs = this._configs || {};
 			var C = this._configs[D];
-			if (!C) {
+			if(!C) {
 				return false;
 			}
 			return C.setValue(E, B);
@@ -3893,20 +3893,20 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			this._configs = this._configs;
 			var C = [], B;
 			for (B in this._configs) {
-				if (A.hasOwnProperty(this._configs, B) && !A.isUndefined(this._configs[B])) {
+				if(A.hasOwnProperty(this._configs, B) && !A.isUndefined(this._configs[B])) {
 					C[C.length] = B;
 				}
 			}
 			return C;
 		}, setAttributes: function(D, B) {
 			for (var C in D) {
-				if (A.hasOwnProperty(D, C)) {
+				if(A.hasOwnProperty(D, C)) {
 					this.set(C, D[C], B);
 				}
 			}
 		}, resetValue: function(C, B) {
 			this._configs = this._configs || {};
-			if (this._configs[C]) {
+			if(this._configs[C]) {
 				this.set(C, this._configs[C]._initialConfig.value, B);
 				return true;
 			}
@@ -3916,7 +3916,7 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			var F = this._configs;
 			E = ((A.isString(E)) ? [E] : E) || this.getAttributeKeys();
 			for (var D = 0, B = E.length; D < B; ++D) {
-				if (F.hasOwnProperty(E[D])) {
+				if(F.hasOwnProperty(E[D])) {
 					this._configs[E[D]].refresh(C);
 				}
 			}
@@ -3927,7 +3927,7 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			var B = this._configs[C] || {};
 			var D = {};
 			for (C in B) {
-				if (A.hasOwnProperty(B, C)) {
+				if(A.hasOwnProperty(B, C)) {
 					D[C] = B[C];
 				}
 			}
@@ -3935,7 +3935,7 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 		}, setAttributeConfig: function(B, C, D) {
 			this._configs = this._configs || {};
 			C = C || {};
-			if (!this._configs[B]) {
+			if(!this._configs[B]) {
 				C.name = B;
 				this._configs[B] = this.createAttribute(C);
 			} else {
@@ -3948,7 +3948,7 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			this._configs[B].resetConfig();
 		}, subscribe: function(B, C) {
 			this._events = this._events || {};
-			if (!(B in this._events)) {
+			if(!(B in this._events)) {
 				this._events[B] = this.createEvent(B);
 			}
 			YAHOO.util.EventProvider.prototype.subscribe.apply(this, arguments);
@@ -3977,12 +3977,12 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 	A.DOM_EVENTS = {"click": true, "dblclick": true, "keydown": true, "keypress": true, "keyup": true, "mousedown": true, "mousemove": true, "mouseout": true, "mouseover": true, "mouseup": true, "focus": true, "blur": true, "submit": true, "change": true};
 	A.prototype = {DOM_EVENTS: null, DEFAULT_HTML_SETTER: function(F, D) {
 			var E = this.get("element");
-			if (E) {
+			if(E) {
 				E[D] = F;
 			}
 		}, DEFAULT_HTML_GETTER: function(D) {
 			var E = this.get("element"), F;
-			if (E) {
+			if(E) {
 				F = E[D];
 			}
 			return F;
@@ -4009,10 +4009,10 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			var E = this.get("element") || this.get("id");
 			F = F || this;
 			var D = this;
-			if (!this._events[H]) {
-				if (E && this.DOM_EVENTS[H]) {
+			if(!this._events[H]) {
+				if(E && this.DOM_EVENTS[H]) {
 					YAHOO.util.Event.addListener(E, H, function(J) {
-						if (J.srcElement && !J.target) {
+						if(J.srcElement && !J.target) {
 							J.target = J.srcElement;
 						}
 						D.fireEvent(H, J);
@@ -4051,14 +4051,14 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			this.fireEvent("beforeAppendTo", {type: "beforeAppendTo", target: E});
 			F = (F && F.get) ? F.get("element") : B.get(F);
 			var D = this.get("element");
-			if (!D) {
+			if(!D) {
 				return false;
 			}
-			if (!E) {
+			if(!E) {
 				return false;
 			}
-			if (D.parent != E) {
-				if (F) {
+			if(D.parent != E) {
+				if(F) {
 					E.insertBefore(D, F);
 				} else {
 					E.appendChild(D);
@@ -4068,33 +4068,33 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			return D;
 		}, get: function(D) {
 			var F = this._configs || {}, E = F.element;
-			if (E && !F[D] && !YAHOO.lang.isUndefined(E.value[D])) {
+			if(E && !F[D] && !YAHOO.lang.isUndefined(E.value[D])) {
 				this._setHTMLAttrConfig(D);
 			}
 			return C.prototype.get.call(this, D);
 		}, setAttributes: function(J, G) {
 			var E = {}, H = this._configOrder;
 			for (var I = 0, D = H.length; I < D; ++I) {
-				if (J[H[I]] !== undefined) {
+				if(J[H[I]] !== undefined) {
 					E[H[I]] = true;
 					this.set(H[I], J[H[I]], G);
 				}
 			}
 			for (var F in J) {
-				if (J.hasOwnProperty(F) && !E[F]) {
+				if(J.hasOwnProperty(F) && !E[F]) {
 					this.set(F, J[F], G);
 				}
 			}
 		}, set: function(E, G, D) {
 			var F = this.get("element");
-			if (!F) {
+			if(!F) {
 				this._queue[this._queue.length] = ["set", arguments];
-				if (this._configs[E]) {
+				if(this._configs[E]) {
 					this._configs[E].value = G;
 				}
 				return;
 			}
-			if (!this._configs[E] && !YAHOO.lang.isUndefined(F[E])) {
+			if(!this._configs[E] && !YAHOO.lang.isUndefined(F[E])) {
 				this._setHTMLAttrConfig(E);
 			}
 			return C.prototype.set.apply(this, arguments);
@@ -4110,7 +4110,7 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			var D = this.get("element");
 			YAHOO.util.Event.purgeElement(D, true);
 			this.unsubscribeAll();
-			if (D && D.parentNode) {
+			if(D && D.parentNode) {
 				D.parentNode.removeChild(D);
 			}
 			this._queue = [];
@@ -4128,26 +4128,26 @@ YAHOO.util.Attribute.prototype = {name: undefined, value: null, owner: null, rea
 			var D = A.DOM_EVENTS;
 			this.DOM_EVENTS = this.DOM_EVENTS || {};
 			for (var G in D) {
-				if (D.hasOwnProperty(G)) {
+				if(D.hasOwnProperty(G)) {
 					this.DOM_EVENTS[G] = D[G];
 				}
 			}
-			if (typeof E.element === "string") {
+			if(typeof E.element === "string") {
 				this._setHTMLAttrConfig("id", {value: E.element});
 			}
-			if (B.get(E.element)) {
+			if(B.get(E.element)) {
 				H = true;
 				this._initHTMLElement(E);
 				this._initContent(E);
 			}
 			YAHOO.util.Event.onAvailable(E.element, function() {
-				if (!H) {
+				if(!H) {
 					this._initHTMLElement(E);
 				}
 				this.fireEvent("available", {type: "available", target: B.get(E.element)});
 			}, this, true);
 			YAHOO.util.Event.onContentReady(E.element, function() {
-				if (!H) {
+				if(!H) {
 					this._initContent(E);
 				}
 				this.fireEvent("contentReady", {type: "contentReady", target: B.get(E.element)});
@@ -4181,11 +4181,11 @@ YAHOO.util.Color = function() {
 	return{real2dec: function(D) {
 			return Math.min(255, Math.round(D * 256));
 		}, hsv2rgb: function(H, O, M) {
-			if (B(H)) {
+			if(B(H)) {
 				return this.hsv2rgb.call(this, H[0], H[1], H[2]);
 			}
 			var D, I, L, G = Math.floor((H / 60) % 6), J = (H / 60) - G, F = M * (1 - O), E = M * (1 - J * O), N = M * (1 - (1 - J) * O), K;
-			switch (G) {
+			switch(G) {
 				case 0:
 					D = M;
 					I = N;
@@ -4220,20 +4220,20 @@ YAHOO.util.Color = function() {
 			K = this.real2dec;
 			return[K(D), K(I), K(L)];
 		}, rgb2hsv: function(D, H, I) {
-			if (B(D)) {
+			if(B(D)) {
 				return this.rgb2hsv.apply(this, D);
 			}
 			D /= 255;
 			H /= 255;
 			I /= 255;
 			var G, L, E = Math.min(Math.min(D, H), I), J = Math.max(Math.max(D, H), I), K = J - E, F;
-			switch (J) {
+			switch(J) {
 				case E:
 					G = 0;
 					break;
 				case D:
 					G = 60 * (H - I) / K;
-					if (H < I) {
+					if(H < I) {
 						G += 360;
 					}
 					break;
@@ -4248,7 +4248,7 @@ YAHOO.util.Color = function() {
 			F = [Math.round(G), L, J];
 			return F;
 		}, rgb2hex: function(F, E, D) {
-			if (B(F)) {
+			if(B(F)) {
 				return this.rgb2hex.apply(this, F);
 			}
 			var G = this.dec2hex;
@@ -4263,16 +4263,16 @@ YAHOO.util.Color = function() {
 			var E = this.hex2dec;
 			return[E(D.slice(0, 2)), E(D.slice(2, 4)), E(D.slice(4, 6))];
 		}, websafe: function(F, E, D) {
-			if (B(F)) {
+			if(B(F)) {
 				return this.websafe.apply(this, F);
 			}
 			var G = function(H) {
-				if (C(H)) {
+				if(C(H)) {
 					H = Math.min(Math.max(0, H), 255);
 					var I, J;
 					for (I = 0; I < 256; I = I + 51) {
 						J = I + 51;
-						if (H >= I && H <= J) {
+						if(H >= I && H <= J) {
 							return(H - I > 25) ? J : I;
 						}
 					}
@@ -4287,11 +4287,11 @@ YAHOO.util.Color = function() {
 	function G(L, K) {
 		J = J + 1;
 		K = K || {};
-		if (arguments.length === 1 && !YAHOO.lang.isString(L) && !L.nodeName) {
+		if(arguments.length === 1 && !YAHOO.lang.isString(L) && !L.nodeName) {
 			K = L;
 			L = K.element || null;
 		}
-		if (!L && !K.element) {
+		if(!L && !K.element) {
 			L = this._createHostElement(K);
 		}
 		G.superclass.constructor.call(this, L, K);
@@ -4299,14 +4299,14 @@ YAHOO.util.Color = function() {
 	}
 	YAHOO.extend(G, YAHOO.util.Element, {ID: {R: H + "-r", R_HEX: H + "-rhex", G: H + "-g", G_HEX: H + "-ghex", B: H + "-b", B_HEX: H + "-bhex", H: H + "-h", S: H + "-s", V: H + "-v", PICKER_BG: H + "-bg", PICKER_THUMB: H + "-thumb", HUE_BG: H + "-hue-bg", HUE_THUMB: H + "-hue-thumb", HEX: H + "-hex", SWATCH: H + "-swatch", WEBSAFE_SWATCH: H + "-websafe-swatch", CONTROLS: H + "-controls", RGB_CONTROLS: H + "-rgb-controls", HSV_CONTROLS: H + "-hsv-controls", HEX_CONTROLS: H + "-hex-controls", HEX_SUMMARY: H + "-hex-summary", CONTROLS_LABEL: H + "-controls-label"}, TXT: {ILLEGAL_HEX: "Illegal hex value entered", SHOW_CONTROLS: "Show color details", HIDE_CONTROLS: "Hide color details", CURRENT_COLOR: "Currently selected color: {rgb}", CLOSEST_WEBSAFE: "Closest websafe color: {rgb}. Click to select.", R: "R", G: "G", B: "B", H: "H", S: "S", V: "V", HEX: "#", DEG: "\u00B0", PERCENT: "%"}, IMAGE: {PICKER_THUMB: "../../build/colorpicker/assets/picker_thumb.png", HUE_THUMB: "../../build/colorpicker/assets/hue_thumb.png"}, DEFAULT: {PICKER_SIZE: 180}, OPT: {HUE: "hue", SATURATION: "saturation", VALUE: "value", RED: "red", GREEN: "green", BLUE: "blue", HSV: "hsv", RGB: "rgb", WEBSAFE: "websafe", HEX: "hex", PICKER_SIZE: "pickersize", SHOW_CONTROLS: "showcontrols", SHOW_RGB_CONTROLS: "showrgbcontrols", SHOW_HSV_CONTROLS: "showhsvcontrols", SHOW_HEX_CONTROLS: "showhexcontrols", SHOW_HEX_SUMMARY: "showhexsummary", SHOW_WEBSAFE: "showwebsafe", CONTAINER: "container", IDS: "ids", ELEMENTS: "elements", TXT: "txt", IMAGES: "images", ANIMATE: "animate"}, skipAnim: true, _createHostElement: function() {
 			var K = document.createElement("div");
-			if (this.CSS.BASE) {
+			if(this.CSS.BASE) {
 				K.className = this.CSS.BASE;
 			}
 			return K;
 		}, _updateHueSlider: function() {
 			var K = this.get(this.OPT.PICKER_SIZE), L = this.get(this.OPT.HUE);
 			L = K - Math.round(L / 360 * K);
-			if (L === K) {
+			if(L === K) {
 				L = 0;
 			}
 			this.hueSlider.setValue(L, this.skipAnim);
@@ -4356,7 +4356,7 @@ YAHOO.util.Color = function() {
 			var L = this._getH(), K = B.hsv2rgb(L, 1, 1), M = "rgb(" + K.join(",") + ")";
 			this.set(this.OPT.HUE, L, true);
 			E.setStyle(this.getElement(this.ID.PICKER_BG), "background-color", M);
-			if (this.hueSlider.valueChangeSource !== D.SOURCE_SET_VALUE) {
+			if(this.hueSlider.valueChangeSource !== D.SOURCE_SET_VALUE) {
 				this._getValuesFromSliders();
 			}
 			this._updateFormFields();
@@ -4365,32 +4365,32 @@ YAHOO.util.Color = function() {
 			var L = this._getS(), K = this._getV();
 			this.set(this.OPT.SATURATION, Math.round(L * 100), true);
 			this.set(this.OPT.VALUE, Math.round(K * 100), true);
-			if (this.pickerSlider.valueChangeSource !== D.SOURCE_SET_VALUE) {
+			if(this.pickerSlider.valueChangeSource !== D.SOURCE_SET_VALUE) {
 				this._getValuesFromSliders();
 			}
 			this._updateFormFields();
 			this._updateSwatch();
 		}, _getCommand: function(K) {
 			var L = I.getCharCode(K);
-			if (L === 38) {
+			if(L === 38) {
 				return 3;
 			} else {
-				if (L === 13) {
+				if(L === 13) {
 					return 6;
 				} else {
-					if (L === 40) {
+					if(L === 40) {
 						return 4;
 					} else {
-						if (L >= 48 && L <= 57) {
+						if(L >= 48 && L <= 57) {
 							return 1;
 						} else {
-							if (L >= 97 && L <= 102) {
+							if(L >= 97 && L <= 102) {
 								return 2;
 							} else {
-								if (L >= 65 && L <= 70) {
+								if(L >= 65 && L <= 70) {
 									return 2;
 								} else {
-									if ("8, 9, 13, 27, 37, 39".indexOf(L) > -1 || K.ctrlKey || K.metaKey) {
+									if("8, 9, 13, 27, 37, 39".indexOf(L) > -1 || K.ctrlKey || K.metaKey) {
 										return 5;
 									} else {
 										return 0;
@@ -4403,15 +4403,15 @@ YAHOO.util.Color = function() {
 			}
 		}, _useFieldValue: function(L, K, N) {
 			var M = K.value;
-			if (N !== this.OPT.HEX) {
+			if(N !== this.OPT.HEX) {
 				M = parseInt(M, 10);
 			}
-			if (M !== this.get(N)) {
+			if(M !== this.get(N)) {
 				this.set(N, M);
 			}
 		}, _rgbFieldKeypress: function(M, K, O) {
 			var N = this._getCommand(M), L = (M.shiftKey) ? 10 : 1;
-			switch (N) {
+			switch(N) {
 				case 6:
 					this._useFieldValue.apply(this, arguments);
 					break;
@@ -4427,18 +4427,18 @@ YAHOO.util.Color = function() {
 			}
 		}, _hexFieldKeypress: function(L, K, N) {
 			var M = this._getCommand(L);
-			if (M === 6) {
+			if(M === 6) {
 				this._useFieldValue.apply(this, arguments);
 			}
 		}, _hexOnly: function(L, K) {
 			var M = this._getCommand(L);
-			switch (M) {
+			switch(M) {
 				case 6:
 				case 5:
 				case 1:
 					break;
 				case 2:
-					if (K !== true) {
+					if(K !== true) {
 						break;
 					}
 				default:
@@ -4452,7 +4452,7 @@ YAHOO.util.Color = function() {
 		}, _createElements: function() {
 			var N, M, P, O, L, K = this.get(this.OPT.IDS), Q = this.get(this.OPT.TXT), S = this.get(this.OPT.IMAGES), R = function(U, V) {
 				var W = document.createElement(U);
-				if (V) {
+				if(V) {
 					C.augmentObject(W, V, true);
 				}
 				return W;
@@ -4554,17 +4554,17 @@ YAHOO.util.Color = function() {
 		}, _initElements: function() {
 			var O = this.OPT, N = this.get(O.IDS), L = this.get(O.ELEMENTS), K, M, P;
 			for (K in this.ID) {
-				if (C.hasOwnProperty(this.ID, K)) {
+				if(C.hasOwnProperty(this.ID, K)) {
 					N[this.ID[K]] = N[K];
 				}
 			}
 			M = E.get(N[this.ID.PICKER_BG]);
-			if (!M) {
+			if(!M) {
 				this._createElements();
 			} else {
 			}
 			for (K in N) {
-				if (C.hasOwnProperty(N, K)) {
+				if(C.hasOwnProperty(N, K)) {
 					M = E.get(N[K]);
 					P = E.generateId(M);
 					N[K] = P;
@@ -4615,14 +4615,14 @@ YAHOO.util.Color = function() {
 			this._updateSliders();
 		}, _updateHex: function() {
 			var N = this.get(this.OPT.HEX), K = N.length, O, M, L;
-			if (K === 3) {
+			if(K === 3) {
 				O = N.split("");
 				for (M = 0; M < K; M = M + 1) {
 					O[M] = O[M] + O[M];
 				}
 				N = O.join("");
 			}
-			if (N.length !== 6) {
+			if(N.length !== 6) {
 				return false;
 			}
 			L = B.hex2rgb(N);
@@ -4648,14 +4648,14 @@ YAHOO.util.Color = function() {
 					var Q = B.websafe(O), P = B.rgb2hex(O), N = B.rgb2hsv(O);
 					this.set(this.OPT.WEBSAFE, Q, true);
 					this.set(this.OPT.HEX, P, true);
-					if (N[1]) {
+					if(N[1]) {
 						this.set(this.OPT.HUE, N[0], true);
 					}
 					this.set(this.OPT.SATURATION, Math.round(N[1] * 100), true);
 					this.set(this.OPT.VALUE, Math.round(N[2] * 100), true);
 				}, readonly: true});
 			this.setAttributeConfig(this.OPT.CONTAINER, {value: null, method: function(N) {
-					if (N) {
+					if(N) {
 						N.showEvent.subscribe(function() {
 							this.pickerSlider.focus();
 						}, this, true);
@@ -4663,9 +4663,9 @@ YAHOO.util.Color = function() {
 				}});
 			this.setAttributeConfig(this.OPT.WEBSAFE, {value: K.websafe || [255, 255, 255]});
 			var M = K.ids || C.merge({}, this.ID), L;
-			if (!K.ids && J > 1) {
+			if(!K.ids && J > 1) {
 				for (L in M) {
-					if (C.hasOwnProperty(M, L)) {
+					if(C.hasOwnProperty(M, L)) {
 						M[L] = M[L] + J;
 					}
 				}
@@ -4684,7 +4684,7 @@ YAHOO.util.Color = function() {
 				}});
 			this.setAttributeConfig(this.OPT.SHOW_HSV_CONTROLS, {value: C.isBoolean(K.showhsvcontrols) ? K.showhsvcontrols : false, method: function(N) {
 					this._hideShowEl(this.ID.HSV_CONTROLS, N);
-					if (N && this.get(this.OPT.SHOW_HEX_SUMMARY)) {
+					if(N && this.get(this.OPT.SHOW_HEX_SUMMARY)) {
 						this.set(this.OPT.SHOW_HEX_SUMMARY, false);
 					}
 				}});
@@ -4696,12 +4696,12 @@ YAHOO.util.Color = function() {
 				}});
 			this.setAttributeConfig(this.OPT.SHOW_HEX_SUMMARY, {value: C.isBoolean(K.showhexsummary) ? K.showhexsummary : true, method: function(N) {
 					this._hideShowEl(this.ID.HEX_SUMMARY, N);
-					if (N && this.get(this.OPT.SHOW_HSV_CONTROLS)) {
+					if(N && this.get(this.OPT.SHOW_HSV_CONTROLS)) {
 						this.set(this.OPT.SHOW_HSV_CONTROLS, false);
 					}
 				}});
 			this.setAttributeConfig(this.OPT.ANIMATE, {value: C.isBoolean(K.animate) ? K.animate : true, method: function(N) {
-					if (this.pickerSlider) {
+					if(this.pickerSlider) {
 						this.pickerSlider.animate = N;
 						this.hueSlider.animate = N;
 					}
@@ -4728,7 +4728,7 @@ YAHOO.register("colorpicker", YAHOO.widget.ColorPicker, {version: "2.7.0", build
 (function() {
 	var B = YAHOO.util;
 	var A = function(D, C, E, F) {
-		if (!D) {
+		if(!D) {
 		}
 		this.init(D, C, E, F);
 	};
@@ -4741,39 +4741,39 @@ YAHOO.register("colorpicker", YAHOO.widget.ColorPicker, {version: "2.7.0", build
 			return this.method(this.currentFrame, E, D - E, this.totalFrames);
 		}, setAttribute: function(C, F, E) {
 			var D = this.getEl();
-			if (this.patterns.noNegatives.test(C)) {
+			if(this.patterns.noNegatives.test(C)) {
 				F = (F > 0) ? F : 0;
 			}
-			if ("style" in D) {
+			if("style" in D) {
 				B.Dom.setStyle(D, C, F + E);
 			} else {
-				if (C in D) {
+				if(C in D) {
 					D[C] = F;
 				}
 			}
 		}, getAttribute: function(C) {
 			var E = this.getEl();
 			var G = B.Dom.getStyle(E, C);
-			if (G !== "auto" && !this.patterns.offsetUnit.test(G)) {
+			if(G !== "auto" && !this.patterns.offsetUnit.test(G)) {
 				return parseFloat(G);
 			}
 			var D = this.patterns.offsetAttribute.exec(C) || [];
 			var H = !!(D[3]);
 			var F = !!(D[2]);
-			if ("style" in E) {
-				if (F || (B.Dom.getStyle(E, "position") == "absolute" && H)) {
+			if("style" in E) {
+				if(F || (B.Dom.getStyle(E, "position") == "absolute" && H)) {
 					G = E["offset" + D[0].charAt(0).toUpperCase() + D[0].substr(1)];
 				} else {
 					G = 0;
 				}
 			} else {
-				if (C in E) {
+				if(C in E) {
 					G = E[C];
 				}
 			}
 			return G;
 		}, getDefaultUnit: function(C) {
-			if (this.patterns.defaultUnit.test(C)) {
+			if(this.patterns.defaultUnit.test(C)) {
 				return"px";
 			}
 			return"";
@@ -4785,15 +4785,15 @@ YAHOO.register("colorpicker", YAHOO.widget.ColorPicker, {version: "2.7.0", build
 			var H = function(J) {
 				return(typeof J !== "undefined");
 			};
-			if (!H(F[D]["to"]) && !H(F[D]["by"])) {
+			if(!H(F[D]["to"]) && !H(F[D]["by"])) {
 				return false;
 			}
 			I = (H(F[D]["from"])) ? F[D]["from"] : this.getAttribute(D);
-			if (H(F[D]["to"])) {
+			if(H(F[D]["to"])) {
 				E = F[D]["to"];
 			} else {
-				if (H(F[D]["by"])) {
-					if (I.constructor == Array) {
+				if(H(F[D]["by"])) {
+					if(I.constructor == Array) {
 						E = [];
 						for (var G = 0, C = I.length; G < C; ++G) {
 							E[G] = I[G] + F[D]["by"][G] * 1;
@@ -4832,22 +4832,22 @@ YAHOO.register("colorpicker", YAHOO.widget.ColorPicker, {version: "2.7.0", build
 			};
 			this.runtimeAttributes = {};
 			this.animate = function() {
-				if (this.isAnimated()) {
+				if(this.isAnimated()) {
 					return false;
 				}
 				this.currentFrame = 0;
 				this.totalFrames = (this.useSeconds) ? Math.ceil(B.AnimMgr.fps * this.duration) : this.duration;
-				if (this.duration === 0 && this.useSeconds) {
+				if(this.duration === 0 && this.useSeconds) {
 					this.totalFrames = 1;
 				}
 				B.AnimMgr.registerElement(this);
 				return true;
 			};
 			this.stop = function(M) {
-				if (!this.isAnimated()) {
+				if(!this.isAnimated()) {
 					return false;
 				}
-				if (M) {
+				if(M) {
 					this.currentFrame = this.totalFrames;
 					this._onTween.fire();
 				}
@@ -4911,24 +4911,24 @@ YAHOO.util.AnimMgr = new function() {
 	};
 	this.unRegister = function(G, F) {
 		F = F || E(G);
-		if (!G.isAnimated() || F == -1) {
+		if(!G.isAnimated() || F == -1) {
 			return false;
 		}
 		G._onComplete.fire();
 		B.splice(F, 1);
 		A -= 1;
-		if (A <= 0) {
+		if(A <= 0) {
 			this.stop();
 		}
 		return true;
 	};
 	this.start = function() {
-		if (C === null) {
+		if(C === null) {
 			C = setInterval(this.run, this.delay);
 		}
 	};
 	this.stop = function(H) {
-		if (!H) {
+		if(!H) {
 			clearInterval(C);
 			for (var G = 0, F = B.length; G < F; ++G) {
 				this.unRegister(B[0], 0);
@@ -4943,12 +4943,12 @@ YAHOO.util.AnimMgr = new function() {
 	this.run = function() {
 		for (var H = 0, F = B.length; H < F; ++H) {
 			var G = B[H];
-			if (!G || !G.isAnimated()) {
+			if(!G || !G.isAnimated()) {
 				continue;
 			}
-			if (G.currentFrame < G.totalFrames || G.totalFrames === null) {
+			if(G.currentFrame < G.totalFrames || G.totalFrames === null) {
 				G.currentFrame += 1;
-				if (G.useSeconds) {
+				if(G.useSeconds) {
 					D(G);
 				}
 				G._onTween.fire();
@@ -4959,7 +4959,7 @@ YAHOO.util.AnimMgr = new function() {
 	};
 	var E = function(H) {
 		for (var G = 0, F = B.length; G < F; ++G) {
-			if (B[G] == H) {
+			if(B[G] == H) {
 				return G;
 			}
 		}
@@ -4971,13 +4971,13 @@ YAHOO.util.AnimMgr = new function() {
 		var H = (G.currentFrame * G.duration * 1000 / G.totalFrames);
 		var F = (new Date() - G.getStartTime());
 		var K = 0;
-		if (F < G.duration * 1000) {
+		if(F < G.duration * 1000) {
 			K = Math.round((F / H - 1) * G.currentFrame);
 		} else {
 			K = J - (I + 1);
 		}
-		if (K > 0 && isFinite(K)) {
-			if (G.currentFrame + K >= J) {
+		if(K > 0 && isFinite(K)) {
+			if(G.currentFrame + K >= J) {
 				K = J - (I + 1);
 			}
 			G.currentFrame += K;
@@ -5016,33 +5016,33 @@ YAHOO.util.Bezier = new function() {
 	B.patterns.hex3 = /^#?([0-9A-F]{1})([0-9A-F]{1})([0-9A-F]{1})$/i;
 	B.patterns.transparent = /^transparent|rgba\(0, 0, 0, 0\)$/;
 	B.parseColor = function(E) {
-		if (E.length == 3) {
+		if(E.length == 3) {
 			return E;
 		}
 		var F = this.patterns.hex.exec(E);
-		if (F && F.length == 4) {
+		if(F && F.length == 4) {
 			return[parseInt(F[1], 16), parseInt(F[2], 16), parseInt(F[3], 16)];
 		}
 		F = this.patterns.rgb.exec(E);
-		if (F && F.length == 4) {
+		if(F && F.length == 4) {
 			return[parseInt(F[1], 10), parseInt(F[2], 10), parseInt(F[3], 10)];
 		}
 		F = this.patterns.hex3.exec(E);
-		if (F && F.length == 4) {
+		if(F && F.length == 4) {
 			return[parseInt(F[1] + F[1], 16), parseInt(F[2] + F[2], 16), parseInt(F[3] + F[3], 16)];
 		}
 		return null;
 	};
 	B.getAttribute = function(E) {
 		var G = this.getEl();
-		if (this.patterns.color.test(E)) {
+		if(this.patterns.color.test(E)) {
 			var I = YAHOO.util.Dom.getStyle(G, E);
 			var H = this;
-			if (this.patterns.transparent.test(I)) {
+			if(this.patterns.transparent.test(I)) {
 				var F = YAHOO.util.Dom.getAncestorBy(G, function(J) {
 					return !H.patterns.transparent.test(I);
 				});
-				if (F) {
+				if(F) {
 					I = C.Dom.getStyle(F, E);
 				} else {
 					I = A.DEFAULT_BGCOLOR;
@@ -5055,7 +5055,7 @@ YAHOO.util.Bezier = new function() {
 	};
 	B.doMethod = function(F, J, G) {
 		var I;
-		if (this.patterns.color.test(F)) {
+		if(this.patterns.color.test(F)) {
 			I = [];
 			for (var H = 0, E = J.length; H < E; ++H) {
 				I[H] = D.doMethod.call(this, F, J[H], G[H]);
@@ -5068,11 +5068,11 @@ YAHOO.util.Bezier = new function() {
 	};
 	B.setRuntimeAttribute = function(F) {
 		D.setRuntimeAttribute.call(this, F);
-		if (this.patterns.color.test(F)) {
+		if(this.patterns.color.test(F)) {
 			var H = this.attributes;
 			var J = this.parseColor(this.runtimeAttributes[F].start);
 			var G = this.parseColor(this.runtimeAttributes[F].end);
-			if (typeof H[F]["to"] === "undefined" && typeof H[F]["by"] !== "undefined") {
+			if(typeof H[F]["to"] === "undefined" && typeof H[F]["by"] !== "undefined") {
 				G = this.parseColor(H[F].by);
 				for (var I = 0, E = J.length; I < E; ++I) {
 					G[I] = J[I] + G[I];
@@ -5088,13 +5088,13 @@ YAHOO.util.Bezier = new function() {
  TERMS OF USE - EASING EQUATIONS
  Open source under the BSD License.
  Copyright 2001 Robert Penner All rights reserved.
- 
+
  Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
- 
+
  * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
  * Neither the name of the author nor the names of contributors may be used to endorse or promote products derived from this software without specific prior written permission.
- 
+
  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
@@ -5104,7 +5104,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	}, easeOut: function(B, A, D, C) {
 		return -D * (B /= C) * (B - 2) + A;
 	}, easeBoth: function(B, A, D, C) {
-		if ((B /= C / 2) < 1) {
+		if((B /= C / 2) < 1) {
 			return D / 2 * B * B + A;
 		}
 		return -D / 2 * ((--B) * (B - 2) - 1) + A;
@@ -5113,21 +5113,21 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	}, easeOutStrong: function(B, A, D, C) {
 		return -D * ((B = B / C - 1) * B * B * B - 1) + A;
 	}, easeBothStrong: function(B, A, D, C) {
-		if ((B /= C / 2) < 1) {
+		if((B /= C / 2) < 1) {
 			return D / 2 * B * B * B * B + A;
 		}
 		return -D / 2 * ((B -= 2) * B * B * B - 2) + A;
 	}, elasticIn: function(C, A, G, F, B, E) {
-		if (C == 0) {
+		if(C == 0) {
 			return A;
 		}
-		if ((C /= F) == 1) {
+		if((C /= F) == 1) {
 			return A + G;
 		}
-		if (!E) {
+		if(!E) {
 			E = F * 0.3;
 		}
-		if (!B || B < Math.abs(G)) {
+		if(!B || B < Math.abs(G)) {
 			B = G;
 			var D = E / 4;
 		} else {
@@ -5135,16 +5135,16 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 		}
 		return -(B * Math.pow(2, 10 * (C -= 1)) * Math.sin((C * F - D) * (2 * Math.PI) / E)) + A;
 	}, elasticOut: function(C, A, G, F, B, E) {
-		if (C == 0) {
+		if(C == 0) {
 			return A;
 		}
-		if ((C /= F) == 1) {
+		if((C /= F) == 1) {
 			return A + G;
 		}
-		if (!E) {
+		if(!E) {
 			E = F * 0.3;
 		}
-		if (!B || B < Math.abs(G)) {
+		if(!B || B < Math.abs(G)) {
 			B = G;
 			var D = E / 4;
 		} else {
@@ -5152,67 +5152,67 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 		}
 		return B * Math.pow(2, -10 * C) * Math.sin((C * F - D) * (2 * Math.PI) / E) + G + A;
 	}, elasticBoth: function(C, A, G, F, B, E) {
-		if (C == 0) {
+		if(C == 0) {
 			return A;
 		}
-		if ((C /= F / 2) == 2) {
+		if((C /= F / 2) == 2) {
 			return A + G;
 		}
-		if (!E) {
+		if(!E) {
 			E = F * (0.3 * 1.5);
 		}
-		if (!B || B < Math.abs(G)) {
+		if(!B || B < Math.abs(G)) {
 			B = G;
 			var D = E / 4;
 		} else {
 			var D = E / (2 * Math.PI) * Math.asin(G / B);
 		}
-		if (C < 1) {
+		if(C < 1) {
 			return -0.5 * (B * Math.pow(2, 10 * (C -= 1)) * Math.sin((C * F - D) * (2 * Math.PI) / E)) + A;
 		}
 		return B * Math.pow(2, -10 * (C -= 1)) * Math.sin((C * F - D) * (2 * Math.PI) / E) * 0.5 + G + A;
 	}, backIn: function(B, A, E, D, C) {
-		if (typeof C == "undefined") {
+		if(typeof C == "undefined") {
 			C = 1.70158;
 		}
 		return E * (B /= D) * B * ((C + 1) * B - C) + A;
 	}, backOut: function(B, A, E, D, C) {
-		if (typeof C == "undefined") {
+		if(typeof C == "undefined") {
 			C = 1.70158;
 		}
 		return E * ((B = B / D - 1) * B * ((C + 1) * B + C) + 1) + A;
 	}, backBoth: function(B, A, E, D, C) {
-		if (typeof C == "undefined") {
+		if(typeof C == "undefined") {
 			C = 1.70158;
 		}
-		if ((B /= D / 2) < 1) {
+		if((B /= D / 2) < 1) {
 			return E / 2 * (B * B * (((C *= (1.525)) + 1) * B - C)) + A;
 		}
 		return E / 2 * ((B -= 2) * B * (((C *= (1.525)) + 1) * B + C) + 2) + A;
 	}, bounceIn: function(B, A, D, C) {
 		return D - YAHOO.util.Easing.bounceOut(C - B, 0, D, C) + A;
 	}, bounceOut: function(B, A, D, C) {
-		if ((B /= C) < (1 / 2.75)) {
+		if((B /= C) < (1 / 2.75)) {
 			return D * (7.5625 * B * B) + A;
 		} else {
-			if (B < (2 / 2.75)) {
+			if(B < (2 / 2.75)) {
 				return D * (7.5625 * (B -= (1.5 / 2.75)) * B + 0.75) + A;
 			} else {
-				if (B < (2.5 / 2.75)) {
+				if(B < (2.5 / 2.75)) {
 					return D * (7.5625 * (B -= (2.25 / 2.75)) * B + 0.9375) + A;
 				}
 			}
 		}
 		return D * (7.5625 * (B -= (2.625 / 2.75)) * B + 0.984375) + A;
 	}, bounceBoth: function(B, A, D, C) {
-		if (B < C / 2) {
+		if(B < C / 2) {
 			return YAHOO.util.Easing.bounceIn(B * 2, 0, D, C) * 0.5 + A;
 		}
 		return YAHOO.util.Easing.bounceOut(B * 2 - C, 0, D, C) * 0.5 + D * 0.5 + A;
 	}};
 (function() {
 	var A = function(H, G, I, J) {
-		if (H) {
+		if(H) {
 			A.superclass.constructor.call(this, H, G, I, J);
 		}
 	};
@@ -5223,7 +5223,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	var C = A.prototype;
 	C.patterns.points = /^points$/i;
 	C.setAttribute = function(G, I, H) {
-		if (this.patterns.points.test(G)) {
+		if(this.patterns.points.test(G)) {
 			H = H || "px";
 			F.setAttribute.call(this, "left", I[0], H);
 			F.setAttribute.call(this, "top", I[1], H);
@@ -5232,7 +5232,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 		}
 	};
 	C.getAttribute = function(G) {
-		if (this.patterns.points.test(G)) {
+		if(this.patterns.points.test(G)) {
 			var H = [F.getAttribute.call(this, "left"), F.getAttribute.call(this, "top")];
 		} else {
 			H = F.getAttribute.call(this, G);
@@ -5241,7 +5241,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	};
 	C.doMethod = function(G, K, H) {
 		var J = null;
-		if (this.patterns.points.test(G)) {
+		if(this.patterns.points.test(G)) {
 			var I = this.method(this.currentFrame, 0, 100, this.totalFrames) / 100;
 			J = E.Bezier.getPosition(this.runtimeAttributes[G], I);
 		} else {
@@ -5250,14 +5250,14 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 		return J;
 	};
 	C.setRuntimeAttribute = function(P) {
-		if (this.patterns.points.test(P)) {
+		if(this.patterns.points.test(P)) {
 			var H = this.getEl();
 			var J = this.attributes;
 			var G;
 			var L = J["points"]["control"] || [];
 			var I;
 			var M, O;
-			if (L.length > 0 && !(L[0] instanceof Array)) {
+			if(L.length > 0 && !(L[0] instanceof Array)) {
 				L = [L];
 			} else {
 				var K = [];
@@ -5266,23 +5266,23 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 				}
 				L = K;
 			}
-			if (E.Dom.getStyle(H, "position") == "static") {
+			if(E.Dom.getStyle(H, "position") == "static") {
 				E.Dom.setStyle(H, "position", "relative");
 			}
-			if (D(J["points"]["from"])) {
+			if(D(J["points"]["from"])) {
 				E.Dom.setXY(H, J["points"]["from"]);
 			} else {
 				E.Dom.setXY(H, E.Dom.getXY(H));
 			}
 			G = this.getAttribute("points");
-			if (D(J["points"]["to"])) {
+			if(D(J["points"]["to"])) {
 				I = B.call(this, J["points"]["to"], G);
 				var N = E.Dom.getXY(this.getEl());
 				for (M = 0, O = L.length; M < O; ++M) {
 					L[M] = B.call(this, L[M], G);
 				}
 			} else {
-				if (D(J["points"]["by"])) {
+				if(D(J["points"]["by"])) {
 					I = [G[0] + J["points"]["by"][0], G[1] + J["points"]["by"][1]];
 					for (M = 0, O = L.length; M < O; ++M) {
 						L[M] = [G[0] + L[M][0], G[1] + L[M][1]];
@@ -5290,7 +5290,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 				}
 			}
 			this.runtimeAttributes[P] = [G];
-			if (L.length > 0) {
+			if(L.length > 0) {
 				this.runtimeAttributes[P] = this.runtimeAttributes[P].concat(L);
 			}
 			this.runtimeAttributes[P][this.runtimeAttributes[P].length] = I;
@@ -5310,7 +5310,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 })();
 (function() {
 	var D = function(F, E, G, H) {
-		if (F) {
+		if(F) {
 			D.superclass.constructor.call(this, F, E, G, H);
 		}
 	};
@@ -5321,7 +5321,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	var A = D.prototype;
 	A.doMethod = function(E, H, F) {
 		var G = null;
-		if (E == "scroll") {
+		if(E == "scroll") {
 			G = [this.method(this.currentFrame, H[0], F[0] - H[0], this.totalFrames), this.method(this.currentFrame, H[1], F[1] - H[1], this.totalFrames)];
 		} else {
 			G = C.doMethod.call(this, E, H, F);
@@ -5331,7 +5331,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	A.getAttribute = function(E) {
 		var G = null;
 		var F = this.getEl();
-		if (E == "scroll") {
+		if(E == "scroll") {
 			G = [F.scrollLeft, F.scrollTop];
 		} else {
 			G = C.getAttribute.call(this, E);
@@ -5340,7 +5340,7 @@ YAHOO.util.Easing = {easeNone: function(B, A, D, C) {
 	};
 	A.setAttribute = function(E, H, G) {
 		var F = this.getEl();
-		if (E == "scroll") {
+		if(E == "scroll") {
 			F.scrollLeft = H[0];
 			F.scrollTop = H[1];
 		} else {

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -38,7 +37,7 @@ class Swift_Message extends Swift_Mime_SimpleMessage
 				->createDependenciesFor('mime.message')
 		);
 
-		if (!isset($charset))
+		if(!isset($charset))
 		{
 			$charset = Swift_DependencyContainer::getInstance()
 				->lookup('properties.charset');
@@ -46,7 +45,7 @@ class Swift_Message extends Swift_Mime_SimpleMessage
 		$this->setSubject($subject);
 		$this->setBody($body);
 		$this->setCharset($charset);
-		if ($contentType)
+		if($contentType)
 		{
 			$this->setContentType($contentType);
 		}

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -46,7 +45,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 	public function encodeByteStream(
 	Swift_OutputByteStream $os, Swift_InputByteStream $is, $firstLineOffset = 0, $maxLineLength = 0)
 	{
-		if ($maxLineLength > 76 || $maxLineLength <= 0)
+		if($maxLineLength > 76 || $maxLineLength <= 0)
 		{
 			$maxLineLength = 76;
 		}
@@ -60,21 +59,21 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 		$prepend = '';
 		$size = $lineLen = 0;
 
-		while (false !== $bytes = $this->_nextSequence())
+		while(false !== $bytes = $this->_nextSequence())
 		{
 			//If we're filtering the input
-			if (isset($this->_filter))
+			if(isset($this->_filter))
 			{
 				//If we can't filter because we need more bytes
-				while ($this->_filter->shouldBuffer($bytes))
+				while($this->_filter->shouldBuffer($bytes))
 				{
 					//Then collect bytes into the buffer
-					if (false === $moreBytes = $this->_nextSequence(1))
+					if(false === $moreBytes = $this->_nextSequence(1))
 					{
 						break;
 					}
 
-					foreach ($moreBytes as $b)
+					foreach($moreBytes as $b)
 					{
 						$bytes[] = $b;
 					}
@@ -84,7 +83,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 			}
 
 			$enc = $this->_encodeByteSequence($bytes, $size);
-			if ($currentLine && $lineLen + $size >= $thisLineLength)
+			if($currentLine && $lineLen + $size >= $thisLineLength)
 			{
 				$is->write($prepend . $this->_standardize($currentLine));
 				$currentLine = '';
@@ -95,7 +94,7 @@ class Swift_Mime_ContentEncoder_QpContentEncoder extends Swift_Encoder_QpEncoder
 			$lineLen+=$size;
 			$currentLine .= $enc;
 		}
-		if (strlen($currentLine))
+		if(strlen($currentLine))
 		{
 			$is->write($prepend . $this->_standardize($currentLine));
 		}

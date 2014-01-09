@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -31,22 +30,21 @@ class Swift_StreamFilters_StringReplacementFilterFactory implements Swift_Replac
 	 */
 	public function createFilter($search, $replace)
 	{
-		if (!isset($this->_filters[$search][$replace]))
+		if(!isset($this->_filters[$search][$replace]))
 		{
-			if (!isset($this->_filters[$search]))
+			if(!isset($this->_filters[$search]))
 			{
 				$this->_filters[$search] = array(
 					);
 			}
 
-			if (!isset($this->_filters[$search][$replace]))
+			if(!isset($this->_filters[$search][$replace]))
 			{
 				$this->_filters[$search][$replace] = array(
 					);
 			}
 
-			$this->_filters[$search][$replace]
-				= new Swift_StreamFilters_StringReplacementFilter($search, $replace);
+			$this->_filters[$search][$replace] = new Swift_StreamFilters_StringReplacementFilter($search, $replace);
 		}
 
 		return $this->_filters[$search][$replace];

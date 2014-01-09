@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Mileages' => array(
+	'Mileages'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Mileage',
-		'url' => array(
+		'label'=>'List Mileage',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Mileage',
-		'url' => array(
+		'label'=>'Create Mileage',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'mileage-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'mileage-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'mileageId',
 		'status',
 		'createDate',
@@ -72,7 +72,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		  'qtechProjectId',
 		 */
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

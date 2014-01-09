@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -48,7 +47,7 @@ class Swift_Plugins_Loggers_ArrayLogger implements Swift_Plugins_Logger
 	public function add($entry)
 	{
 		$this->_log[] = $entry;
-		while (count($this->_log) > $this->_size)
+		while(count($this->_log) > $this->_size)
 		{
 			array_shift($this->_log);
 		}

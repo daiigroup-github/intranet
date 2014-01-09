@@ -16,10 +16,10 @@
 			function loadValue(iframeNode)
 			{
 				var isCheckbox = this instanceof CKEDITOR.ui.dialog.checkbox;
-				if (iframeNode.hasAttribute(this.id))
+				if(iframeNode.hasAttribute(this.id))
 				{
 					var value = iframeNode.getAttribute(this.id);
-					if (isCheckbox)
+					if(isCheckbox)
 						this.setValue(checkboxValues[ this.id ][ 'true' ] == value.toLowerCase());
 					else
 						this.setValue(value);
@@ -31,9 +31,9 @@
 				var isRemove = this.getValue() === '',
 						isCheckbox = this instanceof CKEDITOR.ui.dialog.checkbox,
 						value = this.getValue();
-				if (isRemove)
+				if(isRemove)
 					iframeNode.removeAttribute(this.att || this.id);
-				else if (isCheckbox)
+				else if(isCheckbox)
 					iframeNode.setAttribute(this.id, checkboxValues[ this.id ][ value ]);
 				else
 					iframeNode.setAttribute(this.att || this.id, value);
@@ -54,7 +54,7 @@
 						this.fakeImage = this.iframeNode = null;
 
 						var fakeImage = this.getSelectedElement();
-						if (fakeImage && fakeImage.data('cke-real-element-type') && fakeImage.data('cke-real-element-type') == 'iframe')
+						if(fakeImage && fakeImage.data('cke-real-element-type') && fakeImage.data('cke-real-element-type') == 'iframe')
 						{
 							this.fakeImage = fakeImage;
 
@@ -67,7 +67,7 @@
 					onOk: function()
 					{
 						var iframeNode;
-						if (!this.fakeImage)
+						if(!this.fakeImage)
 							iframeNode = new CKEDITOR.dom.element('iframe');
 						else
 							iframeNode = this.iframeNode;
@@ -82,7 +82,7 @@
 						var newFakeImage = editor.createFakeElement(iframeNode, 'cke_iframe', 'iframe', true);
 						newFakeImage.setAttributes(extraAttributes);
 						newFakeImage.setStyles(extraStyles);
-						if (this.fakeImage)
+						if(this.fakeImage)
 						{
 							newFakeImage.replace(this.fakeImage);
 							editor.getSelection().selectElement(newFakeImage);
@@ -156,7 +156,7 @@
 															setup: function(iframeNode, fakeImage)
 															{
 																loadValue.apply(this, arguments);
-																if (fakeImage)
+																if(fakeImage)
 																{
 																	var fakeImageAlign = fakeImage.getAttribute('align');
 																	this.setValue(fakeImageAlign && fakeImageAlign.toLowerCase() || '');
@@ -165,7 +165,7 @@
 															commit: function(iframeNode, extraStyles, extraAttributes)
 															{
 																commitValue.apply(this, arguments);
-																if (this.getValue())
+																if(this.getValue())
 																	extraAttributes.align = this.getValue();
 															}
 														}

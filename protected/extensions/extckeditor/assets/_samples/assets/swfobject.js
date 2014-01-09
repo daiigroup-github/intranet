@@ -7,25 +7,25 @@
  */
 		/*
 		 Copyright (c) 2007 Geoff Stearns
-		 
+
 		 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-		 
+
 		 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-		 
+
 		 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		 */
 		/*jsl:ignoreall*/
-		if (typeof deconcept == "undefined") {
+		if(typeof deconcept == "undefined") {
 	var deconcept = new Object();
 }
-if (typeof deconcept.util == "undefined") {
+if(typeof deconcept.util == "undefined") {
 	deconcept.util = new Object();
 }
-if (typeof deconcept.SWFObjectUtil == "undefined") {
+if(typeof deconcept.SWFObjectUtil == "undefined") {
 	deconcept.SWFObjectUtil = new Object();
 }
 deconcept.SWFObject = function(_1, id, w, h, _5, c, _7, _8, _9, _a) {
-	if (!document.getElementById) {
+	if(!document.getElementById) {
 		return;
 	}
 	this.DETECT_KEY = _a ? _a : "detectflash";
@@ -33,26 +33,26 @@ deconcept.SWFObject = function(_1, id, w, h, _5, c, _7, _8, _9, _a) {
 	this.params = new Object();
 	this.variables = new Object();
 	this.attributes = new Array();
-	if (_1) {
+	if(_1) {
 		this.setAttribute("swf", _1);
 	}
-	if (id) {
+	if(id) {
 		this.setAttribute("id", id);
 	}
-	if (w) {
+	if(w) {
 		this.setAttribute("width", w);
 	}
-	if (h) {
+	if(h) {
 		this.setAttribute("height", h);
 	}
-	if (_5) {
+	if(_5) {
 		this.setAttribute("version", new deconcept.PlayerVersion(_5.toString().split(".")));
 	}
 	this.installedVer = deconcept.SWFObjectUtil.getPlayerVersion();
-	if (!window.opera && document.all && this.installedVer.major > 7) {
+	if(!window.opera && document.all && this.installedVer.major > 7) {
 		deconcept.SWFObject.doPrepUnload = true;
 	}
-	if (c) {
+	if(c) {
 		this.addParam("bgcolor", c);
 	}
 	var q = _7 ? _7 : "high";
@@ -62,7 +62,7 @@ deconcept.SWFObject = function(_1, id, w, h, _5, c, _7, _8, _9, _a) {
 	var _c = (_8) ? _8 : window.location;
 	this.setAttribute("xiRedirectUrl", _c);
 	this.setAttribute("redirectUrl", "");
-	if (_9) {
+	if(_9) {
 		this.setAttribute("redirectUrl", _9);
 	}
 };
@@ -93,8 +93,8 @@ deconcept.SWFObject.prototype = {useExpressInstall: function(_d) {
 		return _16;
 	}, getSWFHTML: function() {
 		var _19 = "";
-		if (navigator.plugins && navigator.mimeTypes && navigator.mimeTypes.length) {
-			if (this.getAttribute("doExpressInstall")) {
+		if(navigator.plugins && navigator.mimeTypes && navigator.mimeTypes.length) {
+			if(this.getAttribute("doExpressInstall")) {
 				this.addVariable("MMplayerType", "PlugIn");
 				this.setAttribute("swf", this.xiSWFPath);
 			}
@@ -105,12 +105,12 @@ deconcept.SWFObject.prototype = {useExpressInstall: function(_d) {
 				_19 += [key] + "=\"" + _1a[key] + "\" ";
 			}
 			var _1c = this.getVariablePairs().join("&");
-			if (_1c.length > 0) {
+			if(_1c.length > 0) {
 				_19 += "flashvars=\"" + _1c + "\"";
 			}
 			_19 += "/>";
 		} else {
-			if (this.getAttribute("doExpressInstall")) {
+			if(this.getAttribute("doExpressInstall")) {
 				this.addVariable("MMplayerType", "ActiveX");
 				this.setAttribute("swf", this.xiSWFPath);
 			}
@@ -121,28 +121,28 @@ deconcept.SWFObject.prototype = {useExpressInstall: function(_d) {
 				_19 += "<param name=\"" + key + "\" value=\"" + _1d[key] + "\" />";
 			}
 			var _1f = this.getVariablePairs().join("&");
-			if (_1f.length > 0) {
+			if(_1f.length > 0) {
 				_19 += "<param name=\"flashvars\" value=\"" + _1f + "\" />";
 			}
 			_19 += "</object>";
 		}
 		return _19;
 	}, write: function(_20) {
-		if (this.getAttribute("useExpressInstall")) {
+		if(this.getAttribute("useExpressInstall")) {
 			var _21 = new deconcept.PlayerVersion([6, 0, 65]);
-			if (this.installedVer.versionIsValid(_21) && !this.installedVer.versionIsValid(this.getAttribute("version"))) {
+			if(this.installedVer.versionIsValid(_21) && !this.installedVer.versionIsValid(this.getAttribute("version"))) {
 				this.setAttribute("doExpressInstall", true);
 				this.addVariable("MMredirectURL", escape(this.getAttribute("xiRedirectUrl")));
 				document.title = document.title.slice(0, 47) + " - Flash Player Installation";
 				this.addVariable("MMdoctitle", document.title);
 			}
 		}
-		if (this.skipDetect || this.getAttribute("doExpressInstall") || this.installedVer.versionIsValid(this.getAttribute("version"))) {
+		if(this.skipDetect || this.getAttribute("doExpressInstall") || this.installedVer.versionIsValid(this.getAttribute("version"))) {
 			var n = (typeof _20 == "string") ? document.getElementById(_20) : _20;
 			n.innerHTML = this.getSWFHTML();
 			return true;
 		} else {
-			if (this.getAttribute("redirectUrl") != "") {
+			if(this.getAttribute("redirectUrl") != "") {
 				document.location.replace(this.getAttribute("redirectUrl"));
 			}
 		}
@@ -150,43 +150,43 @@ deconcept.SWFObject.prototype = {useExpressInstall: function(_d) {
 	}};
 deconcept.SWFObjectUtil.getPlayerVersion = function() {
 	var _23 = new deconcept.PlayerVersion([0, 0, 0]);
-	if (navigator.plugins && navigator.mimeTypes.length) {
+	if(navigator.plugins && navigator.mimeTypes.length) {
 		var x = navigator.plugins["Shockwave Flash"];
-		if (x && x.description) {
+		if(x && x.description) {
 			_23 = new deconcept.PlayerVersion(x.description.replace(/([a-zA-Z]|\s)+/, "").replace(/(\s+r|\s+b[0-9]+)/, ".").split("."));
 		}
 	} else {
-		if (navigator.userAgent && navigator.userAgent.indexOf("Windows CE") >= 0) {
+		if(navigator.userAgent && navigator.userAgent.indexOf("Windows CE") >= 0) {
 			var axo = 1;
 			var _26 = 3;
-			while (axo) {
+			while(axo) {
 				try {
 					_26++;
 					axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash." + _26);
 					_23 = new deconcept.PlayerVersion([_26, 0, 0]);
-				} catch (e) {
+				} catch(e) {
 					axo = null;
 				}
 			}
 		} else {
 			try {
 				var axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.7");
-			} catch (e) {
+			} catch(e) {
 				try {
 					var axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash.6");
 					_23 = new deconcept.PlayerVersion([6, 0, 21]);
 					axo.AllowScriptAccess = "always";
-				} catch (e) {
-					if (_23.major == 6) {
+				} catch(e) {
+					if(_23.major == 6) {
 						return _23;
 					}
 				}
 				try {
 					axo = new ActiveXObject("ShockwaveFlash.ShockwaveFlash");
-				} catch (e) {
+				} catch(e) {
 				}
 			}
-			if (axo != null) {
+			if(axo != null) {
 				_23 = new deconcept.PlayerVersion(axo.GetVariable("$version").split(" ")[1].split(","));
 			}
 		}
@@ -199,32 +199,32 @@ deconcept.PlayerVersion = function(_29) {
 	this.rev = _29[2] != null ? parseInt(_29[2]) : 0;
 };
 deconcept.PlayerVersion.prototype.versionIsValid = function(fv) {
-	if (this.major < fv.major) {
+	if(this.major < fv.major) {
 		return false;
 	}
-	if (this.major > fv.major) {
+	if(this.major > fv.major) {
 		return true;
 	}
-	if (this.minor < fv.minor) {
+	if(this.minor < fv.minor) {
 		return false;
 	}
-	if (this.minor > fv.minor) {
+	if(this.minor > fv.minor) {
 		return true;
 	}
-	if (this.rev < fv.rev) {
+	if(this.rev < fv.rev) {
 		return false;
 	}
 	return true;
 };
 deconcept.util = {getRequestParameter: function(_2b) {
 		var q = document.location.search || document.location.hash;
-		if (_2b == null) {
+		if(_2b == null) {
 			return q;
 		}
-		if (q) {
+		if(q) {
 			var _2d = q.substring(1).split("&");
 			for (var i = 0; i < _2d.length; i++) {
-				if (_2d[i].substring(0, _2d[i].indexOf("=")) == _2b) {
+				if(_2d[i].substring(0, _2d[i].indexOf("=")) == _2b) {
 					return _2d[i].substring((_2d[i].indexOf("=") + 1));
 				}
 			}
@@ -236,15 +236,15 @@ deconcept.SWFObjectUtil.cleanupSWFs = function() {
 	for (var i = _2f.length - 1; i >= 0; i--) {
 		_2f[i].style.display = "none";
 		for (var x in _2f[i]) {
-			if (typeof _2f[i][x] == "function") {
+			if(typeof _2f[i][x] == "function") {
 				_2f[i][x] = function() {
 				};
 			}
 		}
 	}
 };
-if (deconcept.SWFObject.doPrepUnload) {
-	if (!deconcept.unloadSet) {
+if(deconcept.SWFObject.doPrepUnload) {
+	if(!deconcept.unloadSet) {
 		deconcept.SWFObjectUtil.prepUnload = function() {
 			__flash_unloadHandler = function() {
 			};
@@ -256,7 +256,7 @@ if (deconcept.SWFObject.doPrepUnload) {
 		deconcept.unloadSet = true;
 	}
 }
-if (!document.getElementById && document.all) {
+if(!document.getElementById && document.all) {
 	document.getElementById = function(id) {
 		return document.all[id];
 	};

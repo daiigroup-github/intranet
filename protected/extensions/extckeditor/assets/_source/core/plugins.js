@@ -15,8 +15,8 @@
 		 * @example
 		 */
 		CKEDITOR.plugins = new CKEDITOR.resourceManager(
-		'_source/' + // @Packager.RemoveLine
-		'plugins/', 'plugin');
+				'_source/' + // @Packager.RemoveLine
+				'plugins/', 'plugin');
 
 // PACKAGER_RENAME( CKEDITOR.plugins )
 
@@ -38,17 +38,17 @@ CKEDITOR.plugins.load = CKEDITOR.tools.override(CKEDITOR.plugins.load, function(
 					var plugin = plugins[ pluginName ],
 							requires = plugin && plugin.requires;
 
-					if (requires)
+					if(requires)
 					{
 						for (var i = 0; i < requires.length; i++)
 						{
-							if (!allPlugins[ requires[ i ] ])
+							if(!allPlugins[ requires[ i ] ])
 								requiredPlugins.push(requires[ i ]);
 						}
 					}
 				}
 
-				if (requiredPlugins.length)
+				if(requiredPlugins.length)
 					loadPlugins.call(this, requiredPlugins);
 				else
 				{
@@ -56,7 +56,7 @@ CKEDITOR.plugins.load = CKEDITOR.tools.override(CKEDITOR.plugins.load, function(
 					for (pluginName in allPlugins)
 					{
 						plugin = allPlugins[ pluginName ];
-						if (plugin.onLoad && !plugin.onLoad._called)
+						if(plugin.onLoad && !plugin.onLoad._called)
 						{
 							plugin.onLoad();
 							plugin.onLoad._called = 1;
@@ -64,7 +64,7 @@ CKEDITOR.plugins.load = CKEDITOR.tools.override(CKEDITOR.plugins.load, function(
 					}
 
 					// Call the callback.
-					if (callback)
+					if(callback)
 						callback.call(scope || window, allPlugins);
 				}
 			}
@@ -96,7 +96,7 @@ CKEDITOR.plugins.setLang = function(pluginName, languageCode, languageEntries)
 			pluginLangEntries = plugin.langEntries || (plugin.langEntries = {}),
 			pluginLang = plugin.lang || (plugin.lang = []);
 
-	if (CKEDITOR.tools.indexOf(pluginLang, languageCode) == -1)
+	if(CKEDITOR.tools.indexOf(pluginLang, languageCode) == -1)
 		pluginLang.push(languageCode);
 
 	pluginLangEntries[ languageCode ] = languageEntries;

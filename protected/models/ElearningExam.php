@@ -15,13 +15,15 @@
  */
 class ElearningExam extends CActiveRecord
 {
+
 	public $searchText;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return ElearningExam the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
@@ -42,12 +44,23 @@ class ElearningExam extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('createDateTime, updateDateTime, employeeId, createBy, examDate', 'required'),
-			array('status, point', 'numerical', 'integerOnly'=>true),
-			array('employeeId, createBy', 'length', 'max'=>10),
+			array(
+				'createDateTime, updateDateTime, employeeId, createBy, examDate',
+				'required'),
+			array(
+				'status, point',
+				'numerical',
+				'integerOnly'=>true),
+			array(
+				'employeeId, createBy',
+				'length',
+				'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('elearningExamId, status, createDateTime, updateDateTime, employeeId, point, createBy, examDate, searchText', 'safe', 'on'=>'search'),
+			array(
+				'elearningExamId, status, createDateTime, updateDateTime, employeeId, point, createBy, examDate, searchText',
+				'safe',
+				'on'=>'search'),
 		);
 	}
 
@@ -59,7 +72,10 @@ class ElearningExam extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee'=>array(self::BELONGS_TO, 'Employee', 'employeeId'),
+			'employee'=>array(
+				self::BELONGS_TO,
+				'Employee',
+				'employeeId'),
 		);
 	}
 
@@ -69,13 +85,13 @@ class ElearningExam extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'elearningExamId' => 'Elearning Exam',
-			'status' => 'status',
-			'createDateTime' => 'Create Date Time',
-			'updateDateTime' => 'Update Date Time',
-			'employeeId' => 'Employee',
-			'point' => 'Point',
-			'createBy' => 'Create By',
+			'elearningExamId'=>'Elearning Exam',
+			'status'=>'status',
+			'createDateTime'=>'Create Date Time',
+			'updateDateTime'=>'Update Date Time',
+			'employeeId'=>'Employee',
+			'point'=>'Point',
+			'createBy'=>'Create By',
 		);
 	}
 
@@ -88,7 +104,7 @@ class ElearningExam extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
 		// $criteria->compare('elearningExamId',$this->elearningExamId,true);
 		// $criteria->compare('status',$this->status);
@@ -97,10 +113,11 @@ class ElearningExam extends CActiveRecord
 		// $criteria->compare('employeeId',$this->employeeId,true);
 		// $criteria->compare('point',$this->point);
 		// $criteria->compare('createBy',$this->createBy,true);
-		// 
-		$criteria->compare('examDate',$this->examDate,true, 'OR');
+		//
+		$criteria->compare('examDate', $this->examDate, true, 'OR');
 
-		$criteria->with = array('employee');
+		$criteria->with = array(
+			'employee');
 		$criteria->compare('employee.fnTh', $this->searchText, true, 'OR');
 		$criteria->compare('employee.lnTh', $this->searchText, true, 'OR');
 
@@ -120,15 +137,14 @@ class ElearningExam extends CActiveRecord
 			case 1:
 				echo '<span class="label label-warning">กำลังสอบ</span>';
 				break;
-				
+
 			case 2:
 				echo '<span class="label-success">สอบเสร็จ</span>';
 				break;
-				
+
 			case 3:
 				echo '<span class="label label-important">ยกเลิก</span>';
 				break;
-				
 		}
 	}
 
@@ -137,8 +153,11 @@ class ElearningExam extends CActiveRecord
 		$today = date('Y-m-d');
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'employeeId=:employeeId AND examDate=:today AND status=0';
-		$criteria->params = array(':employeeId'=>Yii::app()->user->id, ':today'=>$today);
+		$criteria->params = array(
+			':employeeId'=>Yii::app()->user->id,
+			':today'=>$today);
 
 		return $this->find($criteria);
 	}
+
 }

@@ -63,26 +63,26 @@ class ConstructionProject extends CActiveRecord
 			array(
 				'status, amphurId, provinceId, duration',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'price',
 				'numerical'),
 			array(
 				'productCatId, productValue, customerId, engineerId, branchValue',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'name',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			array(
 				'imageUrl, address',
 				'length',
-				'max' => 255),
+				'max'=>255),
 			array(
 				'latitude, longitude',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'detail, endDate',
 				'safe'),
@@ -91,7 +91,7 @@ class ConstructionProject extends CActiveRecord
 			array(
 				'projectId, status, createDateTime, updateDateTime, productCatId, productValue, name, detail, price, imageUrl, address, amphurId, provinceId, customerId, engineerId, startDate, endDate, duration, latitude, longitude, branchValue',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -103,19 +103,19 @@ class ConstructionProject extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'engineer' => array(
+			'engineer'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				'engineerId'),
-			'process' => array(
+			'process'=>array(
 				self::HAS_MANY,
 				'ConstructionProcess',
 				'projectId'),
-			'productCat' => array(
+			'productCat'=>array(
 				self::BELONGS_TO,
 				'ProductCategory',
 				'productCatId'),
-			'customer' => array(
+			'customer'=>array(
 				self::BELONGS_TO,
 				'Customer',
 				'customerId'),
@@ -128,27 +128,27 @@ class ConstructionProject extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'projectId' => 'Project',
-			'status' => 'Status',
-			'createDateTime' => 'Create Date Time',
-			'updateDateTime' => 'Update Date Time',
-			'productCatId' => 'Product Cat',
-			'productValue' => 'Product Value',
-			'name' => 'ชื่อโครงการ',
-			'detail' => 'รายละเอียด',
-			'price' => 'มูลค่าโครงการ',
-			'imageUrl' => 'Image Url',
-			'address' => 'ที่อยู่',
-			'amphurId' => 'อำเภอ',
-			'provinceId' => 'จังหวัด',
-			'customerId' => 'ลูกค้า',
-			'engineerId' => 'วิศวกร',
-			'startDate' => 'วันเริ่มงาน',
-			'endDate' => 'วันจบงาน',
-			'duration' => 'ระยะเวลาก่อสร้าง',
-			'latitude' => 'Latitude',
-			'longitude' => 'Longitude',
-			'branchValue' => 'สาขา',
+			'projectId'=>'Project',
+			'status'=>'Status',
+			'createDateTime'=>'Create Date Time',
+			'updateDateTime'=>'Update Date Time',
+			'productCatId'=>'Product Cat',
+			'productValue'=>'Product Value',
+			'name'=>'ชื่อโครงการ',
+			'detail'=>'รายละเอียด',
+			'price'=>'มูลค่าโครงการ',
+			'imageUrl'=>'Image Url',
+			'address'=>'ที่อยู่',
+			'amphurId'=>'อำเภอ',
+			'provinceId'=>'จังหวัด',
+			'customerId'=>'ลูกค้า',
+			'engineerId'=>'วิศวกร',
+			'startDate'=>'วันเริ่มงาน',
+			'endDate'=>'วันจบงาน',
+			'duration'=>'ระยะเวลาก่อสร้าง',
+			'latitude'=>'Latitude',
+			'longitude'=>'Longitude',
+			'branchValue'=>'สาขา',
 		);
 	}
 
@@ -186,7 +186,7 @@ class ConstructionProject extends CActiveRecord
 		$criteria->compare('branchValue', $this->branchValue, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

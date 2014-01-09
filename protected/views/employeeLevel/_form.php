@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'employee-level-form',
-		'enableAjaxValidation' => false,
+		'id'=>'employee-level-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -15,8 +15,8 @@
 		<?php echo $form->labelEx($model, 'code'); ?>
 		<?php
 		echo $form->textField($model, 'code', array(
-			'size' => 60,
-			'maxlength' => 100));
+			'size'=>60,
+			'maxlength'=>100));
 		?>
 		<?php echo $form->error($model, 'code'); ?>
 	</div>
@@ -31,8 +31,8 @@
 		<?php echo $form->labelEx($model, 'description'); ?>
 		<?php
 		echo $form->textField($model, 'description', array(
-			'size' => 60,
-			'maxlength' => 80));
+			'size'=>60,
+			'maxlength'=>80));
 		?>
 		<?php echo $form->error($model, 'description'); ?>
 	</div>

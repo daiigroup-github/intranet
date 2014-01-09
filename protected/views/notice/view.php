@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Notices' => array(
+	'Notices'=>array(
 		'index'),
 	$model->title,
 );
@@ -35,40 +35,40 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 <p>
 	<?php
 	$this->widget('zii.widgets.CDetailView', array(
-		'data' => $model,
-		'attributes' => array(
+		'data'=>$model,
+		'attributes'=>array(
 			'headline',
 			//'description',
 			//'imageUrl',
 			array(
-				'name' => 'imageUrl',
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'style' => 'text-align:center;display:none'),
-				'value' => showImage($model->imageUrl, $model->title),
+				'name'=>'imageUrl',
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'style'=>'text-align:center;display:none'),
+				'value'=>showImage($model->imageUrl, $model->title),
 			),
 			array(
-				'name' => 'description',
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'style' => 'text-align:center;width:10%'),
-				'value' => $model->description,
+				'name'=>'description',
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'style'=>'text-align:center;width:10%'),
+				'value'=>$model->description,
 			),
 			array(
-				'name' => 'employeeId',
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'style' => 'text-align:center;width:10%'),
-				'value' => $model->employee->fnTh . " " . $model->employee->lnTh,
+				'name'=>'employeeId',
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'style'=>'text-align:center;width:10%'),
+				'value'=>$model->employee->fnTh . " " . $model->employee->lnTh,
 			),
 			//'status',
 			//'noticeTypeId',
 			array(
-				'name' => 'createDateTime',
-				'type' => 'raw',
-				'htmlOptions' => array(
-					'style' => 'text-align:center;width:17%;'),
-				'value' => ($model->createDateTime) ? Controller::dateThai($model->createDateTime, 2) : "-",
+				'name'=>'createDateTime',
+				'type'=>'raw',
+				'htmlOptions'=>array(
+					'style'=>'text-align:center;width:17%;'),
+				'value'=>($model->createDateTime) ? Controller::dateThai($model->createDateTime, 2) : "-",
 			),
 		//'updateDateTime',
 		),
@@ -80,9 +80,9 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 function showImage($imageUrl, $title)
 {
 	$image = "";
-	if (!empty($imageUrl) && isset($imageUrl))
+	if(!empty($imageUrl) && isset($imageUrl))
 	{
-		if (strpos($imageUrl, ".pdf"))
+		if(strpos($imageUrl, ".pdf"))
 		{
 			$image = "<p><a class='pdf' Title='$title' href='$imageUrl'>ดูไฟล์แนบ</a></p>";
 		}

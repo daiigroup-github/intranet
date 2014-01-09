@@ -35,35 +35,35 @@
 					modes: {wysiwyg: 1},
 					exec: function(editor)
 					{
-						if (editor.focusManager.hasFocus)
+						if(editor.focusManager.hasFocus)
 						{
 							var sel = editor.getSelection(),
 									ancestor = sel.getCommonAncestor(),
 									cell;
 
-							if ((cell = (ancestor.getAscendant('td', true) || ancestor.getAscendant('th', true))))
+							if((cell = (ancestor.getAscendant('td', true) || ancestor.getAscendant('th', true))))
 							{
 								var resultRange = new CKEDITOR.dom.range(editor.document),
 										next = CKEDITOR.tools.tryThese(function()
-								{
-									var row = cell.getParent(),
-											next = row.$.cells[ cell.$.cellIndex + (backward ? -1 : 1) ];
-
-									// Invalid any empty value.
-									next.parentNode.parentNode;
-									return next;
-								},
-										function()
 										{
 											var row = cell.getParent(),
-													table = row.getAscendant('table'),
-													nextRow = table.$.rows[ row.$.rowIndex + (backward ? -1 : 1) ];
+													next = row.$.cells[ cell.$.cellIndex + (backward ? -1 : 1) ];
 
-											return nextRow.cells[ backward ? nextRow.cells.length - 1 : 0 ];
-										});
+											// Invalid any empty value.
+											next.parentNode.parentNode;
+											return next;
+										},
+												function()
+												{
+													var row = cell.getParent(),
+															table = row.getAscendant('table'),
+															nextRow = table.$.rows[ row.$.rowIndex + (backward ? -1 : 1) ];
+
+													return nextRow.cells[ backward ? nextRow.cells.length - 1 : 0 ];
+												});
 
 								// Clone one more row at the end of table and select the first newly established cell.
-								if (!(next || backward))
+								if(!(next || backward))
 								{
 									var table = cell.getAscendant('table').$,
 											cells = cell.getParent().$.cells;
@@ -79,12 +79,12 @@
 
 									resultRange.moveToElementEditStart(newRow);
 								}
-								else if (next)
+								else if(next)
 								{
 									next = new CKEDITOR.dom.element(next);
 									resultRange.moveToElementEditStart(next);
 									// Avoid selecting empty block makes the cursor blind.
-									if (!(resultRange.checkStartOfBlock() && resultRange.checkEndOfBlock()))
+									if(!(resultRange.checkStartOfBlock() && resultRange.checkEndOfBlock()))
 										resultRange.selectNodeContents(next);
 								}
 								else
@@ -108,14 +108,14 @@
 									tabSpaces = editor.config.tabSpaces || 0,
 									tabText = '';
 
-							while (tabSpaces--)
+							while(tabSpaces--)
 								tabText += '\xa0';
 
-							if (tabText)
+							if(tabText)
 							{
 								editor.on('key', function(ev)
 								{
-									if (ev.data.keyCode == 9)	// TAB
+									if(ev.data.keyCode == 9)	// TAB
 									{
 										editor.insertHtml(tabText);
 										ev.cancel();
@@ -123,29 +123,29 @@
 								});
 							}
 
-							if (tabTools)
+							if(tabTools)
 							{
 								editor.on('key', function(ev)
 								{
-									if (ev.data.keyCode == 9 && editor.execCommand('selectNextCell') || // TAB
+									if(ev.data.keyCode == 9 && editor.execCommand('selectNextCell') || // TAB
 											ev.data.keyCode == (CKEDITOR.SHIFT + 9) && editor.execCommand('selectPreviousCell'))	// SHIFT+TAB
 										ev.cancel();
 								});
 							}
 
-							if (CKEDITOR.env.webkit || CKEDITOR.env.gecko)
+							if(CKEDITOR.env.webkit || CKEDITOR.env.gecko)
 							{
 								editor.on('key', function(ev)
 								{
 									var keyCode = ev.data.keyCode;
 
-									if (keyCode == 9 && !tabText)				// TAB
+									if(keyCode == 9 && !tabText)				// TAB
 									{
 										ev.cancel();
 										editor.execCommand('blur');
 									}
 
-									if (keyCode == (CKEDITOR.SHIFT + 9))	// SHIFT+TAB
+									if(keyCode == (CKEDITOR.SHIFT + 9))	// SHIFT+TAB
 									{
 										editor.execCommand('blurBack');
 										ev.cancel();
@@ -176,16 +176,16 @@ CKEDITOR.dom.element.prototype.focusNext = function(ignoreChildren, indexToUse)
 			elected, electedTabIndex,
 			element, elementTabIndex;
 
-	if (curTabIndex <= 0)
+	if(curTabIndex <= 0)
 	{
 		// If this element has tabindex <= 0 then we must simply look for any
 		// element following it containing tabindex=0.
 
 		element = this.getNextSourceNode(ignoreChildren, CKEDITOR.NODE_ELEMENT);
 
-		while (element)
+		while(element)
 		{
-			if (element.isVisible() && element.getTabIndex() === 0)
+			if(element.isVisible() && element.getTabIndex() === 0)
 			{
 				elected = element;
 				break;
@@ -204,41 +204,41 @@ CKEDITOR.dom.element.prototype.focusNext = function(ignoreChildren, indexToUse)
 
 		element = this.getDocument().getBody().getFirst();
 
-		while ((element = element.getNextSourceNode(false, CKEDITOR.NODE_ELEMENT)))
+		while((element = element.getNextSourceNode(false, CKEDITOR.NODE_ELEMENT)))
 		{
-			if (!passedCurrent)
+			if(!passedCurrent)
 			{
-				if (!enteredCurrent && element.equals(this))
+				if(!enteredCurrent && element.equals(this))
 				{
 					enteredCurrent = true;
 
 					// Ignore this element, if required.
-					if (ignoreChildren)
+					if(ignoreChildren)
 					{
-						if (!(element = element.getNextSourceNode(true, CKEDITOR.NODE_ELEMENT)))
+						if(!(element = element.getNextSourceNode(true, CKEDITOR.NODE_ELEMENT)))
 							break;
 						passedCurrent = 1;
 					}
 				}
-				else if (enteredCurrent && !this.contains(element))
+				else if(enteredCurrent && !this.contains(element))
 					passedCurrent = 1;
 			}
 
-			if (!element.isVisible() || (elementTabIndex = element.getTabIndex()) < 0)
+			if(!element.isVisible() || (elementTabIndex = element.getTabIndex()) < 0)
 				continue;
 
-			if (passedCurrent && elementTabIndex == curTabIndex)
+			if(passedCurrent && elementTabIndex == curTabIndex)
 			{
 				elected = element;
 				break;
 			}
 
-			if (elementTabIndex > curTabIndex && (!elected || !electedTabIndex || elementTabIndex < electedTabIndex))
+			if(elementTabIndex > curTabIndex && (!elected || !electedTabIndex || elementTabIndex < electedTabIndex))
 			{
 				elected = element;
 				electedTabIndex = elementTabIndex;
 			}
-			else if (!elected && elementTabIndex === 0)
+			else if(!elected && elementTabIndex === 0)
 			{
 				elected = element;
 				electedTabIndex = elementTabIndex;
@@ -246,7 +246,7 @@ CKEDITOR.dom.element.prototype.focusNext = function(ignoreChildren, indexToUse)
 		}
 	}
 
-	if (elected)
+	if(elected)
 		elected.focus();
 };
 
@@ -267,42 +267,42 @@ CKEDITOR.dom.element.prototype.focusPrevious = function(ignoreChildren, indexToU
 
 	var element = this.getDocument().getBody().getLast();
 
-	while ((element = element.getPreviousSourceNode(false, CKEDITOR.NODE_ELEMENT)))
+	while((element = element.getPreviousSourceNode(false, CKEDITOR.NODE_ELEMENT)))
 	{
-		if (!passedCurrent)
+		if(!passedCurrent)
 		{
-			if (!enteredCurrent && element.equals(this))
+			if(!enteredCurrent && element.equals(this))
 			{
 				enteredCurrent = true;
 
 				// Ignore this element, if required.
-				if (ignoreChildren)
+				if(ignoreChildren)
 				{
-					if (!(element = element.getPreviousSourceNode(true, CKEDITOR.NODE_ELEMENT)))
+					if(!(element = element.getPreviousSourceNode(true, CKEDITOR.NODE_ELEMENT)))
 						break;
 					passedCurrent = 1;
 				}
 			}
-			else if (enteredCurrent && !this.contains(element))
+			else if(enteredCurrent && !this.contains(element))
 				passedCurrent = 1;
 		}
 
-		if (!element.isVisible() || (elementTabIndex = element.getTabIndex()) < 0)
+		if(!element.isVisible() || (elementTabIndex = element.getTabIndex()) < 0)
 			continue;
 
-		if (curTabIndex <= 0)
+		if(curTabIndex <= 0)
 		{
 			// If this element has tabindex <= 0 then we must look for:
 			//		1. An element before this one containing tabindex=0.
 			//		2. The last element with the highest tabindex.
 
-			if (passedCurrent && elementTabIndex === 0)
+			if(passedCurrent && elementTabIndex === 0)
 			{
 				elected = element;
 				break;
 			}
 
-			if (elementTabIndex > electedTabIndex)
+			if(elementTabIndex > electedTabIndex)
 			{
 				elected = element;
 				electedTabIndex = elementTabIndex;
@@ -315,13 +315,13 @@ CKEDITOR.dom.element.prototype.focusPrevious = function(ignoreChildren, indexToU
 			//		2. The last element in source other with the highest tabindex
 			//		   that is lower than this element tabindex.
 
-			if (passedCurrent && elementTabIndex == curTabIndex)
+			if(passedCurrent && elementTabIndex == curTabIndex)
 			{
 				elected = element;
 				break;
 			}
 
-			if (elementTabIndex < curTabIndex && (!elected || elementTabIndex > electedTabIndex))
+			if(elementTabIndex < curTabIndex && (!elected || elementTabIndex > electedTabIndex))
 			{
 				elected = element;
 				electedTabIndex = elementTabIndex;
@@ -329,7 +329,7 @@ CKEDITOR.dom.element.prototype.focusPrevious = function(ignoreChildren, indexToU
 		}
 	}
 
-	if (elected)
+	if(elected)
 		elected.focus();
 };
 

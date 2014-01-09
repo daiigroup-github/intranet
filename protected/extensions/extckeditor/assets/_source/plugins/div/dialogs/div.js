@@ -16,7 +16,7 @@
 			{
 				// 1. IE doesn't support customData on text nodes;
 				// 2. Text nodes never get chance to appear twice;
-				if (!element.is || !element.getCustomData('block_processed'))
+				if(!element.is || !element.getCustomData('block_processed'))
 				{
 					element.is && CKEDITOR.dom.element.setMarker(database, element, 'block_processed', true);
 					collection.push(element);
@@ -30,7 +30,7 @@
 				for (var i = 0; i < children.count(); i++)
 				{
 					var child = children.getItem(i);
-					if (!(child.type === CKEDITOR.NODE_TEXT
+					if(!(child.type === CKEDITOR.NODE_TEXT
 							&& (/^[ \t\n\r]+$/).test(child.getText())))
 						retval.push(child);
 				}
@@ -55,7 +55,7 @@
 					delete definition.div;
 
 					// Exclude 'td' and 'th' when 'wrapping table'
-					if (editor.config.div_wrapTable)
+					if(editor.config.div_wrapTable)
 					{
 						delete definition.td;
 						delete definition.th;
@@ -76,7 +76,7 @@
 					var divLimit;
 					for (var i = 0; i < pathElements.length; i++)
 					{
-						if (pathElements[ i ].getName() in divLimitDefinition)
+						if(pathElements[ i ].getName() in divLimitDefinition)
 						{
 							divLimit = pathElements[ i ];
 							break;
@@ -94,9 +94,9 @@
 					this.foreach(function(field)
 					{
 						// Exclude layout container elements
-						if (/^(?!vbox|hbox)/.test(field.type))
+						if(/^(?!vbox|hbox)/.test(field.type))
 						{
-							if (!field.setup)
+							if(!field.setup)
 							{
 								// Read the dialog fields values from the specified
 								// element attributes.
@@ -105,7 +105,7 @@
 									field.setValue(element.getAttribute(field.id) || '');
 								};
 							}
-							if (!field.commit)
+							if(!field.commit)
 							{
 								// Set element attributes assigned by the dialog
 								// fields.
@@ -113,10 +113,10 @@
 								{
 									var fieldValue = this.getValue();
 									// ignore default element attribute values
-									if ('dir' == field.id && element.getComputedStyle('direction') == fieldValue)
+									if('dir' == field.id && element.getComputedStyle('direction') == fieldValue)
 										return;
 
-									if (fieldValue)
+									if(fieldValue)
 										element.setAttribute(field.id, fieldValue);
 									else
 										element.removeAttribute(field.id);
@@ -152,10 +152,10 @@
 					for (i = 0; i < ranges.length; i++)
 					{
 						iterator = ranges[ i ].createIterator();
-						while ((block = iterator.getNextParagraph()))
+						while((block = iterator.getNextParagraph()))
 						{
 							// include contents of blockLimit elements.
-							if (block.getName() in divLimitDefinition)
+							if(block.getName() in divLimitDefinition)
 							{
 								var j, childNodes = block.getChildren();
 								for (j = 0; j < childNodes.count(); j++)
@@ -164,7 +164,7 @@
 							else
 							{
 								// Bypass dtd disallowed elements.
-								while (!dtd[ block.getName() ] && block.getName() != 'body')
+								while(!dtd[ block.getName() ] && block.getName() != 'body')
 									block = block.getParent();
 								addSafely(containedBlocks, block, database);
 							}
@@ -192,7 +192,7 @@
 						{
 							currentNode = blockGroups[ i ][ j ];
 
-							while (!currentNode.getParent().equals(ancestor))
+							while(!currentNode.getParent().equals(ancestor))
 								currentNode = currentNode.getParent();
 
 							// This could introduce some duplicated elements in array.
@@ -206,12 +206,12 @@
 							currentNode = blockGroups[ i ][ j ];
 
 							// Avoid DUP elements introduced by grouping.
-							if (!(currentNode.getCustomData && currentNode.getCustomData('block_processed')))
+							if(!(currentNode.getCustomData && currentNode.getCustomData('block_processed')))
 							{
 								currentNode.is && CKEDITOR.dom.element.setMarker(database, currentNode, 'block_processed', true);
 
 								// Establish new container, wrapping all elements in this group.
-								if (!j)
+								if(!j)
 									divElement.insertBefore(currentNode);
 
 								divElement.append(currentNode);
@@ -249,7 +249,7 @@
 					{
 						block = nodes[i];
 						var limit = getDivLimitElement(block);
-						if (!limit.equals(lastDivLimit))
+						if(!limit.equals(lastDivLimit))
 						{
 							lastDivLimit = limit;
 							groups.push([]);
@@ -329,7 +329,7 @@
 																	commit: function(element)
 																	{
 																		var styleName;
-																		if ((styleName = this.getValue()))
+																		if((styleName = this.getValue()))
 																		{
 																			var style = styles[ styleName ];
 																			var customData = element.getCustomData('elementStyle') || '';
@@ -448,13 +448,13 @@
 						{
 							var styleName;
 
-							if (stylesDefinitions)
+							if(stylesDefinitions)
 							{
 								// Digg only those styles that apply to 'div'.
 								for (var i = 0; i < stylesDefinitions.length; i++)
 								{
 									var styleDefinition = stylesDefinitions[ i ];
-									if (styleDefinition.element && styleDefinition.element == 'div')
+									if(styleDefinition.element && styleDefinition.element == 'div')
 									{
 										styleName = styleDefinition.name;
 										styles[ styleName ] = new CKEDITOR.style(styleDefinition);
@@ -480,7 +480,7 @@
 					{
 						// Whether always create new container regardless of existed
 						// ones.
-						if (command == 'editdiv')
+						if(command == 'editdiv')
 						{
 							// Try to discover the containers that already existed in
 							// ranges
@@ -491,7 +491,7 @@
 					},
 					onOk: function()
 					{
-						if (command == 'editdiv')
+						if(command == 'editdiv')
 							containers = [this._element];
 						else
 							containers = createDiv(editor, true);
@@ -511,7 +511,7 @@
 					onHide: function()
 					{
 						// Remove style only when editing existing DIV. (#6315)
-						if (command == 'editdiv')
+						if(command == 'editdiv')
 							this._element.removeCustomData('elementStyle');
 						delete this._element;
 					}

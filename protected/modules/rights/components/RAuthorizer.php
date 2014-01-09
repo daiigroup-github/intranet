@@ -60,7 +60,7 @@ class RAuthorizer extends CApplicationComponent
 	{
 		$bizRule = $bizRule !== '' ? $bizRule : null;
 
-		if ($data !== null)
+		if($data !== null)
 			$data = $data !== '' ? $this->sanitizeExpression($data . ';') : null;
 
 		return $this->_authManager->createAuthItem($name, $type, $description, $bizRule, $data);
@@ -83,7 +83,7 @@ class RAuthorizer extends CApplicationComponent
 		$authItem->bizRule = $bizRule !== '' ? $bizRule : null;
 
 		// Make sure that data is not already serialized.
-		if (@unserialize($data) === false)
+		if(@unserialize($data) === false)
 			$authItem->data = $data !== '' ? $this->sanitizeExpression($data . ';') : null;
 
 		$this->_authManager->saveAuthItem($authItem, $oldName);
@@ -104,7 +104,7 @@ class RAuthorizer extends CApplicationComponent
 	))
 	{
 		// We have none or a single type.
-		if ($types !== (array) $types)
+		if($types !== (array) $types)
 		{
 			$items = $this->_authManager->getAuthItems($types, $userId, $sort);
 		}
@@ -113,13 +113,13 @@ class RAuthorizer extends CApplicationComponent
 		{
 			$typeItemList = array(
 				);
-			foreach ($types as $type)
+			foreach($types as $type)
 				$typeItemList[$type] = $this->_authManager->getAuthItems($type, $userId, $sort);
 
 			// Merge the authorization items preserving the keys.
 			$items = array(
 				);
-			foreach ($typeItemList as $typeItems)
+			foreach($typeItemList as $typeItems)
 				$items = $this->mergeAuthItems($items, $typeItems);
 		}
 
@@ -137,8 +137,8 @@ class RAuthorizer extends CApplicationComponent
 	 */
 	protected function mergeAuthItems($array1, $array2)
 	{
-		foreach ($array2 as $itemName => $item)
-			if (isset($array1[$itemName]) === false)
+		foreach($array2 as $itemName=> $item)
+			if(isset($array1[$itemName]) === false)
 				$array1[$itemName] = $item;
 
 		return $array1;
@@ -157,10 +157,10 @@ class RAuthorizer extends CApplicationComponent
 	{
 		// We are getting authorization items valid for a certain item
 		// exclude its parents and children aswell.
-		if ($parent !== null)
+		if($parent !== null)
 		{
 			$exclude[] = $parent->name;
-			foreach ($parent->getChildren() as $childName => $child)
+			foreach($parent->getChildren() as $childName=> $child)
 				$exclude[] = $childName;
 
 			// Exclude the parents recursively to avoid inheritance loops.
@@ -169,8 +169,8 @@ class RAuthorizer extends CApplicationComponent
 		}
 
 		// Unset the items that are supposed to be excluded.
-		foreach ($exclude as $itemName)
-			if (isset($items[$itemName]))
+		foreach($exclude as $itemName)
+			if(isset($items[$itemName]))
 				unset($items[$itemName]);
 
 		return $items;
@@ -187,7 +187,7 @@ class RAuthorizer extends CApplicationComponent
 	 */
 	public function getAuthItemParents($item, $type = null, $parentName = null, $direct = false)
 	{
-		if (($item instanceof CAuthItem) === false)
+		if(($item instanceof CAuthItem) === false)
 			$item = $this->_authManager->getAuthItem($item);
 
 		$permissions = $this->getPermissions($parentName);
@@ -195,9 +195,9 @@ class RAuthorizer extends CApplicationComponent
 		$parents = $this->_authManager->getAuthItemsByNames($parentNames);
 		$parents = $this->attachAuthItemBehavior($parents, null, $item);
 
-		if ($type !== null)
-			foreach ($parents as $parentName => $parent)
-				if ((int) $parent->type !== $type)
+		if($type !== null)
+			foreach($parents as $parentName=> $parent)
+				if((int) $parent->type !== $type)
 					unset($parents[$parentName]);
 
 		return $parents;
@@ -214,22 +214,22 @@ class RAuthorizer extends CApplicationComponent
 	{
 		$parents = array(
 			);
-		foreach ($items as $childName => $children)
+		foreach($items as $childName=> $children)
 		{
-			if ($children !== array(
+			if($children !== array(
 				))
 			{
-				if (isset($children[$itemName]))
+				if(isset($children[$itemName]))
 				{
-					if (isset($parents[$childName]) === false)
+					if(isset($parents[$childName]) === false)
 						$parents[$childName] = $childName;
 				}
 				else
 				{
-					if (($p = $this->getAuthItemParentsRecursive($itemName, $children, $direct)) !== array(
+					if(($p = $this->getAuthItemParentsRecursive($itemName, $children, $direct)) !== array(
 						))
 					{
-						if ($direct === false && isset($parents[$childName]) === false)
+						if($direct === false && isset($parents[$childName]) === false)
 							$parents[$childName] = $childName;
 
 						$parents = array_merge($parents, $p);
@@ -250,13 +250,13 @@ class RAuthorizer extends CApplicationComponent
 	 */
 	public function getAuthItemChildren($item, $type = null)
 	{
-		if (($item instanceof CAuthItem) === false)
+		if(($item instanceof CAuthItem) === false)
 			$item = $this->_authManager->getAuthItem($item);
 
 		$childrenNames = array(
 			);
-		foreach ($item->getChildren() as $childName => $child)
-			if ($type === null || (int) $child->type === $type)
+		foreach($item->getChildren() as $childName=> $child)
+			if($type === null || (int) $child->type === $type)
 				$childrenNames[] = $childName;
 
 		$children = $this->_authManager->getAuthItemsByNames($childrenNames);
@@ -275,14 +275,14 @@ class RAuthorizer extends CApplicationComponent
 	public function attachAuthItemBehavior($items, $userId = null, CAuthItem $parent = null)
 	{
 		// We have a single item.
-		if ($items instanceof CAuthItem)
+		if($items instanceof CAuthItem)
 		{
 			$items->attachBehavior('rights', new RAuthItemBehavior($userId, $parent));
 		}
 		// We have multiple items.
-		else if ($items === (array) $items)
+		else if($items === (array) $items)
 		{
-			foreach ($items as $item)
+			foreach($items as $item)
 				$item->attachBehavior('rights', new RAuthItemBehavior($userId, $parent));
 		}
 
@@ -300,7 +300,7 @@ class RAuthorizer extends CApplicationComponent
 
 		$userIdList = array(
 			);
-		foreach ($assignments as $userId => $assignment)
+		foreach($assignments as $userId=> $assignment)
 			$userIdList[] = $userId;
 
 		$criteria = new CDbCriteria();
@@ -313,12 +313,12 @@ class RAuthorizer extends CApplicationComponent
 		$superusers = array(
 			);
 		$superusers[] = Rights::module()->superuserName; //Fix Bug There must be at least one superuser!
-		foreach ($users as $user)
+		foreach($users as $user)
 			$superusers[] = $user->name;
 
 		// Make sure that we have superusers, otherwise we would allow full access to Rights
 		// if there for some reason is not any superusers.
-		if ($superusers === array(
+		if($superusers === array(
 			))
 			throw new CHttpException(403, Rights::t('core', 'There must be at least one superuser!'));
 
@@ -335,14 +335,14 @@ class RAuthorizer extends CApplicationComponent
 		$userClass = Rights::module()->userClass;
 
 		// We have a single user.
-		if ($users instanceof $userClass)
+		if($users instanceof $userClass)
 		{
 			$users->attachBehavior('rights', new RUserBehavior);
 		}
 		// We have multiple user.
-		else if ($users === (array) $users)
+		else if($users === (array) $users)
 		{
-			foreach ($users as $user)
+			foreach($users as $user)
 				$user->attachBehavior('rights', new RUserBehavior);
 		}
 
@@ -371,14 +371,14 @@ class RAuthorizer extends CApplicationComponent
 		$permissions = array(
 			);
 
-		if ($itemName !== null)
+		if($itemName !== null)
 		{
 			$item = $this->_authManager->getAuthItem($itemName);
 			$permissions = $this->getPermissionsRecursive($item);
 		}
 		else
 		{
-			foreach ($this->getRoles() as $roleName => $role)
+			foreach($this->getRoles() as $roleName=> $role)
 				$permissions[$roleName] = $this->getPermissionsRecursive($role);
 		}
 
@@ -394,11 +394,11 @@ class RAuthorizer extends CApplicationComponent
 	{
 		$permissions = array(
 			);
-		foreach ($item->getChildren() as $childName => $child)
+		foreach($item->getChildren() as $childName=> $child)
 		{
 			$permissions[$childName] = array(
 				);
-			if (($grandChildren = $this->getPermissionsRecursive($child)) !== array(
+			if(($grandChildren = $this->getPermissionsRecursive($child)) !== array(
 				))
 				$permissions[$childName] = $grandChildren;
 		}
@@ -416,21 +416,21 @@ class RAuthorizer extends CApplicationComponent
 	public function hasPermission($itemName, $parentName = null, $permissions = array(
 	))
 	{
-		if ($parentName !== null)
+		if($parentName !== null)
 		{
-			if ($parentName === $this->superuserName)
+			if($parentName === $this->superuserName)
 				return 1;
 
 			$permissions = $this->getPermissions($parentName);
 		}
 
-		if (isset($permissions[$itemName]))
+		if(isset($permissions[$itemName]))
 			return 1;
 
-		foreach ($permissions as $children)
-			if ($children !== array(
+		foreach($permissions as $children)
+			if($children !== array(
 				))
-				if ($this->hasPermission($itemName, null, $children) > 0)
+				if($this->hasPermission($itemName, null, $children) > 0)
 					return 2;
 
 		return 0;
@@ -458,8 +458,8 @@ class RAuthorizer extends CApplicationComponent
 		);
 
 		// Loop through the language constructs.
-		foreach ($languageConstructs as $lc)
-			if (preg_match('/' . $lc . '\ *\(?\ *[\"\']+/', $code) > 0)
+		foreach($languageConstructs as $lc)
+			if(preg_match('/' . $lc . '\ *\(?\ *[\"\']+/', $code) > 0)
 				return null; // Language construct found, not safe for eval.
 
 
@@ -473,15 +473,19 @@ class RAuthorizer extends CApplicationComponent
 
 
 
-				
+
+
+
+
+
 // Get a list of all defined functions
 		$definedFunctions = get_defined_functions();
 		$functions = array_merge($definedFunctions['internal'], $definedFunctions['user']);
 
 		// Loop through the functions and check the code for function calls.
 		// Append a '(' to the functions to avoid confusion between e.g. array() and array_merge().
-		foreach ($functions as $f)
-			if (preg_match('/' . $f . '\ *\({1}/', $code) > 0)
+		foreach($functions as $f)
+			if(preg_match('/' . $f . '\ *\({1}/', $code) > 0)
 				return null; // Function call found, not safe for eval.
 
 
@@ -495,7 +499,11 @@ class RAuthorizer extends CApplicationComponent
 
 
 
-				
+
+
+
+
+
 // Evaluate the safer code
 		$result = @eval($code);
 

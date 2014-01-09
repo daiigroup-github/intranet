@@ -4,90 +4,90 @@
  */
 
 		CKEDITOR.plugins.add('format',
-		{
-			requires: ['richcombo', 'styles'],
-			init: function(editor)
-			{
-				var config = editor.config,
-						lang = editor.lang.format;
-
-				// Gets the list of tags from the settings.
-				var tags = config.format_tags.split(';');
-
-				// Create style objects for all defined styles.
-				var styles = {};
-				for (var i = 0; i < tags.length; i++)
 				{
-					var tag = tags[ i ];
-					styles[ tag ] = new CKEDITOR.style(config[ 'format_' + tag ]);
-					styles[ tag ]._.enterMode = editor.config.enterMode;
-				}
+					requires: ['richcombo', 'styles'],
+					init: function(editor)
+					{
+						var config = editor.config,
+								lang = editor.lang.format;
 
-				editor.ui.addRichCombo('Format',
+						// Gets the list of tags from the settings.
+						var tags = config.format_tags.split(';');
+
+						// Create style objects for all defined styles.
+						var styles = {};
+						for (var i = 0; i < tags.length; i++)
 						{
-							label: lang.label,
-							title: lang.panelTitle,
-							className: 'cke_format',
-							panel:
+							var tag = tags[ i ];
+							styles[ tag ] = new CKEDITOR.style(config[ 'format_' + tag ]);
+							styles[ tag ]._.enterMode = editor.config.enterMode;
+						}
+
+						editor.ui.addRichCombo('Format',
+								{
+									label: lang.label,
+									title: lang.panelTitle,
+									className: 'cke_format',
+									panel:
+											{
+												css: editor.skin.editor.css.concat(config.contentsCss),
+												multiSelect: false,
+												attributes: {'aria-label': lang.panelTitle}
+											},
+									init: function()
 									{
-										css: editor.skin.editor.css.concat(config.contentsCss),
-										multiSelect: false,
-										attributes: {'aria-label': lang.panelTitle}
-									},
-							init: function()
-							{
-								this.startGroup(lang.panelTitle);
+										this.startGroup(lang.panelTitle);
 
-								for (var tag in styles)
-								{
-									var label = lang[ 'tag_' + tag ];
-
-									// Add the tag entry to the panel list.
-									this.add(tag, styles[tag].buildPreview(label), label);
-								}
-							},
-							onClick: function(value)
-							{
-								editor.focus();
-								editor.fire('saveSnapshot');
-
-								var style = styles[ value ],
-										elementPath = new CKEDITOR.dom.elementPath(editor.getSelection().getStartElement());
-
-								style[ style.checkActive(elementPath) ? 'remove' : 'apply' ](editor.document);
-
-								// Save the undo snapshot after all changes are affected. (#4899)
-								setTimeout(function()
-								{
-									editor.fire('saveSnapshot');
-								}, 0);
-							},
-							onRender: function()
-							{
-								editor.on('selectionChange', function(ev)
-								{
-									var currentTag = this.getValue();
-
-									var elementPath = ev.data.path;
-
-									for (var tag in styles)
-									{
-										if (styles[ tag ].checkActive(elementPath))
+										for (var tag in styles)
 										{
-											if (tag != currentTag)
-												this.setValue(tag, editor.lang.format[ 'tag_' + tag ]);
-											return;
-										}
-									}
+											var label = lang[ 'tag_' + tag ];
 
-									// If no styles match, just empty it.
-									this.setValue('');
-								},
-										this);
-							}
-						});
-			}
-		});
+											// Add the tag entry to the panel list.
+											this.add(tag, styles[tag].buildPreview(label), label);
+										}
+									},
+									onClick: function(value)
+									{
+										editor.focus();
+										editor.fire('saveSnapshot');
+
+										var style = styles[ value ],
+												elementPath = new CKEDITOR.dom.elementPath(editor.getSelection().getStartElement());
+
+										style[ style.checkActive(elementPath) ? 'remove' : 'apply' ](editor.document);
+
+										// Save the undo snapshot after all changes are affected. (#4899)
+										setTimeout(function()
+										{
+											editor.fire('saveSnapshot');
+										}, 0);
+									},
+									onRender: function()
+									{
+										editor.on('selectionChange', function(ev)
+										{
+											var currentTag = this.getValue();
+
+											var elementPath = ev.data.path;
+
+											for (var tag in styles)
+											{
+												if(styles[ tag ].checkActive(elementPath))
+												{
+													if(tag != currentTag)
+														this.setValue(tag, editor.lang.format[ 'tag_' + tag ]);
+													return;
+												}
+											}
+
+											// If no styles match, just empty it.
+											this.setValue('');
+										},
+												this);
+									}
+								});
+					}
+				});
 
 /**
  * A list of semi colon separated style names (by default tags) representing

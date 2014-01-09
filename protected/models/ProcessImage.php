@@ -53,29 +53,29 @@ class ProcessImage extends CActiveRecord
 			array(
 				'status, labour, type',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'processImageName',
 				'length',
-				'max' => 255),
+				'max'=>255),
 			array(
 				'processImageDetail',
 				'length',
-				'max' => 150),
+				'max'=>150),
 			array(
 				'processId',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'latitude, longitude, direction',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processImageId, status, createDateTime, imageDate, imageTime, processImageName, processImageDetail, processId, latitude, longitude, direction, labour, type',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -96,19 +96,19 @@ class ProcessImage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processImageId' => 'Process Image',
-			'status' => 'Status',
-			'createDateTime' => 'Create Date Time',
-			'imageDate' => 'Image Date',
-			'imageTime' => 'Image Time',
-			'processImageName' => 'Process Image Name',
-			'processImageDetail' => 'Process Image Detail',
-			'processId' => 'Process',
-			'latitude' => 'Latitude',
-			'longitude' => 'Longitude',
-			'direction' => 'Direction',
-			'labour' => 'Labour',
-			'type' => 'Type',
+			'processImageId'=>'Process Image',
+			'status'=>'Status',
+			'createDateTime'=>'Create Date Time',
+			'imageDate'=>'Image Date',
+			'imageTime'=>'Image Time',
+			'processImageName'=>'Process Image Name',
+			'processImageDetail'=>'Process Image Detail',
+			'processId'=>'Process',
+			'latitude'=>'Latitude',
+			'longitude'=>'Longitude',
+			'direction'=>'Direction',
+			'labour'=>'Labour',
+			'type'=>'Type',
 		);
 	}
 
@@ -138,7 +138,7 @@ class ProcessImage extends CActiveRecord
 		$criteria->compare('type', $this->type);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

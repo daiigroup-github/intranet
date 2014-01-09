@@ -46,25 +46,25 @@ class Product extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'productValue, companyValue',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'productName',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			array(
 				'productDetail',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'productId, status, productValue, productName, productDetail, companyValue',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -85,12 +85,12 @@ class Product extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'productId' => 'Product',
-			'status' => 'Status',
-			'productValue' => 'Product Value',
-			'productName' => 'Product Name',
-			'productDetail' => 'Product Detail',
-			'companyValue' => 'Company Value',
+			'productId'=>'Product',
+			'status'=>'Status',
+			'productValue'=>'Product Value',
+			'productName'=>'Product Name',
+			'productDetail'=>'Product Detail',
+			'companyValue'=>'Company Value',
 		);
 	}
 
@@ -113,7 +113,7 @@ class Product extends CActiveRecord
 		$criteria->compare('companyValue', $this->companyValue, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

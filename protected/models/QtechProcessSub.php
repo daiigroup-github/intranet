@@ -51,24 +51,24 @@ class QtechProcessSub extends CActiveRecord
 			array(
 				'status, earningPrecent, duration, paymentNo',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'contractorCost',
 				'numerical'),
 			array(
 				'qtechProjectId, qtechProcessId, employeeId',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'processSubName, processSubDetail',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processSubId, status, qtechProjectId, qtechProcessId, employeeId, processSubName, processSubDetail, earningPrecent, contractorCost, duration, paymentNo',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -80,27 +80,27 @@ class QtechProcessSub extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee' => array(
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'employeeId' => 'employeeId')),
-			'project' => array(
+					'employeeId'=>'employeeId')),
+			'project'=>array(
 				self::BELONGS_TO,
 				'QtechProject',
 				array(
-					'qtechProjectId' => 'qtechProjectId')),
-			'process' => array(
+					'qtechProjectId'=>'qtechProjectId')),
+			'process'=>array(
 				self::BELONGS_TO,
 				'QtechProcess',
 				array(
-					'qtechProcessId' => 'qtechProcessId')),
-			'processSubImage' => array(
+					'qtechProcessId'=>'qtechProcessId')),
+			'processSubImage'=>array(
 				self::HAS_MANY,
 				'QtechProcessSub',
 				array(
-					'processSubId' => 'processSubId')),
-			'processSubImageCount' => array(
+					'processSubId'=>'processSubId')),
+			'processSubImageCount'=>array(
 				self::STAT,
 				'QtechProcessSubImage',
 				'processSubId'),
@@ -113,17 +113,17 @@ class QtechProcessSub extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processSubId' => 'Process Sub',
-			'status' => 'Status',
-			'qtechProjectId' => 'Project',
-			'qtechProcessId' => 'Process',
-			'employeeId' => 'Employee',
-			'processSubName' => 'Process Sub Name',
-			'processSubDetail' => 'Process Sub Detail',
-			'earningPrecent' => 'Earning Precent',
-			'contractorCost' => 'Contractor Cost',
-			'duration' => 'Duration',
-			'paymentNo' => 'Payment No',
+			'processSubId'=>'Process Sub',
+			'status'=>'Status',
+			'qtechProjectId'=>'Project',
+			'qtechProcessId'=>'Process',
+			'employeeId'=>'Employee',
+			'processSubName'=>'Process Sub Name',
+			'processSubDetail'=>'Process Sub Detail',
+			'earningPrecent'=>'Earning Precent',
+			'contractorCost'=>'Contractor Cost',
+			'duration'=>'Duration',
+			'paymentNo'=>'Payment No',
 		);
 	}
 
@@ -151,7 +151,7 @@ class QtechProcessSub extends CActiveRecord
 		$criteria->compare('paymentNo', $this->paymentNo);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 

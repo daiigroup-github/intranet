@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->workflowGroupId), array(
 		'view',
-		'id' => $data->workflowGroupId));
+		'id'=>$data->workflowGroupId));
 	?>
 	<br />
 

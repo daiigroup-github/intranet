@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -104,7 +103,7 @@ class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_
 	 */
 	public function beforeSendPerformed(Swift_Events_SendEvent $evt)
 	{
-		
+
 	}
 
 	/**
@@ -114,11 +113,11 @@ class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_
 	public function sendPerformed(Swift_Events_SendEvent $evt)
 	{
 		++$this->_counter;
-		if ($this->_counter >= $this->_threshold)
+		if($this->_counter >= $this->_threshold)
 		{
 			$transport = $evt->getTransport();
 			$transport->stop();
-			if ($this->_sleep)
+			if($this->_sleep)
 			{
 				$this->sleep($this->_sleep);
 			}
@@ -133,7 +132,7 @@ class Swift_Plugins_AntiFloodPlugin implements Swift_Events_SendListener, Swift_
 	 */
 	public function sleep($seconds)
 	{
-		if (isset($this->_sleeper))
+		if(isset($this->_sleeper))
 		{
 			$this->_sleeper->sleep($seconds);
 		}

@@ -3,19 +3,19 @@
 /* @var $model Elearning */
 
 $this->breadcrumbs = array(
-	'Elearnings' => array(
+	'Elearnings'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Elearning',
-		'url' => array(
+		'label'=>'List Elearning',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Elearning',
-		'url' => array(
+		'label'=>'Create Elearning',
+		'url'=>array(
 			'create')),
 );
 
@@ -34,7 +34,7 @@ $('#search-form').submit(function(){
 
 	<?php
 	echo CHtml::link('<i class="icon-plus"></i> เพิ่มรายการ', Yii::app()->createUrl('elearning/create'), array(
-		'class' => 'btn btn-primary pull-right',
+		'class'=>'btn btn-primary pull-right',
 	));
 	?>
 </h1>
@@ -45,22 +45,22 @@ $('#search-form').submit(function(){
 </p>
 <?php
 $this->renderPartial('_search', array(
-	'model' => $model,
+	'model'=>$model,
 ));
 ?>
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'elearning-grid',
-	'dataProvider' => $model->search(),
+	'id'=>'elearning-grid',
+	'dataProvider'=>$model->search(),
 	//'filter' => $model,
-	'itemsCssClass' => 'table table-striped table-bordered',
-	'columns' => array(
+	'itemsCssClass'=>'table table-striped table-bordered',
+	'columns'=>array(
 		'title',
 		'numberOfQuestion',
-	  	'parentId',
+		'parentId',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

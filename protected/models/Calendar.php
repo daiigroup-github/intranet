@@ -50,15 +50,15 @@ class Calendar extends CActiveRecord
 			array(
 				'status, type',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'title',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			array(
 				'date',
 				'length',
-				'max' => 45),
+				'max'=>45),
 			array(
 				'description, startTime, endTime',
 				'safe'),
@@ -67,7 +67,7 @@ class Calendar extends CActiveRecord
 			array(
 				'calendarId, status, title, description, type, date, startTime, endTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -88,14 +88,14 @@ class Calendar extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'calendarId' => 'Calendar',
-			'status' => 'Status',
-			'title' => 'Title',
-			'description' => 'Description',
-			'type' => 'Type',
-			'date' => 'Date',
-			'startTime' => 'Start Time',
-			'endTime' => 'End Time',
+			'calendarId'=>'Calendar',
+			'status'=>'Status',
+			'title'=>'Title',
+			'description'=>'Description',
+			'type'=>'Type',
+			'date'=>'Date',
+			'startTime'=>'Start Time',
+			'endTime'=>'End Time',
 		);
 	}
 
@@ -120,7 +120,7 @@ class Calendar extends CActiveRecord
 		$criteria->compare('endTime', $this->endTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -130,7 +130,7 @@ class Calendar extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'date < :date AND type=5';
 		$criteria->params = array(
-			':date' => $date);
+			':date'=>$date);
 		$criteria->limit = 1;
 		$criteria->order = 'date DESC';
 
@@ -143,7 +143,7 @@ class Calendar extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'date > :date AND type=5';
 		$criteria->params = array(
-			':date' => $date);
+			':date'=>$date);
 		$criteria->limit = 1;
 
 		return $this->find($criteria);
@@ -159,4 +159,3 @@ class Calendar extends CActiveRecord
 	}
 
 }
-

@@ -3,36 +3,36 @@
 /* @var $model ConstructionProject */
 
 $this->breadcrumbs = array(
-	'Construction Projects' => array(
+	'Construction Projects'=>array(
 		'index'),
 	$model->name,
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List ConstructionProject',
-		'url' => array(
+		'label'=>'List ConstructionProject',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create ConstructionProject',
-		'url' => array(
+		'label'=>'Create ConstructionProject',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'Update ConstructionProject',
-		'url' => array(
+		'label'=>'Update ConstructionProject',
+		'url'=>array(
 			'update',
-			'id' => $model->projectId)),
+			'id'=>$model->projectId)),
 	array(
-		'label' => 'Delete ConstructionProject',
-		'url' => '#',
-		'linkOptions' => array(
-			'submit' => array(
+		'label'=>'Delete ConstructionProject',
+		'url'=>'#',
+		'linkOptions'=>array(
+			'submit'=>array(
 				'delete',
-				'id' => $model->projectId),
-			'confirm' => 'Are you sure you want to delete this item?')),
+				'id'=>$model->projectId),
+			'confirm'=>'Are you sure you want to delete this item?')),
 	array(
-		'label' => 'Manage ConstructionProject',
-		'url' => array(
+		'label'=>'Manage ConstructionProject',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -41,8 +41,8 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'attributes' => array(
+	'data'=>$model,
+	'attributes'=>array(
 		'projectId',
 		'status',
 		'createDateTime',

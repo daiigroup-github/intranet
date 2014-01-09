@@ -25,18 +25,18 @@ class ElearningController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
-	  public function accessRules()
-	  {
-	  return array(
-		  /*array('allow', // allow admin user to perform 'admin' and 'delete' actions
+	public function accessRules()
+	{
+		return array(
+			/* array('allow', // allow admin user to perform 'admin' and 'delete' actions
 			  'actions'=>array('*'),
 			  'users'=>array('*'),
-		  ),
-		  array('deny',  // deny all users
+			  ),
+			  array('deny',  // deny all users
 			  'users'=>array('*'),
-		  ),*/
-		  );
-	  }
+			  ), */
+		);
+	}
 
 	/**
 	 * Displays a particular model.
@@ -45,7 +45,7 @@ class ElearningController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -60,7 +60,7 @@ class ElearningController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Elearning']))
+		if(isset($_POST['Elearning']))
 		{
 			$model->attributes = $_POST['Elearning'];
 			$model->createDateTime = new CDbExpression('NOW()');
@@ -77,14 +77,15 @@ class ElearningController extends Controller
 				$model->pdfFile = null;
 			}
 
-			if ($model->save() && $uploadFile->saveAs(Yii::app()->basePath.'/../images/elearning/'.$fileName));
-				$this->redirect(array(
-					'view',
-					'id' => $model->elearningId));
+			if($model->save() && $uploadFile->saveAs(Yii::app()->basePath . '/../images/elearning/' . $fileName))
+				;
+			$this->redirect(array(
+				'view',
+				'id'=>$model->elearningId));
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -100,18 +101,18 @@ class ElearningController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Elearning']))
+		if(isset($_POST['Elearning']))
 		{
 			$model->attributes = $_POST['Elearning'];
 			$model->updateDateTime = new CDbExpression('NOW()');
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'view',
-					'id' => $model->elearningId));
+					'id'=>$model->elearningId));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -125,7 +126,7 @@ class ElearningController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax']))
+		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 	}
@@ -148,11 +149,11 @@ class ElearningController extends Controller
 	{
 		$model = new Elearning('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['Elearning']))
+		if(isset($_GET['Elearning']))
 			$model->attributes = $_GET['Elearning'];
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -166,7 +167,7 @@ class ElearningController extends Controller
 	public function loadModel($id)
 	{
 		$model = Elearning::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -177,7 +178,7 @@ class ElearningController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'elearning-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'elearning-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -197,7 +198,7 @@ class ElearningController extends Controller
 			try
 			{
 				$i = 0;
-				foreach ($_POST['Employee']['employeeId'] as $key => $employeeId) 
+				foreach($_POST['Employee']['employeeId'] as $key=> $employeeId)
 				{
 					$elearningExamModel = new ElearningExam;
 					$elearningExamModel->createDateTime = new CDbExpression('NOW()');
@@ -210,8 +211,9 @@ class ElearningController extends Controller
 						$i++;
 				}
 
-				if($i==0) $flag = true;
-			
+				if($i == 0)
+					$flag = true;
+
 				if($flag)
 				{
 					$transaction->commit();
@@ -222,14 +224,16 @@ class ElearningController extends Controller
 					$transaction->rollback();
 				}
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
 			}
 		}
 
-		$this->render('generateExam', array('employeeModel'=>$employeeModel, 'elearningExamModel'=>$elearningExamModel));
+		$this->render('generateExam', array(
+			'employeeModel'=>$employeeModel,
+			'elearningExamModel'=>$elearningExamModel));
 	}
 
 	public function actionExamByDate()
@@ -238,73 +242,76 @@ class ElearningController extends Controller
 
 		$elearningExamModel = new ElearningExam('search');
 		$elearningExamModel->unsetAttributes();  // clear any default values
-		if (isset($_GET['ElearningExam']))
+		if(isset($_GET['ElearningExam']))
 			$elearningExamModel->attributes = $_GET['ElearningExam'];
 
-		$examDate = ElearningExam::model()->findAll(array('group'=>'examDate'));
+		$examDate = ElearningExam::model()->findAll(array(
+			'group'=>'examDate'));
 
-		$this->render('examByDate', array('elearningExamModel'=>$elearningExamModel, 'examDate'=>$examDate));
+		$this->render('examByDate', array(
+			'elearningExamModel'=>$elearningExamModel,
+			'examDate'=>$examDate));
 	}
 
 	/*
-	public function actionAddQuestion()
-	{
-		$models = Elearning::model()->findAll();
+	  public function actionAddQuestion()
+	  {
+	  $models = Elearning::model()->findAll();
 
-		$flag = false;
-		$transaction = Yii::app()->db->beginTransaction();
-		try
-		{
-			$k = 0;
-			foreach ($models as $key => $model) 
-			{
-				for($i=1;$i<=30;$i++)
-				{
-					$questionModel = new ElearningExamQuestion;
-					$questionModel->title = 'Elearning : '.$model->elearningId.' Question '. $i;
-					$questionModel->elearningId = $model->elearningId;
+	  $flag = false;
+	  $transaction = Yii::app()->db->beginTransaction();
+	  try
+	  {
+	  $k = 0;
+	  foreach ($models as $key => $model)
+	  {
+	  for($i=1;$i<=30;$i++)
+	  {
+	  $questionModel = new ElearningExamQuestion;
+	  $questionModel->title = 'Elearning : '.$model->elearningId.' Question '. $i;
+	  $questionModel->elearningId = $model->elearningId;
 
-					if($questionModel->save())
-					{
-						$questionId = Yii::app()->db->getLastInsertId();
-						$isCorrect = rand(1,4);
-						for($j=1;$j<=4;$j++)
-						{
-							$choiceModel = new ElearningExamChoice;
-							$choiceModel->title = 'Elearning : '.$key.' Question : '. $i.' Choice : '.$j;
-							$choiceModel->questionId = $questionId;
-							$choiceModel->isCorrect = ($isCorrect == $j) ? 1 : 0;
+	  if($questionModel->save())
+	  {
+	  $questionId = Yii::app()->db->getLastInsertId();
+	  $isCorrect = rand(1,4);
+	  for($j=1;$j<=4;$j++)
+	  {
+	  $choiceModel = new ElearningExamChoice;
+	  $choiceModel->title = 'Elearning : '.$key.' Question : '. $i.' Choice : '.$j;
+	  $choiceModel->questionId = $questionId;
+	  $choiceModel->isCorrect = ($isCorrect == $j) ? 1 : 0;
 
-							if(!$choiceModel->save())
-							{
-								$k++;
-								break;
-							}
-						}
-					}
-					if($k>0) break;
-				}
-			}
+	  if(!$choiceModel->save())
+	  {
+	  $k++;
+	  break;
+	  }
+	  }
+	  }
+	  if($k>0) break;
+	  }
+	  }
 
-			if($k == 0)
-			{
-				$flag = true;
-			}
-		
-			if($flag)
-			{
-				$transaction->commit();
-			}
-			else
-			{
-				$transaction->rollback();
-			}
-		}
-		catch (Exception $e)
-		{
-			throw new Exception($e->getMessage());
-			$transaction->rollback();
-		}
-	}
-	*/
+	  if($k == 0)
+	  {
+	  $flag = true;
+	  }
+
+	  if($flag)
+	  {
+	  $transaction->commit();
+	  }
+	  else
+	  {
+	  $transaction->rollback();
+	  }
+	  }
+	  catch (Exception $e)
+	  {
+	  throw new Exception($e->getMessage());
+	  $transaction->rollback();
+	  }
+	  }
+	 */
 }

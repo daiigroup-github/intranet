@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'qtech-project-form',
-		'enableAjaxValidation' => false,
+		'id'=>'qtech-project-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -21,8 +21,8 @@
 		<?php echo $form->labelEx($model, 'projectName'); ?>
 		<?php
 		echo $form->textField($model, 'projectName', array(
-			'size' => 60,
-			'maxlength' => 100));
+			'size'=>60,
+			'maxlength'=>100));
 		?>
 		<?php echo $form->error($model, 'projectName'); ?>
 	</div>
@@ -31,8 +31,8 @@
 		<?php echo $form->labelEx($model, 'projectDetail'); ?>
 		<?php
 		echo $form->textField($model, 'projectDetail', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'projectDetail'); ?>
 	</div>
@@ -47,8 +47,8 @@
 		<?php echo $form->labelEx($model, 'projectAddress'); ?>
 		<?php
 		echo $form->textField($model, 'projectAddress', array(
-			'size' => 60,
-			'maxlength' => 255));
+			'size'=>60,
+			'maxlength'=>255));
 		?>
 		<?php echo $form->error($model, 'projectAddress'); ?>
 	</div>

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -73,14 +72,14 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	public function read($length)
 	{
 		$fp = $this->_getReadHandle();
-		if (!feof($fp))
+		if(!feof($fp))
 		{
-			if ($this->_quotes)
+			if($this->_quotes)
 			{
 				set_magic_quotes_runtime(0);
 			}
 			$bytes = fread($fp, $length);
-			if ($this->_quotes)
+			if($this->_quotes)
 			{
 				set_magic_quotes_runtime(1);
 			}
@@ -100,7 +99,7 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	 */
 	public function setReadPointer($byteOffset)
 	{
-		if (isset($this->_reader))
+		if(isset($this->_reader))
 		{
 			fseek($this->_reader, $byteOffset, SEEK_SET);
 		}
@@ -119,15 +118,15 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	/** Not used */
 	protected function _flush()
 	{
-		
+
 	}
 
 	/** Get the resource for reading */
 	private function _getReadHandle()
 	{
-		if (!isset($this->_reader))
+		if(!isset($this->_reader))
 		{
-			if (!$this->_reader = fopen($this->_path, 'rb'))
+			if(!$this->_reader = fopen($this->_path, 'rb'))
 			{
 				throw new Swift_IoException(
 				'Unable to open file for reading [' . $this->_path . ']'
@@ -141,9 +140,9 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	/** Get the resource for writing */
 	private function _getWriteHandle()
 	{
-		if (!isset($this->_writer))
+		if(!isset($this->_writer))
 		{
-			if (!$this->_writer = fopen($this->_path, $this->_mode))
+			if(!$this->_writer = fopen($this->_path, $this->_mode))
 			{
 				throw new Swift_IoException(
 				'Unable to open file for writing [' . $this->_path . ']'
@@ -156,7 +155,7 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	/** Force a reload of the resource for writing */
 	private function _resetWriteHandle()
 	{
-		if (isset($this->_writer))
+		if(isset($this->_writer))
 		{
 			fclose($this->_writer);
 			$this->_writer = null;
@@ -166,7 +165,7 @@ class Swift_ByteStream_FileByteStream extends Swift_ByteStream_AbstractFilterabl
 	/** Force a reload of the resource for reading */
 	private function _resetReadHandle()
 	{
-		if (isset($this->_reader))
+		if(isset($this->_reader))
 		{
 			fclose($this->_reader);
 			$this->_reader = null;

@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -21,8 +20,8 @@
  */
 class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin implements Swift_Plugins_Sleeper, Swift_Plugins_Timer
 {
-	/** Flag for throttling in bytes per minute */
 
+	/** Flag for throttling in bytes per minute */
 	const BYTES_PER_MINUTE = 0x01;
 
 	/** Flag for throttling in emails per minute */
@@ -93,13 +92,13 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
 	public function beforeSendPerformed(Swift_Events_SendEvent $evt)
 	{
 		$time = $this->getTimestamp();
-		if (!isset($this->_start))
+		if(!isset($this->_start))
 		{
 			$this->_start = $time;
 		}
 		$duration = $time - $this->_start;
 
-		if (self::BYTES_PER_MINUTE == $this->_mode)
+		if(self::BYTES_PER_MINUTE == $this->_mode)
 		{
 			$sleep = $this->_throttleBytesPerMinute($duration);
 		}
@@ -108,7 +107,7 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
 			$sleep = $this->_throttleMessagesPerMinute($duration);
 		}
 
-		if ($sleep > 0)
+		if($sleep > 0)
 		{
 			$this->sleep($sleep);
 		}
@@ -130,7 +129,7 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
 	 */
 	public function sleep($seconds)
 	{
-		if (isset($this->_sleeper))
+		if(isset($this->_sleeper))
 		{
 			$this->_sleeper->sleep($seconds);
 		}
@@ -146,7 +145,7 @@ class Swift_Plugins_ThrottlerPlugin extends Swift_Plugins_BandwidthMonitorPlugin
 	 */
 	public function getTimestamp()
 	{
-		if (isset($this->_timer))
+		if(isset($this->_timer))
 		{
 			return $this->_timer->getTimestamp();
 		}

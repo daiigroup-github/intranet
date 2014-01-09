@@ -47,17 +47,17 @@ class DocumentTemplateField extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'documentTemplateFieldName',
 				'length',
-				'max' => 500),
+				'max'=>500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentTemplateFieldId, documentTemplateFieldName , status, createDateTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -69,15 +69,15 @@ class DocumentTemplateField extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documentDocumentTemplateFields' => array(
+			'documentDocumentTemplateFields'=>array(
 				self::HAS_MANY,
 				'DocumentDocumentTemplateField',
 				'documentTemplateFieldId'),
-			'documentTemplate' => array(
+			'documentTemplate'=>array(
 				self::HAS_MANY,
 				'DocumentTemplate',
 				array(
-					'documentTemplateFieldId' => 'documentTemplateFieldId')),
+					'documentTemplateFieldId'=>'documentTemplateFieldId')),
 		);
 	}
 
@@ -87,10 +87,10 @@ class DocumentTemplateField extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentTemplateFieldId' => 'Document Template Field',
-			'documentTemplateFieldName' => 'ชื่อฟิลด์',
-			'status' => 'Status',
-			'createDateTime' => 'Create Date Time',
+			'documentTemplateFieldId'=>'Document Template Field',
+			'documentTemplateFieldName'=>'ชื่อฟิลด์',
+			'status'=>'Status',
+			'createDateTime'=>'Create Date Time',
 		);
 	}
 
@@ -111,12 +111,12 @@ class DocumentTemplateField extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 20
+			'pagination'=>array(
+				'pageSize'=>20
 			),
 		));
 	}
@@ -126,9 +126,9 @@ class DocumentTemplateField extends CActiveRecord
 		$models = DocumentTemplateField::model()->findAll();
 
 		$w = array(
-			'' => 'Choose..');
+			''=>'Choose..');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$w[$model->documentTemplateFieldId] = $model->documentTemplateFieldName;
 		}

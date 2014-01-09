@@ -34,10 +34,10 @@
 						{
 							var selector = aSelectors[ i ];
 
-							if (validSelectors.test(selector) && !skipSelectors.test(selector))
+							if(validSelectors.test(selector) && !skipSelectors.test(selector))
 							{
 								// If we still don't know about this one, add it
-								if (CKEDITOR.tools.indexOf(aClasses, selector) == -1)
+								if(CKEDITOR.tools.indexOf(aClasses, selector) == -1)
 									aClasses.push(selector);
 							}
 						}
@@ -58,11 +58,11 @@
 									node = sheet.ownerNode || sheet.owningElement;
 
 							// Skip the internal stylesheets
-							if (node.getAttribute('data-cke-temp'))
+							if(node.getAttribute('data-cke-temp'))
 								continue;
 
 							// Exclude stylesheets injected by extensions
-							if (sheet.href && sheet.href.substr(0, 9) == 'chrome://')
+							if(sheet.href && sheet.href.substr(0, 9) == 'chrome://')
 								continue;
 
 							var sheetRules = sheet.cssRules || sheet.rules;

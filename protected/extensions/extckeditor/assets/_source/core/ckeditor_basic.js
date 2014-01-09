@@ -9,7 +9,7 @@
 		 *		the root ckeditor_basic.js file.
 		 */
 
-		if (CKEDITOR.status == 'unloaded')
+		if(CKEDITOR.status == 'unloaded')
 {
 	(function()
 	{
@@ -27,7 +27,7 @@
 		CKEDITOR.loadFullCore = function()
 		{
 			// If not the basic code is not ready it, just mark it to be loaded.
-			if (CKEDITOR.status != 'basic_ready')
+			if(CKEDITOR.status != 'basic_ready')
 			{
 				CKEDITOR.loadFullCore._load = 1;
 				return;
@@ -81,10 +81,10 @@
 
 		var createInstance = function(elementOrIdOrName, config, creationFunction, data)
 		{
-			if (CKEDITOR.env.isCompatible)
+			if(CKEDITOR.env.isCompatible)
 			{
 				// Load the full core.
-				if (CKEDITOR.loadFullCore)
+				if(CKEDITOR.loadFullCore)
 					CKEDITOR.loadFullCore();
 
 				var editor = creationFunction(elementOrIdOrName, config, data);
@@ -175,25 +175,25 @@
 						textarea = textareas[i];
 
 				// The "name" and/or "id" attribute must exist.
-				if (!textarea.name && !textarea.id)
+				if(!textarea.name && !textarea.id)
 					continue;
 
-				if (typeof arguments[0] == 'string')
+				if(typeof arguments[0] == 'string')
 				{
 					// The textarea class name could be passed as the function
 					// parameter.
 
 					var classRegex = new RegExp('(?:^|\\s)' + arguments[0] + '(?:$|\\s)');
 
-					if (!classRegex.test(textarea.className))
+					if(!classRegex.test(textarea.className))
 						continue;
 				}
-				else if (typeof arguments[0] == 'function')
+				else if(typeof arguments[0] == 'function')
 				{
 					// An assertion function could be passed as the function parameter.
 					// It must explicitly return "false" to ignore a specific <textarea>.
 					config = {};
-					if (arguments[0](textarea, config) === false)
+					if(arguments[0](textarea, config) === false)
 						continue;
 				}
 
@@ -209,27 +209,27 @@
 						loadFullCoreTimeout = CKEDITOR.loadFullCoreTimeout;
 
 				// Replace all textareas with the default class name.
-				if (CKEDITOR.replaceByClassEnabled)
+				if(CKEDITOR.replaceByClassEnabled)
 					CKEDITOR.replaceAll(CKEDITOR.replaceClass);
 
 				CKEDITOR.status = 'basic_ready';
 
-				if (loadFullCore && loadFullCore._load)
+				if(loadFullCore && loadFullCore._load)
 					loadFullCore();
-				else if (loadFullCoreTimeout)
+				else if(loadFullCoreTimeout)
 				{
 					setTimeout(function()
 					{
-						if (CKEDITOR.loadFullCore)
+						if(CKEDITOR.loadFullCore)
 							CKEDITOR.loadFullCore();
 					}
 					, loadFullCoreTimeout * 1000);
 				}
 			};
 
-			if (window.addEventListener)
+			if(window.addEventListener)
 				window.addEventListener('load', onload, false);
-			else if (window.attachEvent)
+			else if(window.attachEvent)
 				window.attachEvent('onload', onload);
 		})();
 

@@ -28,15 +28,15 @@ class AuthItemForm extends CFormModel
 			array(
 				'name',
 				'nameIsAvailable',
-				'on' => 'create'),
+				'on'=>'create'),
 			array(
 				'name',
 				'newNameIsAvailable',
-				'on' => 'update'),
+				'on'=>'update'),
 			array(
 				'name',
 				'isSuperuser',
-				'on' => 'update'),
+				'on'=>'update'),
 			array(
 				'data',
 				'bizRuleNotEmpty'),
@@ -52,10 +52,10 @@ class AuthItemForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'name' => Rights::t('core', 'Name'),
-			'description' => Rights::t('core', 'Description'),
-			'bizRule' => Rights::t('core', 'Business rule'),
-			'data' => Rights::t('core', 'Data'),
+			'name'=>Rights::t('core', 'Name'),
+			'description'=>Rights::t('core', 'Description'),
+			'bizRule'=>Rights::t('core', 'Business rule'),
+			'data'=>Rights::t('core', 'Data'),
 		);
 	}
 
@@ -66,9 +66,9 @@ class AuthItemForm extends CFormModel
 	public function nameIsAvailable($attribute, $params)
 	{
 		// Make sure that an authorization item with the name does not already exist
-		if (Rights::getAuthorizer()->authManager->getAuthItem($this->name) !== null)
+		if(Rights::getAuthorizer()->authManager->getAuthItem($this->name) !== null)
 			$this->addError('name', Rights::t('core', 'An item with this name already exists.', array(
-					':name' => $this->name)));
+					':name'=>$this->name)));
 	}
 
 	/**
@@ -77,7 +77,7 @@ class AuthItemForm extends CFormModel
 	 */
 	public function newNameIsAvailable($attribute, $params)
 	{
-		if (strtolower(urldecode($_GET['name'])) !== strtolower($this->name))
+		if(strtolower(urldecode($_GET['name'])) !== strtolower($this->name))
 			$this->nameIsAvailable($attribute, $params);
 	}
 
@@ -87,7 +87,7 @@ class AuthItemForm extends CFormModel
 	 */
 	public function isSuperuser($attribute, $params)
 	{
-		if (strtolower($_GET['name']) !== strtolower($this->name) && strtolower($_GET['name']) === strtolower(Rights::module()->superuserName))
+		if(strtolower($_GET['name']) !== strtolower($this->name) && strtolower($_GET['name']) === strtolower(Rights::module()->superuserName))
 			$this->addError('name', Rights::t('core', 'Name of the superuser cannot be changed.'));
 	}
 
@@ -97,9 +97,8 @@ class AuthItemForm extends CFormModel
 	 */
 	public function bizRuleNotEmpty($attribute, $params)
 	{
-		if (empty($this->data) === false && empty($this->bizRule) === true)
+		if(empty($this->data) === false && empty($this->bizRule) === true)
 			$this->addError('data', Rights::t('core', 'Business rule cannot be empty.'));
 	}
 
 }
-

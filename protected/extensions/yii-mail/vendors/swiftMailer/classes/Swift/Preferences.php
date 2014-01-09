@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -24,7 +23,7 @@ class Swift_Preferences
 	/** Constructor not to be used */
 	private function __construct()
 	{
-		
+
 	}
 
 	/**
@@ -33,7 +32,7 @@ class Swift_Preferences
 	 */
 	public static function getInstance()
 	{
-		if (!isset(self::$_instance))
+		if(!isset(self::$_instance))
 		{
 			self::$_instance = new self();
 		}

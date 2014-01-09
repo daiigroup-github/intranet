@@ -75,15 +75,15 @@ class DocumentItem extends CActiveRecord
 			array(
 				'documentId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'documentItemName, file, description, remark, id, value, table, unit, description8, description9, description10',
 				'length',
-				'max' => 1000),
+				'max'=>1000),
 			array(
 				'documentItemId, documentId, documentItemName, file, description, remark, id, value, table, unit, description8, description9, description10, status, createDateTime, updateDateTime',
 				'safe'),
@@ -92,7 +92,7 @@ class DocumentItem extends CActiveRecord
 			array(
 				'documentItemId, documentId, documentItemName, file, description, remark, id, value, table, unit, description8, description9, description10, status, createDateTime, updateDateTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -104,11 +104,11 @@ class DocumentItem extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'document' => array(
+			'document'=>array(
 				self::BELONGS_TO,
 				'Document',
 				array(
-					'documentId' => 'documentId')),
+					'documentId'=>'documentId')),
 		);
 	}
 
@@ -118,22 +118,22 @@ class DocumentItem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentItemId' => 'Document Item',
-			'documentId' => 'Document',
-			'documentItemName' => 'Document Item Name',
-			'file' => 'File',
-			'description' => 'Description',
-			'remark' => 'Remark',
-			'id' => 'Id',
-			'value' => 'Value',
-			'table' => 'Table',
-			'unit' => 'Unit',
-			'description8' => 'Description8',
-			'description9' => 'Description9',
-			'description10' => 'Description10',
-			'status' => 'สถานะ',
-			'createDateTime' => "วันที่สร้าง",
-			'updateDateTime' => 'วันที่แก้ไข'
+			'documentItemId'=>'Document Item',
+			'documentId'=>'Document',
+			'documentItemName'=>'Document Item Name',
+			'file'=>'File',
+			'description'=>'Description',
+			'remark'=>'Remark',
+			'id'=>'Id',
+			'value'=>'Value',
+			'table'=>'Table',
+			'unit'=>'Unit',
+			'description8'=>'Description8',
+			'description9'=>'Description9',
+			'description10'=>'Description10',
+			'status'=>'สถานะ',
+			'createDateTime'=>"วันที่สร้าง",
+			'updateDateTime'=>'วันที่แก้ไข'
 		);
 	}
 
@@ -164,7 +164,7 @@ class DocumentItem extends CActiveRecord
 		$criteria->compare('status', $this->status, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -180,12 +180,12 @@ class DocumentItem extends CActiveRecord
 
 
 		$w = array(
-			'' => 'Choose..');
+			''=>'Choose..');
 
 		$i = 0;
-		foreach ($results as $result)
+		foreach($results as $result)
 		{
-			if ($i > 1)
+			if($i > 1)
 			{
 				$w[$result["column_name"]] = $result["column_name"];
 			}
@@ -197,7 +197,7 @@ class DocumentItem extends CActiveRecord
 
 	public function getAllApprovedFixTimeItemByEmployeeId($employeeId, $startDate, $endDate, $inAround = false)
 	{
-		if ($inAround)
+		if($inAround)
 		{
 			$calendar = Calendar::model()->getSalaryDateOfNow();
 			$saralyDay = $calendar->saralyDay;
@@ -208,15 +208,15 @@ class DocumentItem extends CActiveRecord
 		$criteria->join .= " LEFT JOIN workflow_log w on w.documentId = d.documentId AND w.workflowStateId = 216 ";
 		$criteria->join .= ' LEFT JOIN document_type dt on d.documentTypeId=dt.documentTypeId';
 		$criteria->condition = 'd.employeeId=:employeeId AND dt.documentCodePrefix=:documentCodePrefix AND t.status in (2,4) AND (t.documentItemName BETWEEN :startDate AND :endDate)';
-		if ($inAround)
+		if($inAround)
 		{
 			$criteria->condition .= " AND w.createDateTime < DATE_FORMAT(INSERT(convert(now(),char),9,11,'$saralyDay 14:01:00'),'%Y-%m-%d %H:%i:%s')";
 		}
 		$criteria->params = array(
-			':employeeId' => $employeeId,
-			':startDate' => $startDate,
-			':endDate' => $endDate,
-			':documentCodePrefix' => 'ETI');
+			':employeeId'=>$employeeId,
+			':startDate'=>$startDate,
+			':endDate'=>$endDate,
+			':documentCodePrefix'=>'ETI');
 		$criteria->group = " t.documentItemId ";
 
 		return $this->findAll($criteria);
@@ -230,15 +230,15 @@ class DocumentItem extends CActiveRecord
 		$criteria->join .= ' LEFT JOIN document_type dt on d.documentTypeId=dt.documentTypeId';
 		$criteria->condition = 'd.employeeId=:employeeId AND dt.documentCodePrefix=:documentCodePrefix AND t.status in (1,2,3,4) ';
 		$criteria->params = array(
-			':employeeId' => $employeeId,
-			':documentCodePrefix' => 'ETI');
+			':employeeId'=>$employeeId,
+			':documentCodePrefix'=>'ETI');
 
-		if (!empty($startDate) AND empty($endDate))
+		if(!empty($startDate) AND empty($endDate))
 		{
 			$criteria->condition .= " AND (t.documentItemName >= :startDate) ";
 			$criteria->params[':startDate'] = $startDate;
 		}
-		else if (empty($startDate) AND !empty($endDate))
+		else if(empty($startDate) AND !empty($endDate))
 		{
 			$criteria->condition .= " AND (t.documentItemName <= :endDate ) ";
 			$criteria->params[':endDate'] = $endDate;

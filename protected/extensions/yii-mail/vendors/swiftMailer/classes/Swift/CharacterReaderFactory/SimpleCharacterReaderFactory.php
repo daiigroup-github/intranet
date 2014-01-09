@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -43,27 +42,27 @@ class Swift_CharacterReaderFactory_SimpleCharacterReaderFactory implements Swift
 		$prefix = 'Swift_CharacterReader_';
 
 		$singleByte = array(
-			'class' => $prefix . 'GenericFixedWidthReader',
-			'constructor' => array(
+			'class'=>$prefix . 'GenericFixedWidthReader',
+			'constructor'=>array(
 				1)
 		);
 
 		$doubleByte = array(
-			'class' => $prefix . 'GenericFixedWidthReader',
-			'constructor' => array(
+			'class'=>$prefix . 'GenericFixedWidthReader',
+			'constructor'=>array(
 				2)
 		);
 
 		$fourBytes = array(
-			'class' => $prefix . 'GenericFixedWidthReader',
-			'constructor' => array(
+			'class'=>$prefix . 'GenericFixedWidthReader',
+			'constructor'=>array(
 				4)
 		);
 
 		//Utf-8
 		$this->_map['utf-?8'] = array(
-			'class' => $prefix . 'Utf8Reader',
-			'constructor' => array(
+			'class'=>$prefix . 'Utf8Reader',
+			'constructor'=>array(
 			)
 		);
 
@@ -98,15 +97,15 @@ class Swift_CharacterReaderFactory_SimpleCharacterReaderFactory implements Swift
 	public function getReaderFor($charset)
 	{
 		$charset = trim(strtolower($charset));
-		foreach ($this->_map as $pattern => $spec)
+		foreach($this->_map as $pattern=> $spec)
 		{
 			$re = '/^' . $pattern . '$/D';
-			if (preg_match($re, $charset))
+			if(preg_match($re, $charset))
 			{
-				if (!array_key_exists($pattern, $this->_loaded))
+				if(!array_key_exists($pattern, $this->_loaded))
 				{
 					$reflector = new ReflectionClass($spec['class']);
-					if ($reflector->getConstructor())
+					if($reflector->getConstructor())
 					{
 						$reader = $reflector->newInstanceArgs($spec['constructor']);
 					}

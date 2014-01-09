@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->documentTemplateFieldId), array(
 		'view',
-		'id' => $data->documentTemplateFieldId));
+		'id'=>$data->documentTemplateFieldId));
 	?>
 	<br />
 

@@ -1,10 +1,10 @@
 <?php
 $this->breadcrumbs = array(
-	'Memos' => array(
+	'Memos'=>array(
 		'index'),
-	$model->memoId => array(
+	$model->memoId=>array(
 		'view',
-		'id' => $model->memoId),
+		'id'=>$model->memoId),
 	'Update',
 );
 ?>
@@ -13,6 +13,6 @@ $this->breadcrumbs = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model,
-	'employeeModel' => $employeeModel));
+	'model'=>$model,
+	'employeeModel'=>$employeeModel));
 ?>

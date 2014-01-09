@@ -5,12 +5,12 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	array(
-		'label' => 'List Employee',
-		'url' => array(
+		'label'=>'List Employee',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Employee',
-		'url' => array(
+		'label'=>'Create Employee',
+		'url'=>array(
 			'create')),
 );
 
@@ -32,39 +32,39 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'employee-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'employee-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'employeeId',
 		array(
-			'name' => 'fnTh',
-			'value' => 'CHtml::encode($data->fnTh." ".$data->lnTh)',
+			'name'=>'fnTh',
+			'value'=>'CHtml::encode($data->fnTh." ".$data->lnTh)',
 		),
 		array(
-			'name' => 'position',
-			'value' => 'CHtml::encode($data->position)',
-			'filter' => false,
+			'name'=>'position',
+			'value'=>'CHtml::encode($data->position)',
+			'filter'=>false,
 		),
 		array(
-			'class' => 'CButtonColumn',
-			'header' => 'Action',
-			'template' => '{view}{update}{Mileage}',
-			'buttons' => array(
-				'Mileage' => array(
-					'url' => 'Yii::app()->createUrl("employee/mileage", array("id"=>$data->employeeId))',
+			'class'=>'CButtonColumn',
+			'header'=>'Action',
+			'template'=>'{view}{update}{Mileage}',
+			'buttons'=>array(
+				'Mileage'=>array(
+					'url'=>'Yii::app()->createUrl("employee/mileage", array("id"=>$data->employeeId))',
 				),
 			)
 		),

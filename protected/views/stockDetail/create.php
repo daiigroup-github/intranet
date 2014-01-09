@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Stock Details' => array(
+	'Stock Details'=>array(
 		'index'),
 	'Create',
 );
@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 $this->menu = array(
 	//array('label'=>'List StockDetail', 'url'=>array('index')),
 	array(
-		'label' => 'Manage StockDetail',
-		'url' => array(
+		'label'=>'Manage StockDetail',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -18,5 +18,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

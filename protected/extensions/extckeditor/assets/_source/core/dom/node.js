@@ -20,20 +20,20 @@
 		 * @example
 		 */
 		CKEDITOR.dom.node = function(domNode)
-{
-	if (domNode)
-	{
-		var type = domNode.nodeType == CKEDITOR.NODE_DOCUMENT ? 'document'
-				: domNode.nodeType == CKEDITOR.NODE_ELEMENT ? 'element'
-				: domNode.nodeType == CKEDITOR.NODE_TEXT ? 'text'
-				: domNode.nodeType == CKEDITOR.NODE_COMMENT ? 'comment'
-				: 'domObject';  // Call the base constructor otherwise.
+		{
+			if(domNode)
+			{
+				var type = domNode.nodeType == CKEDITOR.NODE_DOCUMENT ? 'document'
+						: domNode.nodeType == CKEDITOR.NODE_ELEMENT ? 'element'
+						: domNode.nodeType == CKEDITOR.NODE_TEXT ? 'text'
+						: domNode.nodeType == CKEDITOR.NODE_COMMENT ? 'comment'
+						: 'domObject';  // Call the base constructor otherwise.
 
-		return new CKEDITOR.dom[ type ](domNode);
-	}
+				return new CKEDITOR.dom[ type ](domNode);
+			}
 
-	return this;
-};
+			return this;
+		};
 
 CKEDITOR.dom.node.prototype = new CKEDITOR.dom.domObject();
 
@@ -100,14 +100,14 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 
 						var removeIds = function(node)
 						{
-							if (node.nodeType != CKEDITOR.NODE_ELEMENT)
+							if(node.nodeType != CKEDITOR.NODE_ELEMENT)
 								return;
 
-							if (!cloneId)
+							if(!cloneId)
 								node.removeAttribute('id', false);
 							node.removeAttribute('data-cke-expando', false);
 
-							if (includeChildren)
+							if(includeChildren)
 							{
 								var childs = node.childNodes;
 								for (var i = 0; i < childs.length; i++)
@@ -187,11 +187,11 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						var $documentElement = this.getDocument().$.documentElement;
 						var node = this.$;
 
-						while (node && node != $documentElement)
+						while(node && node != $documentElement)
 						{
 							var parentNode = node.parentNode;
 
-							if (parentNode)
+							if(parentNode)
 							{
 								// Get the node index. For performance, call getIndex
 								// directly, instead of creating a new node object.
@@ -221,11 +221,11 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						var current = this.$,
 								index = 0;
 
-						while ((current = current.previousSibling))
+						while((current = current.previousSibling))
 						{
 							// When normalizing, do not count it if this is an
 							// empty text node or if it's a text node following another one.
-							if (normalized && current.nodeType == 3 &&
+							if(normalized && current.nodeType == 3 &&
 									(!current.nodeValue.length ||
 											(current.previousSibling && current.previousSibling.nodeType == 3)))
 							{
@@ -240,7 +240,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 					getNextSourceNode: function(startFromSibling, nodeType, guard)
 					{
 						// If "guard" is a node, transform it in a function.
-						if (guard && !guard.call)
+						if(guard && !guard.call)
 						{
 							var guardNode = guard;
 							guard = function(node)
@@ -254,37 +254,37 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 
 						// Guarding when we're skipping the current element( no children or 'startFromSibling' ).
 						// send the 'moving out' signal even we don't actually dive into.
-						if (!node)
+						if(!node)
 						{
-							if (this.type == CKEDITOR.NODE_ELEMENT && guard && guard(this, true) === false)
+							if(this.type == CKEDITOR.NODE_ELEMENT && guard && guard(this, true) === false)
 								return null;
 							node = this.getNext();
 						}
 
-						while (!node && (parent = (parent || this).getParent()))
+						while(!node && (parent = (parent || this).getParent()))
 						{
 							// The guard check sends the "true" paramenter to indicate that
 							// we are moving "out" of the element.
-							if (guard && guard(parent, true) === false)
+							if(guard && guard(parent, true) === false)
 								return null;
 
 							node = parent.getNext();
 						}
 
-						if (!node)
+						if(!node)
 							return null;
 
-						if (guard && guard(node) === false)
+						if(guard && guard(node) === false)
 							return null;
 
-						if (nodeType && nodeType != node.type)
+						if(nodeType && nodeType != node.type)
 							return node.getNextSourceNode(false, nodeType, guard);
 
 						return node;
 					},
 					getPreviousSourceNode: function(startFromSibling, nodeType, guard)
 					{
-						if (guard && !guard.call)
+						if(guard && !guard.call)
 						{
 							var guardNode = guard;
 							guard = function(node)
@@ -298,30 +298,30 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 
 						// Guarding when we're skipping the current element( no children or 'startFromSibling' ).
 						// send the 'moving out' signal even we don't actually dive into.
-						if (!node)
+						if(!node)
 						{
-							if (this.type == CKEDITOR.NODE_ELEMENT && guard && guard(this, true) === false)
+							if(this.type == CKEDITOR.NODE_ELEMENT && guard && guard(this, true) === false)
 								return null;
 							node = this.getPrevious();
 						}
 
-						while (!node && (parent = (parent || this).getParent()))
+						while(!node && (parent = (parent || this).getParent()))
 						{
 							// The guard check sends the "true" paramenter to indicate that
 							// we are moving "out" of the element.
-							if (guard && guard(parent, true) === false)
+							if(guard && guard(parent, true) === false)
 								return null;
 
 							node = parent.getPrevious();
 						}
 
-						if (!node)
+						if(!node)
 							return null;
 
-						if (guard && guard(node) === false)
+						if(guard && guard(node) === false)
 							return null;
 
-						if (nodeType && node.type != nodeType)
+						if(nodeType && node.type != nodeType)
 							return node.getPreviousSourceNode(false, nodeType, guard);
 
 						return node;
@@ -337,7 +337,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 							// http://www.w3.org/TR/REC-DOM-Level-1/level-one-core.html#ID-412266927
 							retval = previous && previous.nodeType != 10 && new CKEDITOR.dom.node(previous);
 						}
-						while (retval && evaluator && !evaluator(retval))
+						while(retval && evaluator && !evaluator(retval))
 						return retval;
 					},
 					/**
@@ -357,7 +357,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 							next = next.nextSibling;
 							retval = next && new CKEDITOR.dom.node(next);
 						}
-						while (retval && evaluator && !evaluator(retval))
+						while(retval && evaluator && !evaluator(retval))
 						return retval;
 					},
 					/**
@@ -382,26 +382,26 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						{
 							parents[  closerFirst ? 'push' : 'unshift' ](node);
 						}
-						while ((node = node.getParent()))
+						while((node = node.getParent()))
 
 						return parents;
 					},
 					getCommonAncestor: function(node)
 					{
-						if (node.equals(this))
+						if(node.equals(this))
 							return this;
 
-						if (node.contains && node.contains(this))
+						if(node.contains && node.contains(this))
 							return node;
 
 						var start = this.contains ? this : this.getParent();
 
 						do
 						{
-							if (start.contains(node))
+							if(start.contains(node))
 								return start;
 						}
-						while ((start = start.getParent()));
+						while((start = start.getParent()));
 
 						return null;
 					},
@@ -410,27 +410,27 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						var $ = this.$;
 						var $other = otherNode.$;
 
-						if ($.compareDocumentPosition)
+						if($.compareDocumentPosition)
 							return $.compareDocumentPosition($other);
 
 						// IE and Safari have no support for compareDocumentPosition.
 
-						if ($ == $other)
+						if($ == $other)
 							return CKEDITOR.POSITION_IDENTICAL;
 
 						// Only element nodes support contains and sourceIndex.
-						if (this.type == CKEDITOR.NODE_ELEMENT && otherNode.type == CKEDITOR.NODE_ELEMENT)
+						if(this.type == CKEDITOR.NODE_ELEMENT && otherNode.type == CKEDITOR.NODE_ELEMENT)
 						{
-							if ($.contains)
+							if($.contains)
 							{
-								if ($.contains($other))
+								if($.contains($other))
 									return CKEDITOR.POSITION_CONTAINS + CKEDITOR.POSITION_PRECEDING;
 
-								if ($other.contains($))
+								if($other.contains($))
 									return CKEDITOR.POSITION_IS_CONTAINED + CKEDITOR.POSITION_FOLLOWING;
 							}
 
-							if ('sourceIndex' in $)
+							if('sourceIndex' in $)
 							{
 								return ($.sourceIndex < 0 || $other.sourceIndex < 0) ? CKEDITOR.POSITION_DISCONNECTED :
 										($.sourceIndex < $other.sourceIndex) ? CKEDITOR.POSITION_PRECEDING :
@@ -448,9 +448,9 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						// Determinate preceed/follow relationship.
 						for (var i = 0; i <= minLevel - 1; i++)
 						{
-							if (addressOfThis[ i ] != addressOfOther[ i ])
+							if(addressOfThis[ i ] != addressOfOther[ i ])
 							{
-								if (i < minLevel)
+								if(i < minLevel)
 								{
 									return addressOfThis[ i ] < addressOfOther[ i ] ?
 											CKEDITOR.POSITION_PRECEDING : CKEDITOR.POSITION_FOLLOWING;
@@ -486,12 +486,12 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						var $ = this.$,
 								name;
 
-						if (!includeSelf)
+						if(!includeSelf)
 							$ = $.parentNode;
 
-						while ($)
+						while($)
 						{
-							if ($.nodeName && (name = $.nodeName.toLowerCase(), (typeof reference == 'string' ? name == reference : name in reference)))
+							if($.nodeName && (name = $.nodeName.toLowerCase(), (typeof reference == 'string' ? name == reference : name in reference)))
 								return new CKEDITOR.dom.node($);
 
 							$ = $.parentNode;
@@ -502,12 +502,12 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 					{
 						var $ = this.$;
 
-						if (!includeSelf)
+						if(!includeSelf)
 							$ = $.parentNode;
 
-						while ($)
+						while($)
 						{
-							if ($.nodeName && $.nodeName.toLowerCase() == name)
+							if($.nodeName && $.nodeName.toLowerCase() == name)
 								return true;
 
 							$ = $.parentNode;
@@ -532,9 +532,9 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 						var $ = this.$;
 						var parent = $.parentNode;
 
-						if (parent)
+						if(parent)
 						{
-							if (preserveChildren)
+							if(preserveChildren)
 							{
 								// Move all children before the node.
 								for (var child; (child = $.firstChild); )
@@ -561,19 +561,19 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 					ltrim: function()
 					{
 						var child;
-						while (this.getFirst && (child = this.getFirst()))
+						while(this.getFirst && (child = this.getFirst()))
 						{
-							if (child.type == CKEDITOR.NODE_TEXT)
+							if(child.type == CKEDITOR.NODE_TEXT)
 							{
 								var trimmed = CKEDITOR.tools.ltrim(child.getText()),
 										originalLength = child.getLength();
 
-								if (!trimmed)
+								if(!trimmed)
 								{
 									child.remove();
 									continue;
 								}
-								else if (trimmed.length < originalLength)
+								else if(trimmed.length < originalLength)
 								{
 									child.split(originalLength - trimmed.length);
 
@@ -587,19 +587,19 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 					rtrim: function()
 					{
 						var child;
-						while (this.getLast && (child = this.getLast()))
+						while(this.getLast && (child = this.getLast()))
 						{
-							if (child.type == CKEDITOR.NODE_TEXT)
+							if(child.type == CKEDITOR.NODE_TEXT)
 							{
 								var trimmed = CKEDITOR.tools.rtrim(child.getText()),
 										originalLength = child.getLength();
 
-								if (!trimmed)
+								if(!trimmed)
 								{
 									child.remove();
 									continue;
 								}
-								else if (trimmed.length < originalLength)
+								else if(trimmed.length < originalLength)
 								{
 									child.split(trimmed.length);
 
@@ -611,11 +611,11 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 							break;
 						}
 
-						if (!CKEDITOR.env.ie && !CKEDITOR.env.opera)
+						if(!CKEDITOR.env.ie && !CKEDITOR.env.opera)
 						{
 							child = this.$.lastChild;
 
-							if (child && child.type == 1 && child.nodeName.toLowerCase() == 'br')
+							if(child && child.type == 1 && child.nodeName.toLowerCase() == 'br')
 							{
 								// Use "eChildNode.parentNode" instead of "node" to avoid IE bug (#324).
 								child.parentNode.removeChild(child);
@@ -636,23 +636,23 @@ CKEDITOR.tools.extend(CKEDITOR.dom.node.prototype,
 					isReadOnly: function()
 					{
 						var element = this;
-						if (this.type != CKEDITOR.NODE_ELEMENT)
+						if(this.type != CKEDITOR.NODE_ELEMENT)
 							element = this.getParent();
 
-						if (element && typeof element.$.isContentEditable != 'undefined')
+						if(element && typeof element.$.isContentEditable != 'undefined')
 							return !(element.$.isContentEditable || element.data('cke-editable'));
 						else
 						{
 							// Degrade for old browsers which don't support "isContentEditable", e.g. FF3
 							var current = element;
-							while (current)
+							while(current)
 							{
-								if (current.is('body') || !!current.data('cke-editable'))
+								if(current.is('body') || !!current.data('cke-editable'))
 									break;
 
-								if (current.getAttribute('contentEditable') == 'false')
+								if(current.getAttribute('contentEditable') == 'false')
 									return true;
-								else if (current.getAttribute('contentEditable') == 'true')
+								else if(current.getAttribute('contentEditable') == 'true')
 									break;
 
 								current = current.getParent();

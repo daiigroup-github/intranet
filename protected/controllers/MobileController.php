@@ -8,7 +8,7 @@ class MobileController extends Controller
 		//$this->render('index');
 
 		$a = array(
-			'Kurtumm' => 'Puhng');
+			'Kurtumm'=>'Puhng');
 
 		header("Cache-Control: no-cache");
 		header("Pragma: no-cache");
@@ -54,14 +54,14 @@ class MobileController extends Controller
 
 	public function actionLogin()
 	{
-		if (isset($_POST['username']) && isset($_POST['password']))
+		if(isset($_POST['username']) && isset($_POST['password']))
 		{
 			$model = new LoginForm();
 			$model->username = $_POST['username'];
 			$model->password = $_POST['password'];
 			$model->rememberMe = true;
 			// validate user input and redirect to the previous page if valid
-			if ($model->validate() && $model->login())
+			if($model->validate() && $model->login())
 			{
 				$name = Yii::app()->user->name;
 
@@ -88,11 +88,11 @@ class MobileController extends Controller
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'status=1 AND isEngineer=1 AND companyId&:companyValue>0';
 		$criteria->params = array(
-			':companyValue' => $companyValue);
+			':companyValue'=>$companyValue);
 
 		$models = Employee::model()->findAll($criteria);
 		$i = 0;
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$res[$i]['name'] = $model->fnTh . ' ' . $model->lnTh;
 			$res[$i]['employeeId'] = $model->employeeId;
@@ -115,7 +115,7 @@ class MobileController extends Controller
 
 		$models = Employee::model()->findAll($criteria);
 		$i = 0;
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$res[$i]['name'] = $model->fnTh . ' ' . $model->lnTh;
 			$res[$i]['employeeId'] = $model->employeeId;
@@ -136,7 +136,7 @@ class MobileController extends Controller
 
 		$models = Employee::model()->findAll($criteria);
 		$i = 0;
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$res[$i]['name'] = $model->fnTh . ' ' . $model->lnTh;
 			$res[$i]['employeeId'] = $model->employeeId;

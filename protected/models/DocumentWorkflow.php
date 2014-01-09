@@ -49,17 +49,17 @@ class DocumentWorkflow extends CActiveRecord
 			array(
 				'isFinished',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'documentId, currentState, documentGroupId, employeeId, groupId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentWorkflowId, documentId, currentState, documentGroupId, isFinished, employeeId, groupId, createDateTime',
 				'safe',
-				'on' => 'search'),);
+				'on'=>'search'),);
 	}
 
 	/**
@@ -70,15 +70,15 @@ class DocumentWorkflow extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workflowCurrent' => array(
+			'workflowCurrent'=>array(
 				self::BELONGS_TO,
 				'Workflow',
 				'currentState'),
-			'document' => array(
+			'document'=>array(
 				self::BELONGS_TO,
 				'Document',
 				'documentId'),
-			'employee' => array(
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				'employeeId'),);
@@ -90,14 +90,14 @@ class DocumentWorkflow extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentWorkflowId' => 'Document Work Flow',
-			'documentId' => 'Document',
-			'currentState' => 'Current State',
-			'documentGroupId' => 'Document Group',
-			'isFinished' => 'Is Finished',
-			'employeeId' => 'Employee',
-			'groupId' => 'Group',
-			'createDateTime' => 'Create Date Time',);
+			'documentWorkflowId'=>'Document Work Flow',
+			'documentId'=>'Document',
+			'currentState'=>'Current State',
+			'documentGroupId'=>'Document Group',
+			'isFinished'=>'Is Finished',
+			'employeeId'=>'Employee',
+			'groupId'=>'Group',
+			'createDateTime'=>'Create Date Time',);
 	}
 
 	/**
@@ -121,7 +121,7 @@ class DocumentWorkflow extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,));
+			'criteria'=>$criteria,));
 	}
 
 	public function saveDocumentWorkflow($documentType, $documentId, $leaveType = 0)
@@ -132,7 +132,7 @@ class DocumentWorkflow extends CActiveRecord
 		//save document_workflow : documentId, currentState, docuemntGroupId
 		$workflowStates = $documentType->workflowGroup->workflowState;
 
-		if ($workflowStates[0]->currentState == 0 && $workflowStates[0]->nextState == 0)
+		if($workflowStates[0]->currentState == 0 && $workflowStates[0]->nextState == 0)
 		{
 			$this->currentState = 0;
 			$this->employeeId = Yii::app()->user->id;
@@ -143,16 +143,16 @@ class DocumentWorkflow extends CActiveRecord
 		{
 			$this->currentState = $workflowStates[0]->nextState;
 
-			if ($workflowStates[0]->nextState == 0)
+			if($workflowStates[0]->nextState == 0)
 			{
 				$this->isFinished = 1;
 			}
 
-			if (isset($workflowStates[0]->workflowNext->employeeId))
+			if(isset($workflowStates[0]->workflowNext->employeeId))
 			{
-				if ($workflowStates[0]->workflowNext->employeeId != 0)
+				if($workflowStates[0]->workflowNext->employeeId != 0)
 				{
-					if ($leaveType == 2 || $leaveType == 3)
+					if($leaveType == 2 || $leaveType == 3)
 					{
 						$tm = Employee::model()->find("username ='tm' ");
 						$this->employeeId = $tm->employeeId;
@@ -164,13 +164,13 @@ class DocumentWorkflow extends CActiveRecord
 				}
 				else
 				{
-					if ($workflowStates[0]->workflowNext->groupId == 0)
+					if($workflowStates[0]->workflowNext->groupId == 0)
 					{
 						$employee = Employee::model()->findByPk(Yii::app()->user->id);
 
-						if ($employee->level->level >= 7 || $employee->username == "nsy" || $employee->username == "nmk")
+						if($employee->level->level >= 7 || $employee->username == "nsy" || $employee->username == "nmk")
 						{
-							if ($leaveType == 2 || $leaveType == 3)
+							if($leaveType == 2 || $leaveType == 3)
 							{
 								$tm = Employee::model()->find("username ='tm' ");
 								$this->employeeId = $tm->employeeId;
@@ -188,7 +188,7 @@ class DocumentWorkflow extends CActiveRecord
 				}
 			}
 
-			if ($workflowStates[0]->workflowNext->groupId != 0)
+			if($workflowStates[0]->workflowNext->groupId != 0)
 			{
 				$this->groupId = $workflowStates[0]->workflowNext->groupId;
 			}
@@ -213,7 +213,7 @@ class DocumentWorkflow extends CActiveRecord
 		Controller::writeToFile('/tmp/dwf0', 'dwf1');
 
 		//Draft State
-		if ($workflowStateModel->currentState == 0 && $workflowStateModel->nextState == 0)
+		if($workflowStateModel->currentState == 0 && $workflowStateModel->nextState == 0)
 		{
 			$documentWorkflowModel->currentState = 0;
 			$documentWorkflowModel->employeeId = $documentModel->employeeId;
@@ -222,10 +222,10 @@ class DocumentWorkflow extends CActiveRecord
 		}
 		else
 		{
-			if (isset($workflowStateModel->nextState))
+			if(isset($workflowStateModel->nextState))
 			{
 				//Finish
-				if ($workflowStateModel->nextState == 0)
+				if($workflowStateModel->nextState == 0)
 				{
 					Controller::writeToFile('/tmp/dwf1', 'dwf1');
 					$documentWorkflowModel->isFinished = 1;
@@ -241,14 +241,14 @@ class DocumentWorkflow extends CActiveRecord
 
 			$documentWorkflowModel->createDateTime = new CDbExpression('NOW()');
 
-			if (isset($workflowStateModel->workflowNext))
+			if(isset($workflowStateModel->workflowNext))
 			{
 				Controller::writeToFile('/tmp/dwf2', 'dwf2');
 				//find employee or group
-				if ($workflowStateModel->workflowNext->employeeId > 0)
+				if($workflowStateModel->workflowNext->employeeId > 0)
 				{
 					$documentWorkflowModel->employeeId = $workflowStateModel->workflowNext->employeeId;
-					if ($workflowStateModel->workflowNext->groupId > 0)
+					if($workflowStateModel->workflowNext->groupId > 0)
 					{
 						$documentWorkflowModel->groupId = $workflowStateModel->workflowNext->groupId;
 					}
@@ -258,11 +258,11 @@ class DocumentWorkflow extends CActiveRecord
 					}
 				}
 				//back to doc creator
-				else if ($workflowStateModel->workflowNext->employeeId == -1)
+				else if($workflowStateModel->workflowNext->employeeId == -1)
 				{
 					$documentWorkflowModel->employeeId = $documentModel->employeeId;
 					$documentWorkflowModel->groupId = null;
-					if ($workflowStateModel->workflowNext->groupId > 0)
+					if($workflowStateModel->workflowNext->groupId > 0)
 					{
 						$documentWorkflowModel->groupId = $workflowStateModel->workflowNext->groupId;
 					}
@@ -274,11 +274,11 @@ class DocumentWorkflow extends CActiveRecord
 				else
 				{
 					//division manager
-					if ($workflowStateModel->workflowNext->groupId == 0)
+					if($workflowStateModel->workflowNext->groupId == 0)
 					{
 						$employee = Employee::model()->findByPk(Yii::app()->user->id);
 
-						if ($employee->level->level >= 7 || $employee->username == "nsy" || $employee->username == "nmk")
+						if($employee->level->level >= 7 || $employee->username == "nsy" || $employee->username == "nmk")
 						{
 							$documentWorkflowModel->employeeId = Yii::app()->user->id;
 						}

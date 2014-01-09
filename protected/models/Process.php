@@ -52,33 +52,33 @@ class Process extends CActiveRecord
 			array(
 				'status, earningPercent, level',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'projectId, duration, engineerId, parentId',
 				'length',
-				'max' => 10),
+				'max'=>10),
 			array(
 				'processName',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			array(
 				'processDetail',
 				'length',
-				'max' => 120),
+				'max'=>120),
 			array(
 				'contracttorCost',
 				'length',
-				'max' => 16),
+				'max'=>16),
 			array(
 				'paymentNo',
 				'length',
-				'max' => 50),
+				'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processId, status, projectId, processName, processDetail, duration, engineerId, earningPercent, contracttorCost, paymentNo, parentId, level',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -90,11 +90,11 @@ class Process extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'processImage' => array(
+			'processImage'=>array(
 				self::BELONGS_TO,
 				'Process',
 				array(
-					'processId' => 'processId')),
+					'processId'=>'processId')),
 		);
 	}
 
@@ -104,18 +104,18 @@ class Process extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processId' => 'Process',
-			'status' => 'Status',
-			'projectId' => 'Project',
-			'processName' => 'Process Name',
-			'processDetail' => 'Process Detail',
-			'duration' => 'Duration',
-			'engineerId' => 'Engineer',
-			'earningPercent' => 'Earning Percent',
-			'contracttorCost' => 'Contracttor Cost',
-			'paymentNo' => 'Payment No',
-			'parentId' => 'Parent',
-			'level' => 'Level',
+			'processId'=>'Process',
+			'status'=>'Status',
+			'projectId'=>'Project',
+			'processName'=>'Process Name',
+			'processDetail'=>'Process Detail',
+			'duration'=>'Duration',
+			'engineerId'=>'Engineer',
+			'earningPercent'=>'Earning Percent',
+			'contracttorCost'=>'Contracttor Cost',
+			'paymentNo'=>'Payment No',
+			'parentId'=>'Parent',
+			'level'=>'Level',
 		);
 	}
 
@@ -144,7 +144,7 @@ class Process extends CActiveRecord
 		$criteria->compare('level', $this->level);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -156,7 +156,7 @@ class Process extends CActiveRecord
 		$criteria->compare('parentId', $processId);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -171,23 +171,23 @@ class Process extends CActiveRecord
 		$criteria->join = "LEFT JOIN project pj ON pj.projectId = t.projectId";
 		$criteria->condition = "t.engineerId = :engineerId";
 		$criteria->params = array(
-			":engineerId" => Yii::app()->user->id);
+			":engineerId"=>Yii::app()->user->id);
 		$criteria->group = "t.projectId";
 		$projects = $this->findAll($criteria);
-		foreach ($projects as $project)
+		foreach($projects as $project)
 		{
 			$result[$project->projectId]["projectName"] = $project->projectName;
 			$processs = $this->findAll("projectId =:projectId AND parentId is null", array(
-				":projectId" => $project->projectId));
+				":projectId"=>$project->projectId));
 			$j = 0;
-			foreach ($processs as $process)
+			foreach($processs as $process)
 			{
 				$result[$project->projectId]["process"][$j]["processId"] = $process->processId;
 				$result[$project->projectId]["process"][$j]["processName"] = $process->processName;
 				$subProcesss = $this->findAll("parentId =:parentId", array(
-					":parentId" => $process->processId));
+					":parentId"=>$process->processId));
 				$k = 0;
-				foreach ($subProcesss as $subProcess)
+				foreach($subProcesss as $subProcess)
 				{
 					$result[$project->projectId]["process"][$k]["subProcess"]["subProcessId"] = $subProcess->processId;
 					$result[$project->projectId]["process"][$k]["subProcess"]["subProcessName"] = $subProcess->processName;

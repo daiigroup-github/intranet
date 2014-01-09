@@ -4,20 +4,20 @@
  */
 
 		CKEDITOR.plugins.add('devtools',
-		{
-			lang: ['bg', 'cs', 'cy', 'da', 'de', 'el', 'en', 'eo', 'et', 'fa', 'fi', 'fr', 'gu', 'he', 'hr', 'it', 'nb', 'nl', 'no', 'pl', 'tr', 'ug', 'uk', 'vi', 'zh-cn'],
-			init: function(editor)
-			{
-				editor._.showDialogDefinitionTooltips = 1;
-			},
-			onLoad: function()
-			{
-				CKEDITOR.document.appendStyleText(CKEDITOR.config.devtools_styles ||
-						'#cke_tooltip { padding: 5px; border: 2px solid #333; background: #ffffff }' +
-						'#cke_tooltip h2 { font-size: 1.1em; border-bottom: 1px solid; margin: 0; padding: 1px; }' +
-						'#cke_tooltip ul { padding: 0pt; list-style-type: none; }');
-			}
-		});
+				{
+					lang: ['bg', 'cs', 'cy', 'da', 'de', 'el', 'en', 'eo', 'et', 'fa', 'fi', 'fr', 'gu', 'he', 'hr', 'it', 'nb', 'nl', 'no', 'pl', 'tr', 'ug', 'uk', 'vi', 'zh-cn'],
+					init: function(editor)
+					{
+						editor._.showDialogDefinitionTooltips = 1;
+					},
+					onLoad: function()
+					{
+						CKEDITOR.document.appendStyleText(CKEDITOR.config.devtools_styles ||
+								'#cke_tooltip { padding: 5px; border: 2px solid #333; background: #ffffff }' +
+								'#cke_tooltip h2 { font-size: 1.1em; border-bottom: 1px solid; margin: 0; padding: 1px; }' +
+								'#cke_tooltip ul { padding: 0pt; list-style-type: none; }');
+					}
+				});
 
 (function()
 {
@@ -33,7 +33,7 @@
 				'<li><strong>' + lang.dialogName + '</strong> : ' + dialog.getName() + '</li>' +
 				'<li><strong>' + lang.tabName + '</strong> : ' + tabName + '</li>';
 
-		if (element)
+		if(element)
 			str += '<li><strong>' + lang.elementId + '</strong> : ' + element.id + '</li>';
 
 		str += '<li><strong>' + lang.elementType + '</strong> : ' + link + '</li>';
@@ -50,7 +50,7 @@
 		tooltip.show();
 
 		// Translate coordinate for RTL.
-		if (editor.lang.dir == 'rtl')
+		if(editor.lang.dir == 'rtl')
 		{
 			var viewPaneSize = CKEDITOR.document.getWindow().getViewPaneSize();
 			styles.right = (viewPaneSize.width - pos.x - el.getSize('width')) + 'px';
@@ -71,9 +71,9 @@
 	CKEDITOR.on('dialogDefinition', function(evt)
 	{
 		var editor = evt.editor;
-		if (editor._.showDialogDefinitionTooltips)
+		if(editor._.showDialogDefinitionTooltips)
 		{
-			if (!tooltip)
+			if(!tooltip)
 			{
 				tooltip = CKEDITOR.dom.element.createFromHtml('<div id="cke_tooltip" tabindex="-1" style="position: absolute"></div>', CKEDITOR.document);
 				tooltip.hide();
@@ -108,11 +108,11 @@
 
 				dialog.foreach(function(obj)
 				{
-					if (obj.type in {hbox: 1, vbox: 1})
+					if(obj.type in {hbox: 1, vbox: 1})
 						return;
 
 					var el = obj.getElement();
-					if (el)
+					if(el)
 					{
 						el.on('mouseover', function()
 						{

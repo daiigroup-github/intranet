@@ -60,13 +60,13 @@ class RInstaller extends CApplicationComponent
 		// Make sure the application is configured
 		// to use a valid authorization manager.
 		$authManager = Yii::app()->getAuthManager();
-		if (($authManager instanceof RDbAuthManager) === false)
+		if(($authManager instanceof RDbAuthManager) === false)
 			throw new CException(Rights::t('install', 'Application authorization manager must extend the RDbAuthManager class.'));
 
 		// Make sure the application is configured
 		// to use a valid web user.
 		$user = Yii::app()->getUser();
-		if (($user instanceof RWebUser) === false)
+		if(($user instanceof RWebUser) === false)
 			throw new CException(Rights::t('install', 'Application web user must extend the RWebUser class.'));
 
 		$this->_authManager = $authManager;
@@ -91,10 +91,10 @@ class RInstaller extends CApplicationComponent
 
 		// Correct the table names.
 		$schema = strtr($schema, array(
-			'AuthItem' => $itemTable,
-			'AuthItemChild' => $itemChildTable,
-			'AuthAssignment' => $assignmentTable,
-			'Rights' => $rightsTable,
+			'AuthItem'=>$itemTable,
+			'AuthItemChild'=>$itemChildTable,
+			'AuthAssignment'=>$assignmentTable,
+			'Rights'=>$rightsTable,
 		));
 
 		// Convert the schema into an array of sql queries.
@@ -106,7 +106,7 @@ class RInstaller extends CApplicationComponent
 		try
 		{
 			// Execute each query in the schema.
-			foreach ($schema as $sql)
+			foreach($schema as $sql)
 			{
 				$command = $this->db->createCommand($sql);
 				$command->execute();
@@ -114,7 +114,7 @@ class RInstaller extends CApplicationComponent
 
 			// Insert the necessary roles.
 			$roles = $this->getUniqueRoles();
-			foreach ($roles as $roleName)
+			foreach($roles as $roleName)
 			{
 				$sql = "INSERT INTO {$itemTable} (name, type, data)
                     VALUES (:name, :type, :data)";
@@ -138,7 +138,7 @@ class RInstaller extends CApplicationComponent
 			$txn->commit();
 			return self::ERROR_NONE;
 		}
-		catch (CDbException $e)
+		catch(CDbException $e)
 		{
 			// Something went wrong, rollback.
 			$txn->rollback();
@@ -166,7 +166,7 @@ class RInstaller extends CApplicationComponent
 	 */
 	public function getInstalled()
 	{
-		if ($this->_installed !== null)
+		if($this->_installed !== null)
 		{
 			return $this->_installed;
 		}
@@ -181,7 +181,7 @@ class RInstaller extends CApplicationComponent
 
 			try
 			{
-				foreach ($schema as $sql)
+				foreach($schema as $sql)
 				{
 					$command = $this->db->createCommand($sql);
 					$command->queryScalar();
@@ -189,7 +189,7 @@ class RInstaller extends CApplicationComponent
 
 				$installed = true;
 			}
-			catch (CDbException $e)
+			catch(CDbException $e)
 			{
 				$installed = false;
 			}

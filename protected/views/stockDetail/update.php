@@ -1,23 +1,23 @@
 <?php
 $this->breadcrumbs = array(
-	'Stock Details' => array(
+	'Stock Details'=>array(
 		'index'),
-	$model->stockDetailId => array(
+	$model->stockDetailId=>array(
 		'view',
-		'id' => $model->stockDetailId),
+		'id'=>$model->stockDetailId),
 	'Update',
 );
 
 $this->menu = array(
 	//array('label'=>'List StockDetail', 'url'=>array('index')),
 	array(
-		'label' => 'Create StockDetail',
-		'url' => array(
+		'label'=>'Create StockDetail',
+		'url'=>array(
 			'create')),
 	//array('label'=>'View StockDetail', 'url'=>array('view', 'id'=>$model->stockDetailId)),
 	array(
-		'label' => 'Manage StockDetail',
-		'url' => array(
+		'label'=>'Manage StockDetail',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -26,5 +26,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

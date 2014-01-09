@@ -9,7 +9,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->projectId), array(
 		'view',
-		'id' => $data->projectId));
+		'id'=>$data->projectId));
 	?>
 	<br />
 

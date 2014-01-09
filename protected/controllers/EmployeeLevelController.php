@@ -29,31 +29,31 @@ class EmployeeLevelController extends Controller
 		return array(
 			array(
 				'allow', // allow all users to perform 'index' and 'view' actions
-				'actions' => array(
+				'actions'=>array(
 					'index',
 					'view'),
-				'users' => array(
+				'users'=>array(
 					'*'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions' => array(
+				'actions'=>array(
 					'create',
 					'update'),
-				'users' => array(
+				'users'=>array(
 					'@'),
 			),
 			array(
 				'allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions' => array(
+				'actions'=>array(
 					'admin',
 					'delete'),
-				'users' => array(
+				'users'=>array(
 					'admin'),
 			),
 			array(
 				'deny', // deny all users
-				'users' => array(
+				'users'=>array(
 					'*'),
 			),
 		);
@@ -66,7 +66,7 @@ class EmployeeLevelController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -81,16 +81,16 @@ class EmployeeLevelController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['EmployeeLevel']))
+		if(isset($_POST['EmployeeLevel']))
 		{
 			$model->attributes = $_POST['EmployeeLevel'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'admin'));
 		}
 
 		$this->render('create', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -106,16 +106,16 @@ class EmployeeLevelController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['EmployeeLevel']))
+		if(isset($_POST['EmployeeLevel']))
 		{
 			$model->attributes = $_POST['EmployeeLevel'];
-			if ($model->save())
+			if($model->save())
 				$this->redirect(array(
 					'admin'));
 		}
 
 		$this->render('update', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -126,13 +126,13 @@ class EmployeeLevelController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -147,7 +147,7 @@ class EmployeeLevelController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('EmployeeLevel');
 		$this->render('index', array(
-			'dataProvider' => $dataProvider,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -158,11 +158,11 @@ class EmployeeLevelController extends Controller
 	{
 		$model = new EmployeeLevel('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['EmployeeLevel']))
+		if(isset($_GET['EmployeeLevel']))
 			$model->attributes = $_GET['EmployeeLevel'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -174,7 +174,7 @@ class EmployeeLevelController extends Controller
 	public function loadModel($id)
 	{
 		$model = EmployeeLevel::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -185,7 +185,7 @@ class EmployeeLevelController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'employee-level-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'employee-level-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

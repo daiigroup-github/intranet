@@ -37,10 +37,10 @@ class RController extends CController
 	 */
 	public function filterRights($filterChain)
 	{
-		if (Yii::app()->user->name != "Guest")
+		if(Yii::app()->user->name != "Guest")
 		{
 			$employee = Employee::model()->findByPk(Yii::app()->user->id);
-			if (!$employee->isFirstLogin)
+			if(!$employee->isFirstLogin)
 			{
 				$this->redirect(Yii::app()->createUrl('/changePassword'));
 			}
@@ -66,11 +66,11 @@ class RController extends CController
 	 */
 	public function accessDenied($message = null)
 	{
-		if ($message === null)
+		if($message === null)
 			$message = Rights::t('core', 'ไม่สามารถเข้าถึงส่วนนี้ได้.'); //$message = Rights::t('core', 'You are not authorized to perform this action.');
 
 		$user = Yii::app()->getUser();
-		if ($user->isGuest === true)
+		if($user->isGuest === true)
 			$user->loginRequired();
 		else
 			throw new CHttpException(403, $message);

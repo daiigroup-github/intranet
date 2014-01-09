@@ -1,20 +1,20 @@
 <?php
 $formAdd = $this->beginWidget('CActiveForm', array(
-	'id' => 'exam-question-form',
-	'enableAjaxValidation' => true,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'),
+	'id'=>'exam-question-form',
+	'enableAjaxValidation'=>true,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'),
 	));
 ?>
 <p class="note">
 	Fields with <span class="required">*</span> are required.
 	<?php
 	echo $formAdd->errorSummary($examQuestionModel, '', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
-</p>	
+</p>
 
-<fieldset>	
+<fieldset>
 	<!-- Question -->
 	<section id="question">
 		<div class="well">
@@ -23,7 +23,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 				<div class="controls">
 					<?php
 					echo $formAdd->textField($examQuestionModel, 'title', array(
-						'class' => 'input-block-level'));
+						'class'=>'input-block-level'));
 					?>
 				</div>
 			</div>
@@ -32,7 +32,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 				<div class="controls">
 					<?php
 					echo $formAdd->textArea($examQuestionModel, 'description', array(
-						'class' => 'input-block-level'));
+						'class'=>'input-block-level'));
 					?>
 				</div>
 			</div>
@@ -41,10 +41,10 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 				<div class="controls">
 					<?php
 					echo $formAdd->dropDownList($examQuestionModel, 'questionType', ExamQuestion::model()->getAllExamQuestionType(), array(
-						'class' => 'input-block-level',
-						'prompt' => 'Select Type',
-						'onchange' => 'selectQuestionType();',
-						'id' => 'questionType'
+						'class'=>'input-block-level',
+						'prompt'=>'Select Type',
+						'onchange'=>'selectQuestionType();',
+						'id'=>'questionType'
 					));
 					?>
 				</div>
@@ -64,7 +64,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 					<div class="controls">
 						<?php
 						echo $formAdd->textField($examChoiceModel, 'title[]', array(
-							'class' => 'input-block-level'));
+							'class'=>'input-block-level'));
 						?>
 					</div>
 				</div>
@@ -73,7 +73,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 					<div class="controls">
 						<?php
 						echo $formAdd->textField($examChoiceModel, 'value[]', array(
-							'class' => 'input-block-level'));
+							'class'=>'input-block-level'));
 						?>
 					</div>
 				</div>
@@ -86,7 +86,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 					<div class="controls">
 						<?php
 						echo $formAdd->textField($examQuestionModel, 'startRange', array(
-							'class' => 'input-block-level'));
+							'class'=>'input-block-level'));
 						?>
 					</div>
 				</div>
@@ -95,7 +95,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 					<div class="controls">
 						<?php
 						echo $formAdd->textField($examQuestionModel, 'stopRange', array(
-							'class' => 'input-block-level'));
+							'class'=>'input-block-level'));
 						?>
 					</div>
 				</div>
@@ -112,7 +112,7 @@ $formAdd = $this->beginWidget('CActiveForm', array(
 		$("#choice").css('display', 'block');
 		var questionType = $("#questionType").val();
 
-		if (questionType == 1)
+		if(questionType == 1)
 		{
 			$("#multi-choice").css('display', 'block');
 			$("#copylink").css('display', 'inline');

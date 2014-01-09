@@ -29,33 +29,33 @@ class RightsFilter extends CFilter
 		$action = $filterChain->action;
 
 		// Check if the action should be allowed
-		if ($this->_allowedActions !== '*' && in_array($action->id, $this->_allowedActions) === false)
+		if($this->_allowedActions !== '*' && in_array($action->id, $this->_allowedActions) === false)
 		{
 			// Initialize the authorization item as an empty string
 			$authItem = '';
 
 			// Append the module id to the authorization item name
 			// in case the controller called belongs to a module
-			if (($module = $controller->getModule()) !== null)
+			if(($module = $controller->getModule()) !== null)
 				$authItem .= ucfirst($module->id) . '.';
 
 			// Append the controller id to the authorization item name
 			$authItem .= ucfirst($controller->id);
 
 			// Check if user has access to the controller
-			if ($user->checkAccess($authItem . '.*') !== true)
+			if($user->checkAccess($authItem . '.*') !== true)
 			{
 				// Append the action id to the authorization item name
 				$authItem .= '.' . ucfirst($action->id);
 
 				// Check if the user has access to the controller action
-				if ($user->checkAccess($authItem) !== true)
+				if($user->checkAccess($authItem) !== true)
 					$allow = false;
 			}
 		}
 
 		// User is not allowed access, deny access
-		if ($allow === false)
+		if($allow === false)
 		{
 			$controller->accessDenied();
 			return false;
@@ -72,7 +72,7 @@ class RightsFilter extends CFilter
 	 */
 	public function setAllowedActions($allowedActions)
 	{
-		if ($allowedActions === '*')
+		if($allowedActions === '*')
 			$this->_allowedActions = $allowedActions;
 		else
 			$this->_allowedActions = preg_split('/[\s,]+/', $allowedActions, -1, PREG_SPLIT_NO_EMPTY);

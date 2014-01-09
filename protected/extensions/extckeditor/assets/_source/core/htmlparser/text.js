@@ -43,7 +43,7 @@
 						{
 							var text = this.value;
 
-							if (filter && !(text = filter.onText(text, this)))
+							if(filter && !(text = filter.onText(text, this)))
 								return;
 
 							writer.text(text);

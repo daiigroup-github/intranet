@@ -15,12 +15,12 @@
 			 */
 			CKEDITOR.dom.rangeList = function(ranges)
 			{
-				if (ranges instanceof CKEDITOR.dom.rangeList)
+				if(ranges instanceof CKEDITOR.dom.rangeList)
 					return ranges;
 
-				if (!ranges)
+				if(!ranges)
 					ranges = [];
-				else if (ranges instanceof CKEDITOR.dom.range)
+				else if(ranges instanceof CKEDITOR.dom.range)
 					ranges = [ranges];
 
 				return CKEDITOR.tools.extend(ranges, mixins);
@@ -41,8 +41,8 @@
 									var rangeList = this,
 											bookmark = CKEDITOR.dom.walker.bookmark(),
 											guard = function(node) {
-										return !(node.is && node.is('tr'));
-									},
+												return !(node.is && node.is('tr'));
+											},
 											bookmarks = [],
 											current;
 
@@ -61,23 +61,23 @@
 											var range = rangeList[ current ];
 
 											// Multiple ranges might be mangled by each other.
-											if (range && rangeList.length > 1)
+											if(range && rangeList.length > 1)
 											{
 												// Bookmarking all other ranges on the first iteration,
 												// the range correctness after it doesn't matter since we'll
 												// restore them before the next iteration.
-												if (!current)
+												if(!current)
 												{
 													// Make sure bookmark correctness by reverse processing.
 													for (var i = rangeList.length - 1; i >= 0; i--)
 														bookmarks.unshift(rangeList[ i ].createBookmark(true));
 												}
 
-												if (mergeConsequent)
+												if(mergeConsequent)
 												{
 													// Figure out how many ranges should be merged.
 													var mergeCount = 0;
-													while (rangeList[ current + mergeCount + 1 ])
+													while(rangeList[ current + mergeCount + 1 ])
 													{
 														var doc = range.document,
 																found = 0,
@@ -86,14 +86,14 @@
 																next;
 
 														// Check subsequent range.
-														while (1)
+														while(1)
 														{
 															next = left.getNextSourceNode(false);
-															if (!right.equals(next))
+															if(!right.equals(next))
 															{
 																// This could be yet another bookmark or
 																// walking across block boundaries.
-																if (bookmark(next) || (next.type == CKEDITOR.NODE_ELEMENT && next.isBlockBoundary()))
+																if(bookmark(next) || (next.type == CKEDITOR.NODE_ELEMENT && next.isBlockBoundary()))
 																{
 																	left = next;
 																	continue;
@@ -105,7 +105,7 @@
 															break;
 														}
 
-														if (!found)
+														if(!found)
 															break;
 
 														mergeCount++;
@@ -115,7 +115,7 @@
 												range.moveToBookmark(bookmarks.shift());
 
 												// Merge ranges finally after moving to bookmarks.
-												while (mergeCount--)
+												while(mergeCount--)
 												{
 													next = rangeList[ ++current ];
 													next.moveToBookmark(bookmarks.shift());
@@ -180,14 +180,14 @@
 								dirtyRange.document.getById(bookmark.endNode)
 								: bookmark.endNode;
 
-						if (container.equals(bookmarkStart.getPrevious()))
+						if(container.equals(bookmarkStart.getPrevious()))
 						{
 							dirtyRange.startOffset = dirtyRange.startOffset
 									- container.getLength()
 									- bookmarkEnd.getPrevious().getLength();
 							container = bookmarkEnd.getNext();
 						}
-						else if (container.equals(bookmarkEnd.getPrevious()))
+						else if(container.equals(bookmarkEnd.getPrevious()))
 						{
 							dirtyRange.startOffset = dirtyRange.startOffset - container.getLength();
 							container = bookmarkEnd.getNext();

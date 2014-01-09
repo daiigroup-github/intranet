@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Memos' => array(
+	'Memos'=>array(
 		'index'),
 	$model->memoId,
 );
@@ -22,22 +22,22 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data' => $model,
-	'attributes' => array(
+	'data'=>$model,
+	'attributes'=>array(
 		//'subject',
 		array(
-			'name' => 'detail',
-			'type' => 'raw',
-			'htmlOptions' => array(
-				'style' => 'text-align:center;width:10%'),
-			'value' => $model->detail,
+			'name'=>'detail',
+			'type'=>'raw',
+			'htmlOptions'=>array(
+				'style'=>'text-align:center;width:10%'),
+			'value'=>$model->detail,
 		),
 		array(
-			'name' => 'image',
-			'type' => 'raw',
-			'htmlOptions' => array(
-				'style' => 'text-align:center;display:none'),
-			'value' => showImage($model->image, $model->subject),
+			'name'=>'image',
+			'type'=>'raw',
+			'htmlOptions'=>array(
+				'style'=>'text-align:center;display:none'),
+			'value'=>showImage($model->image, $model->subject),
 		),
 		'createBy',
 		'createDateTime',
@@ -46,11 +46,11 @@ $this->widget('zii.widgets.CDetailView', array(
 ?>
 
 <?php
-if (isset($memoToList))
+if(isset($memoToList))
 {
 	echo "<h3>รายการพนักงานที่ส่งถึง</h3>";
 	echo "<hr>";
-	foreach ($memoToList as $memoTo)
+	foreach($memoToList as $memoTo)
 	{
 		echo "<div class='row'>";
 		echo "<div class='span2'>";
@@ -59,7 +59,7 @@ if (isset($memoToList))
 		echo $memoTo->employee->fnTh . " " . $memoTo->employee->lnTh . " (" . $memoTo->employee->username . ")";
 		echo "</div>";
 		echo "<div class='span2'>";
-		if ($memoTo->status == 1)
+		if($memoTo->status == 1)
 		{
 			echo "ยังไม่อ่าน";
 		}
@@ -68,7 +68,7 @@ if (isset($memoToList))
 			echo "อ่านแล้ว";
 		}
 		echo "</div>";
-		if (isset($memoTo->updateDateTime))
+		if(isset($memoTo->updateDateTime))
 		{
 			echo "<div class='span2'>";
 			echo "เมื่อ " . $memoTo->updateDateTime;
@@ -82,9 +82,9 @@ if (isset($memoToList))
 function showImage($imageUrl, $title)
 {
 	$image = "";
-	if (!empty($imageUrl) && isset($imageUrl))
+	if(!empty($imageUrl) && isset($imageUrl))
 	{
-		if (strpos($imageUrl, ".pdf"))
+		if(strpos($imageUrl, ".pdf"))
 		{
 			$image = "<p><a class='pdf' Title='$title' href='$imageUrl'>ดูไฟล์แนบ</a></p>";
 		}

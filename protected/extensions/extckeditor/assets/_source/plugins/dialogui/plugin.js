@@ -79,14 +79,14 @@
 			{
 				onChange: function(dialog, func)
 				{
-					if (!this._.domOnChangeRegistered)
+					if(!this._.domOnChangeRegistered)
 					{
 						dialog.on('load', function()
 						{
 							this.getInputElement().on('change', function()
 							{
 								// Make sure 'onchange' doesn't get fired after dialog closed. (#5719)
-								if (!dialog.parts.dialog.isVisible())
+								if(!dialog.parts.dialog.isVisible())
 									return;
 
 								this.fire('change', {value: this.getValue()});
@@ -100,15 +100,15 @@
 			}, true),
 			eventRegex = /^on([A-Z]\w+)/,
 			cleanInnerDefinition = function(def)
-	{
-		// An inner UI element should not have the parent's type, title or events.
-		for (var i in def)
-		{
-			if (eventRegex.test(i) || i == 'title' || i == 'type')
-				delete def[i];
-		}
-		return def;
-	};
+			{
+				// An inner UI element should not have the parent's type, title or events.
+				for (var i in def)
+				{
+					if(eventRegex.test(i) || i == 'title' || i == 'type')
+						delete def[i];
+				}
+				return def;
+			};
 
 	CKEDITOR.tools.extend(CKEDITOR.ui.dialog,
 			/** @lends CKEDITOR.ui.dialog */
@@ -139,7 +139,7 @@
 						 */
 						labeledElement: function(dialog, elementDefinition, htmlList, contentHtml)
 						{
-							if (arguments.length < 4)
+							if(arguments.length < 4)
 								return;
 
 							var _ = initPrivateObject.call(this, elementDefinition);
@@ -150,7 +150,7 @@
 							{
 								var html = [],
 										requiredClass = elementDefinition.required ? ' cke_required' : '';
-								if (elementDefinition.labelLayout != 'horizontal')
+								if(elementDefinition.labelLayout != 'horizontal')
 									html.push('<label class="cke_dialog_ui_labeled_label' + requiredClass + '" ',
 											' id="' + _.labelId + '"',
 											' for="' + _.inputId + '"',
@@ -214,7 +214,7 @@
 						 */
 						textInput: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							initPrivateObject.call(this, elementDefinition);
@@ -223,16 +223,16 @@
 							i;
 
 							// Set the validator, if any.
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							// Set the max length and size.
-							if (elementDefinition.maxLength)
+							if(elementDefinition.maxLength)
 								attributes.maxlength = elementDefinition.maxLength;
-							if (elementDefinition.size)
+							if(elementDefinition.size)
 								attributes.size = elementDefinition.size;
 
-							if (elementDefinition.inputStyle)
+							if(elementDefinition.inputStyle)
 								attributes.style = elementDefinition.inputStyle;
 
 							// If user presses Enter in a text box, it implies clicking OK for the dialog.
@@ -241,14 +241,14 @@
 							{
 								me.getInputElement().on('keydown', function(evt)
 								{
-									if (evt.data.getKeystroke() == 13)
+									if(evt.data.getKeystroke() == 13)
 										keyPressedOnMe = true;
 								});
 
 								// Lower the priority this 'keyup' since 'ok' will close the dialog.(#3749)
 								me.getInputElement().on('keyup', function(evt)
 								{
-									if (evt.data.getKeystroke() == 13 && keyPressedOnMe)
+									if(evt.data.getKeystroke() == 13 && keyPressedOnMe)
 									{
 										dialog.getButton('ok') && setTimeout(function()
 										{
@@ -266,7 +266,7 @@
 								// container's width, so need to wrap it inside a <div>.
 								var html = ['<div class="cke_dialog_ui_input_', elementDefinition.type, '" role="presentation"'];
 
-								if (elementDefinition.width)
+								if(elementDefinition.width)
 									html.push('style="width:' + elementDefinition.width + '" ');
 
 								html.push('><input ');
@@ -302,7 +302,7 @@
 						 */
 						textarea: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							initPrivateObject.call(this, elementDefinition);
@@ -310,14 +310,14 @@
 									domId = this._.inputId = CKEDITOR.tools.getNextId() + '_textarea',
 									attributes = {};
 
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							// Generates the essential attributes for the textarea tag.
 							attributes.rows = elementDefinition.rows || 5;
 							attributes.cols = elementDefinition.cols || 20;
 
-							if (typeof elementDefinition.inputStyle != 'undefined')
+							if(typeof elementDefinition.inputStyle != 'undefined')
 								attributes.style = elementDefinition.inputStyle;
 
 
@@ -354,12 +354,12 @@
 						 */
 						checkbox: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							var _ = initPrivateObject.call(this, elementDefinition, {'default': !!elementDefinition[ 'default' ]});
 
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							/** @ignore */
@@ -374,10 +374,10 @@
 								var labelId = CKEDITOR.tools.getNextId() + '_label';
 								var attributes = {'class': 'cke_dialog_ui_checkbox_input', type: 'checkbox', 'aria-labelledby': labelId};
 								cleanInnerDefinition(myDefinition);
-								if (elementDefinition[ 'default' ])
+								if(elementDefinition[ 'default' ])
 									attributes.checked = 'checked';
 
-								if (typeof myDefinition.inputStyle != 'undefined')
+								if(typeof myDefinition.inputStyle != 'undefined')
 									myDefinition.style = myDefinition.inputStyle;
 
 								_.checkbox = new CKEDITOR.ui.dialog.uiElement(dialog, myDefinition, html, 'input', null, attributes);
@@ -411,13 +411,13 @@
 						 */
 						radio: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							initPrivateObject.call(this, elementDefinition);
-							if (!this._['default'])
+							if(!this._['default'])
 								this._['default'] = this._.initValue = elementDefinition.items[0][1];
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.valdiate;
 							var children = [], me = this;
 
@@ -435,15 +435,15 @@
 											inputId = CKEDITOR.tools.getNextId() + '_radio_input',
 											labelId = inputId + '_label',
 											inputDefinition = CKEDITOR.tools.extend({}, elementDefinition,
-											{
-												id: inputId,
-												title: null,
-												type: null
-											}, true),
+													{
+														id: inputId,
+														title: null,
+														type: null
+													}, true),
 											labelDefinition = CKEDITOR.tools.extend({}, inputDefinition,
-											{
-												title: title
-											}, true),
+													{
+														title: title
+													}, true),
 											inputAttributes =
 											{
 												type: 'radio',
@@ -453,12 +453,12 @@
 												'aria-labelledby': labelId
 											},
 									inputHtml = [];
-									if (me._['default'] == value)
+									if(me._['default'] == value)
 										inputAttributes.checked = 'checked';
 									cleanInnerDefinition(inputDefinition);
 									cleanInnerDefinition(labelDefinition);
 
-									if (typeof inputDefinition.inputStyle != 'undefined')
+									if(typeof inputDefinition.inputStyle != 'undefined')
 										inputDefinition.style = inputDefinition.inputStyle;
 
 									children.push(new CKEDITOR.ui.dialog.uiElement(dialog, inputDefinition, inputHtml, 'input', null, inputAttributes));
@@ -493,10 +493,10 @@
 						 */
 						button: function(dialog, elementDefinition, htmlList)
 						{
-							if (!arguments.length)
+							if(!arguments.length)
 								return;
 
-							if (typeof elementDefinition == 'function')
+							if(typeof elementDefinition == 'function')
 								elementDefinition = elementDefinition(dialog.getParentEditor());
 
 							initPrivateObject.call(this, elementDefinition, {disabled: elementDefinition.disabled || false});
@@ -521,7 +521,7 @@
 
 									element.on('keydown', function(evt)
 									{
-										if (evt.data.getKeystroke() in {32: 1})
+										if(evt.data.getKeystroke() in {32: 1})
 										{
 											me.click();
 											evt.data.preventDefault();
@@ -582,12 +582,12 @@
 						 */
 						select: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							var _ = initPrivateObject.call(this, elementDefinition);
 
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							_.inputId = CKEDITOR.tools.getNextId() + '_select';
@@ -603,9 +603,9 @@
 										attributes = {'id': _.inputId, 'class': 'cke_dialog_ui_input_select', 'aria-labelledby': this._.labelId};
 
 								// Add multiple and size attributes from element definition.
-								if (elementDefinition.size != undefined)
+								if(elementDefinition.size != undefined)
 									attributes.size = elementDefinition.size;
-								if (elementDefinition.multiple != undefined)
+								if(elementDefinition.multiple != undefined)
 									attributes.multiple = elementDefinition.multiple;
 
 								cleanInnerDefinition(myDefinition);
@@ -616,7 +616,7 @@
 											CKEDITOR.tools.htmlEncode(item[0]));
 								}
 
-								if (typeof myDefinition.inputStyle != 'undefined')
+								if(typeof myDefinition.inputStyle != 'undefined')
 									myDefinition.style = myDefinition.inputStyle;
 
 								_.select = new CKEDITOR.ui.dialog.uiElement(dialog, myDefinition, html, 'select', null, attributes, innerHTML.join(''));
@@ -642,15 +642,15 @@
 						 */
 						file: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
-							if (elementDefinition['default'] === undefined)
+							if(elementDefinition['default'] === undefined)
 								elementDefinition['default'] = '';
 
 							var _ = CKEDITOR.tools.extend(initPrivateObject.call(this, elementDefinition), {definition: elementDefinition, buttons: []});
 
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							/** @ignore */
@@ -717,13 +717,13 @@
 						 */
 						fileButton: function(dialog, elementDefinition, htmlList)
 						{
-							if (arguments.length < 3)
+							if(arguments.length < 3)
 								return;
 
 							var _ = initPrivateObject.call(this, elementDefinition),
 									me = this;
 
-							if (elementDefinition.validate)
+							if(elementDefinition.validate)
 								this.validate = elementDefinition.validate;
 
 							var myDefinition = CKEDITOR.tools.extend({}, elementDefinition);
@@ -732,7 +732,7 @@
 							myDefinition.onClick = function(evt)
 							{
 								var target = elementDefinition[ 'for' ];		// [ pageId, elementId ]
-								if (!onClick || onClick.call(this, evt) !== false)
+								if(!onClick || onClick.call(this, evt) !== false)
 								{
 									dialog.getContentElement(target[0], target[1]).submit();
 									this.disable();
@@ -767,7 +767,7 @@
 							 */
 							return function(dialog, elementDefinition, htmlList)
 							{
-								if (arguments.length < 3)
+								if(arguments.length < 3)
 									return;
 
 								var myHtmlList = [],
@@ -776,12 +776,12 @@
 										myMatch, theirMatch;
 
 								// If the HTML input doesn't contain any tags at the beginning, add a <span> tag around it.
-								if (theirHtml.charAt(0) != '<')
+								if(theirHtml.charAt(0) != '<')
 									theirHtml = '<span>' + theirHtml + '</span>';
 
 								// Look for focus function in definition.
 								var focus = elementDefinition.focus;
-								if (focus)
+								if(focus)
 								{
 									var oldFocus = this.focus;
 									this.focus = function()
@@ -790,7 +790,7 @@
 										typeof focus == 'function' && focus.call(this);
 										this.fire('focus');
 									};
-									if (elementDefinition.isFocusable)
+									if(elementDefinition.isFocusable)
 									{
 										var oldIsFocusable = this.isFocusable;
 										this.isFocusable = oldIsFocusable;
@@ -805,7 +805,7 @@
 								myMatch = myHtml.match(myHtmlRe);
 								theirMatch = theirHtml.match(theirHtmlRe) || ['', '', ''];
 
-								if (emptyTagRe.test(theirMatch[1]))
+								if(emptyTagRe.test(theirMatch[1]))
 								{
 									theirMatch[1] = theirMatch[1].slice(0, -1);
 									theirMatch[2] = '/' + theirMatch[2];
@@ -869,7 +869,7 @@
 								setLabel: function(label)
 								{
 									var node = CKEDITOR.document.getById(this._.labelId);
-									if (node.getChildCount() < 1)
+									if(node.getChildCount() < 1)
 										(new CKEDITOR.dom.text(label, CKEDITOR.document)).appendTo(node);
 									else
 										node.getChild(0).$.nodeValue = label;
@@ -883,7 +883,7 @@
 								getLabel: function()
 								{
 									var node = CKEDITOR.document.getById(this._.labelId);
-									if (!node || node.getChildCount() < 1)
+									if(!node || node.getChildCount() < 1)
 										return '';
 									else
 										return node.getChild(0).getText();
@@ -907,7 +907,7 @@
 										 */
 										click: function()
 										{
-											if (!this._.disabled)
+											if(!this._.disabled)
 												return this.fire('click', {dialog: this._.dialog});
 											this.getElement().$.blur();
 											return false;
@@ -1019,7 +1019,7 @@
 													setTimeout(function()
 													{
 														var e = me.getInputElement();
-														if (e)
+														if(e)
 														{
 															e.$.focus();
 															e.$.select();
@@ -1081,9 +1081,9 @@
 																	selectElement = this.getInputElement().$;
 															option.$.text = label;
 															option.$.value = (value === undefined || value === null) ? label : value;
-															if (index === undefined || index === null)
+															if(index === undefined || index === null)
 															{
-																if (CKEDITOR.env.ie)
+																if(CKEDITOR.env.ie)
 																	selectElement.add(option.$);
 																else
 																	selectElement.add(option.$, null);
@@ -1111,7 +1111,7 @@
 														clear: function()
 														{
 															var selectElement = this.getInputElement().$;
-															while (selectElement.length > 0)
+															while(selectElement.length > 0)
 																selectElement.remove(0);
 															return this;
 														},
@@ -1168,7 +1168,7 @@
 																		{
 																			onChange: function(dialog, func)
 																			{
-																				if (!CKEDITOR.env.ie)
+																				if(!CKEDITOR.env.ie)
 																					return commonEventProcessors.onChange.apply(this, arguments);
 																				else
 																				{
@@ -1178,7 +1178,7 @@
 																						element.on('propertychange', function(evt)
 																						{
 																							evt = evt.data.$;
-																							if (evt.propertyName == 'checked')
+																							if(evt.propertyName == 'checked')
 																								this.fire('change', {value: element.$.checked});
 																						}, this);
 																					}, this);
@@ -1217,7 +1217,7 @@
 																			var children = this._.children;
 																			for (var i = 0; i < children.length; i++)
 																			{
-																				if (children[i].getElement().$.checked)
+																				if(children[i].getElement().$.checked)
 																					return children[i].getValue();
 																			}
 																			return null;
@@ -1233,7 +1233,7 @@
 																			var children = this._.children, i;
 																			for (i = 0; i < children.length; i++)
 																			{
-																				if (children[i].getElement().$.checked)
+																				if(children[i].getElement().$.checked)
 																				{
 																					children[i].getElement().focus();
 																					return;
@@ -1251,7 +1251,7 @@
 																				{
 																					onChange: function(dialog, func)
 																					{
-																						if (!CKEDITOR.env.ie)
+																						if(!CKEDITOR.env.ie)
 																							return commonEventProcessors.onChange.apply(this, arguments);
 																						else
 																						{
@@ -1264,7 +1264,7 @@
 																									element.on('propertychange', function(evt)
 																									{
 																										evt = evt.data.$;
-																										if (evt.propertyName == 'checked' && this.$.checked)
+																										if(evt.propertyName == 'checked' && this.$.checked)
 																											me.fire('change', {value: this.getAttribute('value')});
 																									});
 																								}
@@ -1331,10 +1331,10 @@
 
 																					for (var i in definition)
 																					{
-																						if (!(match = i.match(regex)))
+																						if(!(match = i.match(regex)))
 																							continue;
 
-																						if (this.eventProcessors[i])
+																						if(this.eventProcessors[i])
 																							this.eventProcessors[i].call(this, this._.dialog, definition[i]);
 																						else
 																							registerDomEvent(this, this._.dialog, match[1].toLowerCase(), definition[i]);
@@ -1362,7 +1362,7 @@
 
 																					// The callback function for the iframe, but we must call tools.addFunction only once
 																					// so we store the function number in this.formLoadedNumber
-																					if (!callNumber)
+																					if(!callNumber)
 																					{
 																						callNumber = this.formLoadedNumber = CKEDITOR.tools.addFunction(
 																								function()
@@ -1390,11 +1390,11 @@
 																						frameDocument.$.open();
 
 																						// Support for custom document.domain in IE.
-																						if (CKEDITOR.env.isCustomDomain())
+																						if(CKEDITOR.env.isCustomDomain())
 																							frameDocument.$.domain = document.domain;
 
 																						var size = '';
-																						if (elementDefinition.size)
+																						if(elementDefinition.size)
 																							size = elementDefinition.size - (CKEDITOR.env.ie ? 7 : 0);	// "Browse" button is bigger in IE.
 
 																						frameDocument.$.write(['<html dir="' + langDir + '" lang="' + langCode + '"><head><title></title></head><body style="margin: 0; overflow: hidden; background: transparent;">',
@@ -1418,7 +1418,7 @@
 																					}
 
 																					// #3465: Wait for the browser to finish rendering the dialog first.
-																					if (CKEDITOR.env.gecko)
+																					if(CKEDITOR.env.gecko)
 																						setTimeout(generateFormField, 500);
 																					else
 																						generateFormField();
@@ -1450,7 +1450,7 @@
 																								// If this method is called several times (I'm not sure about how this can happen but the default
 																								// onChange processor includes this protection)
 																								// In order to reapply to the new element, the property is deleted at the beggining of the registerEvents method
-																								if (!this._.domOnChangeRegistered)
+																								if(!this._.domOnChangeRegistered)
 																								{
 																									// By listening for the formLoaded event, this handler will get reapplied when a new
 																									// form is created

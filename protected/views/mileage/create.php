@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Mileages' => array(
+	'Mileages'=>array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Mileage',
-		'url' => array(
+		'label'=>'List Mileage',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Manage Mileage',
-		'url' => array(
+		'label'=>'Manage Mileage',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

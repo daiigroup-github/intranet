@@ -51,7 +51,7 @@ class WorkflowLog extends CActiveRecord
 			array(
 				'workflowLogId, documentId, workflowStateId, employeeId, groupId, createDateTime , remarks',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -63,11 +63,11 @@ class WorkflowLog extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee' => array(
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				'employeeId'),
-			'workflowState' => array(
+			'workflowState'=>array(
 				self::BELONGS_TO,
 				'WorkflowState',
 				'workflowStateId'),
@@ -80,13 +80,13 @@ class WorkflowLog extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowLogId' => 'Workflow Log',
-			'documentId' => 'เอกสาร',
-			'workflowStateId' => 'Workflow State',
-			'employeeId' => 'พนักงาน',
-			'groupId' => 'กลุ่ม',
-			'createDateTime' => 'วันเวลาสร้าง',
-			'remarks' => 'เหตุผล'
+			'workflowLogId'=>'Workflow Log',
+			'documentId'=>'เอกสาร',
+			'workflowStateId'=>'Workflow State',
+			'employeeId'=>'พนักงาน',
+			'groupId'=>'กลุ่ม',
+			'createDateTime'=>'วันเวลาสร้าง',
+			'remarks'=>'เหตุผล'
 		);
 	}
 
@@ -109,7 +109,7 @@ class WorkflowLog extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -124,9 +124,9 @@ class WorkflowLog extends CActiveRecord
 		  return $model; */
 		$criteria->compare('documentId', $documentId);
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.workflowLogId DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.workflowLogId DESC',
 			),
 		));
 	}
@@ -138,10 +138,10 @@ class WorkflowLog extends CActiveRecord
 		$criteria->join = "JOIN workflow_state ws ON ws.workflowStateId = t.workflowStateId ";
 		$criteria->condition = "t.documentId =:documentId AND ws.currentState <> 0 ";
 		$criteria->params = array(
-			":documentId" => $documentId);
+			":documentId"=>$documentId);
 
 		$result = $this->findAll($criteria);
-		if (count($result) > 0)
+		if(count($result) > 0)
 		{
 			return false;
 		}
@@ -155,7 +155,7 @@ class WorkflowLog extends CActiveRecord
 	{
 		$this->isNewRecord = true;
 
-		if (Yii::app() instanceof CWebApplication)
+		if(Yii::app() instanceof CWebApplication)
 			$employeeId = ($employeeId) ? $employeeId : Yii::app()->user->id;
 
 		$this->documentId = $documentId;
@@ -188,4 +188,3 @@ class WorkflowLog extends CActiveRecord
 	}
 
 }
-

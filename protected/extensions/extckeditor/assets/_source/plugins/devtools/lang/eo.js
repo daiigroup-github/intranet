@@ -4,13 +4,13 @@
  */
 
 		CKEDITOR.plugins.setLang('devtools', 'eo',
-		{
-			devTools:
-					{
-						title: 'Informo pri la elemento',
-						dialogName: 'Nomo de la dialogfenestro',
-						tabName: 'Langetnomo',
-						elementId: 'ID de la elemento',
-						elementType: 'Tipo de la elemento'
-					}
-		});
+				{
+					devTools:
+							{
+								title: 'Informo pri la elemento',
+								dialogName: 'Nomo de la dialogfenestro',
+								tabName: 'Langetnomo',
+								elementId: 'ID de la elemento',
+								elementType: 'Tipo de la elemento'
+							}
+				});

@@ -37,17 +37,17 @@ $this->pageHeader = 'ขอรหัสผ่านใหม่';
 </style>
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'login-form',
-	'enableClientValidation' => true,
-	'clientOptions' => array(
-		'validateOnSubmit' => true,),
-	'htmlOptions' => array(
-		'class' => 'form-signin'),));
+	'id'=>'login-form',
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,),
+	'htmlOptions'=>array(
+		'class'=>'form-signin'),));
 ?>
 
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class' => 'alert alert-error'));
+	'class'=>'alert alert-error'));
 ?>
 
 <p class="alert alert-error">
@@ -56,15 +56,15 @@ echo $form->errorSummary($model, 'Please fix the following input errors', '', ar
 
 <?php
 echo $form->textField($model, 'username', array(
-	'placeholder' => 'Username',
-	'class' => 'input-block-level'));
+	'placeholder'=>'Username',
+	'class'=>'input-block-level'));
 ?>
 
 <p class="help-block">ตัวอย่าง psd , kpu</p>
 
 <?php
 echo CHtml::submitButton('ขอรหัสผ่านใหม่', array(
-	'class' => 'btn btn-info',));
+	'class'=>'btn btn-info',));
 ?>
 
 <?php $this->endWidget(); ?>

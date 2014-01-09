@@ -20,7 +20,7 @@ class RWebUser extends CWebUser
 		parent::afterLogin($fromCookie);
 
 		// Mark the user as a superuser if necessary.
-		if (Rights::getAuthorizer()->isSuperuser($this->getId()) === true)
+		if(Rights::getAuthorizer()->isSuperuser($this->getId()) === true)
 			$this->isSuperuser = true;
 	}
 
@@ -71,16 +71,16 @@ class RWebUser extends CWebUser
 	}
 
 	/**
-	 * Returns the URL that the user should be redirected to 
+	 * Returns the URL that the user should be redirected to
 	 * after updating an authorization item.
 	 * @param string $defaultUrl the default return URL in case it was not set previously. If this is null,
 	 * the application entry URL will be considered as the default return URL.
-	 * @return string the URL that the user should be redirected to 
+	 * @return string the URL that the user should be redirected to
 	 * after updating an authorization item.
 	 */
 	public function getRightsReturnUrl($defaultUrl = null)
 	{
-		if (($returnUrl = $this->getState('Rights_returnUrl')) !== null)
+		if(($returnUrl = $this->getState('Rights_returnUrl')) !== null)
 			$this->returnUrl = null;
 
 		return $returnUrl !== null ? CHtml::normalizeUrl($returnUrl) : CHtml::normalizeUrl($defaultUrl);

@@ -1,7 +1,7 @@
 <?php
 /* @var $this ExaminationController */
 
-$this->breadcrumbs=array(
+$this->breadcrumbs = array(
 	'Examination',
 );
 

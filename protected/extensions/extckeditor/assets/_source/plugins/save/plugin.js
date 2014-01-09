@@ -17,18 +17,18 @@
 								{
 									var $form = editor.element.$.form;
 
-									if ($form)
+									if($form)
 									{
 										try
 										{
 											$form.submit();
 										}
-										catch (e)
+										catch(e)
 										{
 											// If there's a button named "submit" then the form.submit
 											// function is masked and can't be called in IE/FF, so we
 											// call the click() method of that button.
-											if ($form.submit.click)
+											if($form.submit.click)
 												$form.submit.click();
 										}
 									}

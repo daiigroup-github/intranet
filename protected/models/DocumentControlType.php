@@ -42,13 +42,13 @@ class DocumentControlType extends CActiveRecord
 			array(
 				'documentControlTypeName',
 				'length',
-				'max' => 100),
+				'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentControlTypeId, documentControlTypeName',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -69,8 +69,8 @@ class DocumentControlType extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentControlTypeId' => 'Document Control Type',
-			'documentControlTypeName' => 'ประเภทของฟิลด์',
+			'documentControlTypeId'=>'Document Control Type',
+			'documentControlTypeName'=>'ประเภทของฟิลด์',
 		);
 	}
 
@@ -89,7 +89,7 @@ class DocumentControlType extends CActiveRecord
 		$criteria->compare('documentControlTypeName', $this->documentControlTypeName, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -98,9 +98,9 @@ class DocumentControlType extends CActiveRecord
 		$models = DocumentControlType::model()->findAll();
 
 		$w = array(
-			'' => 'Choose..');
+			''=>'Choose..');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$w[$model->documentControlTypeId] = $model->documentControlTypeName;
 		}

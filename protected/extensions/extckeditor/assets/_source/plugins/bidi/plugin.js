@@ -23,7 +23,7 @@
 				var editor = evt.editor,
 						path = evt.data.path;
 
-				if (editor.readOnly)
+				if(editor.readOnly)
 					return;
 
 				var useComputedState = editor.config.useComputedState,
@@ -32,19 +32,19 @@
 				useComputedState = useComputedState === undefined || useComputedState;
 
 				// We can use computedState provided by the browser or traverse parents manually.
-				if (!useComputedState)
+				if(!useComputedState)
 					selectedElement = getElementForDirection(path.lastElement);
 
 				selectedElement = selectedElement || path.block || path.blockLimit;
 
 				// If we're having BODY here, user probably done CTRL+A, let's try to get the enclosed node, if any.
-				if (selectedElement.is('body'))
+				if(selectedElement.is('body'))
 				{
 					var enclosedNode = editor.getSelection().getRanges()[ 0 ].getEnclosedNode();
 					enclosedNode && enclosedNode.type == CKEDITOR.NODE_ELEMENT && (selectedElement = enclosedNode);
 				}
 
-				if (!selectedElement)
+				if(!selectedElement)
 					return;
 
 				var selectionDir = useComputedState ?
@@ -69,10 +69,10 @@
 			 */
 			function getElementForDirection(node)
 			{
-				while (node && !(node.getName() in allGuardElements || node.is('body')))
+				while(node && !(node.getName() in allGuardElements || node.is('body')))
 				{
 					var parent = node.getParent();
-					if (!parent)
+					if(!parent)
 						break;
 
 					node = parent;
@@ -83,7 +83,7 @@
 
 			function switchDir(element, dir, editor, database)
 			{
-				if (element.isReadOnly())
+				if(element.isReadOnly())
 					return;
 
 				// Mark this element as processed by switchDir.
@@ -91,9 +91,9 @@
 
 				// Check whether one of the ancestors has already been styled.
 				var parent = element;
-				while ((parent = parent.getParent()) && !parent.is('body'))
+				while((parent = parent.getParent()) && !parent.is('body'))
 				{
-					if (parent.getCustomData('bidi_processed'))
+					if(parent.getCustomData('bidi_processed'))
 					{
 						// Ancestor style must dominate.
 						element.removeStyle('direction');
@@ -108,7 +108,7 @@
 						: element.getStyle('direction') || element.hasAttribute('dir');
 
 				// Stop if direction is same as present.
-				if (elementDir == dir)
+				if(elementDir == dir)
 					return;
 
 				// Clear direction on this element.
@@ -116,10 +116,10 @@
 
 				// Do the second check when computed state is ON, to check
 				// if we need to apply explicit direction on this element.
-				if (useComputedState)
+				if(useComputedState)
 				{
 					element.removeAttribute('dir');
-					if (dir != element.getComputedStyle('direction'))
+					if(dir != element.getComputedStyle('direction'))
 						element.setAttribute('dir', dir);
 				}
 				else
@@ -140,11 +140,11 @@
 						CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS
 						: CKEDITOR.ENLARGE_BLOCK_CONTENTS);
 
-				if (range.checkBoundaryOfElement(ancestor, CKEDITOR.START)
+				if(range.checkBoundaryOfElement(ancestor, CKEDITOR.START)
 						&& range.checkBoundaryOfElement(ancestor, CKEDITOR.END))
 				{
 					var parent;
-					while (ancestor && ancestor.type == CKEDITOR.NODE_ELEMENT
+					while(ancestor && ancestor.type == CKEDITOR.NODE_ELEMENT
 							&& (parent = ancestor.getParent())
 							&& parent.getChildCount() == 1
 							&& !(ancestor.getName() in elements))
@@ -164,7 +164,7 @@
 							enterMode = editor.config.enterMode,
 							ranges = selection.getRanges();
 
-					if (ranges && ranges.length)
+					if(ranges && ranges.length)
 					{
 						var database = {};
 
@@ -175,13 +175,13 @@
 								range,
 								i = 0;
 
-						while ((range = rangeIterator.getNextRange(1)))
+						while((range = rangeIterator.getNextRange(1)))
 						{
 							// Apply do directly selected elements from guardElements.
 							var selectedElement = range.getEnclosedNode();
 
 							// If this is not our element of interest, apply to fully selected elements from guardElements.
-							if (!selectedElement || selectedElement
+							if(!selectedElement || selectedElement
 									&& !(selectedElement.type == CKEDITOR.NODE_ELEMENT && selectedElement.getName() in directSelectionGuardElements)
 									)
 								selectedElement = getFullySelected(range, guardElements, enterMode);
@@ -202,20 +202,20 @@
 								return !!(node.type == CKEDITOR.NODE_ELEMENT
 										&& node.getName() in guardElements
 										&& !(node.getName() == (enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')
-										&& node.getParent().type == CKEDITOR.NODE_ELEMENT
-										&& node.getParent().getName() == 'blockquote')
+												&& node.getParent().type == CKEDITOR.NODE_ELEMENT
+												&& node.getParent().getName() == 'blockquote')
 										// Element must be fully included in the range as well. (#6485).
 										&& node.getPosition(start) & CKEDITOR.POSITION_FOLLOWING
 										&& ((node.getPosition(end) & CKEDITOR.POSITION_PRECEDING + CKEDITOR.POSITION_CONTAINS) == CKEDITOR.POSITION_PRECEDING));
 							};
 
-							while ((block = walker.next()))
+							while((block = walker.next()))
 								switchDir(block, dir, editor, database);
 
 							iterator = range.createIterator();
 							iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 
-							while ((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
+							while((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
 								switchDir(block, dir, editor, database);
 						}
 
@@ -274,9 +274,9 @@
 			function isOffline(el)
 			{
 				var html = el.getDocument().getBody().getParent();
-				while (el)
+				while(el)
 				{
-					if (el.equals(html))
+					if(el.equals(html))
 						return false;
 					el = el.getParent();
 				}
@@ -290,15 +290,15 @@
 
 				return function(name, val)
 				{
-					if (!this.getDocument().equals(CKEDITOR.document))
+					if(!this.getDocument().equals(CKEDITOR.document))
 					{
 						var orgDir;
-						if ((name == (isAttribute || isRemoveAttribute ? 'dir' : 'direction') ||
+						if((name == (isAttribute || isRemoveAttribute ? 'dir' : 'direction') ||
 								name == 'style' && (isRemoveAttribute || dirStyleRegexp.test(val))) && !isOffline(this))
 						{
 							orgDir = this.getDirection(1);
 							var retval = org.apply(this, arguments);
-							if (orgDir != this.getDirection(1))
+							if(orgDir != this.getDirection(1))
 							{
 								this.getDocument().fire('dirChanged', this);
 								return retval;

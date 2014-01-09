@@ -22,7 +22,7 @@
  * The followings are the available model relations:
  * @property Document[] $documents
  * @property DocumentTypeAssign[] $documentTypeAssigns
- * @property integer companyDivisionId 
+ * @property integer companyDivisionId
  */
 class DocumentType extends CActiveRecord
 {
@@ -61,37 +61,37 @@ class DocumentType extends CActiveRecord
 			array(
 				'status, hasItems, inMobile, companyDivisionId',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'documentTypeName',
 				'length',
-				'max' => 500),
+				'max'=>500),
 			array(
 				'customAction',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			array(
 				'documentTypeDescription',
 				'length',
-				'max' => 3000),
+				'max'=>3000),
 			array(
 				'documentCodePrefix',
 				'length',
-				'max' => 5),
+				'max'=>5),
 			array(
 				'workflowGroupId, employeeId, employeeGroupId,groupId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'itemTable, transactionTable, customView',
 				'length',
-				'max' => 200),
+				'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentTypeId, documentTypeName, documentTypeDescription, documentCodePrefix, status, workflowGroupId, employeeId, employeeGroupId, hasItems, itemTable, transactionTable, customView, customAction, companyDivisionId',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -103,16 +103,16 @@ class DocumentType extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documents' => array(
+			'documents'=>array(
 				self::HAS_MANY,
 				'Document',
 				'documentTypeId'),
 			//'documentTypeAssigns' => array(self::HAS_MANY, 'DocumentTypeAssign', 'documentTypeId'),
-			'documentTemplate' => array(
+			'documentTemplate'=>array(
 				self::HAS_MANY,
 				'DocumentTemplate',
 				'documentTypeId'),
-			'workflowGroup' => array(
+			'workflowGroup'=>array(
 				self::BELONGS_TO,
 				'WorkflowGroup',
 				'workflowGroupId'),
@@ -125,22 +125,22 @@ class DocumentType extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentTypeId' => 'Document Type',
-			'documentTypeName' => 'ชื่อประเภทเอกสาร',
-			'documentTypeDescription' => 'รายละเอียด',
-			'documentCodePrefix' => 'รหัสนำหน้า เอกสาร',
-			'status' => 'สถานะ',
-			'workflowGroupId' => 'กลุ่มของ Workflow',
-			'employeeId' => 'พนักงาน',
-			'employeeGroupId' => 'กลุ่มของพนักงาน',
-			'hasItems' => 'Has Items',
-			'itemTable' => 'Item Table',
-			'transactionTable' => 'Transaction Table',
-			'inMobile' => 'In Mobile',
-			'groupId' => 'กลุ่มของพนักงาน',
-			'customView' => 'customView',
-			'customAction' => 'customAction',
-			'companyDivisionId' => 'เอกสารของแผนก',
+			'documentTypeId'=>'Document Type',
+			'documentTypeName'=>'ชื่อประเภทเอกสาร',
+			'documentTypeDescription'=>'รายละเอียด',
+			'documentCodePrefix'=>'รหัสนำหน้า เอกสาร',
+			'status'=>'สถานะ',
+			'workflowGroupId'=>'กลุ่มของ Workflow',
+			'employeeId'=>'พนักงาน',
+			'employeeGroupId'=>'กลุ่มของพนักงาน',
+			'hasItems'=>'Has Items',
+			'itemTable'=>'Item Table',
+			'transactionTable'=>'Transaction Table',
+			'inMobile'=>'In Mobile',
+			'groupId'=>'กลุ่มของพนักงาน',
+			'customView'=>'customView',
+			'customAction'=>'customAction',
+			'companyDivisionId'=>'เอกสารของแผนก',
 		);
 	}
 
@@ -172,9 +172,9 @@ class DocumentType extends CActiveRecord
 		$criteria->compare('customAction', $this->customAction, true);
 		$criteria->compare('customAction', $this->companyDivisionId, true);
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'pagination' => array(
-				'pageSize' => 20
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>20
 			),
 		));
 	}
@@ -188,7 +188,7 @@ class DocumentType extends CActiveRecord
 		//$criteria->join = "LEFT JOIN group g on t.groupId = g.group_id ";
 		$criteria->join = "LEFT JOIN group_member gm on t.groupId = gm.groupId ";
 		$criteria->compare('documentTypeName', $this->documentTypeName, true);
-		if (isset($companyDivisionId))
+		if(isset($companyDivisionId))
 		{
 			$criteria->compare('t.companyDivisionId', $companyDivisionId);
 		}
@@ -200,9 +200,9 @@ class DocumentType extends CActiveRecord
 		$criteria->compare("gm.employeeId", $employeeId);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'pagination' => array(
-				'pageSize' => 10
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>10
 			),
 		));
 	}
@@ -217,14 +217,14 @@ class DocumentType extends CActiveRecord
 		  $criteria->compare('workflowGroupId',$this->workflowGroupId,true); */
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
 	public function getDocumentTypeByid($documentTypeId)
 	{
 		$pas = array(
-			':documentTypeId' => $documentTypeId);
+			':documentTypeId'=>$documentTypeId);
 		$criteria = $this->getCommandBuilder()->createCriteria('documentTypeId=:documentTypeId', $pas);
 		return $this->query($criteria);
 	}
@@ -254,7 +254,7 @@ class DocumentType extends CActiveRecord
 
 		$w = array(
 			);
-		foreach ($this->findAll($criteria) as $item)
+		foreach($this->findAll($criteria) as $item)
 		{
 			$w[$item->documentTypeId] = $item->documentTypeName;
 		}

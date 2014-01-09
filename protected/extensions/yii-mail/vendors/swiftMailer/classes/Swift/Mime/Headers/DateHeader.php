@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -87,7 +86,7 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
 	 */
 	public function setTimestamp($timestamp)
 	{
-		if (!is_null($timestamp))
+		if(!is_null($timestamp))
 		{
 			$timestamp = (int) $timestamp;
 		}
@@ -104,9 +103,9 @@ class Swift_Mime_Headers_DateHeader extends Swift_Mime_Headers_AbstractHeader
 	 */
 	public function getFieldBody()
 	{
-		if (!$this->getCachedValue())
+		if(!$this->getCachedValue())
 		{
-			if (isset($this->_timestamp))
+			if(isset($this->_timestamp))
 			{
 				$this->setCachedValue(date('r', $this->_timestamp));
 			}

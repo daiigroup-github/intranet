@@ -47,12 +47,12 @@ class AssignmentController extends RController
 		return array(
 			array(
 				'allow', // Allow superusers to access Rights
-				'actions' => array(
+				'actions'=>array(
 					'view',
 					'user',
 					'revoke',
 				),
-				'users' => $this->_authorizer->getSuperusers(),
+				'users'=>$this->_authorizer->getSuperusers(),
 			),
 			/* array('deny', // Deny all users
 			  'users'=>array('*'),
@@ -69,7 +69,7 @@ class AssignmentController extends RController
 		$module = Rights::module();
 		$userClass = new $module->userClass();
 		$usernameField = $module->userNameColumn;
-		if (isset($_REQUEST[$module->userClass]))
+		if(isset($_REQUEST[$module->userClass]))
 		{
 			$strSearch = $_REQUEST[$module->userClass][$module->userNameColumn];
 			$assignmentModel = new AssignmentForm();
@@ -84,9 +84,9 @@ class AssignmentController extends RController
 		//Tong
 		// Create a data provider for listing the users
 		$dataProvider = new RAssignmentDataProvider(array(
-			'criteria' => $criteria,
-			'pagination' => array(
-				'pageSize' => 100,
+			'criteria'=>$criteria,
+			'pagination'=>array(
+				'pageSize'=>100,
 			),
 		));
 
@@ -94,9 +94,9 @@ class AssignmentController extends RController
 
 		// Render the view
 		$this->render('view', array(
-			'dataProvider' => $dataProvider,
-			'model' => $userClass,
-			'usernameField' => $usernameField
+			'dataProvider'=>$dataProvider,
+			'model'=>$userClass,
+			'usernameField'=>$usernameField
 		));
 	}
 
@@ -115,16 +115,16 @@ class AssignmentController extends RController
 
 		// Make sure we have items to be selected
 		$assignSelectOptions = Rights::getAuthItemSelectOptions(null, $assignments);
-		if ($assignSelectOptions !== array(
+		if($assignSelectOptions !== array(
 			))
 		{
 			$formModel = new AssignmentForm();
 
 			// Form is submitted and data is valid, redirect the user
-			if (isset($_POST['AssignmentForm']) === true)
+			if(isset($_POST['AssignmentForm']) === true)
 			{
 				$formModel->attributes = $_POST['AssignmentForm'];
-				if ($formModel->validate() === true)
+				if($formModel->validate() === true)
 				{
 					// Update and redirect
 					$this->_authorizer->authManager->assign($formModel->itemname, $model->getId());
@@ -132,12 +132,12 @@ class AssignmentController extends RController
 					$item = $this->_authorizer->attachAuthItemBehavior($item);
 
 					Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', 'Permission :name assigned.', array(
-							':name' => $item->getNameText()))
+							':name'=>$item->getNameText()))
 					);
 
 					$this->redirect(array(
 						'assignment/user',
-						'id' => $model->getId()));
+						'id'=>$model->getId()));
 				}
 			}
 		}
@@ -149,15 +149,15 @@ class AssignmentController extends RController
 
 		// Create a data provider for listing the assignments
 		$dataProvider = new RAuthItemDataProvider('assignments', array(
-			'userId' => $model->getId(),
+			'userId'=>$model->getId(),
 		));
 
 		// Render the view
 		$this->render('user', array(
-			'model' => $model,
-			'dataProvider' => $dataProvider,
-			'formModel' => $formModel,
-			'assignSelectOptions' => $assignSelectOptions,
+			'model'=>$model,
+			'dataProvider'=>$dataProvider,
+			'formModel'=>$formModel,
+			'assignSelectOptions'=>$assignSelectOptions,
 		));
 	}
 
@@ -167,7 +167,7 @@ class AssignmentController extends RController
 	public function actionRevoke()
 	{
 		// We only allow deletion via POST request
-		if (Yii::app()->request->isPostRequest === true)
+		if(Yii::app()->request->isPostRequest === true)
 		{
 			$itemName = $this->getItemName();
 
@@ -178,14 +178,14 @@ class AssignmentController extends RController
 
 			// Set flash message for revoking the item
 			Yii::app()->user->setFlash($this->module->flashSuccessKey, Rights::t('core', 'Permission :name revoked.', array(
-					':name' => $item->getNameText()))
+					':name'=>$item->getNameText()))
 			);
 
 			// if AJAX request, we should not redirect the browser
-			if (isset($_POST['ajax']) === false)
+			if(isset($_POST['ajax']) === false)
 				$this->redirect(array(
 					'assignment/user',
-					'id' => $_GET['id']));
+					'id'=>$_GET['id']));
 		}
 		else
 		{

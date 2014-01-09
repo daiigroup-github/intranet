@@ -6,35 +6,35 @@ $this->pageHeader = 'Elearning Exam';
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'elearning-form',
-	'enableAjaxValidation' => false,
+	'id'=>'elearning-form',
+	'enableAjaxValidation'=>false,
 	'htmlOptions'=>array(
-		'enctype' => 'multipart/form-data',
+		'enctype'=>'multipart/form-data',
 		'class'=>'form-horizontal well'
-		),
-));
+	),
+	));
 ?>
 
 <div class="control-group">
 	<label class="control-label" for="inputEmail">วันสอบ</label>
 	<div class="controls">
 		<?php
-		$this->widget('zii.widgets.jui.CJuiDatePicker',array(
-		    //'name'=>'examDate',
-		    'model'=>$elearningExamModel,
-		    'attribute'=>'examDate',
-		    'options'=>array(
-			    'dateFormat' => 'yy-mm-dd',
-		        'showAnim'=>'fadeIn',//'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
-		        'changeMonth'=>true,
-		        'changeYear'=>true,
-		        'yearRange'=>'2013:2020',
-		        'minDate' => '2013-06-01',      // minimum date
-		        'maxDate' => '2099-12-31',      // maximum date
-		    ),
-		    'htmlOptions'=>array(
-		        'style'=>''
-		    ),
+		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
+			//'name'=>'examDate',
+			'model'=>$elearningExamModel,
+			'attribute'=>'examDate',
+			'options'=>array(
+				'dateFormat'=>'yy-mm-dd',
+				'showAnim'=>'fadeIn', //'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
+				'changeMonth'=>true,
+				'changeYear'=>true,
+				'yearRange'=>'2013:2020',
+				'minDate'=>'2013-06-01', // minimum date
+				'maxDate'=>'2099-12-31', // maximum date
+			),
+			'htmlOptions'=>array(
+				'style'=>''
+			),
 		));
 		?>
 	</div>
@@ -45,15 +45,15 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="controls">
 		<?php
 		$this->widget('ext.jqrelcopy.JQRelcopy', array(
-			'id' => 'copylink',
-			'removeText' => '<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
-			'removeHtmlOptions' => array(
-				'style' => 'color:red'),
-			'options' => array(
-				'copyClass' => 'newcopy',
-				'limit' => 0,
-				'clearInputs' => true,
-				'excludeSelector' => '.skipcopy',
+			'id'=>'copylink',
+			'removeText'=>'<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
+			'removeHtmlOptions'=>array(
+				'style'=>'color:red'),
+			'options'=>array(
+				'copyClass'=>'newcopy',
+				'limit'=>0,
+				'clearInputs'=>true,
+				'excludeSelector'=>'.skipcopy',
 			)
 		));
 		?>
@@ -67,7 +67,10 @@ $form = $this->beginWidget('CActiveForm', array(
 </div>
 
 <div class="form-actions">
-	<?php echo CHtml::submitButton('บันทึกข้อมูล', array('class'=>'btn btn-primary'));?>
+	<?php
+	echo CHtml::submitButton('บันทึกข้อมูล', array(
+		'class'=>'btn btn-primary'));
+	?>
 </div>
 
-<?php $this->endWidget();?>
+<?php $this->endWidget(); ?>

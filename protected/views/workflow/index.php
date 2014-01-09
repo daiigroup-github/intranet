@@ -27,27 +27,27 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'workflow-grid',
-	'dataProvider' => $model->search(),
+	'id'=>'workflow-grid',
+	'dataProvider'=>$model->search(),
 	//'filter'=>$model,
-	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
-	'columns' => array(
+	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'columns'=>array(
 		//'workflowId',
 		'workflowName',
 		array(
-			'name' => 'Employee',
-			'value' => 'CHtml::encode(($data->employee)?$data->employee->username:"")',
+			'name'=>'Employee',
+			'value'=>'CHtml::encode(($data->employee)?$data->employee->username:"")',
 		),
 		'groupId',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

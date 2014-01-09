@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -19,7 +18,7 @@
 
 /**
  * The EventDispatcher which handles the event dispatching layer.
- * 
+ *
  * @package Swift
  * @subpackage Events
  * @author Chris Corbyn
@@ -45,17 +44,17 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 	public function __construct()
 	{
 		$this->_eventMap = array(
-			'Swift_Events_CommandEvent' => 'Swift_Events_CommandListener',
-			'Swift_Events_ResponseEvent' => 'Swift_Events_ResponseListener',
-			'Swift_Events_SendEvent' => 'Swift_Events_SendListener',
-			'Swift_Events_TransportChangeEvent' => 'Swift_Events_TransportChangeListener',
-			'Swift_Events_TransportExceptionEvent' => 'Swift_Events_TransportExceptionListener'
+			'Swift_Events_CommandEvent'=>'Swift_Events_CommandListener',
+			'Swift_Events_ResponseEvent'=>'Swift_Events_ResponseListener',
+			'Swift_Events_SendEvent'=>'Swift_Events_SendListener',
+			'Swift_Events_TransportChangeEvent'=>'Swift_Events_TransportChangeListener',
+			'Swift_Events_TransportExceptionEvent'=>'Swift_Events_TransportExceptionListener'
 		);
 	}
 
 	/**
 	 * Create a new SendEvent for $source and $message.
-	 * 
+	 *
 	 * @param Swift_Transport $source
 	 * @param Swift_Mime_Message
 	 * @return Swift_Events_SendEvent
@@ -67,7 +66,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Create a new CommandEvent for $source and $command.
-	 * 
+	 *
 	 * @param Swift_Transport $source
 	 * @param string $command That will be executed
 	 * @param array $successCodes That are needed
@@ -81,7 +80,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Create a new ResponseEvent for $source and $response.
-	 * 
+	 *
 	 * @param Swift_Transport $source
 	 * @param string $response
 	 * @param boolean $valid If the response is valid
@@ -94,7 +93,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Create a new TransportChangeEvent for $source.
-	 * 
+	 *
 	 * @param Swift_Transport $source
 	 * @return Swift_Events_TransportChangeEvent
 	 */
@@ -105,7 +104,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Create a new TransportExceptionEvent for $source.
-	 * 
+	 *
 	 * @param Swift_Transport $source
 	 * @param Swift_TransportException $ex
 	 * @return Swift_Events_TransportExceptionEvent
@@ -117,15 +116,15 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Bind an event listener to this dispatcher.
-	 * 
+	 *
 	 * @param Swift_Events_EventListener $listener
 	 */
 	public function bindEventListener(Swift_Events_EventListener $listener)
 	{
-		foreach ($this->_listeners as $l)
+		foreach($this->_listeners as $l)
 		{
 			//Already loaded
-			if ($l === $listener)
+			if($l === $listener)
 			{
 				return;
 			}
@@ -135,7 +134,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 
 	/**
 	 * Dispatch the given Event to all suitable listeners.
-	 * 
+	 *
 	 * @param Swift_Events_EventObject $evt
 	 * @param string $target method
 	 */
@@ -153,9 +152,9 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 		$this->_bubbleQueue = array(
 			);
 		$evtClass = get_class($evt);
-		foreach ($this->_listeners as $listener)
+		foreach($this->_listeners as $listener)
 		{
-			if (array_key_exists($evtClass, $this->_eventMap) && ($listener instanceof $this->_eventMap[$evtClass]))
+			if(array_key_exists($evtClass, $this->_eventMap) && ($listener instanceof $this->_eventMap[$evtClass]))
 			{
 				$this->_bubbleQueue[] = $listener;
 			}
@@ -165,7 +164,7 @@ class Swift_Events_SimpleEventDispatcher implements Swift_Events_EventDispatcher
 	/** Bubble $evt up the stack calling $target() on each listener */
 	private function _bubble(Swift_Events_EventObject $evt, $target)
 	{
-		if (!$evt->bubbleCancelled() && $listener = array_shift($this->_bubbleQueue))
+		if(!$evt->bubbleCancelled() && $listener = array_shift($this->_bubbleQueue))
 		{
 			$listener->$target($evt);
 			$this->_bubble($evt, $target);

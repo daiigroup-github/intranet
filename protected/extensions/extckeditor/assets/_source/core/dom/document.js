@@ -17,9 +17,9 @@
 		 * var document = new CKEDITOR.dom.document( document );
 		 */
 		CKEDITOR.dom.document = function(domDocument)
-{
-	CKEDITOR.dom.domObject.call(this, domDocument);
-};
+		{
+			CKEDITOR.dom.domObject.call(this, domDocument);
+		};
 
 // PACKAGER_RENAME( CKEDITOR.dom.document )
 
@@ -36,7 +36,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 					 */
 					appendStyleSheet: function(cssFileUrl)
 					{
-						if (this.$.createStyleSheet)
+						if(this.$.createStyleSheet)
 							this.$.createStyleSheet(cssFileUrl);
 						else
 						{
@@ -53,7 +53,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 					},
 					appendStyleText: function(cssStyleText)
 					{
-						if (this.$.createStyleSheet)
+						if(this.$.createStyleSheet)
 						{
 							var styleSheet = this.$.createStyleSheet("");
 							styleSheet.cssText = cssStyleText;
@@ -69,12 +69,12 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 					{
 						var element = new CKEDITOR.dom.element(name, this);
 
-						if (attribsAndStyles)
+						if(attribsAndStyles)
 						{
-							if (attribsAndStyles.attributes)
+							if(attribsAndStyles.attributes)
 								element.setAttributes(attribsAndStyles.attributes);
 
-							if (attribsAndStyles.styles)
+							if(attribsAndStyles.styles)
 								element.setStyles(attribsAndStyles.styles);
 						}
 
@@ -109,7 +109,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 						{
 							var target = address[ i ];
 
-							if (!normalized)
+							if(!normalized)
 							{
 								$ = $.childNodes[ target ];
 								continue;
@@ -121,7 +121,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 							{
 								var candidate = $.childNodes[ j ];
 
-								if (normalized === true &&
+								if(normalized === true &&
 										candidate.nodeType == 3 &&
 										candidate.previousSibling &&
 										candidate.previousSibling.nodeType == 3)
@@ -131,7 +131,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 
 								currentIndex++;
 
-								if (currentIndex == target)
+								if(currentIndex == target)
 								{
 									$ = candidate;
 									break;
@@ -143,7 +143,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 					},
 					getElementsByTag: function(tagName, namespace)
 					{
-						if (!(CKEDITOR.env.ie && !(document.documentMode > 8)) && namespace)
+						if(!(CKEDITOR.env.ie && !(document.documentMode > 8)) && namespace)
 							tagName = namespace + ':' + tagName;
 						return new CKEDITOR.dom.nodeList(this.$.getElementsByTagName(tagName));
 					},
@@ -157,16 +157,16 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 					getHead: function()
 					{
 						var head = this.$.getElementsByTagName('head')[0];
-						if (!head)
+						if(!head)
 							head = this.getDocumentElement().append(new CKEDITOR.dom.element('head'), true);
 						else
 							head = new CKEDITOR.dom.element(head);
 
 						return (
 								this.getHead = function()
-						{
-							return head;
-						})();
+								{
+									return head;
+								})();
 					},
 					/**
 					 * Gets the &lt;body&gt; element for this document.
@@ -181,9 +181,9 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 
 						return (
 								this.getBody = function()
-						{
-							return body;
-						})();
+								{
+									return body;
+								})();
 					},
 					/**
 					 * Gets the DOM document element for this document.
@@ -195,9 +195,9 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 
 						return (
 								this.getDocumentElement = function()
-						{
-							return documentElement;
-						})();
+								{
+									return documentElement;
+								})();
 					},
 					/**
 					 * Gets the window object that holds this document.
@@ -209,9 +209,9 @@ CKEDITOR.tools.extend(CKEDITOR.dom.document.prototype,
 
 						return (
 								this.getWindow = function()
-						{
-							return win;
-						})();
+								{
+									return win;
+								})();
 					},
 					/**
 					 * Defines the document contents through document.write. Note that the

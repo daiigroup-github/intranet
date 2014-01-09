@@ -3,10 +3,10 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'employee-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'),
+	'id'=>'employee-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'),
 	));
 
 Yii::app()->clientScript->registerScript('birthDatePicker', "
@@ -54,7 +54,7 @@ Yii::app()->clientScript->registerScript('transferDatePicker', "
 	Fields with <span class="required">*</span> are required.
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	$form->error($model, 'prefix');
 	$form->error($model, 'gender');
 	$form->error($model, 'fnTh');
@@ -100,7 +100,7 @@ Yii::app()->clientScript->registerScript('transferDatePicker', "
 	</div>
 
 	<!--	<div class="control-group">
-			<label class="control-label"><?php //echo $form->labelEx($model,'nickName');            ?></label>
+			<label class="control-label"><?php //echo $form->labelEx($model,'nickName');                ?></label>
 			<div class="controls">
 	<?php //echo $form->textField($model,'nickName');  ?>
 			</div>
@@ -114,7 +114,7 @@ Yii::app()->clientScript->registerScript('transferDatePicker', "
 	</div>
 
 	<!--	<div class="control-group">
-			<label class="control-label"><?php //echo $form->labelEx($model,'mobile');            ?></label>
+			<label class="control-label"><?php //echo $form->labelEx($model,'mobile');                ?></label>
 			<div class="controls">
 	<?php //echo $form->textField($model,'mobile');  ?>
 			</div>
@@ -128,7 +128,7 @@ Yii::app()->clientScript->registerScript('transferDatePicker', "
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class' => 'btn btn-primary'));
+		'class'=>'btn btn-primary'));
 	?>
 </div>
 

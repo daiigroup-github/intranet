@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflow States' => array(
+	'Workflow States'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List WorkflowState',
-		'url' => array(
+		'label'=>'List WorkflowState',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create WorkflowState',
-		'url' => array(
+		'label'=>'Create WorkflowState',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'workflow-state-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'workflow-state-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'workflowStateId',
 		'workflowStateName',
 		'currentState',
@@ -62,7 +62,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'workflowStatusId',
 		'workflowGroupId',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

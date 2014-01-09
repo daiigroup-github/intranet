@@ -16,12 +16,12 @@
 				function moveOutOfCellGuard(node)
 				{
 					// Apply to the first cell only.
-					if (retval.length > 0)
+					if(retval.length > 0)
 						return;
 
 					// If we are exiting from the first </td>, then the td should definitely be
 					// included.
-					if (node.type == CKEDITOR.NODE_ELEMENT && cellNodeRegex.test(node.getName())
+					if(node.type == CKEDITOR.NODE_ELEMENT && cellNodeRegex.test(node.getName())
 							&& !node.getCustomData('selected_cell'))
 					{
 						CKEDITOR.dom.element.setMarker(database, node, 'selected_cell', true);
@@ -33,12 +33,12 @@
 				{
 					var range = ranges[ i ];
 
-					if (range.collapsed)
+					if(range.collapsed)
 					{
 						// Walker does not handle collapsed ranges yet - fall back to old API.
 						var startNode = range.getCommonAncestor();
 						var nearestCell = startNode.getAscendant('td', true) || startNode.getAscendant('th', true);
-						if (nearestCell)
+						if(nearestCell)
 							retval.push(nearestCell);
 					}
 					else
@@ -47,7 +47,7 @@
 						var node;
 						walker.guard = moveOutOfCellGuard;
 
-						while ((node = walker.next()))
+						while((node = walker.next()))
 						{
 							// If may be possible for us to have a range like this:
 							// <td>^1</td><td>^2</td>
@@ -57,7 +57,7 @@
 							// walked into its children.
 
 							var parent = node.getAscendant('td') || node.getAscendant('th');
-							if (parent && !parent.getCustomData('selected_cell'))
+							if(parent && !parent.getCustomData('selected_cell'))
 							{
 								CKEDITOR.dom.element.setMarker(database, parent, 'selected_cell', true);
 								retval.push(parent);
@@ -78,14 +78,14 @@
 						cell, focusedCell,
 						tr;
 
-				while ((cell = cellsToDelete[ i++ ]))
+				while((cell = cellsToDelete[ i++ ]))
 					CKEDITOR.dom.element.setMarker(database, cell, 'delete_cell', true);
 
 				// 1.first we check left or right side focusable cell row by row;
 				i = 0;
-				while ((cell = cellsToDelete[ i++ ]))
+				while((cell = cellsToDelete[ i++ ]))
 				{
-					if ((focusedCell = cell.getPrevious()) && !focusedCell.getCustomData('delete_cell')
+					if((focusedCell = cell.getPrevious()) && !focusedCell.getCustomData('delete_cell')
 							|| (focusedCell = cell.getNext()) && !focusedCell.getCustomData('delete_cell'))
 					{
 						CKEDITOR.dom.element.clearAllMarkers(database);
@@ -97,12 +97,12 @@
 
 				// 2. then we check the toppest row (outside the selection area square) focusable cell
 				tr = cellsToDelete[ 0 ].getParent();
-				if ((tr = tr.getPrevious()))
+				if((tr = tr.getPrevious()))
 					return tr.getLast();
 
 				// 3. last we check the lowerest  row focusable cell
 				tr = cellsToDelete[ last ].getParent();
-				if ((tr = tr.getNext()))
+				if((tr = tr.getNext()))
 					return tr.getChild(0);
 
 				return null;
@@ -132,7 +132,7 @@
 				{
 					var cell;
 					// Check whether there's a spanning row here, do not break it.
-					if (cloneRow[ i ].rowSpan > 1 && nextRow && cloneRow[ i ] == nextRow[ i ])
+					if(cloneRow[ i ].rowSpan > 1 && nextRow && cloneRow[ i ] == nextRow[ i ])
 					{
 						cell = cloneRow[ i ];
 						cell.rowSpan += 1;
@@ -156,7 +156,7 @@
 
 			function deleteRows(selectionOrRow)
 			{
-				if (selectionOrRow instanceof CKEDITOR.dom.selection)
+				if(selectionOrRow instanceof CKEDITOR.dom.selection)
 				{
 					var cells = getSelectedCells(selectionOrRow),
 							firstCell = cells[ 0 ],
@@ -179,7 +179,7 @@
 							var cell = new CKEDITOR.dom.element(mapRow[ j ]),
 									cellRowIndex = cell.getParent().$.rowIndex;
 
-							if (cell.$.rowSpan == 1)
+							if(cell.$.rowSpan == 1)
 								cell.remove();
 							// Row spanned cell.
 							else
@@ -187,7 +187,7 @@
 								// Span row of the cell, reduce spanning.
 								cell.$.rowSpan -= 1;
 								// Root row of the cell, root cell to next row.
-								if (cellRowIndex == i)
+								if(cellRowIndex == i)
 								{
 									var nextMapRow = map[ i + 1 ];
 									nextMapRow[ j - 1 ] ?
@@ -215,11 +215,11 @@
 
 					return cursorPosition;
 				}
-				else if (selectionOrRow instanceof CKEDITOR.dom.element)
+				else if(selectionOrRow instanceof CKEDITOR.dom.element)
 				{
 					table = selectionOrRow.getAscendant('table');
 
-					if (table.$.rows.length == 1)
+					if(table.$.rows.length == 1)
 						table.remove();
 					else
 						selectionOrRow.remove();
@@ -238,7 +238,7 @@
 				{
 					var mapCell = rowCells[ i ];
 					colIndex += isStart ? 1 : mapCell.colSpan;
-					if (mapCell == cell.$)
+					if(mapCell == cell.$)
 						break;
 				}
 
@@ -251,7 +251,7 @@
 				for (var i = 0; i < cells.length; i++)
 				{
 					var colIndex = getCellColIndex(cells[ i ], isStart);
-					if (isStart ? colIndex < retval : colIndex > retval)
+					if(isStart ? colIndex < retval : colIndex > retval)
 						retval = colIndex;
 				}
 				return retval;
@@ -282,7 +282,7 @@
 				{
 					var cell;
 					// Check whether there's a spanning column here, do not break it.
-					if (cloneCol[ i ].colSpan > 1
+					if(cloneCol[ i ].colSpan > 1
 							&& nextCol.length
 							&& nextCol[ i ] == cloneCol[ i ])
 					{
@@ -318,9 +318,9 @@
 				{
 					for (var j = 0, cols = map[ i ].length; j < cols; j++)
 					{
-						if (map[ i ][ j ] == firstCell.$)
+						if(map[ i ][ j ] == firstCell.$)
 							startColIndex = j;
-						if (map[ i ][ j ] == lastCell.$)
+						if(map[ i ][ j ] == lastCell.$)
 							endColIndex = j;
 					}
 				}
@@ -334,9 +334,9 @@
 								row = new CKEDITOR.dom.element(table.$.rows[ j ]),
 								cell = new CKEDITOR.dom.element(mapRow[ i ]);
 
-						if (cell.$)
+						if(cell.$)
 						{
-							if (cell.$.colSpan == 1)
+							if(cell.$.colSpan == 1)
 								cell.remove();
 							// Reduce the col spans.
 							else
@@ -344,7 +344,7 @@
 
 							j += cell.$.rowSpan - 1;
 
-							if (!row.$.cells.length)
+							if(!row.$.cells.length)
 								rowsToDelete.push(row);
 						}
 					}
@@ -359,7 +359,7 @@
 				var cursorPosition = new CKEDITOR.dom.element(firstRowCells[ startColIndex ] || (startColIndex ? firstRowCells[ startColIndex - 1 ] : table.$.parentNode));
 
 				// Delete table rows only if all columns are gone (do not remove empty row).
-				if (rowsToDelete.length == rows)
+				if(rowsToDelete.length == rows)
 					table.remove();
 
 				return cursorPosition;
@@ -380,14 +380,14 @@
 				cellIndexList.sort();
 				for (i = 1, length = cellIndexList.length; i < length; i++)
 				{
-					if (cellIndexList[ i ] - cellIndexList[ i - 1 ] > 1)
+					if(cellIndexList[ i ] - cellIndexList[ i - 1 ] > 1)
 					{
 						targetIndex = cellIndexList[ i - 1 ] + 1;
 						break;
 					}
 				}
 
-				if (!targetIndex)
+				if(!targetIndex)
 					targetIndex = cellIndexList[ 0 ] > 0 ? (cellIndexList[ 0 ] - 1)
 							: (cellIndexList[ cellIndexList.length - 1 ] + 1);
 
@@ -396,7 +396,7 @@
 				for (i = 0, length = rows.length; i < length; i++)
 				{
 					targetCell = rows[ i ].cells[ targetIndex ];
-					if (targetCell)
+					if(targetCell)
 						break;
 				}
 
@@ -408,15 +408,15 @@
 				var startElement = selection.getStartElement();
 				var cell = startElement.getAscendant('td', 1) || startElement.getAscendant('th', 1);
 
-				if (!cell)
+				if(!cell)
 					return;
 
 				// Create the new cell element to be added.
 				var newCell = cell.clone();
-				if (!CKEDITOR.env.ie)
+				if(!CKEDITOR.env.ie)
 					newCell.appendBogus();
 
-				if (insertBefore)
+				if(insertBefore)
 					newCell.insertBefore(cell);
 				else
 					newCell.insertAfter(cell);
@@ -424,7 +424,7 @@
 
 			function deleteCells(selectionOrCell)
 			{
-				if (selectionOrCell instanceof CKEDITOR.dom.selection)
+				if(selectionOrCell instanceof CKEDITOR.dom.selection)
 				{
 					var cellsToDelete = getSelectedCells(selectionOrCell);
 					var table = cellsToDelete[ 0 ] && cellsToDelete[ 0 ].getAscendant('table');
@@ -433,15 +433,15 @@
 					for (var i = cellsToDelete.length - 1; i >= 0; i--)
 						deleteCells(cellsToDelete[ i ]);
 
-					if (cellToFocus)
+					if(cellToFocus)
 						placeCursorInCell(cellToFocus, true);
-					else if (table)
+					else if(table)
 						table.remove();
 				}
-				else if (selectionOrCell instanceof CKEDITOR.dom.element)
+				else if(selectionOrCell instanceof CKEDITOR.dom.element)
 				{
 					var tr = selectionOrCell.getParent();
-					if (tr.getChildCount() == 1)
+					if(tr.getChildCount() == 1)
 						tr.remove();
 					else
 						selectionOrCell.remove();
@@ -459,7 +459,7 @@
 			function placeCursorInCell(cell, placeAtEnd)
 			{
 				var range = new CKEDITOR.dom.range(cell.getDocument());
-				if (!range[ 'moveToElementEdit' + (placeAtEnd ? 'End' : 'Start') ](cell))
+				if(!range[ 'moveToElementEdit' + (placeAtEnd ? 'End' : 'Start') ](cell))
 				{
 					range.selectNodeContents(cell);
 					range.collapse(placeAtEnd ? false : true);
@@ -470,14 +470,14 @@
 			function cellInRow(tableMap, rowIndex, cell)
 			{
 				var oRow = tableMap[ rowIndex ];
-				if (typeof cell == 'undefined')
+				if(typeof cell == 'undefined')
 					return oRow;
 
 				for (var c = 0; oRow && c < oRow.length; c++)
 				{
-					if (cell.is && oRow[c] == cell.$)
+					if(cell.is && oRow[c] == cell.$)
 						return c;
-					else if (c == cell)
+					else if(c == cell)
 						return new CKEDITOR.dom.element(oRow[ c ]);
 				}
 				return cell.is ? -1 : null;
@@ -492,7 +492,7 @@
 					oCol.push(row[ colIndex ]);
 
 					// Avoid adding duplicate cells.
-					if (row[ colIndex ].rowSpan > 1)
+					if(row[ colIndex ].rowSpan > 1)
 						r += row[ colIndex ].rowSpan - 1;
 				}
 				return oCol;
@@ -507,7 +507,7 @@
 				// 2. In solo mode while not exactly only one selected.
 				// 3. Cells distributed in different table groups (e.g. from both thead and tbody).
 				var commonAncestor;
-				if ((mergeDirection ? cells.length != 1 : cells.length < 2)
+				if((mergeDirection ? cells.length != 1 : cells.length < 2)
 						|| (commonAncestor = selection.getCommonAncestor())
 						&& commonAncestor.type == CKEDITOR.NODE_ELEMENT
 						&& commonAncestor.is('table'))
@@ -524,7 +524,7 @@
 						startRow = firstCell.getParent().$.rowIndex,
 						startColumn = cellInRow(map, startRow, firstCell);
 
-				if (mergeDirection)
+				if(mergeDirection)
 				{
 					var targetCell;
 					try
@@ -534,21 +534,21 @@
 
 						targetCell =
 								map[ mergeDirection == 'up' ?
-								(startRow - rowspan) :
-								mergeDirection == 'down' ? (startRow + rowspan) : startRow  ] [
+										(startRow - rowspan) :
+										mergeDirection == 'down' ? (startRow + rowspan) : startRow  ] [
 								mergeDirection == 'left' ?
 								(startColumn - colspan) :
 								mergeDirection == 'right' ? (startColumn + colspan) : startColumn ];
 
 					}
-					catch (er)
+					catch(er)
 					{
 						return false;
 					}
 
 					// 1. No cell could be merged.
 					// 2. Same cell actually.
-					if (!targetCell || firstCell.$ == targetCell)
+					if(!targetCell || firstCell.$ == targetCell)
 						return false;
 
 					// Sort in map order regardless of the DOM sequence.
@@ -582,19 +582,19 @@
 					totalColSpan = Math.max(totalColSpan, colIndex - startColumn + colSpan);
 					totalRowSpan = Math.max(totalRowSpan, rowIndex - startRow + rowSpan);
 
-					if (!isDetect)
+					if(!isDetect)
 					{
 						// Trim all cell fillers and check to remove empty cells.
-						if (trimCell(cell), cell.getChildren().count())
+						if(trimCell(cell), cell.getChildren().count())
 						{
 							// Merge vertically cells as two separated paragraphs.
-							if (rowIndex != lastRowIndex
+							if(rowIndex != lastRowIndex
 									&& cellFirstChild
 									&& !(cellFirstChild.isBlockBoundary
-									&& cellFirstChild.isBlockBoundary({br: 1})))
+											&& cellFirstChild.isBlockBoundary({br: 1})))
 							{
 								var last = frag.getLast(CKEDITOR.dom.walker.whitespaces(true));
-								if (last && !(last.is && last.is('br')))
+								if(last && !(last.is && last.is('br')))
 									frag.append('br');
 							}
 
@@ -605,19 +605,19 @@
 					lastRowIndex = rowIndex;
 				}
 
-				if (!isDetect)
+				if(!isDetect)
 				{
 					frag.moveChildren(firstCell);
 
-					if (!CKEDITOR.env.ie)
+					if(!CKEDITOR.env.ie)
 						firstCell.appendBogus();
 
-					if (totalColSpan >= mapWidth)
+					if(totalColSpan >= mapWidth)
 						firstCell.removeAttribute('rowSpan');
 					else
 						firstCell.$.rowSpan = totalRowSpan;
 
-					if (totalRowSpan >= mapHeight)
+					if(totalRowSpan >= mapHeight)
 						firstCell.removeAttribute('colSpan');
 					else
 						firstCell.$.colSpan = totalColSpan;
@@ -629,7 +629,7 @@
 					for (i = count - 1; i >= 0; i--)
 					{
 						var tailTr = trs.getItem(i);
-						if (!tailTr.$.cells.length)
+						if(!tailTr.$.cells.length)
 						{
 							tailTr.remove();
 							count++;
@@ -648,9 +648,9 @@
 			function verticalSplitCell(selection, isDetect)
 			{
 				var cells = getSelectedCells(selection);
-				if (cells.length > 1)
+				if(cells.length > 1)
 					return false;
-				else if (isDetect)
+				else if(isDetect)
 					return true;
 
 				var cell = cells[ 0 ],
@@ -665,7 +665,7 @@
 						newCellRowSpan,
 						newRowIndex;
 
-				if (rowSpan > 1)
+				if(rowSpan > 1)
 				{
 					newRowSpan = Math.ceil(rowSpan / 2);
 					newCellRowSpan = Math.floor(rowSpan / 2);
@@ -681,7 +681,7 @@
 					{
 						candidateCell = newCellRow[ c ];
 						// Catch first cell actually following the column.
-						if (candidateCell.parentNode == newCellTr.$
+						if(candidateCell.parentNode == newCellTr.$
 								&& c > colIndex)
 						{
 							newCell.insertBefore(new CKEDITOR.dom.element(candidateCell));
@@ -692,7 +692,7 @@
 					}
 
 					// The destination row is empty, append at will.
-					if (!candidateCell)
+					if(!candidateCell)
 						newCellTr.append(newCell, true);
 				}
 				else
@@ -708,14 +708,14 @@
 						cellsInSameRow[ i ].rowSpan++;
 				}
 
-				if (!CKEDITOR.env.ie)
+				if(!CKEDITOR.env.ie)
 					newCell.appendBogus();
 
 				cell.$.rowSpan = newRowSpan;
 				newCell.$.rowSpan = newCellRowSpan;
-				if (newRowSpan == 1)
+				if(newRowSpan == 1)
 					cell.removeAttribute('rowSpan');
-				if (newCellRowSpan == 1)
+				if(newCellRowSpan == 1)
 					newCell.removeAttribute('rowSpan');
 
 				return newCell;
@@ -724,9 +724,9 @@
 			function horizontalSplitCell(selection, isDetect)
 			{
 				var cells = getSelectedCells(selection);
-				if (cells.length > 1)
+				if(cells.length > 1)
 					return false;
-				else if (isDetect)
+				else if(isDetect)
 					return true;
 
 				var cell = cells[ 0 ],
@@ -740,7 +740,7 @@
 						newColSpan,
 						newCellColSpan;
 
-				if (colSpan > 1)
+				if(colSpan > 1)
 				{
 					newColSpan = Math.ceil(colSpan / 2);
 					newCellColSpan = Math.floor(colSpan / 2);
@@ -754,14 +754,14 @@
 				}
 				newCell = cell.clone();
 				newCell.insertAfter(cell);
-				if (!CKEDITOR.env.ie)
+				if(!CKEDITOR.env.ie)
 					newCell.appendBogus();
 
 				cell.$.colSpan = newColSpan;
 				newCell.$.colSpan = newCellColSpan;
-				if (newColSpan == 1)
+				if(newColSpan == 1)
 					cell.removeAttribute('colSpan');
-				if (newCellColSpan == 1)
+				if(newCellColSpan == 1)
 					newCell.removeAttribute('colSpan');
 
 				return newCell;
@@ -786,12 +786,12 @@
 													startElement = selection && selection.getStartElement(),
 													table = startElement && startElement.getAscendant('table', 1);
 
-											if (!table)
+											if(!table)
 												return;
 
 											// If the table's parent has only one child remove it as well (unless it's the body or a table cell) (#5416, #6289)
 											var parent = table.getParent();
-											if (parent.getChildCount() == 1 && !parent.is('body', 'td', 'th'))
+											if(parent.getChildCount() == 1 && !parent.is('body', 'td', 'th'))
 												table = parent;
 
 											var range = new CKEDITOR.dom.range(editor.document);
@@ -924,7 +924,7 @@
 									});
 
 							// If the "menu" plugin is loaded, register the menu items.
-							if (editor.addMenuItems)
+							if(editor.addMenuItems)
 							{
 								editor.addMenuItems(
 										{
@@ -1087,16 +1087,16 @@
 							}
 
 							// If the "contextmenu" plugin is laoded, register the listeners.
-							if (editor.contextMenu)
+							if(editor.contextMenu)
 							{
 								editor.contextMenu.addListener(function(element, selection)
 								{
-									if (!element || element.isReadOnly())
+									if(!element || element.isReadOnly())
 										return null;
 
-									while (element)
+									while(element)
 									{
-										if (element.getName() in contextMenuTags)
+										if(element.getName() in contextMenuTags)
 										{
 											return {
 												tablecell: CKEDITOR.TRISTATE_OFF,
@@ -1143,7 +1143,7 @@ CKEDITOR.tools.buildTableMap = function(table)
 			var oCell = aRows[i].cells[j];
 
 			c++;
-			while (aMap[r][c])
+			while(aMap[r][c])
 				c++;
 
 			var iColSpan = isNaN(oCell.colSpan) ? 1 : oCell.colSpan;
@@ -1151,7 +1151,7 @@ CKEDITOR.tools.buildTableMap = function(table)
 
 			for (var rs = 0; rs < iRowSpan; rs++)
 			{
-				if (!aMap[r + rs])
+				if(!aMap[r + rs])
 					aMap[r + rs] = [];
 
 				for (var cs = 0; cs < iColSpan; cs++)

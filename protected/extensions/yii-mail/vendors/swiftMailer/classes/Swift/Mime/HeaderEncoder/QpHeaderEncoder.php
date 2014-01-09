@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -31,9 +30,9 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
 	public function __construct(Swift_CharacterStream $charStream)
 	{
 		parent::__construct($charStream);
-		if (empty(self::$_headerSafeMap))
+		if(empty(self::$_headerSafeMap))
 		{
-			foreach (array_merge(
+			foreach(array_merge(
 				range(0x61, 0x7A), range(0x41, 0x5A), range(0x30, 0x39), array(
 				0x20,
 				0x21,
@@ -89,9 +88,9 @@ class Swift_Mime_HeaderEncoder_QpHeaderEncoder extends Swift_Encoder_QpEncoder i
 	{
 		$ret = '';
 		$size = 0;
-		foreach ($bytes as $b)
+		foreach($bytes as $b)
 		{
-			if (isset(self::$_headerSafeMap[$b]))
+			if(isset(self::$_headerSafeMap[$b]))
 			{
 				$ret .= self::$_headerSafeMap[$b];
 				++$size;

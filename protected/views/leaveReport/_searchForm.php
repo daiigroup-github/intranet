@@ -1,10 +1,10 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'leaveReport-form',
-	'enableAjaxValidation' => true,
-	'htmlOptions' => array(
-		'enctype' => 'multipart/form-data',
-		'class' => 'form-horizontal well',)));
+	'id'=>'leaveReport-form',
+	'enableAjaxValidation'=>true,
+	'htmlOptions'=>array(
+		'enctype'=>'multipart/form-data',
+		'class'=>'form-horizontal well',)));
 ?>
 <h3>ค้นหา</h3>
 <hr />
@@ -14,13 +14,13 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="controls">
 <?php
 echo $form->dropDownList($leaveModel, 'leaveType', $leaveModel->getLeaveTypeArray(), array(
-	'prompt' => '-',
-	'class' => 'input-small'));
+	'prompt'=>'-',
+	'class'=>'input-small'));
 ?>
 	</div>
 </div-->
 
-<?php if (Yii::app()->controller->action->id == 'index' || Yii::app()->controller->action->id == 'summaryLeaveReport'): ?>
+<?php if(Yii::app()->controller->action->id == 'index' || Yii::app()->controller->action->id == 'summaryLeaveReport'): ?>
 	<div class="control-group">
 		<label class="control-label">บริษัท</label>
 		<div class="controls">
@@ -36,34 +36,34 @@ echo $form->dropDownList($leaveModel, 'leaveType', $leaveModel->getLeaveTypeArra
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'startDate',
-			'model' => $leaveModel,
-			'attribute' => 'startDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$leaveModel,
+			'attribute'=>'startDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 		- ถึง
 		<?php
 		$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 			//'name'=>'endDate',
-			'model' => $leaveModel,
-			'attribute' => 'endDate',
-			'language' => 'en',
-			'options' => array(
-				'showAnim' => 'fold',
-				'dateFormat' => 'yy-mm-dd'
+			'model'=>$leaveModel,
+			'attribute'=>'endDate',
+			'language'=>'en',
+			'options'=>array(
+				'showAnim'=>'fold',
+				'dateFormat'=>'yy-mm-dd'
 			),
-			'htmlOptions' => array(
-				'class' => 'input-small'),));
+			'htmlOptions'=>array(
+				'class'=>'input-small'),));
 		?>
 	</div>
 </div>
 
-<?php if (Yii::app()->controller->action->id == 'index'): ?>
+<?php if(Yii::app()->controller->action->id == 'index'): ?>
 	<div class="control-group">
 		<label class="control-label">แสดงเฉพาะรายการก่อนตัดรอบ</label>
 		<div class="controls">
@@ -82,7 +82,7 @@ echo $form->dropDownList($leaveModel, 'leaveType', $leaveModel->getLeaveTypeArra
 	<div class="controls">
 		<?php
 		echo CHtml::submitButton('ค้นหา', array(
-			'class' => 'btn btn-primary'));
+			'class'=>'btn btn-primary'));
 		?>
 	</div>
 </div>

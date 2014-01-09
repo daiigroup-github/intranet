@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Memos' => array(
+	'Memos'=>array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Memo',
-		'url' => array(
+		'label'=>'List Memo',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Manage Memo',
-		'url' => array(
+		'label'=>'Manage Memo',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -21,6 +21,6 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model,
-	'employeeModel' => $employeeModel));
+	'model'=>$model,
+	'employeeModel'=>$employeeModel));
 ?>

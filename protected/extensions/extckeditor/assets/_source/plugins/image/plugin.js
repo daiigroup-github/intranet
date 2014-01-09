@@ -33,12 +33,12 @@
 									{
 										var element = evt.data.element;
 
-										if (element.is('img') && !element.data('cke-realelement') && !element.isReadOnly())
+										if(element.is('img') && !element.data('cke-realelement') && !element.isReadOnly())
 											evt.data.dialog = 'image';
 									});
 
 									// If the "menu" plugin is loaded, register the menu items.
-									if (editor.addMenuItems)
+									if(editor.addMenuItems)
 									{
 										editor.addMenuItems(
 												{
@@ -52,11 +52,11 @@
 									}
 
 									// If the "contextmenu" plugin is loaded, register the listeners.
-									if (editor.contextMenu)
+									if(editor.contextMenu)
 									{
 										editor.contextMenu.addListener(function(element, selection)
 										{
-											if (getSelectedImage(editor, element))
+											if(getSelectedImage(editor, element))
 												return {image: CKEDITOR.TRISTATE_OFF};
 										});
 									}
@@ -72,22 +72,22 @@
 									function setupAlignCommand(value)
 									{
 										var command = editor.getCommand('justify' + value);
-										if (command)
+										if(command)
 										{
-											if (value == 'left' || value == 'right')
+											if(value == 'left' || value == 'right')
 											{
 												command.on('exec', function(evt)
 												{
 													var img = getSelectedImage(editor), align;
-													if (img)
+													if(img)
 													{
 														align = getImageAlignment(img);
-														if (align == value)
+														if(align == value)
 														{
 															img.removeStyle('float');
 
 															// Remove "align" attribute when necessary.
-															if (value == getImageAlignment(img))
+															if(value == getImageAlignment(img))
 																img.removeAttribute('align');
 														}
 														else
@@ -101,7 +101,7 @@
 											command.on('refresh', function(evt)
 											{
 												var img = getSelectedImage(editor), align;
-												if (img)
+												if(img)
 												{
 													align = getImageAlignment(img);
 
@@ -120,13 +120,13 @@
 
 					function getSelectedImage(editor, element)
 					{
-						if (!element)
+						if(!element)
 						{
 							var sel = editor.getSelection();
 							element = (sel.getType() == CKEDITOR.SELECTION_ELEMENT) && sel.getSelectedElement();
 						}
 
-						if (element && element.is('img') && !element.data('cke-realelement') && !element.isReadOnly())
+						if(element && element.is('img') && !element.data('cke-realelement') && !element.isReadOnly())
 							return element;
 					}
 
@@ -134,10 +134,10 @@
 					{
 						var align = element.getStyle('float');
 
-						if (align == 'inherit' || align == 'none')
+						if(align == 'inherit' || align == 'none')
 							align = 0;
 
-						if (!align)
+						if(!align)
 							align = element.getAttribute('align');
 
 						return align;

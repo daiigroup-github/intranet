@@ -9,9 +9,9 @@ class ChangePasswordController extends Controller
 	{
 		$model = new ChangePassword();
 
-		if (isset($_POST['ChangePassword']))
+		if(isset($_POST['ChangePassword']))
 		{
-			if ($model->validatePasswordFormat($_POST['ChangePassword']['password']))
+			if($model->validatePasswordFormat($_POST['ChangePassword']['password']))
 			{
 				$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
 
@@ -20,7 +20,7 @@ class ChangePasswordController extends Controller
 
 				$employeeModel->attributes = $emp;
 
-				if ($employeeModel->save(false))
+				if($employeeModel->save(false))
 				{
 					//echo '<script>alert("เปลี่ยนรหัสผ่านเรียบร้อยแล้ว");</script>';
 					$this->redirect(Yii::app()->createUrl('/home'));
@@ -37,7 +37,7 @@ class ChangePasswordController extends Controller
 		}
 
 		$this->render('index', array(
-			'model' => $model));
+			'model'=>$model));
 	}
 
 	// Uncomment the following methods and override them if needed

@@ -24,7 +24,7 @@ class GroupController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model' => $this->loadModel($id),
+			'model'=>$this->loadModel($id),
 		));
 	}
 
@@ -47,20 +47,20 @@ class GroupController extends Controller
 // 				$this->redirect(array('view','id'=>$model->groupId));
 // 		}
 
-		if (isset($_POST["Group"]) && isset($_POST["Employee"]))
+		if(isset($_POST["Group"]) && isset($_POST["Employee"]))
 		{
 			$model->attributes = $_POST['Group'];
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
 				$flag = 1;
-				if ($model->save())
+				if($model->save())
 				{
 					$groupId = Yii::app()->db->lastInsertID;
 
-					foreach ($_POST['Employee']['employeeId'] as $k => $v)
+					foreach($_POST['Employee']['employeeId'] as $k=> $v)
 					{
-						if (!$v)
+						if(!$v)
 							continue;
 
 						$gm['employeeId'] = $v;
@@ -70,7 +70,7 @@ class GroupController extends Controller
 						$groupMemberModel = new GroupMember;
 						$groupMemberModel->attributes = $gm;
 
-						if (!$groupMemberModel->save())
+						if(!$groupMemberModel->save())
 						{
 							$flag = 0;
 							break;
@@ -82,17 +82,17 @@ class GroupController extends Controller
 					$flag = 0;
 				}
 
-				if ($flag)
+				if($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
 						'index',
-						'id' => $groupId));
+						'id'=>$groupId));
 				}
 
 				$transaction->rollback();
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -100,9 +100,9 @@ class GroupController extends Controller
 		}
 
 		$this->render('create', array(
-			'model' => $model,
-			'employeeModel' => $employeeModel,
-			'groupMemberModel' => $groupMemberModel,
+			'model'=>$model,
+			'employeeModel'=>$employeeModel,
+			'groupMemberModel'=>$groupMemberModel,
 		));
 	}
 
@@ -120,19 +120,19 @@ class GroupController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST["Group"]) && isset($_POST["Employee"]))
+		if(isset($_POST["Group"]) && isset($_POST["Employee"]))
 		{
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
 				$model->attributes = $_POST['Group'];
 				$flag = 1;
-				if ($model->save() && $groupMemberModel->deleteAll('groupId=:groupId', array(
-						':groupId' => $id)))
+				if($model->save() && $groupMemberModel->deleteAll('groupId=:groupId', array(
+						':groupId'=>$id)))
 				{
-					foreach ($_POST['Employee']['employeeId'] as $k => $v)
+					foreach($_POST['Employee']['employeeId'] as $k=> $v)
 					{
-						if (!$v)
+						if(!$v)
 							continue;
 
 						$gm['employeeId'] = $v;
@@ -142,7 +142,7 @@ class GroupController extends Controller
 						$groupMemberModel = new GroupMember;
 						$groupMemberModel->attributes = $gm;
 
-						if (!$groupMemberModel->save())
+						if(!$groupMemberModel->save())
 						{
 							$flag = 0;
 							break;
@@ -153,26 +153,26 @@ class GroupController extends Controller
 				{
 					$flag = 0;
 				}
-				if ($flag)
+				if($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
 						'index',
-						'id' => $id));
+						'id'=>$id));
 				}
 
 				$transaction->rollback();
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				$transaction->rollback();
 			}
 		}
 
 		$this->render('update', array(
-			'model' => $model,
-			'employeeModel' => $employeeModel,
-			'groupMemberModel' => $groupMemberModel,
+			'model'=>$model,
+			'employeeModel'=>$employeeModel,
+			'groupMemberModel'=>$groupMemberModel,
 		));
 	}
 
@@ -183,13 +183,13 @@ class GroupController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -209,11 +209,11 @@ class GroupController extends Controller
 
 		$model = new Group('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['Group']))
+		if(isset($_GET['Group']))
 			$model->attributes = $_GET['Group'];
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -224,11 +224,11 @@ class GroupController extends Controller
 	{
 		$model = new Group('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['Group']))
+		if(isset($_GET['Group']))
 			$model->attributes = $_GET['Group'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -240,7 +240,7 @@ class GroupController extends Controller
 	public function loadModel($id)
 	{
 		$model = Group::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -251,7 +251,7 @@ class GroupController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'group-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'group-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -1,8 +1,8 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<div class="row">	
+<div class="row">
 	<div class="span12">
 
-		<?php if (isset($this->pageHeader)): ?>
+		<?php if(isset($this->pageHeader)): ?>
 			<div class="page-header">
 				<h1><?php echo $this->pageHeader; ?></h1>
 			</div>

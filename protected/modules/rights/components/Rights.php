@@ -56,7 +56,7 @@ class Rights
 	public static function getAssignedRoles($userId = null, $sort = true)
 	{
 		$user = Yii::app()->getUser();
-		if ($userId === null && $user->isGuest === false)
+		if($userId === null && $user->isGuest === false)
 			$userId = $user->id;
 
 		$authorizer = self::getAuthorizer();
@@ -80,9 +80,9 @@ class Rights
 	public static function getAuthItemOptions()
 	{
 		return array(
-			CAuthItem::TYPE_OPERATION => Rights::t('core', 'Operation'),
-			CAuthItem::TYPE_TASK => Rights::t('core', 'Task'),
-			CAuthItem::TYPE_ROLE => Rights::t('core', 'Role'),
+			CAuthItem::TYPE_OPERATION=>Rights::t('core', 'Operation'),
+			CAuthItem::TYPE_TASK=>Rights::t('core', 'Task'),
+			CAuthItem::TYPE_ROLE=>Rights::t('core', 'Role'),
 		);
 	}
 
@@ -94,7 +94,7 @@ class Rights
 	public static function getAuthItemTypeName($type)
 	{
 		$options = self::getAuthItemOptions();
-		if (isset($options[$type]) === true)
+		if(isset($options[$type]) === true)
 			return $options[$type];
 		else
 			throw new CException(Rights::t('core', 'Invalid authorization item type.'));
@@ -107,7 +107,7 @@ class Rights
 	 */
 	public static function getAuthItemTypeNamePlural($type)
 	{
-		switch ((int) $type)
+		switch((int) $type)
 		{
 			case CAuthItem::TYPE_OPERATION: return Rights::t('core', 'Operations');
 			case CAuthItem::TYPE_TASK: return Rights::t('core', 'Tasks');
@@ -123,7 +123,7 @@ class Rights
 	 */
 	public static function getAuthItemRoute($type)
 	{
-		switch ((int) $type)
+		switch((int) $type)
 		{
 			case CAuthItem::TYPE_OPERATION: return array(
 					'authItem/operations');
@@ -142,7 +142,7 @@ class Rights
 	 */
 	public static function getValidChildTypes($type)
 	{
-		switch ((int) $type)
+		switch((int) $type)
 		{
 			// Roles can consist of any type of authorization items
 			case CAuthItem::TYPE_ROLE: return null;
@@ -201,15 +201,15 @@ class Rights
 			);
 
 		// We have multiple types, nest the items under their types
-		if ($type !== (int) $type)
+		if($type !== (int) $type)
 		{
-			foreach ($items as $itemName => $item)
+			foreach($items as $itemName=> $item)
 				$selectOptions[self::getAuthItemTypeNamePlural($item->type)][$itemName] = $item->getNameText();
 		}
 		// We have only one type
 		else
 		{
-			foreach ($items as $itemName => $item)
+			foreach($items as $itemName=> $item)
 				$selectOptions[$itemName] = $item->getNameText();
 		}
 
@@ -217,7 +217,7 @@ class Rights
 	}
 
 	/**
-	 * Returns the cross-site request forgery parameter 
+	 * Returns the cross-site request forgery parameter
 	 * to be placed in the data of Ajax-requests.
 	 * An empty string is returned if csrf-validation is disabled.
 	 * @return string the csrf parameter.
@@ -234,7 +234,7 @@ class Rights
 	 */
 	public static function getCsrfParam()
 	{
-		if (Yii::app()->request->enableCsrfValidation === true)
+		if(Yii::app()->request->enableCsrfValidation === true)
 		{
 			$csrfTokenName = Yii::app()->request->csrfTokenName;
 			$csrfToken = Yii::app()->request->csrfToken;
@@ -261,7 +261,7 @@ class Rights
 	 */
 	public static function module()
 	{
-		if (isset(self::$_m) === false)
+		if(isset(self::$_m) === false)
 			self::$_m = self::findModule();
 
 		return self::$_m;
@@ -276,14 +276,14 @@ class Rights
 	 */
 	private static function findModule(CModule $module = null)
 	{
-		if ($module === null)
+		if($module === null)
 			$module = Yii::app();
 
-		if (($m = $module->getModule('rights')) !== null)
+		if(($m = $module->getModule('rights')) !== null)
 			return $m;
 
-		foreach ($module->getModules() as $id => $c)
-			if (($m = self::findModule($module->getModule($id))) !== null)
+		foreach($module->getModules() as $id=> $c)
+			if(($m = self::findModule($module->getModule($id))) !== null)
 				return $m;
 
 		return null;
@@ -294,7 +294,7 @@ class Rights
 	 */
 	public static function getAuthorizer()
 	{
-		if (isset(self::$_a) === false)
+		if(isset(self::$_a) === false)
 			self::$_a = self::module()->getAuthorizer();
 
 		return self::$_a;

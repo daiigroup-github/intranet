@@ -3,31 +3,31 @@
 /* @var $model EmployeeInfo */
 
 $this->breadcrumbs = array(
-	'Employee Infos' => array(
+	'Employee Infos'=>array(
 		'index'),
-	$model->ID => array(
+	$model->ID=>array(
 		'view',
-		'id' => $model->ID),
+		'id'=>$model->ID),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List EmployeeInfo',
-		'url' => array(
+		'label'=>'List EmployeeInfo',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create EmployeeInfo',
-		'url' => array(
+		'label'=>'Create EmployeeInfo',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'View EmployeeInfo',
-		'url' => array(
+		'label'=>'View EmployeeInfo',
+		'url'=>array(
 			'view',
-			'id' => $model->ID)),
+			'id'=>$model->ID)),
 	array(
-		'label' => 'Manage EmployeeInfo',
-		'url' => array(
+		'label'=>'Manage EmployeeInfo',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -36,5 +36,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

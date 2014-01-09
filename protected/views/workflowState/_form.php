@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'workflow-state-form',
-		'enableAjaxValidation' => false,
+		'id'=>'workflow-state-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -11,15 +11,15 @@
 
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'workflowStateName'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStateName', array(
-			'size' => 60,
-			'maxlength' => 80));
+			'size'=>60,
+			'maxlength'=>80));
 		?>
 		<?php echo $form->error($model, 'workflowStateName'); ?>
 	</div>
@@ -28,8 +28,8 @@
 		<?php echo $form->labelEx($model, 'currentState'); ?>
 		<?php
 		echo $form->textField($model, 'currentState', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'currentState'); ?>
 	</div>
@@ -38,8 +38,8 @@
 		<?php echo $form->labelEx($model, 'nextState'); ?>
 		<?php
 		echo $form->textField($model, 'nextState', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'nextState'); ?>
 	</div>
@@ -48,8 +48,8 @@
 		<?php echo $form->labelEx($model, 'workflowStatusId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStatusId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'workflowStatusId'); ?>
 	</div>
@@ -58,8 +58,8 @@
 		<?php echo $form->labelEx($model, 'workflowGroupId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowGroupId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'workflowGroupId'); ?>
 	</div>

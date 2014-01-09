@@ -4,12 +4,12 @@
 	{
 <?php
 echo CHtml::ajax(array(
-	'url' => array(
+	'url'=>array(
 		'stock/index'),
-	'data' => "js:$(this).serialize()",
-	'type' => 'post',
-	'dataType' => 'json',
-	'success' => "function(data)
+	'data'=>"js:$(this).serialize()",
+	'type'=>'post',
+	'dataType'=>'json',
+	'success'=>"function(data)
             {
                 if (data.status == 'failure')
                 {alert('1111111');
@@ -22,7 +22,7 @@ echo CHtml::ajax(array(
                     $('#cru-dialog div.divForForm').html(data.div);
                     setTimeout(\"$('#cru-dialog').dialog('close') \",3000);
                 }
- 
+
             } ",
 ))
 ?>;
@@ -32,10 +32,10 @@ echo CHtml::ajax(array(
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'stock-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal')
+	'id'=>'stock-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal')
 	));
 ?>
 
@@ -43,7 +43,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class' => 'alert alert-error'));
+	'class'=>'alert alert-error'));
 $form->error($model, 'stockDetailId');
 $form->error($model, 'companyId');
 $form->error($model, 'stockQuantity');
@@ -59,8 +59,8 @@ $form->error($model, 'status');
 			<?php
 			echo CHtml::link('Create stock detail', "", // the link for open the dialog
 				array(
-				'style' => 'cursor: pointer; text-decoration: underline;',
-				'onclick' => "{addStockDetail(); $('#cru-dialog').dialog('open');}"
+				'style'=>'cursor: pointer; text-decoration: underline;',
+				'onclick'=>"{addStockDetail(); $('#cru-dialog').dialog('open');}"
 				)
 			);
 			?>
@@ -72,7 +72,7 @@ $form->error($model, 'status');
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'companyId', Company::getAllCompany(), array(
-				'class' => 'input-small'));
+				'class'=>'input-small'));
 			?>
 		</div>
 	</div>
@@ -82,8 +82,8 @@ $form->error($model, 'status');
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'stockQuantity', array(
-				'size' => 15,
-				'maxlength' => 11));
+				'size'=>15,
+				'maxlength'=>11));
 			?>
 		</div>
 	</div>
@@ -93,8 +93,8 @@ $form->error($model, 'status');
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'stockUnitPrice', array(
-				'size' => 15,
-				'maxlength' => 15));
+				'size'=>15,
+				'maxlength'=>15));
 			?>
 		</div>
 	</div>
@@ -109,7 +109,7 @@ $form->error($model, 'status');
 	<div class="form-actions">
 		<?php
 		echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-			'class' => 'btn btn-primary'));
+			'class'=>'btn btn-primary'));
 		?>
 	</div>
 </fieldset>
@@ -120,17 +120,17 @@ $form->error($model, 'status');
 //--------------------- begin new code --------------------------
 // add the (closed) dialog for the iframe
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-	'id' => 'cru-dialog',
-	'options' => array(
-		'title' => 'Stock Detail',
-		'autoOpen' => false,
-		'modal' => true,
-		'width' => 750,
-		'height' => 600,
+	'id'=>'cru-dialog',
+	'options'=>array(
+		'title'=>'Stock Detail',
+		'autoOpen'=>false,
+		'modal'=>true,
+		'width'=>750,
+		'height'=>600,
 	//'buttons' => array('AA','')
 	),
 ));
 ?>
-<div class="divForForm"></div> 
+<div class="divForForm"></div>
 <?php $this->endWidget(); ?>
 <!-- form -->

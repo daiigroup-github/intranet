@@ -1,17 +1,14 @@
 <?php
-
 $this->pageHeader = 'รายงานใบแก้ไขเวลา';
 ?>
 
 <?php
-
 $this->renderPartial('_searchFormFixTime', array(
-	'documentItem' => $documentItem));
+	'documentItem'=>$documentItem));
 ?>
 
 <?php
-
-if ($employeeModels)
+if($employeeModels)
 	$this->renderPartial('_fixTimeReportItem', array(
-		'employeeModels' => $employeeModels,
-		'documentItem' => $documentItem));?>
+		'employeeModels'=>$employeeModels,
+		'documentItem'=>$documentItem));?>

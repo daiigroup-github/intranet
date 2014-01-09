@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Document Items' => array(
+	'Document Items'=>array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List DocumentItem',
-		'url' => array(
+		'label'=>'List DocumentItem',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create DocumentItem',
-		'url' => array(
+		'label'=>'Create DocumentItem',
+		'url'=>array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class' => 'search-button'));
+	'class'=>'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model' => $model,
+		'model'=>$model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id' => 'document-item-grid',
-	'dataProvider' => $model->search(),
-	'filter' => $model,
-	'columns' => array(
+	'id'=>'document-item-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
 		'documentItemId',
 		'documentId',
 		'documentItemName',
@@ -62,7 +62,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'description2',
 		'description3',
 		array(
-			'class' => 'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 ));

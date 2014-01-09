@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'workflow-log-form',
-		'enableAjaxValidation' => false,
+		'id'=>'workflow-log-form',
+		'enableAjaxValidation'=>false,
 	));
 	?>
 
@@ -11,15 +11,15 @@
 
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'documentId'); ?>
 		<?php
 		echo $form->textField($model, 'documentId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'documentId'); ?>
 	</div>
@@ -28,8 +28,8 @@
 		<?php echo $form->labelEx($model, 'workflowStateId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStateId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'workflowStateId'); ?>
 	</div>
@@ -38,8 +38,8 @@
 		<?php echo $form->labelEx($model, 'employeeId'); ?>
 		<?php
 		echo $form->textField($model, 'employeeId', array(
-			'size' => 20,
-			'maxlength' => 20));
+			'size'=>20,
+			'maxlength'=>20));
 		?>
 		<?php echo $form->error($model, 'employeeId'); ?>
 	</div>

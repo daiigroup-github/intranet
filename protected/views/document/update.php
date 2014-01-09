@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Documents' => array(
+	'Documents'=>array(
 		'index'),
-	$model->documentId => array(
+	$model->documentId=>array(
 		'view',
-		'id' => $model->documentId),
+		'id'=>$model->documentId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label' => 'List Document',
-		'url' => array(
+		'label'=>'List Document',
+		'url'=>array(
 			'index')),
 	array(
-		'label' => 'Create Document',
-		'url' => array(
+		'label'=>'Create Document',
+		'url'=>array(
 			'create')),
 	array(
-		'label' => 'View Document',
-		'url' => array(
+		'label'=>'View Document',
+		'url'=>array(
 			'view',
-			'id' => $model->documentId)),
+			'id'=>$model->documentId)),
 	array(
-		'label' => 'Manage Document',
-		'url' => array(
+		'label'=>'Manage Document',
+		'url'=>array(
 			'admin')),
 );
 ?>
@@ -33,5 +33,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model' => $model));
+	'model'=>$model));
 ?>

@@ -56,32 +56,32 @@
 			<div id="mainmenu">
 				<?php
 				$this->widget('zii.widgets.CMenu', array(
-					'items' => array(
+					'items'=>array(
 						//array('label'=>'Home', 'url'=>array('/site/index')),
 						//array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
 						//array('label'=>'Contact', 'url'=>array('/site/contact')),
 						array(
-							'label' => 'Employee',
-							'url' => array(
+							'label'=>'Employee',
+							'url'=>array(
 								'/employee')),
 						array(
-							'label' => 'Qtech Project',
-							'url' => array(
+							'label'=>'Qtech Project',
+							'url'=>array(
 								'/qtechProject')),
 						array(
-							'label' => 'Customer',
-							'url' => array(
+							'label'=>'Customer',
+							'url'=>array(
 								'/customer')),
 						array(
-							'label' => 'Login',
-							'url' => array(
+							'label'=>'Login',
+							'url'=>array(
 								'/site/login'),
-							'visible' => Yii::app()->user->isGuest),
+							'visible'=>Yii::app()->user->isGuest),
 						array(
-							'label' => 'Logout (' . Yii::app()->user->name . ')',
-							'url' => array(
+							'label'=>'Logout (' . Yii::app()->user->name . ')',
+							'url'=>array(
 								'/site/logout'),
-							'visible' => !Yii::app()->user->isGuest)
+							'visible'=>!Yii::app()->user->isGuest)
 					),
 				));
 				?>
@@ -89,10 +89,10 @@
 
 			<div class="row">
 				<div class="span12">
-					<?php if (isset($this->breadcrumbs)): ?>
+					<?php if(isset($this->breadcrumbs)): ?>
 						<?php
 						$this->widget('zii.widgets.CBreadcrumbs', array(
-							'links' => $this->breadcrumbs,
+							'links'=>$this->breadcrumbs,
 						));
 						?><!-- breadcrumbs -->
 					<?php endif ?>
@@ -101,7 +101,7 @@
 
 			<ul class="breadcrumb">
 				<li><a href="<?php Yii::app()->createUrl('/employee'); ?>"><i class="icon-home"></i></a><span class="divider">/</span></li>
-				<?php if (isset($this->breadcrumb)) echo $this->breadcrumb; ?>
+				<?php if(isset($this->breadcrumb)) echo $this->breadcrumb; ?>
 			</ul>
 
 			<?php echo $content; ?>

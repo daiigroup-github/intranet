@@ -1,7 +1,7 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'action' => Yii::app()->createUrl($this->route),
-	'method' => 'get',
+	'action'=>Yii::app()->createUrl($this->route),
+	'method'=>'get',
 	));
 ?>
 
@@ -9,8 +9,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php echo $form->label($model, 'noticeId'); ?>
 	<?php
 	echo $form->textField($model, 'noticeId', array(
-		'size' => 20,
-		'maxlength' => 20));
+		'size'=>20,
+		'maxlength'=>20));
 	?>
 </div>
 
@@ -18,8 +18,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php echo $form->label($model, 'title'); ?>
 	<?php
 	echo $form->textField($model, 'title', array(
-		'size' => 60,
-		'maxlength' => 500));
+		'size'=>60,
+		'maxlength'=>500));
 	?>
 </div>
 
@@ -27,8 +27,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php echo $form->label($model, 'description'); ?>
 	<?php
 	echo $form->textField($model, 'description', array(
-		'size' => 60,
-		'maxlength' => 2000));
+		'size'=>60,
+		'maxlength'=>2000));
 	?>
 </div>
 
@@ -36,8 +36,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php echo $form->label($model, 'employeeId'); ?>
 	<?php
 	echo $form->textField($model, 'employeeId', array(
-		'size' => 20,
-		'maxlength' => 20));
+		'size'=>20,
+		'maxlength'=>20));
 	?>
 </div>
 
@@ -50,8 +50,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<?php echo $form->label($model, 'noticeTypeId'); ?>
 	<?php
 	echo $form->textField($model, 'noticeTypeId', array(
-		'size' => 20,
-		'maxlength' => 20));
+		'size'=>20,
+		'maxlength'=>20));
 	?>
 </div>
 

@@ -1,24 +1,24 @@
 <?php
 $this->widget('ext.jqrelcopy.JQRelcopy', array(
 	//the id of the 'Copy' link in the view, see below.
-	'id' => 'copylink',
+	'id'=>'copylink',
 	//add a icon image tag instead of the text
 	//leave empty to disable removing
 	//'removeText' => '<i class="icon-minus icon-white"></i>',
-	'removeText' => '-',
+	'removeText'=>'-',
 	//htmlOptions of the remove link
-	'removeHtmlOptions' => array(
-		'style' => 'color:red'),
+	'removeHtmlOptions'=>array(
+		'style'=>'color:red'),
 	//options of the plugin, see http://www.andresvidal.com/labs/relcopy.html
-	'options' => array(
+	'options'=>array(
 		//A class to attach to each copy
-		'copyClass' => 'newcopy',
+		'copyClass'=>'newcopy',
 		// The number of allowed copies. Default: 0 is unlimited
-		'limit' => 0,
+		'limit'=>0,
 		//Option to clear each copies text input fields or textarea
-		'clearInputs' => true,
+		'clearInputs'=>true,
 		//A jQuery selector used to exclude an element and its children
-		'excludeSelector' => '.skipcopy',
+		'excludeSelector'=>'.skipcopy',
 	//Additional HTML to attach at the end of each copy.
 	//'append'=>CHtml::tag('span',array('class'=>'hint'),'You can remove this line'),
 	)
@@ -31,7 +31,7 @@ $this->widget('ext.jqrelcopy.JQRelcopy', array(
 		<label>Image</label>
 		<?php
 		echo $form->fileField($documentItemModel, 'input[]', array(
-			'class' => 'input-medium'));
+			'class'=>'input-medium'));
 		?>
 	</div>
 

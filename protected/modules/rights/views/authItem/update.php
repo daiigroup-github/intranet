@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs = array(
-	'Rights' => Rights::getBaseUrl(),
-	Rights::getAuthItemTypeNamePlural($model->type) => Rights::getAuthItemRoute($model->type),
+	'Rights'=>Rights::getBaseUrl(),
+	Rights::getAuthItemTypeNamePlural($model->type)=>Rights::getAuthItemRoute($model->type),
 	$model->name,
 );
 ?>
@@ -10,21 +10,21 @@ $this->breadcrumbs = array(
 
 	<h2><?php
 		echo Rights::t('core', 'Update :name', array(
-			':name' => $model->name,
-			':type' => Rights::getAuthItemTypeName($model->type),
+			':name'=>$model->name,
+			':type'=>Rights::getAuthItemTypeName($model->type),
 		));
 		?></h2>
 
 	<?php
 	$this->renderPartial('_form', array(
-		'model' => $formModel));
+		'model'=>$formModel));
 	?>
 
 	<div class="relations span-11 last">
 
 		<h3><?php echo Rights::t('core', 'Relations'); ?></h3>
 
-		<?php if ($model->name !== Rights::module()->superuserName): ?>
+		<?php if($model->name !== Rights::module()->superuserName): ?>
 
 			<div class="parents">
 
@@ -32,35 +32,35 @@ $this->breadcrumbs = array(
 
 				<?php
 				$this->widget('zii.widgets.grid.CGridView', array(
-					'dataProvider' => $parentDataProvider,
-					'template' => '{items}',
-					'hideHeader' => true,
-					'emptyText' => Rights::t('core', 'This item has no parents.'),
-					'htmlOptions' => array(
-						'class' => 'grid-view parent-table mini'),
-					'columns' => array(
+					'dataProvider'=>$parentDataProvider,
+					'template'=>'{items}',
+					'hideHeader'=>true,
+					'emptyText'=>Rights::t('core', 'This item has no parents.'),
+					'htmlOptions'=>array(
+						'class'=>'grid-view parent-table mini'),
+					'columns'=>array(
 						array(
-							'name' => 'name',
-							'header' => Rights::t('core', 'Name'),
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'name-column'),
-							'value' => '$data->getNameLink()',
+							'name'=>'name',
+							'header'=>Rights::t('core', 'Name'),
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'name-column'),
+							'value'=>'$data->getNameLink()',
 						),
 						array(
-							'name' => 'type',
-							'header' => Rights::t('core', 'Type'),
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'type-column'),
-							'value' => '$data->getTypeText()',
+							'name'=>'type',
+							'header'=>Rights::t('core', 'Type'),
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'type-column'),
+							'value'=>'$data->getTypeText()',
 						),
 						array(
-							'header' => '&nbsp;',
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'actions-column'),
-							'value' => '',
+							'header'=>'&nbsp;',
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'actions-column'),
+							'value'=>'',
 						),
 					)
 				));
@@ -74,35 +74,35 @@ $this->breadcrumbs = array(
 
 				<?php
 				$this->widget('zii.widgets.grid.CGridView', array(
-					'dataProvider' => $childDataProvider,
-					'template' => '{items}',
-					'hideHeader' => true,
-					'emptyText' => Rights::t('core', 'This item has no children.'),
-					'htmlOptions' => array(
-						'class' => 'grid-view parent-table mini'),
-					'columns' => array(
+					'dataProvider'=>$childDataProvider,
+					'template'=>'{items}',
+					'hideHeader'=>true,
+					'emptyText'=>Rights::t('core', 'This item has no children.'),
+					'htmlOptions'=>array(
+						'class'=>'grid-view parent-table mini'),
+					'columns'=>array(
 						array(
-							'name' => 'name',
-							'header' => Rights::t('core', 'Name'),
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'name-column'),
-							'value' => '$data->getNameLink()',
+							'name'=>'name',
+							'header'=>Rights::t('core', 'Name'),
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'name-column'),
+							'value'=>'$data->getNameLink()',
 						),
 						array(
-							'name' => 'type',
-							'header' => Rights::t('core', 'Type'),
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'type-column'),
-							'value' => '$data->getTypeText()',
+							'name'=>'type',
+							'header'=>Rights::t('core', 'Type'),
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'type-column'),
+							'value'=>'$data->getTypeText()',
 						),
 						array(
-							'header' => '&nbsp;',
-							'type' => 'raw',
-							'htmlOptions' => array(
-								'class' => 'actions-column'),
-							'value' => '$data->getRemoveChildLink()',
+							'header'=>'&nbsp;',
+							'type'=>'raw',
+							'htmlOptions'=>array(
+								'class'=>'actions-column'),
+							'value'=>'$data->getRemoveChildLink()',
 						),
 					)
 				));
@@ -114,12 +114,12 @@ $this->breadcrumbs = array(
 
 				<h5><?php echo Rights::t('core', 'Add Child'); ?></h5>
 
-				<?php if ($childFormModel !== null): ?>
+				<?php if($childFormModel !== null): ?>
 
 					<?php
 					$this->renderPartial('_childForm', array(
-						'model' => $childFormModel,
-						'itemnameSelectOptions' => $childSelectOptions,
+						'model'=>$childFormModel,
+						'itemnameSelectOptions'=>$childSelectOptions,
 					));
 					?>
 

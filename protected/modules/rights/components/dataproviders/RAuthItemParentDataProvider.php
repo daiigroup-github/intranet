@@ -22,7 +22,7 @@ class RAuthItemParentDataProvider extends RAuthItemDataProvider
 		$this->parent = $parent;
 		$this->setId($parent->name);
 
-		foreach ($config as $key => $value)
+		foreach($config as $key=> $value)
 			$this->$key = $value;
 	}
 

@@ -2,10 +2,10 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id' => 'memo-form',
-		'enableAjaxValidation' => false,
-		'htmlOptions' => array(
-			'enctype' => 'multipart/form-data',
+		'id'=>'memo-form',
+		'enableAjaxValidation'=>false,
+		'htmlOptions'=>array(
+			'enctype'=>'multipart/form-data',
 		)
 	));
 	?>
@@ -18,8 +18,8 @@
 		<?php echo $form->labelEx($model, 'subject'); ?>
 		<?php
 		echo $form->textField($model, 'subject', array(
-			'size' => 60,
-			'maxlength' => 1000));
+			'size'=>60,
+			'maxlength'=>1000));
 		?>
 		<?php echo $form->error($model, 'subject'); ?>
 	</p>
@@ -28,10 +28,10 @@
 		<?php echo $form->labelEx($model, 'detail'); ?>
 		<?php
 		$this->widget('application.extensions.extckeditor.ExtCKEditor', array(
-			'model' => $model,
-			'attribute' => 'detail', // model atribute
-			'language' => 'en', /* default lang, If not declared the language of the project will be used in case of using multiple languages */
-			'editorTemplate' => 'full', // Toolbar settings (full, basic, advanced)
+			'model'=>$model,
+			'attribute'=>'detail', // model atribute
+			'language'=>'en', /* default lang, If not declared the language of the project will be used in case of using multiple languages */
+			'editorTemplate'=>'full', // Toolbar settings (full, basic, advanced)
 		));
 		?>
 		<?php //echo $form->textArea($model,'detail',array('maxlength'=>3000,'rows'=>10, 'class'=>'input-large'));   ?>
@@ -41,7 +41,7 @@
 	<p>
 		<?php
 		echo CHtml::activeFileField($model, "image", array(
-			'class' => 'input-large'));
+			'class'=>'input-large'));
 		?>
 	</p>
 
@@ -56,23 +56,23 @@
 			$groupMember = array(
 				);
 
-			foreach ($company as $k => $v)
+			foreach($company as $k=> $v)
 			{
-				if (!$k)
+				if(!$k)
 					continue;
 
 				$employee = Employee::model()->getAllEmployeeByCompanyId($k);
 
-				if (sizeof($employee) <= 1)
+				if(sizeof($employee) <= 1)
 					continue;
 
 				echo '<h3>' . $v . '</h3>';
 
 				echo '<ul class="thumbnails">';
 
-				foreach ($employee as $employeeId => $employeeName)
+				foreach($employee as $employeeId=> $employeeName)
 				{
-					if (!$employeeId)
+					if(!$employeeId)
 						continue;
 
 					$checked = (in_array($employeeId, $groupMember)) ? 'checked' : '';
@@ -80,8 +80,8 @@
 					echo '<li class="span3">
 							<label class="checkbox inline">' .
 					$form->checkbox($employeeModel, 'employeeId[' . $employeeId . ']', array(
-						'value' => $employeeId,
-						'checked' => $checked)) . ' ' . $employeeName .
+						'value'=>$employeeId,
+						'checked'=>$checked)) . ' ' . $employeeName .
 					'</label>
 						</li>';
 				}

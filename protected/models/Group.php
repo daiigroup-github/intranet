@@ -43,17 +43,17 @@ class Group extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'groupName',
 				'length',
-				'max' => 40),
+				'max'=>40),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'groupId, status, groupName',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -65,7 +65,7 @@ class Group extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'groupMember' => array(
+			'groupMember'=>array(
 				self::HAS_MANY,
 				'GroupMember',
 				'groupId'),
@@ -78,9 +78,9 @@ class Group extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'groupId' => 'Group',
-			'status' => 'Status',
-			'groupName' => 'Group Name',
+			'groupId'=>'Group',
+			'status'=>'Status',
+			'groupName'=>'Group Name',
 		);
 	}
 
@@ -100,7 +100,7 @@ class Group extends CActiveRecord
 		$criteria->compare('groupName', $this->groupName, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -109,12 +109,12 @@ class Group extends CActiveRecord
 	public function getAllGroup()
 	{
 		$models = $this->findAll('status=:status', array(
-			':status' => 1));
+			':status'=>1));
 
 		$g = array(
-			'' => 'Choose..');
+			''=>'Choose..');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$g[$model->groupId] = $model->groupName;
 		}

@@ -13,9 +13,9 @@
 				var v = this.children, w = [], x;
 				for (var y = 0; y < v.length; y++) {
 					x = v[y];
-					if (!x.name)
+					if(!x.name)
 						continue;
-					if (x.name == u) {
+					if(x.name == u) {
 						w.push(x);
 						v.splice(y--, 1);
 					}
@@ -25,7 +25,7 @@
 			};
 			b.getAncestor = function(u) {
 				var v = this.parent;
-				while (v && !(v.name && v.name.match(u)))
+				while(v && !(v.name && v.name.match(u)))
 					v = v.parent;
 				return v;
 			};
@@ -33,11 +33,11 @@
 				var v;
 				for (var w = 0; w < this.children.length; w++) {
 					v = this.children[w];
-					if (u(v))
+					if(u(v))
 						return v;
-					else if (v.name) {
+					else if(v.name) {
 						v = v.firstChild(u);
-						if (v)
+						if(v)
 							return v;
 					}
 				}
@@ -46,19 +46,19 @@
 			b.addStyle = function(u, v, w) {
 				var A = this;
 				var x, y = '';
-				if (typeof v == 'string')
+				if(typeof v == 'string')
 					y += u + ':' + v + ';';
 				else {
-					if (typeof u == 'object')
+					if(typeof u == 'object')
 						for (var z in u) {
-							if (u.hasOwnProperty(z))
+							if(u.hasOwnProperty(z))
 								y += z + ':' + u[z] + ';';
 						}
 					else
 						y += u;
 					w = v;
 				}
-				if (!A.attributes)
+				if(!A.attributes)
 					A.attributes = {};
 				x = A.attributes.style || '';
 				x = (w ? [y, x] : [x, y]).join(';');
@@ -67,7 +67,7 @@
 			CKEDITOR.dtd.parentOf = function(u) {
 				var v = {};
 				for (var w in this) {
-					if (w.indexOf('$') == -1 && this[w][u])
+					if(w.indexOf('$') == -1 && this[w][u])
 						v[w] = 1;
 				}
 				return v;
@@ -75,22 +75,22 @@
 			function c(u) {
 				var v = u.children, w, x, y = u.children.length, z, A, B = /list-style-type:(.*?)(?:;|$)/, C = CKEDITOR.plugins.pastefromword.filters.stylesFilter;
 				x = u.attributes;
-				if (B.exec(x.style))
+				if(B.exec(x.style))
 					return;
 				for (var D = 0; D < y; D++) {
 					w = v[D];
-					if (w.attributes.value && Number(w.attributes.value) == D + 1)
+					if(w.attributes.value && Number(w.attributes.value) == D + 1)
 						delete w.attributes.value;
 					z = B.exec(w.attributes.style);
-					if (z)
-						if (z[1] == A || !A)
+					if(z)
+						if(z[1] == A || !A)
 							A = z[1];
 						else {
 							A = null;
 							break;
 						}
 				}
-				if (A) {
+				if(A) {
 					for (D = 0; D < y; D++) {
 						x = v[D].attributes;
 						x.style && (x.style = C([['list-style-type']])(x.style) || '');
@@ -126,33 +126,33 @@
 						return w;
 					}, isListBulletIndicator: function(u) {
 						var v = u.attributes && u.attributes.style;
-						if (/mso-list\s*:\s*Ignore/i.test(v))
+						if(/mso-list\s*:\s*Ignore/i.test(v))
 							return true;
 					}, isContainingOnlySpaces: function(u) {
 						var v;
 						return(v = u.onlyChild()) && /^(:?\s|&nbsp;)+$/.test(v.value);
 					}, resolveList: function(u) {
 						var v = u.attributes, w;
-						if ((w = u.removeAnyChildWithName('cke:listbullet')) && w.length && (w = w[0])) {
+						if((w = u.removeAnyChildWithName('cke:listbullet')) && w.length && (w = w[0])) {
 							u.name = 'cke:li';
-							if (v.style)
+							if(v.style)
 								v.style = s.filters.stylesFilter([['text-indent'], ['line-height'], [/^margin(:?-left)?$/, null, function(x) {
 											var y = x.split(' ');
 											x = CKEDITOR.tools.convertToPx(y[3] || y[1] || y[0]);
-											if (!p && q !== null && x > q)
+											if(!p && q !== null && x > q)
 												p = x - q;
 											q = x;
 											v['cke:indent'] = p && Math.ceil(x / p) + 1 || 1;
 										}], [/^mso-list$/, null, function(x) {
 											x = x.split(' ');
 											var y = Number(x[0].match(/\d+/)), z = Number(x[1].match(/\d+/));
-											if (z == 1) {
+											if(z == 1) {
 												y !== r && (v['cke:reset'] = 1);
 												r = y;
 											}
 											v['cke:indent'] = z;
 										}]])(v.style, u) || '';
-							if (!v['cke:indent']) {
+							if(!v['cke:indent']) {
 								q = 0;
 								v['cke:indent'] = 1;
 							}
@@ -174,7 +174,7 @@
 					})(), listDtdParents: CKEDITOR.dtd.parentOf('ol')}, filters: {flattenList: function(u, v) {
 						v = typeof v == 'number' ? v : 1;
 						var w = u.attributes, x;
-						switch (w.type) {
+						switch(w.type) {
 							case 'a':
 								x = 'lower-alpha';
 								break;
@@ -185,11 +185,11 @@
 						var y = u.children, z;
 						for (var A = 0; A < y.length; A++) {
 							z = y[A];
-							if (z.name in CKEDITOR.dtd.$listItem) {
+							if(z.name in CKEDITOR.dtd.$listItem) {
 								var B = z.attributes, C = z.children, D = C.length, E = C[D - 1];
-								if (E.name in CKEDITOR.dtd.$list) {
+								if(E.name in CKEDITOR.dtd.$list) {
 									u.add(E, A + 1);
-									if (!--C.length)
+									if(!--C.length)
 										y.splice(A--, 1);
 								}
 								z.name = 'cke:li';
@@ -206,7 +206,7 @@
 								B['cke:indent'] = v;
 								B['cke:listtype'] = u.name;
 								B['cke:list-style-type'] = x;
-							} else if (z.name in CKEDITOR.dtd.$list) {
+							} else if(z.name in CKEDITOR.dtd.$list) {
 								arguments.callee.apply(this, [z, v + 1]);
 								y = y.slice(0, A).concat(z.children).concat(y.slice(A + 1));
 								u.children = [];
@@ -220,35 +220,35 @@
 						var v = u.children, w, x, y, z, A, B, C, D = [], E, F, G, H, I, J;
 						for (var K = 0; K < v.length; K++) {
 							w = v[K];
-							if ('cke:li' == w.name) {
+							if('cke:li' == w.name) {
 								w.name = 'li';
 								x = w;
 								y = x.attributes;
 								G = y['cke:listsymbol'];
 								G = G && G.match(/^(?:[(]?)([^\s]+?)([.)]?)$/);
 								H = I = J = null;
-								if (y['cke:ignored']) {
+								if(y['cke:ignored']) {
 									v.splice(K--, 1);
 									continue;
 								}
 								y['cke:reset'] && (C = A = B = null);
 								z = Number(y['cke:indent']);
-								if (z != A)
+								if(z != A)
 									F = E = null;
-								if (!G) {
+								if(!G) {
 									H = y['cke:listtype'] || 'ol';
 									I = y['cke:list-style-type'];
 								} else {
-									if (F && k[F][E].test(G[1])) {
+									if(F && k[F][E].test(G[1])) {
 										H = F;
 										I = E;
 									} else
 										for (var L in k)
 											for (var M in k[L]) {
-												if (k[L][M].test(G[1]))
-													if (L == 'ol' && /alpha|roman/.test(M)) {
+												if(k[L][M].test(G[1]))
+													if(L == 'ol' && /alpha|roman/.test(M)) {
 														var N = /roman/.test(M) ? n(G[1]) : o(G[1]);
-														if (!J || N < J) {
+														if(!J || N < J) {
 															J = N;
 															H = L;
 															I = M;
@@ -263,10 +263,10 @@
 								}
 								F = H;
 								E = I || (H == 'ol' ? 'decimal' : 'disc');
-								if (I && I != (H == 'ol' ? 'decimal' : 'disc'))
+								if(I && I != (H == 'ol' ? 'decimal' : 'disc'))
 									x.addStyle('list-style-type', I);
-								if (H == 'ol' && G) {
-									switch (I) {
+								if(H == 'ol' && G) {
+									switch(I) {
 										case 'decimal':
 											J = Number(G[1]);
 											break;
@@ -281,18 +281,18 @@
 									}
 									x.attributes.value = J;
 								}
-								if (!C) {
+								if(!C) {
 									D.push(C = new CKEDITOR.htmlParser.element(H));
 									C.add(x);
 									v[K] = C;
 								} else {
-									if (z > A) {
+									if(z > A) {
 										D.push(C = new CKEDITOR.htmlParser.element(H));
 										C.add(x);
 										B.add(C);
-									} else if (z < A) {
+									} else if(z < A) {
 										var O = A - z, P;
-										while (O-- && (P = C.parent))
+										while(O-- && (P = C.parent))
 											C = P.parent;
 										C.add(x);
 									} else
@@ -301,7 +301,7 @@
 								}
 								B = x;
 								A = z;
-							} else if (C)
+							} else if(C)
 								C = A = B = null;
 						}
 						for (K = 0; K < D.length; K++)
@@ -317,19 +317,19 @@
 								B == 'font-family' && (C = C.replace(/["']/g, ''));
 								var D, E, F, G;
 								for (var H = 0; H < u.length; H++) {
-									if (u[H]) {
+									if(u[H]) {
 										D = u[H][0];
 										E = u[H][1];
 										F = u[H][2];
 										G = u[H][3];
-										if (B.match(D) && (!E || C.match(E))) {
+										if(B.match(D) && (!E || C.match(E))) {
 											B = G || B;
 											v && (F = F || C);
-											if (typeof F == 'function')
+											if(typeof F == 'function')
 												F = F(C, x, B);
-											if (F && F.push)
+											if(F && F.push)
 												B = F[0], F = F[1];
-											if (typeof F == 'string')
+											if(typeof F == 'string')
 												y.push([B, F]);
 											return;
 										}
@@ -358,7 +358,7 @@
 							y.children = [z];
 						};
 					}, bogusAttrFilter: function(u, v) {
-						if (v.name.indexOf('cke:') == -1)
+						if(v.name.indexOf('cke:') == -1)
 							return false;
 					}, applyStyleFilter: null}, getRules: function(u) {
 					var v = CKEDITOR.dtd, w = CKEDITOR.tools.extend({}, v.$block, v.$listItem, v.$tableContent), x = u.config, y = this.filters, z = y.falsyFilter, A = y.stylesFilter, B = y.elementMigrateFilter, C = CKEDITOR.tools.bind(this.filters.styleMigrateFilter, this.filters), D = this.utils.createListBulletMarker, E = y.flattenList, F = y.assembleList, G = this.utils.isListBulletIndicator, H = this.utils.isContainingOnlySpaces, I = this.utils.resolveList, J = function(O) {
@@ -370,40 +370,40 @@
 							F(O);
 						}, elements: {'^': function(O) {
 								var P;
-								if (CKEDITOR.env.gecko && (P = y.applyStyleFilter))
+								if(CKEDITOR.env.gecko && (P = y.applyStyleFilter))
 									P(O);
 							}, $: function(O) {
 								var P = O.name || '', Q = O.attributes;
-								if (P in w && Q.style)
+								if(P in w && Q.style)
 									Q.style = A([[/^(:?width|height)$/, null, J]])(Q.style) || '';
-								if (P.match(/h\d/)) {
+								if(P.match(/h\d/)) {
 									O.filterChildren();
-									if (I(O))
+									if(I(O))
 										return;
 									B(x['format_' + P])(O);
-								} else if (P in v.$inline) {
+								} else if(P in v.$inline) {
 									O.filterChildren();
-									if (H(O))
+									if(H(O))
 										delete O.name;
-								} else if (P.indexOf(':') != -1 && P.indexOf('cke') == -1) {
+								} else if(P.indexOf(':') != -1 && P.indexOf('cke') == -1) {
 									O.filterChildren();
-									if (P == 'v:imagedata') {
+									if(P == 'v:imagedata') {
 										var R = O.attributes['o:href'];
-										if (R)
+										if(R)
 											O.attributes.src = R;
 										O.name = 'img';
 										return;
 									}
 									delete O.name;
 								}
-								if (P in L) {
+								if(P in L) {
 									O.filterChildren();
 									F(O);
 								}
 							}, style: function(O) {
-								if (CKEDITOR.env.gecko) {
+								if(CKEDITOR.env.gecko) {
 									var P = O.onlyChild().value.match(/\/\* Style Definitions \*\/([\s\S]*?)\/\*/), Q = P && P[1], R = {};
-									if (Q) {
+									if(Q) {
 										Q.replace(/[\n\r]/g, '').replace(/(.+?)\{(.+?)\}/g, function(S, T, U) {
 											T = T.split(',');
 											var V = T.length, W;
@@ -411,11 +411,11 @@
 												CKEDITOR.tools.trim(T[X]).replace(/^(\w+)(\.[\w-]+)?$/g, function(Y, Z, aa) {
 													Z = Z || '*';
 													aa = aa.substring(1, aa.length);
-													if (aa.match(/MsoNormal/))
+													if(aa.match(/MsoNormal/))
 														return;
-													if (!R[Z])
+													if(!R[Z])
 														R[Z] = {};
-													if (aa)
+													if(aa)
 														R[Z][aa] = U;
 													else
 														R[Z] = U;
@@ -423,9 +423,9 @@
 										});
 										y.applyStyleFilter = function(S) {
 											var T = R['*'] ? '*' : S.name, U = S.attributes && S.attributes['class'], V;
-											if (T in R) {
+											if(T in R) {
 												V = R[T];
-												if (typeof V == 'object')
+												if(typeof V == 'object')
 													V = V[U];
 												V && S.addStyle(V, true);
 											}
@@ -434,23 +434,23 @@
 								}
 								return false;
 							}, p: function(O) {
-								if (/MsoListParagraph/.exec(O.attributes['class'])) {
+								if(/MsoListParagraph/.exec(O.attributes['class'])) {
 									var P = O.firstChild(function(S) {
 										return S.type == CKEDITOR.NODE_TEXT && !H(S.parent);
 									}), Q = P && P.parent, R = Q && Q.attributes;
 									R && !R.style && (R.style = 'mso-list: Ignore;');
 								}
 								O.filterChildren();
-								if (I(O))
+								if(I(O))
 									return;
-								if (x.enterMode == CKEDITOR.ENTER_BR) {
+								if(x.enterMode == CKEDITOR.ENTER_BR) {
 									delete O.name;
 									O.add(new CKEDITOR.htmlParser.element('br'));
 								} else
 									B(x['format_' + (x.enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')])(O);
 							}, div: function(O) {
 								var P = O.onlyChild();
-								if (P && P.name == 'table') {
+								if(P && P.name == 'table') {
 									var Q = O.attributes;
 									P.attributes = CKEDITOR.tools.extend(P.attributes, Q);
 									Q.style && P.addStyle(Q.style);
@@ -460,30 +460,30 @@
 									delete O.name;
 								}
 							}, td: function(O) {
-								if (O.getAncestor('thead'))
+								if(O.getAncestor('thead'))
 									O.name = 'th';
 							}, ol: E, ul: E, dl: E, font: function(O) {
-								if (G(O.parent)) {
+								if(G(O.parent)) {
 									delete O.name;
 									return;
 								}
 								O.filterChildren();
 								var P = O.attributes, Q = P.style, R = O.parent;
-								if ('font' == R.name) {
+								if('font' == R.name) {
 									CKEDITOR.tools.extend(R.attributes, O.attributes);
 									Q && R.addStyle(Q);
 									delete O.name;
 								} else {
 									Q = Q || '';
-									if (P.color) {
+									if(P.color) {
 										P.color != '#000000' && (Q += 'color:' + P.color + ';');
 										delete P.color;
 									}
-									if (P.face) {
+									if(P.face) {
 										Q += 'font-family:' + P.face + ';';
 										delete P.face;
 									}
-									if (P.size) {
+									if(P.size) {
 										Q += 'font-size:' + (P.size > 3 ? 'large' : P.size < 3 ? 'small' : 'medium') + ';';
 										delete P.size;
 									}
@@ -491,75 +491,75 @@
 									O.addStyle(Q);
 								}
 							}, span: function(O) {
-								if (G(O.parent))
+								if(G(O.parent))
 									return false;
 								O.filterChildren();
-								if (H(O)) {
+								if(H(O)) {
 									delete O.name;
 									return null;
 								}
-								if (G(O)) {
+								if(G(O)) {
 									var P = O.firstChild(function(Y) {
 										return Y.value || Y.name == 'img';
 									}), Q = P && (P.value || 'l.'), R = Q && Q.match(/^(?:[(]?)([^\s]+?)([.)]?)$/);
-									if (R) {
+									if(R) {
 										var S = D(R, Q), T = O.getAncestor('span');
-										if (T && / mso-hide:\s*all|display:\s*none /.test(T.attributes.style))
+										if(T && / mso-hide:\s*all|display:\s*none /.test(T.attributes.style))
 											S.attributes['cke:ignored'] = 1;
 										return S;
 									}
 								}
 								var U = O.children, V = O.attributes, W = V && V.style, X = U && U[0];
-								if (W)
+								if(W)
 									V.style = A([['line-height'], [/^font-family$/, null, !M ? C(x.font_style, 'family') : null], [/^font-size$/, null, !M ? C(x.fontSize_style, 'size') : null], [/^color$/, null, !M ? C(x.colorButton_foreStyle, 'color') : null], [/^background-color$/, null, !M ? C(x.colorButton_backStyle, 'color') : null]])(W, O) || '';
 								return null;
 							}, b: B(x.coreStyles_bold), i: B(x.coreStyles_italic), u: B(x.coreStyles_underline), s: B(x.coreStyles_strike), sup: B(x.coreStyles_superscript), sub: B(x.coreStyles_subscript), a: function(O) {
 								var P = O.attributes;
-								if (P && !P.href && P.name)
+								if(P && !P.href && P.name)
 									delete O.name;
-								else if (CKEDITOR.env.webkit && P.href && P.href.match(/file:\/\/\/[\S]+#/i))
+								else if(CKEDITOR.env.webkit && P.href && P.href.match(/file:\/\/\/[\S]+#/i))
 									P.href = P.href.replace(/file:\/\/\/[^#]+/i, '');
 							}, 'cke:listbullet': function(O) {
-								if (O.getAncestor(/h\d/) && !x.pasteFromWordNumberedHeadingToList)
+								if(O.getAncestor(/h\d/) && !x.pasteFromWordNumberedHeadingToList)
 									delete O.name;
 							}}, attributeNames: [[/^onmouse(:?out|over)/, ''], [/^onload$/, ''], [/(?:v|o):\w+/, ''], [/^lang/, '']], attributes: {style: A(N ? [[/^list-style-type$/, null], [/^margin$|^margin-(?!bottom|top)/, null, function(O, P, Q) {
-										if (P.name in {p: 1, div: 1}) {
+										if(P.name in {p: 1, div: 1}) {
 											var R = x.contentsLangDirection == 'ltr' ? 'margin-left' : 'margin-right';
-											if (Q == 'margin')
+											if(Q == 'margin')
 												O = K(Q, O, [R])[R];
-											else if (Q != R)
+											else if(Q != R)
 												return null;
-											if (O && !e.test(O))
+											if(O && !e.test(O))
 												return[R, O];
 										}
 										return null;
 									}], [/^clear$/], [/^border.*|margin.*|vertical-align|float$/, null, function(O, P) {
-										if (P.name == 'img')
+										if(P.name == 'img')
 											return O;
 									}], [/^width|height$/, null, function(O, P) {
-										if (P.name in {table: 1, td: 1, th: 1, img: 1})
+										if(P.name in {table: 1, td: 1, th: 1, img: 1})
 											return O;
 									}]] : [[/^mso-/], [/-color$/, null, function(O) {
-										if (O == 'transparent')
+										if(O == 'transparent')
 											return false;
-										if (CKEDITOR.env.gecko)
+										if(CKEDITOR.env.gecko)
 											return O.replace(/-moz-use-text-color/g, 'transparent');
 									}], [/^margin$/, e], ['text-indent', '0cm'], ['page-break-before'], ['tab-stops'], ['display', 'none'], M ? [/font-?/] : null], N), width: function(O, P) {
-								if (P.name in v.$tableContent)
+								if(P.name in v.$tableContent)
 									return false;
 							}, border: function(O, P) {
-								if (P.name in v.$tableContent)
+								if(P.name in v.$tableContent)
 									return false;
 							}, 'class': z, bgcolor: z, valign: N ? z : function(O, P) {
 								P.addStyle('vertical-align', O);
 								return false;
 							}}, comment: !CKEDITOR.env.ie ? function(O, P) {
 							var Q = O.match(/<img.*?>/), R = O.match(/^\[if !supportLists\]([\s\S]*?)\[endif\]$/);
-							if (R) {
+							if(R) {
 								var S = R[1] || Q && 'l.', T = S && S.match(/>(?:[(]?)([^\s]+?)([.)]?)</);
 								return D(T, S);
 							}
-							if (CKEDITOR.env.gecko && Q) {
+							if(CKEDITOR.env.gecko && Q) {
 								var U = CKEDITOR.htmlParser.fragment.fromHtml(Q[0]).children[0], V = P.previous, W = V && V.value.match(/<v:imagedata[^>]*o:href=['"](.*?)['"]/), X = W && W[1];
 								X && (U.attributes.src = X);
 								return U;
@@ -575,14 +575,14 @@
 					return w.getHtml(true);
 				}};
 			CKEDITOR.cleanWord = function(u, v) {
-				if (CKEDITOR.env.gecko)
+				if(CKEDITOR.env.gecko)
 					u = u.replace(/(<!--\[if[^<]*?\])-->([\S\s]*?)<!--(\[endif\]-->)/gi, '$1$2$3');
 				var w = new t(), x = w.dataFilter;
 				x.addRules(CKEDITOR.plugins.pastefromword.getRules(v));
 				v.fire('beforeCleanWord', {filter: x});
 				try {
 					u = w.toHtml(u, false);
-				} catch (y) {
+				} catch(y) {
 					alert(v.lang.pastefromword.error);
 				}
 				u = u.replace(/cke:.*?".*?"/g, '');
