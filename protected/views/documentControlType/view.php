@@ -1,35 +1,35 @@
 <?php
 $this->breadcrumbs = array(
-	'Document Control Types'=>array(
+	'Document Control Types' => array(
 		'index'),
 	$model->documentControlTypeId,
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List DocumentControlType',
-		'url'=>array(
+		'label' => 'List DocumentControlType',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create DocumentControlType',
-		'url'=>array(
+		'label' => 'Create DocumentControlType',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'Update DocumentControlType',
-		'url'=>array(
+		'label' => 'Update DocumentControlType',
+		'url' => array(
 			'update',
-			'id'=>$model->documentControlTypeId)),
+			'id' => $model->documentControlTypeId)),
 	array(
-		'label'=>'Delete DocumentControlType',
-		'url'=>'#',
-		'linkOptions'=>array(
-			'submit'=>array(
+		'label' => 'Delete DocumentControlType',
+		'url' => '#',
+		'linkOptions' => array(
+			'submit' => array(
 				'delete',
-				'id'=>$model->documentControlTypeId),
-			'confirm'=>'Are you sure you want to delete this item?')),
+				'id' => $model->documentControlTypeId),
+			'confirm' => 'Are you sure you want to delete this item?')),
 	array(
-		'label'=>'Manage DocumentControlType',
-		'url'=>array(
+		'label' => 'Manage DocumentControlType',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -38,8 +38,8 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'documentControlTypeId',
 		'documentControlTypeName',
 	),

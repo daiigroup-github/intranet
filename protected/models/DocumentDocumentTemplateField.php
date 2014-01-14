@@ -47,17 +47,17 @@ class DocumentDocumentTemplateField extends CActiveRecord
 			array(
 				'documentId, documentTemplateFieldId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'value',
 				'length',
-				'max'=>2000),
+				'max' => 2000),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, documentId, documentTemplateFieldId, value',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -69,7 +69,7 @@ class DocumentDocumentTemplateField extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documentTemplateField'=>array(
+			'documentTemplateField' => array(
 				self::BELONGS_TO,
 				'DocumentTemplateField',
 				'documentTemplateFieldId'),
@@ -82,10 +82,10 @@ class DocumentDocumentTemplateField extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'documentId'=>'Document',
-			'documentTemplateFieldId'=>'Document Template Field',
-			'value'=>'Value',
+			'id' => 'ID',
+			'documentId' => 'Document',
+			'documentTemplateFieldId' => 'Document Template Field',
+			'value' => 'Value',
 		);
 	}
 
@@ -106,8 +106,9 @@ class DocumentDocumentTemplateField extends CActiveRecord
 		$criteria->compare('value', $this->value, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 }
+

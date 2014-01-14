@@ -32,7 +32,7 @@ class RPermissionDataProvider extends CDataProvider
 	{
 		$this->setId($id);
 
-		foreach($config as $key=> $value)
+		foreach ($config as $key => $value)
 			$this->$key = $value;
 
 		$this->init();
@@ -89,11 +89,11 @@ class RPermissionDataProvider extends CDataProvider
 
 		$permissions = array(
 			);
-		foreach($this->_roles as $roleName=> $role)
+		foreach ($this->_roles as $roleName => $role)
 		{
 			$permissions[$roleName] = array(
 				);
-			foreach($this->_items as $itemName=> $item)
+			foreach ($this->_items as $itemName => $item)
 				$permissions[$roleName][$itemName] = $this->_authorizer->hasPermission($itemName, null, $allPermissions[$roleName]);
 		}
 
@@ -108,9 +108,9 @@ class RPermissionDataProvider extends CDataProvider
 	{
 		$parents = array(
 			);
-		foreach($this->_permissions as $roleName=> $rolePermissions)
-			foreach($rolePermissions as $itemName=> $permission)
-				if($permission === Rights::PERM_INHERITED)
+		foreach ($this->_permissions as $roleName => $rolePermissions)
+			foreach ($rolePermissions as $itemName => $permission)
+				if ($permission === Rights::PERM_INHERITED)
 					$parents[$roleName][$itemName] = $this->_authorizer->getAuthItemParents($itemName, null, $roleName, true);
 
 		// Set the parents property
@@ -126,21 +126,21 @@ class RPermissionDataProvider extends CDataProvider
 			);
 		$permissions = $this->_permissions;
 		$parents = $this->_parents;
-		foreach($this->_items as $itemName=> $item)
+		foreach ($this->_items as $itemName => $item)
 		{
 			$row = array(
 				);
 			$row['description'] = $item->getNameLink();
 
-			foreach($this->_roles as $roleName=> $role)
+			foreach ($this->_roles as $roleName => $role)
 			{
 				// Item is directly assigned to the role
-				if($permissions[$roleName][$itemName] === Rights::PERM_DIRECT)
+				if ($permissions[$roleName][$itemName] === Rights::PERM_DIRECT)
 				{
 					$permissionColumn = $item->getRevokePermissionLink($role);
 				}
 				// Item is inherited by the role from one of its children
-				else if($permissions[$roleName][$itemName] === Rights::PERM_INHERITED && isset($parents[$roleName][$itemName]) === true)
+				else if ($permissions[$roleName][$itemName] === Rights::PERM_INHERITED && isset($parents[$roleName][$itemName]) === true)
 				{
 					$permissionColumn = $item->getInheritedPermissionText($parents[$roleName][$itemName], $this->displayParentType);
 				}
@@ -178,7 +178,7 @@ class RPermissionDataProvider extends CDataProvider
 	{
 		$keys = array(
 			);
-		foreach($this->getData() as $key=> $value)
+		foreach ($this->getData() as $key => $value)
 			$keys[] = $key;
 
 		return $keys;

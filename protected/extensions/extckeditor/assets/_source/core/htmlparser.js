@@ -15,12 +15,12 @@
 		 * parser.parse( '&lt;p&gt;Some &lt;b&gt;text&lt;/b&gt;.&lt;/p&gt;' );
 		 */
 		CKEDITOR.htmlParser = function()
-		{
-			this._ =
-					{
-						htmlPartsRegex: new RegExp('<(?:(?:\\/([^>]+)>)|(?:!--([\\S|\\s]*?)-->)|(?:([^\\s>]+)\\s*((?:(?:"[^"]*")|(?:\'[^\']*\')|[^"\'>])*)\\/?>))', 'g')
-					};
-		};
+{
+	this._ =
+			{
+				htmlPartsRegex: new RegExp('<(?:(?:\\/([^>]+)>)|(?:!--([\\S|\\s]*?)-->)|(?:([^\\s>]+)\\s*((?:(?:"[^"]*")|(?:\'[^\']*\')|[^"\'>])*)\\/?>))', 'g')
+			};
+};
 
 (function()
 {
@@ -124,14 +124,14 @@
 							nextIndex = 0,
 							cdata;	// The collected data inside a CDATA section.
 
-					while((parts = this._.htmlPartsRegex.exec(html)))
+					while ((parts = this._.htmlPartsRegex.exec(html)))
 					{
 						var tagIndex = parts.index;
-						if(tagIndex > nextIndex)
+						if (tagIndex > nextIndex)
 						{
 							var text = html.substring(nextIndex, tagIndex);
 
-							if(cdata)
+							if (cdata)
 								cdata.push(text);
 							else
 								this.onText(text);
@@ -149,18 +149,18 @@
 						 */
 
 						// Closing tag
-						if((tagName = parts[ 1 ]))
+						if ((tagName = parts[ 1 ]))
 						{
 							tagName = tagName.toLowerCase();
 
-							if(cdata && CKEDITOR.dtd.$cdata[ tagName ])
+							if (cdata && CKEDITOR.dtd.$cdata[ tagName ])
 							{
 								// Send the CDATA data.
 								this.onCDATA(cdata.join(''));
 								cdata = null;
 							}
 
-							if(!cdata)
+							if (!cdata)
 							{
 								this.onTagClose(tagName);
 								continue;
@@ -168,20 +168,20 @@
 						}
 
 						// If CDATA is enabled, just save the raw match.
-						if(cdata)
+						if (cdata)
 						{
 							cdata.push(parts[ 0 ]);
 							continue;
 						}
 
 						// Opening tag
-						if((tagName = parts[ 3 ]))
+						if ((tagName = parts[ 3 ]))
 						{
 							tagName = tagName.toLowerCase();
 
 							// There are some tag names that can break things, so let's
 							// simply ignore them when parsing. (#5224)
-							if(/="/.test(tagName))
+							if (/="/.test(tagName))
 								continue;
 
 							var attribs = {},
@@ -189,14 +189,14 @@
 									attribsPart = parts[ 4 ],
 									selfClosing = !!(attribsPart && attribsPart.charAt(attribsPart.length - 1) == '/');
 
-							if(attribsPart)
+							if (attribsPart)
 							{
-								while((attribMatch = attribsRegex.exec(attribsPart)))
+								while ((attribMatch = attribsRegex.exec(attribsPart)))
 								{
 									var attName = attribMatch[1].toLowerCase(),
 											attValue = attribMatch[2] || attribMatch[3] || attribMatch[4] || '';
 
-									if(!attValue && emptyAttribs[ attName ])
+									if (!attValue && emptyAttribs[ attName ])
 										attribs[ attName ] = attName;
 									else
 										attribs[ attName ] = attValue;
@@ -206,18 +206,18 @@
 							this.onTagOpen(tagName, attribs, selfClosing);
 
 							// Open CDATA mode when finding the appropriate tags.
-							if(!cdata && CKEDITOR.dtd.$cdata[ tagName ])
+							if (!cdata && CKEDITOR.dtd.$cdata[ tagName ])
 								cdata = [];
 
 							continue;
 						}
 
 						// Comment
-						if((tagName = parts[ 2 ]))
+						if ((tagName = parts[ 2 ]))
 							this.onComment(tagName);
 					}
 
-					if(html.length > nextIndex)
+					if (html.length > nextIndex)
 						this.onText(html.substring(nextIndex, html.length));
 				}
 			};

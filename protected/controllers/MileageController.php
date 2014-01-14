@@ -24,7 +24,7 @@ class MileageController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -39,17 +39,17 @@ class MileageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Mileage']))
+		if (isset($_POST['Mileage']))
 		{
 			$model->attributes = $_POST['Mileage'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->mileageId));
+					'id' => $model->mileageId));
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -65,17 +65,17 @@ class MileageController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Mileage']))
+		if (isset($_POST['Mileage']))
 		{
 			$model->attributes = $_POST['Mileage'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->mileageId));
+					'id' => $model->mileageId));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -86,13 +86,13 @@ class MileageController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -112,7 +112,7 @@ class MileageController extends Controller
 
 		$model = new Mileage('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Mileage']))
+		if (isset($_GET['Mileage']))
 		{
 			$model->attributes = $_GET['Mileage'];
 
@@ -126,8 +126,8 @@ class MileageController extends Controller
 		}
 
 		$this->render('index', array(
-			'model'=>$model,
-			'models'=>$models,
+			'model' => $model,
+			'models' => $models,
 		));
 	}
 
@@ -138,11 +138,11 @@ class MileageController extends Controller
 	{
 		$model = new Mileage('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Mileage']))
+		if (isset($_GET['Mileage']))
 			$model->attributes = $_GET['Mileage'];
 
 		$this->render('admin', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -154,7 +154,7 @@ class MileageController extends Controller
 	public function loadModel($id)
 	{
 		$model = Mileage::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -165,7 +165,7 @@ class MileageController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'mileage-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'mileage-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

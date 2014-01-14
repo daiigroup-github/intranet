@@ -51,25 +51,25 @@ class StockDetail extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'stockDetailCode',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'stockDetailName',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			array(
 				'stockDetailUnit',
 				'length',
-				'max'=>30),
+				'max' => 30),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'stockDetailId, stockDetailCode, stockDetailName, stockDetailUnit, createDateTime, status',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -81,7 +81,7 @@ class StockDetail extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'stocks'=>array(
+			'stocks' => array(
 				self::HAS_MANY,
 				'Stock',
 				'stockDetailId'),
@@ -94,12 +94,12 @@ class StockDetail extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'stockDetailId'=>'รายการอุปกรณ์สำนักงาน',
-			'stockDetailCode'=>'เลขที่อุปกรณ์',
-			'stockDetailName'=>'ชื่อ',
-			'stockDetailUnit'=>'หน่วย',
-			'createDateTime'=>'วันที่สร้าง',
-			'status'=>'สถานะ',
+			'stockDetailId' => 'รายการอุปกรณ์สำนักงาน',
+			'stockDetailCode' => 'เลขที่อุปกรณ์',
+			'stockDetailName' => 'ชื่อ',
+			'stockDetailUnit' => 'หน่วย',
+			'createDateTime' => 'วันที่สร้าง',
+			'status' => 'สถานะ',
 		);
 	}
 
@@ -122,9 +122,9 @@ class StockDetail extends CActiveRecord
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>20
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 20
 			),
 		));
 	}
@@ -139,7 +139,7 @@ class StockDetail extends CActiveRecord
 		$criteria->select = 'max(stockDetailCode) as maxCode';
 
 		$result = new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 		return $result->data[0]->maxCode;
 	}
@@ -166,14 +166,14 @@ class StockDetail extends CActiveRecord
 		$criteria = new CDbCriteria;
 		//$criteria->distinct = true;
 		$employee = Employee::model()->find("employeeId = :employeeId", array(
-			":employeeId"=>Yii::app()->user->id));
+			":employeeId" => Yii::app()->user->id));
 		$models = Stock::model()->findAll("companyId =:companyId GROUP BY stockDetailId", array(
-			":companyId"=>$employee->companyId));
+			":companyId" => $employee->companyId));
 		//throw new Exception(count($models));
 		$w = array(
-			''=>'Choose..');
+			'' => 'Choose..');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->stockDetailId] = $model->stockDetail->stockDetailName . "(" . $model->stockDetail->stockDetailUnit . ")";
 		}
@@ -184,14 +184,14 @@ class StockDetail extends CActiveRecord
 	{
 		$c = new StockDetail();
 		$models = $c->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'stockDetailName',
+			'condition' => 'status=1',
+			'order' => 'stockDetailName',
 		));
 
 		$stockDetail = array(
-			''=>'- อุปกรณ์สำนักงาน');
+			'' => '- อุปกรณ์สำนักงาน');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$stockDetail[$model->stockDetailId] = $model->stockDetailName;
 		}

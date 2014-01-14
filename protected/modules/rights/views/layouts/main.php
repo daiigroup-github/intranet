@@ -4,7 +4,7 @@
 
 	<div id="content">
 
-		<?php if($this->id !== 'install'): ?>
+		<?php if ($this->id !== 'install'): ?>
 
 			<div id="menu">
 

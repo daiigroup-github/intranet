@@ -1,10 +1,11 @@
 <?php
+
 // $this->breadcrumbs=array(
 // 'Qtech Projects'=>array('/qtechProject'),
 // $projectModel->customer->customerName.' : '.$projectModel->projectName=>array('/qtechProject/'.$model->qtechProjectId),
 // 'Create Process',
 // );
-//
+// 
 // $this->menu=array(
 // array('label'=>'List QtechProcess', 'url'=>array('index')),
 // array('label'=>'Manage QtechProcess', 'url'=>array('admin')),
@@ -16,6 +17,7 @@ $this->pageHeader = 'Create QtechProcess';
 ?>
 
 <?php
+
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

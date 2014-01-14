@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -15,8 +16,8 @@
  */
 interface Swift_Mime_Header
 {
-
 	/** Text headers */
+
 	const TYPE_TEXT = 2;
 
 	/** Parameterized headers (text + params) */

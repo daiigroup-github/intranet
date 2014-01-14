@@ -4,17 +4,17 @@
  */
 
 		CKEDITOR.skins.add('office2003', (function() {
-			return{editor: {css: ['editor.css']}, dialog: {css: ['dialog.css']}, separator: {canGroup: false}, templates: {css: ['templates.css']}, margins: [0, 14, 18, 14]};
-		})());
+	return{editor: {css: ['editor.css']}, dialog: {css: ['dialog.css']}, separator: {canGroup: false}, templates: {css: ['templates.css']}, margins: [0, 14, 18, 14]};
+})());
 (function() {
 	CKEDITOR.dialog ? a() : CKEDITOR.on('dialogPluginReady', a);
 	function a() {
 		CKEDITOR.dialog.on('resize', function(b) {
 			var c = b.data, d = c.width, e = c.height, f = c.dialog, g = f.parts.contents;
-			if(c.skin != 'office2003')
+			if (c.skin != 'office2003')
 				return;
 			g.setStyles({width: d + 'px', height: e + 'px'});
-			if(!CKEDITOR.env.ie || CKEDITOR.env.ie9Compat)
+			if (!CKEDITOR.env.ie || CKEDITOR.env.ie9Compat)
 				return;
 			var h = function() {
 				var i = f.parts.dialog.getChild([0, 0, 0]), j = i.getChild(0), k = j.getSize('width');
@@ -29,7 +29,7 @@
 				l.setSize('height', e);
 			};
 			setTimeout(h, 100);
-			if(b.editor.lang.dir == 'rtl')
+			if (b.editor.lang.dir == 'rtl')
 				setTimeout(h, 1000);
 		});
 	}

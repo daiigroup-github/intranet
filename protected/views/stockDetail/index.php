@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Stock Details'=>array(
+	'Stock Details' => array(
 		'index'),
 	'Manage',
 );
@@ -8,8 +8,8 @@ $this->breadcrumbs = array(
 $this->menu = array(
 	//array('label'=>'List StockDetail', 'url'=>array('index')),
 	array(
-		'label'=>'Create StockDetail',
-		'url'=>array(
+		'label' => 'Create StockDetail',
+		'url' => array(
 			'create')),
 );
 
@@ -39,44 +39,44 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:inline">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'stock-detail-grid',
-	'dataProvider'=>$model->search(),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'id' => 'stock-detail-grid',
+	'dataProvider' => $model->search(),
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		'stockDetailCode',
 		'stockDetailName',
 		array(
-			'name'=>'stockDetailUnit',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:7%'),
-			'value'=>'CHtml::encode($data->stockDetailUnit)',
+			'name' => 'stockDetailUnit',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:7%'),
+			'value' => 'CHtml::encode($data->stockDetailUnit)',
 		),
 		array(
-			'name'=>'createDateTime',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:15%'),
-			'value'=>'CHtml::encode(($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
+			'name' => 'createDateTime',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:15%'),
+			'value' => 'CHtml::encode(($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
 		),
 		array(
-			'name'=>'status',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:10%'),
-			'value'=>'CHtml::encode($data->status==1 ? "Active":"In Active")',
+			'name' => 'status',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:10%'),
+			'value' => 'CHtml::encode($data->status==1 ? "Active":"In Active")',
 		),
 		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{update}{delete}',
+			'class' => 'CButtonColumn',
+			'template' => '{update}{delete}',
 		),
 	),
 ));

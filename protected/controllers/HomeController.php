@@ -1,21 +1,19 @@
 <?php
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
 
 	public $layout = '//layouts/cl2';
 
-	public function actionIndex()
-	{
-		if(Yii::app()->user->isGuest)
+	public function actionIndex() {
+		if (Yii::app()->user->isGuest)
 			$this->redirect(Yii::app()->createUrl('/'));
 
 		$model = new LoginForm();
 		$elearningExamModel = ElearningExam::model()->hasExamToday();
 
 		$this->render('index', array(
-			'model'=>$model,
-			'elearningExamModel'=>$elearningExamModel,
+			'model' => $model,
+			'elearningExamModel' => $elearningExamModel,
 		));
 	}
 
@@ -46,8 +44,7 @@ class HomeController extends Controller
 	  }
 	 */
 
-	public function actionShowroom()
-	{
+	public function actionShowroom() {
 		$this->render('showroom');
 	}
 

@@ -5,22 +5,22 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 	href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery/jquery.ui.all.css" />
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'document-form',
-		'enableAjaxValidation'=>true,
-		'htmlOptions'=>array(
-			'enctype'=>'multipart/form-data',
-			'class'=>'form-horizontal',
+		'id' => 'document-form',
+		'enableAjaxValidation' => true,
+		'htmlOptions' => array(
+			'enctype' => 'multipart/form-data',
+			'class' => 'form-horizontal',
 		)
 	));
 
 	Yii::import('ext.jqrelcopy.JQRelcopy');
 
 	$datePickerConfig = array(
-		'name'=>'dayofbirth',
-		'language'=>'de',
-		'options'=>array(
-			'showAnim'=>'fold',
-			'dateFormat'=>'yy-mm-dd')
+		'name' => 'dayofbirth',
+		'language' => 'de',
+		'options' => array(
+			'showAnim' => 'fold',
+			'dateFormat' => 'yy-mm-dd')
 	);
 
 	$flag = (isset($startDate) && isset($endDate)) ? true : false;
@@ -59,7 +59,7 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 		สามารถลาป่วยเดือน <strong><?php echo $today[1]; ?></strong> ได้ไม่เกินวันที่ <strong><?php echo $this->dateThai($calendarModel->date, 1); ?> เวลา 14.00 น.</strong>
 	</p>
 
-	<?php if($error): ?>
+	<?php if ($error): ?>
 		<p class="alert alert-danger">
 			<?php echo $error; ?>
 		</p>
@@ -70,14 +70,14 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 		<div class="controls">
 			<?php
 			echo (!$leaveModel->leaveType) ? $form->dropDownList($leaveModel, 'leaveType', $leaveModel->getLeaveTypeArray(), array(
-					'prompt'=>'-',
-					'class'=>'input-small'
+					'prompt' => '-',
+					'class' => 'input-small'
 				)) : "ลาบวช" . $form->hiddenField($leaveModel, 'leaveType');
 			?>
 		</div>
 	</div>
 
-	<?php if(!isset($startDate) && !isset($endDate)): ?>
+	<?php if (!isset($startDate) && !isset($endDate)): ?>
 		<div class="control-group">
 			<label class="control-label">วันที่ต้องการลา</label>
 			<div class="controls">
@@ -85,12 +85,12 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 				<?php
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					//'name'=>'startDate',
-					'model'=>$leaveModel,
-					'attribute'=>'startDate',
-					'language'=>'th',
-					'options'=>array(
-						'showAnim'=>'fold',
-						'dateFormat'=>'dd/mm/yy',
+					'model' => $leaveModel,
+					'attribute' => 'startDate',
+					'language' => 'th',
+					'options' => array(
+						'showAnim' => 'fold',
+						'dateFormat' => 'dd/mm/yy',
 					/* 'onSelect' => 'js:function(dateText, inst) {
 					  year = dateText.substring(0, 4);
 					  month = dateText.substring(5, 7);
@@ -106,23 +106,23 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 					  $(this).datepicker("setDate", new Date(_year, month - 1, day, 0, 0, 0, 0));
 					  }', */
 					),
-					'htmlOptions'=>array(
-						'class'=>'input-small'),
+					'htmlOptions' => array(
+						'class' => 'input-small'),
 				));
 				?>
 				- ถึง
 				<?php
 				$this->widget('zii.widgets.jui.CJuiDatePicker', array(
 					//'name'=>'endDate',
-					'model'=>$leaveModel,
-					'attribute'=>'endDate',
-					'language'=>'th',
-					'options'=>array(
-						'showAnim'=>'fold',
-						'dateFormat'=>'dd/mm/yy',
+					'model' => $leaveModel,
+					'attribute' => 'endDate',
+					'language' => 'th',
+					'options' => array(
+						'showAnim' => 'fold',
+						'dateFormat' => 'dd/mm/yy',
 					),
-					'htmlOptions'=>array(
-						'class'=>'input-small'),
+					'htmlOptions' => array(
+						'class' => 'input-small'),
 				));
 				?>
 			</div>
@@ -131,7 +131,7 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 
 	<hr />
 
-	<?php if($leaveModel->leaveType == 1 || $leaveModel->leaveType == 2): ?>
+	<?php if ($leaveModel->leaveType == 1 || $leaveModel->leaveType == 2): ?>
 		<div class="control-group well">
 			<label class="control-label">เอกสารประกอบการลา</label>
 			<div class="controls">
@@ -141,7 +141,7 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 	<?php endif; ?>
 
 	<?php
-	if(isset($startDate) && isset($endDate))
+	if (isset($startDate) && isset($endDate))
 	{
 		$numDate = (strtotime($endDate) - strtotime($startDate)) / (60 * 60 * 24) + 1;
 		//echo $numDate;
@@ -155,37 +155,37 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 			</div>
 		</div>
 		<?php
-		for($i = 0; $i < $numDate; $i++)
+		for ($i = 0; $i < $numDate; $i++)
 		{
 			$date = date('Y-m-d', strtotime($startDate . " +$i day"));
 			$dayOfWeak = date('N', strtotime($date));
-			if($dayOfWeak == 6 || $dayOfWeak == 7)
+			if ($dayOfWeak == 6 || $dayOfWeak == 7)
 			{
 				$creator = Employee::model()->findByPk(Yii::app()->user->id);
-				if($creator->branchId == 1)
+				if ($creator->branchId == 1)
 				{
-
+					
 				}
 				else
 				{
 					echo $form->hiddenField($leaveItemModel, 'leaveTimeType[]', array(
-						'value'=>1));
+						'value' => 1));
 				}
 			}
 			else
 			{
 				echo $form->hiddenField($leaveItemModel, 'leaveTimeType[]', array(
-					'value'=>1));
+					'value' => 1));
 			}
 			?>
 			<?php
 			echo $form->hiddenField($leaveItemModel, 'leaveDate[]', array(
-				'value'=>$date));
+				'value' => $date));
 			?>
 			<?php
 		}
 
-		if($leaveModel->isLate)
+		if ($leaveModel->isLate)
 		{
 			echo $form->hiddenField($leaveModel, 'isLate');
 		}
@@ -204,8 +204,8 @@ src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-ui/js/jquery-u
 	<div class="form-actions">
 		<?php
 		echo CHtml::submitButton($documentModel->isNewRecord ? 'สร้าง' : 'บันทึก', array(
-			'confirm'=>'คุณต้องการสร้างเอกสารหรือไม่ ?',
-			'class'=>'btn btn-primary'
+			'confirm' => 'คุณต้องการสร้างเอกสารหรือไม่ ?',
+			'class' => 'btn btn-primary'
 		));
 		?>
 	</div>

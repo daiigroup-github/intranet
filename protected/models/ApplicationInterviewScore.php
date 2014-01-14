@@ -50,19 +50,19 @@ class ApplicationInterviewScore extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'applicationInterviewId, managerId, examId, questionId, choiceId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'choiceValue',
 				'length',
-				'max'=>16),
+				'max' => 16),
 			array(
 				'questionWeight',
 				'length',
-				'max'=>7),
+				'max' => 7),
 			array(
 				'updateDateTime',
 				'safe'),
@@ -71,7 +71,7 @@ class ApplicationInterviewScore extends CActiveRecord
 			array(
 				'id, applicationInterviewId, managerId, examId, questionId, questionWeight, choiceId, choiceValue, status, createDateTime, updateDateTime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -83,11 +83,11 @@ class ApplicationInterviewScore extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'examQuestion'=>array(
+			'examQuestion' => array(
 				self::BELONGS_TO,
 				'ExamQuestion',
 				array(
-					'questionId'=>'examQuestionId')),
+					'questionId' => 'examQuestionId')),
 		);
 	}
 
@@ -97,17 +97,17 @@ class ApplicationInterviewScore extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'applicationInterviewId'=>'Application Interview',
-			'managerId'=>'Manager ID',
-			'examId'=>'Exam',
-			'questionId'=>'Question',
-			'questionWeight'=>'Question Weight',
-			'choiceId'=>'Choice',
-			'choiceValue'=>'Choice Value',
-			'status'=>'Status',
-			'createDateTime'=>'Create Date Time',
-			'updateDateTime'=>'Update Date Time',
+			'id' => 'ID',
+			'applicationInterviewId' => 'Application Interview',
+			'managerId' => 'Manager ID',
+			'examId' => 'Exam',
+			'questionId' => 'Question',
+			'questionWeight' => 'Question Weight',
+			'choiceId' => 'Choice',
+			'choiceValue' => 'Choice Value',
+			'status' => 'Status',
+			'createDateTime' => 'Create Date Time',
+			'updateDateTime' => 'Update Date Time',
 		);
 	}
 
@@ -134,7 +134,7 @@ class ApplicationInterviewScore extends CActiveRecord
 		$criteria->compare('updateDateTime', $this->updateDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

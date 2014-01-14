@@ -1,19 +1,19 @@
 <?php
 $this->breadcrumbs = array(
-	'Memos'=>array(
+	'Memos' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List Memo',
-		'url'=>array(
+		'label' => 'List Memo',
+		'url' => array(
 			'index')
 	),
 	array(
-		'label'=>'Create Memo',
-		'url'=>array(
+		'label' => 'Create Memo',
+		'url' => array(
 			'create')
 	),
 );
@@ -44,17 +44,17 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,));
+		'model' => $model,));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'memo-grid',
-	'dataProvider'=>$model->searchOutbox(Yii::app()->user->id),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'id' => 'memo-grid',
+	'dataProvider' => $model->searchOutbox(Yii::app()->user->id),
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		'subject',
 		/*
 		  array(
@@ -65,15 +65,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 		  ), */
 		array(
-			'name'=>'createDateTime',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:20%'),
-			'value'=>'CHtml::encode(($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
+			'name' => 'createDateTime',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:20%'),
+			'value' => 'CHtml::encode(($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
 		),
 		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{view} ',
+			'class' => 'CButtonColumn',
+			'template' => '{view} ',
 		),
 	),
 ));

@@ -53,29 +53,29 @@ class ConstructionProcessSubImage extends CActiveRecord
 			array(
 				'status, labour',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'name',
 				'length',
-				'max'=>255),
+				'max' => 255),
 			array(
 				'detail',
 				'length',
-				'max'=>150),
+				'max' => 150),
 			array(
 				'processId, processSubId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'latitude, longitude, direction',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processSubImageId, status, createDateTime, imageDate, imageTime, name, detail, processId, processSubId, latitude, longitude, direction, labour',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -87,7 +87,7 @@ class ConstructionProcessSubImage extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'processSub'=>array(
+			'processSub' => array(
 				self::BELONGS_TO,
 				'ConstructionProcessSub',
 				'processSubId'),
@@ -100,19 +100,19 @@ class ConstructionProcessSubImage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processSubImageId'=>'Process Sub Image',
-			'status'=>'Status',
-			'createDateTime'=>'Create Date Time',
-			'imageDate'=>'Image Date',
-			'imageTime'=>'Image Time',
-			'name'=>'Name',
-			'detail'=>'Detail',
-			'processId'=>'Process',
-			'processSubId'=>'Process Sub',
-			'latitude'=>'Latitude',
-			'longitude'=>'Longitude',
-			'direction'=>'Direction',
-			'labour'=>'Labour',
+			'processSubImageId' => 'Process Sub Image',
+			'status' => 'Status',
+			'createDateTime' => 'Create Date Time',
+			'imageDate' => 'Image Date',
+			'imageTime' => 'Image Time',
+			'name' => 'Name',
+			'detail' => 'Detail',
+			'processId' => 'Process',
+			'processSubId' => 'Process Sub',
+			'latitude' => 'Latitude',
+			'longitude' => 'Longitude',
+			'direction' => 'Direction',
+			'labour' => 'Labour',
 		);
 	}
 
@@ -142,7 +142,7 @@ class ConstructionProcessSubImage extends CActiveRecord
 		$criteria->compare('labour', $this->labour);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

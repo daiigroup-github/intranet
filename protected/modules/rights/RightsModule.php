@@ -6,12 +6,12 @@
  * @author Christoffer Niska <cniska@live.com>
  * @copyright Copyright &copy; 2010 Christoffer Niska
  * @version 1.3.0
- *
+ * 
  * DO NOT CHANGE THE DEFAULT CONFIGURATION VALUES!
- *
- * You may overload the module configuration values in your rights-module
+ * 
+ * You may overload the module configuration values in your rights-module 
  * configuration like so:
- *
+ * 
  * 'modules'=>array(
  *     'rights'=>array(
  *         'userNameColumn'=>'name',
@@ -59,7 +59,7 @@ class RightsModule extends CWebModule
 	public $enableBizRuleData = false;
 
 	/**
-	 * @property boolean whether to display authorization items description
+	 * @property boolean whether to display authorization items description 
 	 * instead of name it is set.
 	 */
 	public $displayDescription = true;
@@ -110,7 +110,7 @@ class RightsModule extends CWebModule
 	 */
 	public function init()
 	{
-		if(!isset(Yii::app()->user))
+		if (!isset(Yii::app()->user))
 		{
 			$this->redirect(Yii::app()->baseUrl);
 		}
@@ -125,12 +125,12 @@ class RightsModule extends CWebModule
 
 		// Set the required components.
 		$this->setComponents(array(
-			'authorizer'=>array(
-				'class'=>'RAuthorizer',
-				'superuserName'=>$this->superuserName,
+			'authorizer' => array(
+				'class' => 'RAuthorizer',
+				'superuserName' => $this->superuserName,
 			),
-			'generator'=>array(
-				'class'=>'RGenerator',
+			'generator' => array(
+				'class' => 'RGenerator',
 			),
 		));
 
@@ -138,15 +138,15 @@ class RightsModule extends CWebModule
 		$this->defaultController = 'assignment';
 
 		// Set the installer if necessary.
-		if($this->install === true)
+		if ($this->install === true)
 		{
 			$this->setComponents(array(
-				'installer'=>array(
-					'class'=>'RInstaller',
-					'superuserName'=>$this->superuserName,
-					'authenticatedName'=>$this->authenticatedName,
-					'guestName'=>Yii::app()->user->guestName,
-					'defaultRoles'=>Yii::app()->authManager->defaultRoles,
+				'installer' => array(
+					'class' => 'RInstaller',
+					'superuserName' => $this->superuserName,
+					'authenticatedName' => $this->authenticatedName,
+					'guestName' => Yii::app()->user->guestName,
+					'defaultRoles' => Yii::app()->authManager->defaultRoles,
 				),
 			));
 
@@ -171,10 +171,10 @@ class RightsModule extends CWebModule
 		$cs->registerCssFile($assetsUrl . '/css/core.css');
 
 		// Make sure we want to register a style sheet.
-		if($this->cssFile !== false)
+		if ($this->cssFile !== false)
 		{
 			// Default style sheet is used unless one is provided.
-			if($this->cssFile === null)
+			if ($this->cssFile === null)
 				$this->cssFile = $assetsUrl . '/css/default.css';
 			else
 				$this->cssFile = Yii::app()->request->baseUrl . $this->cssFile;
@@ -190,12 +190,12 @@ class RightsModule extends CWebModule
 	 */
 	public function getAssetsUrl()
 	{
-		if($this->_assetsUrl === null)
+		if ($this->_assetsUrl === null)
 		{
 			$assetsPath = Yii::getPathOfAlias('rights.assets');
 
 			// We need to republish the assets if debug mode is enabled.
-			if($this->debug === true)
+			if ($this->debug === true)
 				$this->_assetsUrl = Yii::app()->getAssetManager()->publish($assetsPath, false, -1, true);
 			else
 				$this->_assetsUrl = Yii::app()->getAssetManager()->publish($assetsPath);

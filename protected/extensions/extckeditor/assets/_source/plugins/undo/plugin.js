@@ -21,7 +21,7 @@
 											{
 												exec: function()
 												{
-													if(undoManager.undo())
+													if (undoManager.undo())
 													{
 														editor.selectionChange();
 														this.fire('afterUndo');
@@ -35,7 +35,7 @@
 											{
 												exec: function()
 												{
-													if(undoManager.redo())
+													if (undoManager.redo())
 													{
 														editor.selectionChange();
 														this.fire('afterRedo');
@@ -54,7 +54,7 @@
 									function recordCommand(event)
 									{
 										// If the command hasn't been marked to not support undo.
-										if(undoManager.enabled && event.data.command.canUndo !== false)
+										if (undoManager.enabled && event.data.command.canUndo !== false)
 											undoManager.save();
 									}
 
@@ -74,7 +74,7 @@
 										editor.document.on('keydown', function(event)
 										{
 											// Do not capture CTRL hotkeys.
-											if(!event.data.$.ctrlKey && !event.data.$.metaKey)
+											if (!event.data.$.ctrlKey && !event.data.$.metaKey)
 												undoManager.type(event);
 										});
 									});
@@ -129,7 +129,7 @@
 									 */
 									editor.on('updateSnapshot', function()
 									{
-										if(undoManager.currentImage)
+										if (undoManager.currentImage)
 											undoManager.update();
 									});
 								}
@@ -172,24 +172,24 @@
 											otherContents = otherImage.contents;
 
 									// For IE6/7 : Comparing only the protected attribute values but not the original ones.(#4522)
-									if(CKEDITOR.env.ie && (CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat))
+									if (CKEDITOR.env.ie && (CKEDITOR.env.ie7Compat || CKEDITOR.env.ie6Compat))
 									{
 										thisContents = thisContents.replace(protectedAttrs, '');
 										otherContents = otherContents.replace(protectedAttrs, '');
 									}
 
-									if(thisContents != otherContents)
+									if (thisContents != otherContents)
 										return false;
 
-									if(contentOnly)
+									if (contentOnly)
 										return true;
 
 									var bookmarksA = this.bookmarks,
 											bookmarksB = otherImage.bookmarks;
 
-									if(bookmarksA || bookmarksB)
+									if (bookmarksA || bookmarksB)
 									{
-										if(!bookmarksA || !bookmarksB || bookmarksA.length != bookmarksB.length)
+										if (!bookmarksA || !bookmarksB || bookmarksA.length != bookmarksB.length)
 											return false;
 
 										for (var i = 0; i < bookmarksA.length; i++)
@@ -197,7 +197,7 @@
 											var bookmarkA = bookmarksA[ i ],
 													bookmarkB = bookmarksB[ i ];
 
-											if(
+											if (
 													bookmarkA.startOffset != bookmarkB.startOffset ||
 													bookmarkA.endOffset != bookmarkB.endOffset ||
 													!CKEDITOR.tools.arrayCompare(bookmarkA.start, bookmarkB.start) ||
@@ -255,7 +255,7 @@
 											startedTyping = !(isModifierKey || this.typing)
 											|| (isContent && (wasEditingKey || wasReset));
 
-									if(startedTyping || modifierSnapshot)
+									if (startedTyping || modifierSnapshot)
 									{
 										var beforeTypeImage = new Image(this.editor),
 												beforeTypeCount = this.snapshots.length;
@@ -267,12 +267,12 @@
 											var currentSnapshot = this.editor.getSnapshot();
 
 											// In IE, we need to remove the expando attributes.
-											if(CKEDITOR.env.ie)
+											if (CKEDITOR.env.ie)
 												currentSnapshot = currentSnapshot.replace(/\s+data-cke-expando=".*?"/g, '');
 
 											// If changes have taken place, while not been captured yet (#8459),
 											// compensate the snapshot.
-											if(beforeTypeImage.contents != currentSnapshot &&
+											if (beforeTypeImage.contents != currentSnapshot &&
 													beforeTypeCount == this.snapshots.length)
 											{
 												// It's safe to now indicate typing state.
@@ -280,7 +280,7 @@
 
 												// This's a special save, with specified snapshot
 												// and without auto 'fireChange'.
-												if(!this.save(false, beforeTypeImage, false))
+												if (!this.save(false, beforeTypeImage, false))
 													// Drop future snapshots.
 													this.snapshots.splice(this.index + 1, this.snapshots.length - this.index - 1);
 
@@ -300,23 +300,23 @@
 									this.lastKeystroke = keystroke;
 
 									// Create undo snap after typed too much (over 25 times).
-									if(isEditingKey)
+									if (isEditingKey)
 									{
 										this.typesCount = 0;
 										this.modifiersCount++;
 
-										if(this.modifiersCount > 25)
+										if (this.modifiersCount > 25)
 										{
 											this.save(false, null, false);
 											this.modifiersCount = 1;
 										}
 									}
-									else if(!isReset)
+									else if (!isReset)
 									{
 										this.modifiersCount = 0;
 										this.typesCount++;
 
-										if(this.typesCount > 25)
+										if (this.typesCount > 25)
 										{
 											this.save(false, null, false);
 											this.typesCount = 1;
@@ -378,22 +378,22 @@
 									var snapshots = this.snapshots;
 
 									// Get a content image.
-									if(!image)
+									if (!image)
 										image = new Image(this.editor);
 
 									// Do nothing if it was not possible to retrieve an image.
-									if(image.contents === false)
+									if (image.contents === false)
 										return false;
 
 									// Check if this is a duplicate. In such case, do nothing.
-									if(this.currentImage && image.equals(this.currentImage, onContentOnly))
+									if (this.currentImage && image.equals(this.currentImage, onContentOnly))
 										return false;
 
 									// Drop future snapshots.
 									snapshots.splice(this.index + 1, snapshots.length - this.index - 1);
 
 									// If we have reached the limit, remove the oldest one.
-									if(snapshots.length == this.limit)
+									if (snapshots.length == this.limit)
 										snapshots.shift();
 
 									// Add the new image, updating the current index.
@@ -401,7 +401,7 @@
 
 									this.currentImage = image;
 
-									if(autoFireChange !== false)
+									if (autoFireChange !== false)
 										this.fireChange();
 									return true;
 								},
@@ -411,7 +411,7 @@
 									var editor = this.editor,
 											sel;
 
-									if(image.bookmarks)
+									if (image.bookmarks)
 									{
 										editor.focus();
 										// Retrieve the selection beforehand. (#8324)
@@ -420,9 +420,9 @@
 
 									this.editor.loadSnapshot(image.contents);
 
-									if(image.bookmarks)
+									if (image.bookmarks)
 										sel.selectBookmarks(image.bookmarks);
-									else if(CKEDITOR.env.ie)
+									else if (CKEDITOR.env.ie)
 									{
 										// IE BUG: If I don't set the selection to *somewhere* after setting
 										// document contents, then IE would create an empty paragraph at the bottom
@@ -447,14 +447,14 @@
 											currentImage = this.currentImage,
 											image, i;
 
-									if(currentImage)
+									if (currentImage)
 									{
-										if(isUndo)
+										if (isUndo)
 										{
 											for (i = this.index - 1; i >= 0; i--)
 											{
 												image = snapshots[ i ];
-												if(!currentImage.equals(image, true))
+												if (!currentImage.equals(image, true))
 												{
 													image.index = i;
 													return image;
@@ -466,7 +466,7 @@
 											for (i = this.index + 1; i < snapshots.length; i++)
 											{
 												image = snapshots[ i ];
-												if(!currentImage.equals(image, true))
+												if (!currentImage.equals(image, true))
 												{
 													image.index = i;
 													return image;
@@ -499,12 +499,12 @@
 								 */
 								undo: function()
 								{
-									if(this.undoable())
+									if (this.undoable())
 									{
 										this.save(true);
 
 										var image = this.getNextImage(true);
-										if(image)
+										if (image)
 											return this.restoreImage(image), true;
 									}
 
@@ -515,17 +515,17 @@
 								 */
 								redo: function()
 								{
-									if(this.redoable())
+									if (this.redoable())
 									{
 										// Try to save. If no changes have been made, the redo stack
 										// will not change, so it will still be redoable.
 										this.save(true);
 
 										// If instead we had changes, we can't redo anymore.
-										if(this.redoable())
+										if (this.redoable())
 										{
 											var image = this.getNextImage(false);
-											if(image)
+											if (image)
 												return this.restoreImage(image), true;
 										}
 									}

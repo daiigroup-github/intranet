@@ -17,9 +17,9 @@
 		 * var document = new CKEDITOR.dom.window( window );
 		 */
 		CKEDITOR.dom.window = function(domWindow)
-		{
-			CKEDITOR.dom.domObject.call(this, domWindow);
-		};
+{
+	CKEDITOR.dom.domObject.call(this, domWindow);
+};
 
 CKEDITOR.dom.window.prototype = new CKEDITOR.dom.domObject();
 
@@ -36,7 +36,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.window.prototype,
 					focus: function()
 					{
 						// Webkit is sometimes failed to focus iframe, blur it first(#3835).
-						if(CKEDITOR.env.webkit && this.$.parent)
+						if (CKEDITOR.env.webkit && this.$.parent)
 							this.$.parent.focus();
 						this.$.focus();
 					},
@@ -75,7 +75,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.window.prototype,
 					{
 						var $ = this.$;
 
-						if('pageXOffset' in $)
+						if ('pageXOffset' in $)
 						{
 							return {
 								x: $.pageXOffset || 0,

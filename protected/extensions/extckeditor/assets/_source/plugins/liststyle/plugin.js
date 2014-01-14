@@ -16,7 +16,7 @@
 							CKEDITOR.dialog.add('bulletedListStyle', this.path + 'dialogs/liststyle.js');
 
 							// If the "menu" plugin is loaded, register the menu items.
-							if(editor.addMenuItems)
+							if (editor.addMenuItems)
 							{
 								//Register map group;
 								editor.addMenuGroup("list", 108);
@@ -39,19 +39,19 @@
 							}
 
 							// If the "contextmenu" plugin is loaded, register the listeners.
-							if(editor.contextMenu)
+							if (editor.contextMenu)
 							{
 								editor.contextMenu.addListener(function(element, selection)
 								{
-									if(!element || element.isReadOnly())
+									if (!element || element.isReadOnly())
 										return null;
 
-									while(element)
+									while (element)
 									{
 										var name = element.getName();
-										if(name == 'ol')
+										if (name == 'ol')
 											return {numberedlist: CKEDITOR.TRISTATE_OFF};
-										else if(name == 'ul')
+										else if (name == 'ul')
 											return {bulletedlist: CKEDITOR.TRISTATE_OFF};
 
 										element = element.getParent();

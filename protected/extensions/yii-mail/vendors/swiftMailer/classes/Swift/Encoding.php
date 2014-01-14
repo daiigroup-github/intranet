@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -11,7 +12,7 @@
 
 /**
  * Provides quick access to each encoding type.
- *
+ * 
  * @package Swift
  * @subpackage Encoder
  * @author Chris Corbyn
@@ -21,7 +22,7 @@ class Swift_Encoding
 
 	/**
 	 * Get the Encoder that provides 7-bit encoding.
-	 *
+	 * 
 	 * @return Swift_Mime_ContentEncoder
 	 */
 	public static function get7BitEncoding()
@@ -31,7 +32,7 @@ class Swift_Encoding
 
 	/**
 	 * Get the Encoder that provides 8-bit encoding.
-	 *
+	 * 
 	 * @return Swift_Mime_ContentEncoder
 	 */
 	public static function get8BitEncoding()
@@ -41,7 +42,7 @@ class Swift_Encoding
 
 	/**
 	 * Get the Encoder that provides Quoted-Printable (QP) encoding.
-	 *
+	 * 
 	 * @return Swift_Mime_ContentEncoder
 	 */
 	public static function getQpEncoding()
@@ -51,7 +52,7 @@ class Swift_Encoding
 
 	/**
 	 * Get the Encoder that provides Base64 encoding.
-	 *
+	 * 
 	 * @return Swift_Mime_ContentEncoder
 	 */
 	public static function getBase64Encoding()

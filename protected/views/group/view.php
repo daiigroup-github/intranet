@@ -14,7 +14,7 @@ $this->pageHeader = 'View Group : ' . strtoupper($model->groupName);
 <ol>
 	<?php
 //print_r($model->groupMember);
-	foreach($model->groupMember as $groupMember)
+	foreach ($model->groupMember as $groupMember)
 	{
 		echo '<li>' . $groupMember->employee->username . ' : ' . $groupMember->employee->fnTh . ' ' . $groupMember->employee->lnTh . '</li>';
 	}

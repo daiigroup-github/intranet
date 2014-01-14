@@ -16,7 +16,7 @@
 	 */
 	function iterator(range)
 	{
-		if(arguments.length < 1)
+		if (arguments.length < 1)
 			return;
 
 		this.range = range;
@@ -34,14 +34,14 @@
 			bookmarkGuard = CKEDITOR.dom.walker.bookmark(false, true),
 			whitespacesGuard = CKEDITOR.dom.walker.whitespaces(true),
 			skipGuard = function(node) {
-				return bookmarkGuard(node) && whitespacesGuard(node);
-			};
+		return bookmarkGuard(node) && whitespacesGuard(node);
+	};
 
 	// Get a reference for the next element, bookmark nodes are skipped.
 	function getNextSourceNode(node, startFromSibling, lastNode)
 	{
 		var next = node.getNextSourceNode(startFromSibling, null, lastNode);
-		while(!bookmarkGuard(next))
+		while (!bookmarkGuard(next))
 			next = next.getNextSourceNode(startFromSibling, null, lastNode);
 		return next;
 	}
@@ -65,7 +65,7 @@
 			var removePreviousBr, removeLastBr;
 
 			// This is the first iteration. Let's initialize it.
-			if(!this._.started)
+			if (!this._.started)
 			{
 				range = this.range.clone();
 
@@ -78,7 +78,7 @@
 				range.enlarge(this.forceBrBreak && !touchPre || !this.enlargeBr ?
 						CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS : CKEDITOR.ENLARGE_BLOCK_CONTENTS);
 
-				if(!range.collapsed)
+				if (!range.collapsed)
 				{
 					var walker = new CKEDITOR.dom.walker(range.clone()),
 							ignoreBookmarkTextEvaluator = CKEDITOR.dom.walker.bookmark(true, true);
@@ -94,14 +94,14 @@
 					// We may have an empty text node at the end of block due to [3770].
 					// If that node is the lastNode, it would cause our logic to leak to the
 					// next block.(#3887)
-					if(this._.lastNode &&
+					if (this._.lastNode &&
 							this._.lastNode.type == CKEDITOR.NODE_TEXT &&
 							!CKEDITOR.tools.trim(this._.lastNode.getText()) &&
 							this._.lastNode.getParent().isBlockBoundary())
 					{
 						var testRange = new CKEDITOR.dom.range(range.document);
 						testRange.moveToPosition(this._.lastNode, CKEDITOR.POSITION_AFTER_END);
-						if(testRange.checkEndOfBlock())
+						if (testRange.checkEndOfBlock())
 						{
 							var path = new CKEDITOR.dom.elementPath(testRange.endContainer);
 							var lastBlock = path.block || path.blockLimit;
@@ -110,7 +110,7 @@
 					}
 
 					// Probably the document end is reached, we need a marker node.
-					if(!this._.lastNode)
+					if (!this._.lastNode)
 					{
 						this._.lastNode = this._.docEndMarker = range.document.createText('');
 						this._.lastNode.insertAfter(lastNode);
@@ -127,7 +127,7 @@
 			lastNode = this._.lastNode;
 
 			this._.nextNode = null;
-			while(currentNode)
+			while (currentNode)
 			{
 				// closeRange indicates that a paragraph boundary has been found,
 				// so the range can be closed.
@@ -141,18 +141,18 @@
 
 				// If it is an element node, let's check if it can be part of the
 				// range.
-				if(!includeNode)
+				if (!includeNode)
 				{
 					var nodeName = currentNode.getName();
 
-					if(currentNode.isBlockBoundary(this.forceBrBreak &&
+					if (currentNode.isBlockBoundary(this.forceBrBreak &&
 							!parentPre && {br: 1}))
 					{
 						// <br> boundaries must be part of the range. It will
 						// happen only if ForceBrBreak.
-						if(nodeName == 'br')
+						if (nodeName == 'br')
 							includeNode = 1;
-						else if(!range && !currentNode.getChildCount() && nodeName != 'hr')
+						else if (!range && !currentNode.getChildCount() && nodeName != 'hr')
 						{
 							// If we have found an empty block, and haven't started
 							// the range yet, it means we must return this block.
@@ -163,13 +163,13 @@
 
 						// The range must finish right before the boundary,
 						// including possibly skipped empty spaces. (#1603)
-						if(range)
+						if (range)
 						{
 							range.setEndAt(currentNode, CKEDITOR.POSITION_BEFORE_START);
 
 							// The found boundary must be set as the next one at this
 							// point. (#1717)
-							if(nodeName != 'br')
+							if (nodeName != 'br')
 								this._.nextNode = currentNode;
 						}
 
@@ -178,10 +178,10 @@
 					else
 					{
 						// If we have child nodes, let's check them.
-						if(currentNode.getFirst())
+						if (currentNode.getFirst())
 						{
 							// If we don't have a range yet, let's start it.
-							if(!range)
+							if (!range)
 							{
 								range = new CKEDITOR.dom.range(this.range.document);
 								range.setStartAt(currentNode, CKEDITOR.POSITION_BEFORE_START);
@@ -193,17 +193,17 @@
 						includeNode = 1;
 					}
 				}
-				else if(currentNode.type == CKEDITOR.NODE_TEXT)
+				else if (currentNode.type == CKEDITOR.NODE_TEXT)
 				{
 					// Ignore normal whitespaces (i.e. not including &nbsp; or
 					// other unicode whitespaces) before/after a block node.
-					if(beginWhitespaceRegex.test(currentNode.getText()))
+					if (beginWhitespaceRegex.test(currentNode.getText()))
 						includeNode = 0;
 				}
 
 				// The current node is good to be part of the range and we are
 				// starting a new range, initialize it first.
-				if(includeNode && !range)
+				if (includeNode && !range)
 				{
 					range = new CKEDITOR.dom.range(this.range.document);
 					range.setStartAt(currentNode, CKEDITOR.POSITION_BEFORE_START);
@@ -214,13 +214,13 @@
 
 				// If we are in an element boundary, let's check if it is time
 				// to close the range, otherwise we include the parent within it.
-				if(range && !closeRange)
+				if (range && !closeRange)
 				{
-					while(!currentNode.getNext(skipGuard) && !isLast)
+					while (!currentNode.getNext(skipGuard) && !isLast)
 					{
 						var parentNode = currentNode.getParent();
 
-						if(parentNode.isBlockBoundary(this.forceBrBreak
+						if (parentNode.isBlockBoundary(this.forceBrBreak
 								&& !parentPre && {br: 1}))
 						{
 							closeRange = 1;
@@ -239,7 +239,7 @@
 				}
 
 				// Now finally include the node.
-				if(includeNode)
+				if (includeNode)
 					range.setEndAt(currentNode, CKEDITOR.POSITION_AFTER_END);
 
 				currentNode = getNextSourceNode(currentNode, continueFromSibling, lastNode);
@@ -247,15 +247,15 @@
 
 				// We have found a block boundary. Let's close the range and move out of the
 				// loop.
-				if(isLast || (closeRange && range))
+				if (isLast || (closeRange && range))
 					break;
 			}
 
 			// Now, based on the processed range, look for (or create) the block to be returned.
-			if(!block)
+			if (!block)
 			{
 				// If no range has been found, this is the end.
-				if(!range)
+				if (!range)
 				{
 					this._.docEndMarker && this._.docEndMarker.remove();
 					this._.nextNode = null;
@@ -267,13 +267,13 @@
 						checkLimits = {div: 1, th: 1, td: 1};
 				block = startPath.block;
 
-				if(!block
+				if (!block
 						&& !this.enforceRealBlocks
 						&& checkLimits[ startBlockLimit.getName() ]
 						&& range.checkStartOfBlock()
 						&& range.checkEndOfBlock())
 					block = startBlockLimit;
-				else if(!block || (this.enforceRealBlocks && block.getName() == 'li'))
+				else if (!block || (this.enforceRealBlocks && block.getName() == 'li'))
 				{
 					// Create the fixed block.
 					block = this.range.document.createElement(blockTag || 'p');
@@ -287,12 +287,12 @@
 
 					removePreviousBr = removeLastBr = true;
 				}
-				else if(block.getName() != 'li')
+				else if (block.getName() != 'li')
 				{
 					// If the range doesn't includes the entire contents of the
 					// block, we must split it, isolating the range in a dedicated
 					// block.
-					if(!range.checkStartOfBlock() || !range.checkEndOfBlock())
+					if (!range.checkStartOfBlock() || !range.checkEndOfBlock())
 					{
 						// The resulting block will be a clone of the current one.
 						block = block.clone(false);
@@ -312,7 +312,7 @@
 						range.insertNode(block);
 					}
 				}
-				else if(!isLast)
+				else if (!isLast)
 				{
 					// LIs are returned as is, with all their children (due to the
 					// nested lists). But, the next node is the node right after
@@ -323,25 +323,25 @@
 				}
 			}
 
-			if(removePreviousBr)
+			if (removePreviousBr)
 			{
 				var previousSibling = block.getPrevious();
-				if(previousSibling && previousSibling.type == CKEDITOR.NODE_ELEMENT)
+				if (previousSibling && previousSibling.type == CKEDITOR.NODE_ELEMENT)
 				{
-					if(previousSibling.getName() == 'br')
+					if (previousSibling.getName() == 'br')
 						previousSibling.remove();
-					else if(previousSibling.getLast() && previousSibling.getLast().$.nodeName.toLowerCase() == 'br')
+					else if (previousSibling.getLast() && previousSibling.getLast().$.nodeName.toLowerCase() == 'br')
 						previousSibling.getLast().remove();
 				}
 			}
 
-			if(removeLastBr)
+			if (removeLastBr)
 			{
 				var lastChild = block.getLast();
-				if(lastChild && lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.getName() == 'br')
+				if (lastChild && lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.getName() == 'br')
 				{
 					// Take care not to remove the block expanding <br> in non-IE browsers.
-					if(CKEDITOR.env.ie
+					if (CKEDITOR.env.ie
 							|| lastChild.getPrevious(bookmarkGuard)
 							|| lastChild.getNext(bookmarkGuard))
 						lastChild.remove();
@@ -351,7 +351,7 @@
 			// Get a reference for the next element. This is important because the
 			// above block can be removed or changed, so we can rely on it for the
 			// next interation.
-			if(!this._.nextNode)
+			if (!this._.nextNode)
 			{
 				this._.nextNode = (isLast || block.equals(lastNode) || !lastNode) ? null :
 						getNextSourceNode(block, 1, lastNode);

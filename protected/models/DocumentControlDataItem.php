@@ -46,17 +46,17 @@ class DocumentControlDataItem extends CActiveRecord
 			array(
 				'documentControlDataId, documentControlDataItemUseId, oldDocumentControlDataItemUseId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'documentControlDataItemValue',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentControlDataItemId, documentControlDataId, documentControlDataItemUseId, documentControlDataItemValue, oldDocumentControlDataItemUseId',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -77,11 +77,11 @@ class DocumentControlDataItem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentControlDataItemId'=>'Document Control Data Item',
-			'documentControlDataId'=>'Document Control Data',
-			'documentControlDataItemUseId'=>'Document Control Data Use Item',
-			'documentControlDataItemValue'=>'Document Control Data Item Value',
-			'oldDocumentControlDataItemUseId'=>'Old Document Control Data Use Item',
+			'documentControlDataItemId' => 'Document Control Data Item',
+			'documentControlDataId' => 'Document Control Data',
+			'documentControlDataItemUseId' => 'Document Control Data Use Item',
+			'documentControlDataItemValue' => 'Document Control Data Item Value',
+			'oldDocumentControlDataItemUseId' => 'Old Document Control Data Use Item',
 		);
 	}
 
@@ -102,7 +102,7 @@ class DocumentControlDataItem extends CActiveRecord
 		$criteria->compare('documentControlDataItemValue', $this->documentControlDataItemValue, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

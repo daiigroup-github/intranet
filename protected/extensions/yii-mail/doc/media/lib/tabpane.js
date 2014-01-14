@@ -4,8 +4,8 @@
  * This script was created by Erik Arvidsson (erik(at)eae.net)
  * for WebFX (http://webfx.eae.net)
  * Copyright 2002
- *
- * For usage see license at http://webfx.eae.net/license.html
+ * 
+ * For usage see license at http://webfx.eae.net/license.html	
  *
  * Version: 1.0
  * Created: 2002-01-??	First working version
@@ -20,7 +20,7 @@
 // features
 function hasSupport() {
 
-	if(typeof hasSupport.support != "undefined")
+	if (typeof hasSupport.support != "undefined")
 		return hasSupport.support;
 
 	var ie55 = /msie 5\.[56789]/i.test(navigator.userAgent);
@@ -29,10 +29,10 @@ function hasSupport() {
 			document.implementation.hasFeature("html", "1.0") || ie55)
 
 	// IE55 has a serious DOM1 bug... Patch it!
-	if(ie55) {
+	if (ie55) {
 		document._getElementsByTagName = document.getElementsByTagName;
 		document.getElementsByTagName = function(sTagName) {
-			if(sTagName == "*")
+			if (sTagName == "*")
 				return document.all;
 			else
 				return document._getElementsByTagName(sTagName);
@@ -50,7 +50,7 @@ function hasSupport() {
 //						persistance using cookies or not
 //
 function WebFXTabPane(el, bUseCookie) {
-	if(!hasSupport() || el == null)
+	if (!hasSupport() || el == null)
 		return;
 
 	this.element = el;
@@ -68,9 +68,9 @@ function WebFXTabPane(el, bUseCookie) {
 	el.insertBefore(this.tabRow, el.firstChild);
 
 	var tabIndex = 0;
-	if(this.useCookie) {
+	if (this.useCookie) {
 		tabIndex = Number(WebFXTabPane.getCookie("webfxtab_" + this.element.id));
-		if(isNaN(tabIndex))
+		if (isNaN(tabIndex))
 			tabIndex = 0;
 	}
 
@@ -80,7 +80,7 @@ function WebFXTabPane(el, bUseCookie) {
 	var cs = el.childNodes;
 	var n;
 	for (var i = 0; i < cs.length; i++) {
-		if(cs[i].nodeType == 1 && cs[i].className == "tab-page") {
+		if (cs[i].nodeType == 1 && cs[i].className == "tab-page") {
 			this.addTabPage(cs[i]);
 		}
 	}
@@ -89,13 +89,13 @@ function WebFXTabPane(el, bUseCookie) {
 WebFXTabPane.prototype = {
 	classNameTag: "dynamic-tab-pane-control",
 	setSelectedIndex: function(n) {
-		if(this.selectedIndex != n) {
-			if(this.selectedIndex != null && this.pages[ this.selectedIndex ] != null)
+		if (this.selectedIndex != n) {
+			if (this.selectedIndex != null && this.pages[ this.selectedIndex ] != null)
 				this.pages[ this.selectedIndex ].hide();
 			this.selectedIndex = n;
 			this.pages[ this.selectedIndex ].show();
 
-			if(this.useCookie)
+			if (this.useCookie)
 				WebFXTabPane.setCookie("webfxtab_" + this.element.id, n);	// session cookie
 		}
 	},
@@ -103,10 +103,10 @@ WebFXTabPane.prototype = {
 		return this.selectedIndex;
 	},
 	addTabPage: function(oElement) {
-		if(!hasSupport())
+		if (!hasSupport())
 			return;
 
-		if(oElement.tabPage == this)	// already added
+		if (oElement.tabPage == this)	// already added
 			return oElement.tabPage;
 
 		var n = this.pages.length;
@@ -116,7 +116,7 @@ WebFXTabPane.prototype = {
 		// move the tab out of the box
 		this.tabRow.appendChild(tp.tab);
 
-		if(n == this.selectedIndex)
+		if (n == this.selectedIndex)
 			tp.show();
 		else
 			tp.hide();
@@ -128,7 +128,7 @@ WebFXTabPane.prototype = {
 // Cookie handling
 WebFXTabPane.setCookie = function(sName, sValue, nDays) {
 	var expires = "";
-	if(nDays) {
+	if (nDays) {
 		var d = new Date();
 		d.setTime(d.getTime() + nDays * 24 * 60 * 60 * 1000);
 		expires = "; expires=" + d.toGMTString();
@@ -163,7 +163,7 @@ WebFXTabPane.removeCookie = function(name) {
 // nindex :	Number			The index of the page in the parent pane page array
 //
 function WebFXTabPage(el, tabPane, nIndex) {
-	if(!hasSupport() || el == null)
+	if (!hasSupport() || el == null)
 		return;
 
 	this.element = el;
@@ -172,7 +172,7 @@ function WebFXTabPage(el, tabPane, nIndex) {
 
 	var cs = el.childNodes;
 	for (var i = 0; i < cs.length; i++) {
-		if(cs[i].nodeType == 1 && cs[i].className == "tab") {
+		if (cs[i].nodeType == 1 && cs[i].className == "tab") {
 			this.tab = cs[i];
 			break;
 		}
@@ -181,27 +181,27 @@ function WebFXTabPage(el, tabPane, nIndex) {
 	// insert a tag around content to support keyboard navigation
 	var a = document.createElement("A");
 	a.href = "javascript:void 0;";
-	while(this.tab.hasChildNodes())
+	while (this.tab.hasChildNodes())
 		a.appendChild(this.tab.firstChild);
 	this.tab.appendChild(a);
 
 
 	anchor = '';
-	if(document.URL.indexOf('#') != -1) {
+	if (document.URL.indexOf('#') != -1) {
 		anchor = document.URL.substr(document.URL.indexOf('#') + 1);
 	}
 	j = 0;
-	if(anchor.length > 0) {
+	if (anchor.length > 0) {
 		finalList = new Array();
 		listOfAnchors = el.getElementsByTagName('A');
 		for (i = 0; i < listOfAnchors.length; i++) {
-			if(listOfAnchors[i].name.length) {
+			if (listOfAnchors[i].name.length) {
 				finalList[j++] = listOfAnchors[i].name;
 			}
 		}
 		for (i = 0; i < finalList.length; i++) {
-			if(anchor == finalList[i]) {
-				if(tabPane.selectedIndex != nIndex)
+			if (anchor == finalList[i]) {
+				if (tabPane.selectedIndex != nIndex)
 					tabPane.pages[ tabPane.selectedIndex ].hide();
 				tabPane.selectedIndex = nIndex;
 			}
@@ -260,7 +260,7 @@ WebFXTabPage.tabOut = function(tabpage) {
 
 // This function initializes all uninitialized tab panes and tab pages
 function setupAllTabs() {
-	if(!hasSupport())
+	if (!hasSupport())
 		return;
 
 	var all = document.getElementsByTagName("*");
@@ -275,15 +275,15 @@ function setupAllTabs() {
 		cn = el.className;
 
 		// no className
-		if(cn == "")
+		if (cn == "")
 			continue;
 
 		// uninitiated tab pane
-		if(tabPaneRe.test(cn) && !el.tabPane)
+		if (tabPaneRe.test(cn) && !el.tabPane)
 			new WebFXTabPane(el);
 
 		// unitiated tab page wit a valid tab pane parent
-		else if(tabPageRe.test(cn) && !el.tabPage &&
+		else if (tabPageRe.test(cn) && !el.tabPage &&
 				tabPaneRe.test(el.parentNode.className)) {
 			el.parentNode.tabPane.addTabPage(el);
 		}
@@ -294,15 +294,15 @@ function setupAllTabs() {
 // initialization hook up
 
 // DOM2
-if(typeof window.addEventListener != "undefined")
+if (typeof window.addEventListener != "undefined")
 	window.addEventListener("load", setupAllTabs, false);
 
-// IE
-else if(typeof window.attachEvent != "undefined")
+// IE 
+else if (typeof window.attachEvent != "undefined")
 	window.attachEvent("onload", setupAllTabs);
 
 else {
-	if(window.onload != null) {
+	if (window.onload != null) {
 		var oldOnload = window.onload;
 		window.onload = function(e) {
 			oldOnload(e);

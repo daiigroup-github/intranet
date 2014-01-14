@@ -23,41 +23,41 @@ $('.search-form form').submit(function(){
 		<!-- <a class="btn search-button"><i class="icon-search"></i></a> -->
 
 	</div>
-</div>
+</div>	
 <?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('documentTypeSearch', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $companyDivisions = CompanyDivision::model()->getAllCompanyDivision();
-foreach($companyDivisions as $k=> $v)
+foreach ($companyDivisions as $k => $v)
 {
-	if(!empty($k))
+	if (!empty($k))
 	{
-		if($model->searchForCreateDocument(Yii::app()->user->id, $k)->itemCount)
+		if ($model->searchForCreateDocument(Yii::app()->user->id, $k)->itemCount)
 		{
 			echo "<h3>$v</h3>";
 			$this->widget('zii.widgets.grid.CGridView', array(
-				'id'=>'document-type-grid' . $k,
-				'dataProvider'=>$model->searchForCreateDocument(Yii::app()->user->id, $k),
+				'id' => 'document-type-grid' . $k,
+				'dataProvider' => $model->searchForCreateDocument(Yii::app()->user->id, $k),
 				//'filter'=>$model,
-				'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-				'columns'=>array(
+				'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+				'columns' => array(
 					//'documentTypeId',
 					'documentTypeName',
 					array(
-						'header'=>'',
-						'class'=>'CButtonColumn',
-						'template'=>'{สร้าง}',
-						'buttons'=>array(
-							'สร้าง'=>array(
-								'title'=>'Field',
-								'url'=>'$this->grid->controller->createUrl((!$data->customAction) ? "create" : $data->customAction, array("documentTypeId"=>$data->documentTypeId))',
+						'header' => '',
+						'class' => 'CButtonColumn',
+						'template' => '{สร้าง}',
+						'buttons' => array(
+							'สร้าง' => array(
+								'title' => 'Field',
+								'url' => '$this->grid->controller->createUrl((!$data->customAction) ? "create" : $data->customAction, array("documentTypeId"=>$data->documentTypeId))',
 							//'click'=>'function(){$("#cru-frame").attr("src",$(this).attr("href")); $("#cru-dialog").dialog("open");  return false;}',
 							//'visible'=>"checkVisible('Advertiser.VerifyBalance')",
 							),
@@ -69,25 +69,25 @@ foreach($companyDivisions as $k=> $v)
 	}
 	else
 	{
-		if($model->searchForCreateDocument(Yii::app()->user->id, null)->itemCount)
+		if ($model->searchForCreateDocument(Yii::app()->user->id, null)->itemCount)
 		{
 			echo "<h2>เอกสารอื่นๆ</h2>";
 			$this->widget('zii.widgets.grid.CGridView', array(
-				'id'=>'document-type-grid' . $k,
-				'dataProvider'=>$model->searchForCreateDocument(Yii::app()->user->id, null),
+				'id' => 'document-type-grid' . $k,
+				'dataProvider' => $model->searchForCreateDocument(Yii::app()->user->id, null),
 				//'filter'=>$model,
-				'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-				'columns'=>array(
+				'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+				'columns' => array(
 					//'documentTypeId',
 					'documentTypeName',
 					array(
-						'header'=>'',
-						'class'=>'CButtonColumn',
-						'template'=>'{สร้าง}',
-						'buttons'=>array(
-							'สร้าง'=>array(
-								'title'=>'Field',
-								'url'=>'$this->grid->controller->createUrl((!$data->customAction) ? "create" : $data->customAction, array("documentTypeId"=>$data->documentTypeId))',
+						'header' => '',
+						'class' => 'CButtonColumn',
+						'template' => '{สร้าง}',
+						'buttons' => array(
+							'สร้าง' => array(
+								'title' => 'Field',
+								'url' => '$this->grid->controller->createUrl((!$data->customAction) ? "create" : $data->customAction, array("documentTypeId"=>$data->documentTypeId))',
 							//'click'=>'function(){$("#cru-frame").attr("src",$(this).attr("href")); $("#cru-dialog").dialog("open");  return false;}',
 							//'visible'=>"checkVisible('Advertiser.VerifyBalance')",
 							),

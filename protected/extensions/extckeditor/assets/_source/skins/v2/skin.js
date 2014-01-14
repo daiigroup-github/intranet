@@ -4,15 +4,15 @@
  */
 
 		CKEDITOR.skins.add('v2', (function()
-		{
-			return {
-				editor: {css: ['editor.css']},
-				dialog: {css: ['dialog.css']},
-				separator: {canGroup: false},
-				templates: {css: ['templates.css']},
-				margins: [0, 14, 18, 14]
-			};
-		})());
+{
+	return {
+		editor: {css: ['editor.css']},
+		dialog: {css: ['dialog.css']},
+		separator: {canGroup: false},
+		templates: {css: ['templates.css']},
+		margins: [0, 14, 18, 14]
+	};
+})());
 
 (function()
 {
@@ -28,7 +28,7 @@
 					dialog = data.dialog,
 					contents = dialog.parts.contents;
 
-			if(data.skin != 'v2')
+			if (data.skin != 'v2')
 				return;
 
 			contents.setStyles(
@@ -37,7 +37,7 @@
 						height: height + 'px'
 					});
 
-			if(!CKEDITOR.env.ie || CKEDITOR.env.ie9Compat)
+			if (!CKEDITOR.env.ie || CKEDITOR.env.ie9Compat)
 				return;
 
 			// Fix the size of the elements which have flexible lengths.

@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->stockId), array(
 		'view',
-		'id'=>$data->stockId));
+		'id' => $data->stockId));
 	?>
 	<br />
 

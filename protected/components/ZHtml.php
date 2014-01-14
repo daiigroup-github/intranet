@@ -14,8 +14,8 @@ class ZHtml extends CHtml
 		$model = new StockDetail();
 		$model = $model->findAll();
 		$values = array(
-			0=>"Select..");
-		foreach($model as $value)
+			0 => "Select..");
+		foreach ($model as $value)
 		{
 			$values[$value->stockDetailId] = $value->stockDetailName;
 		}
@@ -27,7 +27,7 @@ class ZHtml extends CHtml
 		$attr = $attribute;
 		self::resolveName($model, $attr);
 		preg_match('/\((.*)\)/', $model->tableSchema->columns[$attr]->dbType, $matches);
-		foreach(explode(',', $matches[1]) as $value)
+		foreach (explode(',', $matches[1]) as $value)
 		{
 			$value = str_replace("'", null, $value);
 			$values[$value] = Yii::t('enumItem', $value);

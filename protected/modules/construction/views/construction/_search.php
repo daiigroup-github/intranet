@@ -8,8 +8,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
 	));
 	?>
 
@@ -17,8 +17,8 @@
 		<?php echo $form->label($model, 'projectId'); ?>
 		<?php
 		echo $form->textField($model, 'projectId', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -36,8 +36,8 @@
 		<?php echo $form->label($model, 'productCatId'); ?>
 		<?php
 		echo $form->textField($model, 'productCatId', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -45,8 +45,8 @@
 		<?php echo $form->label($model, 'productValue'); ?>
 		<?php
 		echo $form->textField($model, 'productValue', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -54,8 +54,8 @@
 		<?php echo $form->label($model, 'name'); ?>
 		<?php
 		echo $form->textField($model, 'name', array(
-			'size'=>60,
-			'maxlength'=>100));
+			'size' => 60,
+			'maxlength' => 100));
 		?>
 	</div>
 
@@ -63,8 +63,8 @@
 		<?php echo $form->label($model, 'detail'); ?>
 		<?php
 		echo $form->textField($model, 'detail', array(
-			'size'=>60,
-			'maxlength'=>255));
+			'size' => 60,
+			'maxlength' => 255));
 		?>
 	</div>
 
@@ -77,8 +77,8 @@
 		<?php echo $form->label($model, 'imageUrl'); ?>
 		<?php
 		echo $form->textField($model, 'imageUrl', array(
-			'size'=>60,
-			'maxlength'=>255));
+			'size' => 60,
+			'maxlength' => 255));
 		?>
 	</div>
 
@@ -86,8 +86,8 @@
 		<?php echo $form->label($model, 'address'); ?>
 		<?php
 		echo $form->textField($model, 'address', array(
-			'size'=>60,
-			'maxlength'=>255));
+			'size' => 60,
+			'maxlength' => 255));
 		?>
 	</div>
 
@@ -95,8 +95,8 @@
 		<?php echo $form->label($model, 'customerId'); ?>
 		<?php
 		echo $form->textField($model, 'customerId', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -104,8 +104,8 @@
 		<?php echo $form->label($model, 'engineerId'); ?>
 		<?php
 		echo $form->textField($model, 'engineerId', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -113,8 +113,8 @@
 		<?php echo $form->label($model, 'saleId'); ?>
 		<?php
 		echo $form->textField($model, 'saleId', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 
@@ -132,8 +132,8 @@
 		<?php echo $form->label($model, 'latitude'); ?>
 		<?php
 		echo $form->textField($model, 'latitude', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -141,8 +141,8 @@
 		<?php echo $form->label($model, 'longitude'); ?>
 		<?php
 		echo $form->textField($model, 'longitude', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -150,8 +150,8 @@
 		<?php echo $form->label($model, 'branchValue'); ?>
 		<?php
 		echo $form->textField($model, 'branchValue', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 

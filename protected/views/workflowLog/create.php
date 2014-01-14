@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflow Logs'=>array(
+	'Workflow Logs' => array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List WorkflowLog',
-		'url'=>array(
+		'label' => 'List WorkflowLog',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Manage WorkflowLog',
-		'url'=>array(
+		'label' => 'Manage WorkflowLog',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

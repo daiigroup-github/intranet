@@ -1,17 +1,17 @@
 <?php
-if($data->projectId == 0 && $data->branchId == 0)
+if ($data->projectId == 0 && $data->branchId == 0)
 {
 	$place = 'Home';
 }
 else
 {
 	$place = '-';
-	if($data->project)
+	if ($data->project)
 	{
 		$place = $data->project->projectName . ' (' . $data->project->customer->customerName . ')';
 	}
 
-	if($data->branch)
+	if ($data->branch)
 	{
 		$place = $data->branch->branchName;
 	}
@@ -32,27 +32,27 @@ else
 		<p>
 			<?php
 			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$data,
-				'attributes'=>array(
+				'data' => $data,
+				'attributes' => array(
 					array(
-						'name'=>'Place',
-						'value'=>$place,
+						'name' => 'Place',
+						'value' => $place,
 					),
 					array(
-						'name'=>'Mileage',
-						'value'=>$data->mileage,
+						'name' => 'Mileage',
+						'value' => $data->mileage,
 					),
 					array(
-						'name'=>'Mileage Diff',
-						'value'=>$data->mileageDiff,
+						'name' => 'Mileage Diff',
+						'value' => $data->mileageDiff,
 					),
 					array(
-						'name'=>'Mileage Detail',
-						'value'=>$data->mileageDetail,
+						'name' => 'Mileage Detail',
+						'value' => $data->mileageDetail,
 					),
 					array(
-						'name'=>'Data Time',
-						'value'=>$data->createDate . ' ' . $data->createTime,
+						'name' => 'Data Time',
+						'value' => $data->createDate . ' ' . $data->createTime,
 					),
 				),
 			));

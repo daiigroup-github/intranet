@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -29,9 +30,9 @@ class Swift_CharacterReader_UsAsciiReader implements Swift_CharacterReader
 	{
 		$strlen = strlen($string);
 		$ignoredChars = '';
-		for($i = 0; $i < $strlen; ++$i)
+		for ($i = 0; $i < $strlen; ++$i)
 		{
-			if($string[$i] > "\x07F")
+			if ($string[$i] > "\x07F")
 			{ // Invalid char
 				$currentMap[$i + $startOffset] = $string[$i];
 			}
@@ -60,7 +61,7 @@ class Swift_CharacterReader_UsAsciiReader implements Swift_CharacterReader
 	public function validateByteSequence($bytes, $size)
 	{
 		$byte = reset($bytes);
-		if(1 == count($bytes) && $byte >= 0x00 && $byte <= 0x7F)
+		if (1 == count($bytes) && $byte >= 0x00 && $byte <= 0x7F)
 		{
 			return 0;
 		}

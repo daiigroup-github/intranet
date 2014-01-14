@@ -2,22 +2,22 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
-		'htmlOptions'=>array(
-			'class'=>'form-inline well',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
+		'htmlOptions' => array(
+			'class' => 'form-inline well',
 		),
 	));
 	?>
 	<?php
 	echo $form->textField($model, 'projectName', array(
-		'size'=>60,
-		'maxlength'=>100,
-		'placeHolder'=>'ชื่อโปรเจ็ค'));
+		'size' => 60,
+		'maxlength' => 100,
+		'placeHolder' => 'ชื่อโปรเจ็ค'));
 	?>
 	<?php
 	echo $form->dropdownList($model, 'customerId', Customer::model()->getAllCustomer(), array(
-		'prompt'=>'...ลูกค้า...'));
+		'prompt' => '...ลูกค้า...'));
 	?>
 	<?php //echo $form->textField($model,'status'); ?>
 	<?php //echo $form->textField($model,'createDateTime');  ?>

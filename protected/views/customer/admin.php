@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Customers'=>array(
+	'Customers' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List Customer',
-		'url'=>array(
+		'label' => 'List Customer',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create Customer',
-		'url'=>array(
+		'label' => 'Create Customer',
+		'url' => array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class'=>'search-button'));
+	'class' => 'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'customer-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'customer-grid',
+	'dataProvider' => $model->search(),
+	'filter' => $model,
+	'columns' => array(
 		'customerId',
 		'createDateTime',
 		'customerType',
@@ -76,7 +76,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		  'phone',
 		 */
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));

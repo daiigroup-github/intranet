@@ -14,8 +14,8 @@
 				var g = f.split(' '), h = [];
 				for (var i = 0; i < g.length; i++) {
 					var j = g[i];
-					if(e.test(j) && !d.test(j))
-						if(CKEDITOR.tools.indexOf(h, j) == -1)
+					if (e.test(j) && !d.test(j))
+						if (CKEDITOR.tools.indexOf(h, j) == -1)
 							h.push(j);
 				}
 				return h;
@@ -25,9 +25,9 @@
 				var f = [], g = [], h;
 				for (h = 0; h < c.styleSheets.length; h++) {
 					var i = c.styleSheets[h], j = i.ownerNode || i.owningElement;
-					if(j.getAttribute('data-cke-temp'))
+					if (j.getAttribute('data-cke-temp'))
 						continue;
-					if(i.href && i.href.substr(0, 9) == 'chrome://')
+					if (i.href && i.href.substr(0, 9) == 'chrome://')
 						continue;
 					var k = i.cssRules || i.rules;
 					for (var l = 0; l < k.length; l++)

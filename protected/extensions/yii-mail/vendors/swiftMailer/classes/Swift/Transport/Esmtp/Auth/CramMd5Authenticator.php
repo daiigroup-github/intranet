@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -50,7 +51,7 @@ class Swift_Transport_Esmtp_Auth_CramMd5Authenticator implements Swift_Transport
 				235));
 			return true;
 		}
-		catch(Swift_TransportException $e)
+		catch (Swift_TransportException $e)
 		{
 			$agent->executeCommand("RSET\r\n", array(
 				250));
@@ -66,12 +67,12 @@ class Swift_Transport_Esmtp_Auth_CramMd5Authenticator implements Swift_Transport
 	 */
 	private function _getResponse($secret, $challenge)
 	{
-		if(strlen($secret) > 64)
+		if (strlen($secret) > 64)
 		{
 			$secret = pack('H32', md5($secret));
 		}
 
-		if(strlen($secret) < 64)
+		if (strlen($secret) < 64)
 		{
 			$secret = str_pad($secret, 64, chr(0));
 		}

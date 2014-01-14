@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -20,8 +21,8 @@
 interface Swift_Mime_MimeEntity
 extends Swift_Mime_CharsetObserver, Swift_Mime_EncodingObserver
 {
-
 	/** Main message document; there can only be one of these */
+
 	const LEVEL_TOP = 16;
 
 	/** An entity which nests with the same precedence as an attachment */

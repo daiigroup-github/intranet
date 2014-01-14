@@ -51,21 +51,21 @@ class WorkflowState extends CActiveRecord
 			array(
 				'requireConfirm, ordered',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'workflowStateName',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			array(
 				'currentState, nextState, workflowStatusId, workflowGroupId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'workflowStateId, workflowStateName, currentState, nextState, workflowStatusId, workflowGroupId, requireConfirm',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -77,19 +77,19 @@ class WorkflowState extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workflowCurrent'=>array(
+			'workflowCurrent' => array(
 				self::BELONGS_TO,
 				'Workflow',
 				'currentState'),
-			'workflowNext'=>array(
+			'workflowNext' => array(
 				self::BELONGS_TO,
 				'Workflow',
 				'nextState'),
-			'workflowStatus'=>array(
+			'workflowStatus' => array(
 				self::BELONGS_TO,
 				'WorkflowStatus',
 				array(
-					'workflowStatusId'=>'workflowStatusId')),
+					'workflowStatusId' => 'workflowStatusId')),
 		);
 	}
 
@@ -99,14 +99,14 @@ class WorkflowState extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowStateId'=>'ID',
-			'workflowStateName'=>'Name',
-			'currentState'=>'Current',
-			'nextState'=>'Next',
-			'workflowStatusId'=>'Status',
-			'workflowGroupId'=>'Workflow Group',
-			'requireConfirm'=>'Require Confirm',
-			'ordered'=>'Order',
+			'workflowStateId' => 'ID',
+			'workflowStateName' => 'Name',
+			'currentState' => 'Current',
+			'nextState' => 'Next',
+			'workflowStatusId' => 'Status',
+			'workflowGroupId' => 'Workflow Group',
+			'requireConfirm' => 'Require Confirm',
+			'ordered' => 'Order',
 		);
 	}
 
@@ -131,12 +131,12 @@ class WorkflowState extends CActiveRecord
 
 		$criteria->condition = 'workflowGroupId=:workflowGroupId';
 		$criteria->params = array(
-			':workflowGroupId'=>$this->workflowGroupId);
+			':workflowGroupId' => $this->workflowGroupId);
 
 		Controller::writeToFile('/tmp/workflowState', print_r($criteria, true));
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -148,10 +148,10 @@ class WorkflowState extends CActiveRecord
 		$criteria->join .= " LEFT JOIN document_workflow dw ON dw.currentState = t.currentState";
 		$criteria->condition = 't.currentState=:currentState AND workflowGroupId=:workflowGroupId AND dw.isFinished = 0 AND dw.employeeId =:employeeId ';
 		$criteria->params = array(
-			':currentState'=>$currentState,
-			':workflowGroupId'=>$workflowGroupId,
-			':employeeId'=>$employeeId);
-		if(isset($documentId))
+			':currentState' => $currentState,
+			':workflowGroupId' => $workflowGroupId,
+			':employeeId' => $employeeId);
+		if (isset($documentId))
 		{
 			$criteria->condition .= " AND dw.documentId =:documentId ";
 			$criteria->params[":documentId"] = $documentId;
@@ -162,7 +162,7 @@ class WorkflowState extends CActiveRecord
 		$w = array(
 			);
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->workflowStatusId] = $model->workflowStatus->workflowStatusName;
 		}
@@ -178,16 +178,16 @@ class WorkflowState extends CActiveRecord
 		$criteria->join .= " LEFT OUTER JOIN group_member gm ON gm.groupId = dw.groupId";
 		$criteria->condition = 't.currentState=:currentState AND workflowGroupId=:workflowGroupId AND dw.isFinished = 0 AND gm.employeeId =:employeeId ';
 		$criteria->params = array(
-			':currentState'=>$currentState,
-			':workflowGroupId'=>$workflowGroupId,
-			':employeeId'=>$employeeId);
+			':currentState' => $currentState,
+			':workflowGroupId' => $workflowGroupId,
+			':employeeId' => $employeeId);
 		$criteria->order = "ws.workflowStatusName ASC";
 		$models = $this->findAll($criteria);
 
 		$w = array(
 			);
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->workflowStatusId] = $model->workflowStatus->workflowStatusName;
 		}
@@ -200,9 +200,9 @@ class WorkflowState extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'currentState=:currentState AND workflowStatusId=:workflowStatusId AND workflowGroupId=:workflowGroupId';
 		$criteria->params = array(
-			':currentState'=>$currentState,
-			':workflowStatusId'=>$workflowStatusId,
-			':workflowGroupId'=>$workflowGroupId);
+			':currentState' => $currentState,
+			':workflowStatusId' => $workflowStatusId,
+			':workflowGroupId' => $workflowGroupId);
 
 		$model = $this->find($criteria);
 
@@ -214,8 +214,8 @@ class WorkflowState extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'currentState=:currentState AND workflowGroupId=:workflowGroupId';
 		$criteria->params = array(
-			':currentState'=>$currentState,
-			':workflowGroupId'=>$workflowGroupId);
+			':currentState' => $currentState,
+			':workflowGroupId' => $workflowGroupId);
 
 		$model = $this->find($criteria);
 
@@ -227,15 +227,15 @@ class WorkflowState extends CActiveRecord
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'workflowGroupId=:workflowGroupId';
 		$criteria->params = array(
-			':workflowGroupId'=>$workflowGroupId);
+			':workflowGroupId' => $workflowGroupId);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'t.ordered ASC , t.workflowStateId ASC',
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 't.ordered ASC , t.workflowStateId ASC',
 			),
-			'pagination'=>array(
-				'pageSize'=>30
+			'pagination' => array(
+				'pageSize' => 30
 			),
 		));
 	}
@@ -243,15 +243,15 @@ class WorkflowState extends CActiveRecord
 	public function getWorkflowByWorkflowGroupId($workflowGroupId)
 	{
 		$models = WorkflowState::model()->findAll('workflowGroupId=:workflowGroupId', array(
-			':workflowGroupId'=>$workflowGroupId));
+			':workflowGroupId' => $workflowGroupId));
 
 		$w = array(
-			'0'=>'-',
-			'-1'=>'ไม่แสดงตอนสร้าง');
+			'0' => '-',
+			'-1' => 'ไม่แสดงตอนสร้าง');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
-			if(isset($model->workflowCurrent))
+			if (isset($model->workflowCurrent))
 			{
 				$w[$model->currentState] = $model->workflowCurrent->workflowName;
 			}

@@ -8,7 +8,7 @@ class LeaveReportController extends Controller
 		$leaveModel = new Leave;
 		$employeeModels = null;
 
-		if(isset($_POST['Leave']))
+		if (isset($_POST['Leave']))
 		{
 			$startDate = $_POST['Leave']['startDate'];
 			$endDate = $_POST['Leave']['endDate'];
@@ -22,8 +22,8 @@ class LeaveReportController extends Controller
 		}
 
 		$this->render('index', array(
-			'leaveModel'=>$leaveModel,
-			'employeeModels'=>$employeeModels));
+			'leaveModel' => $leaveModel,
+			'employeeModels' => $employeeModels));
 	}
 
 	public function actionFixTimeReport()
@@ -31,7 +31,7 @@ class LeaveReportController extends Controller
 		$documentItem = new DocumentItem();
 		$employeeModels = null;
 
-		if(isset($_POST['DocumentItem']))
+		if (isset($_POST['DocumentItem']))
 		{
 			$startDate = $_POST['DocumentItem']['startDate'];
 			$endDate = $_POST['DocumentItem']['endDate'];
@@ -45,8 +45,8 @@ class LeaveReportController extends Controller
 		}
 
 		$this->render('timeFix', array(
-			'documentItem'=>$documentItem,
-			'employeeModels'=>$employeeModels));
+			'documentItem' => $documentItem,
+			'employeeModels' => $employeeModels));
 	}
 
 	public function actionLeaveReport()
@@ -54,7 +54,7 @@ class LeaveReportController extends Controller
 		$leaveModel = new Leave;
 		$employeeModels = null;
 
-		if(isset($_POST['Leave']))
+		if (isset($_POST['Leave']))
 		{
 			$startDate = $_POST['Leave']['startDate'];
 			$endDate = $_POST['Leave']['endDate'];
@@ -65,8 +65,8 @@ class LeaveReportController extends Controller
 		}
 
 		$this->render('index', array(
-			'leaveModel'=>$leaveModel,
-			'employeeModels'=>$employeeModels));
+			'leaveModel' => $leaveModel,
+			'employeeModels' => $employeeModels));
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -128,7 +128,7 @@ class LeaveReportController extends Controller
 		$endDate = date("Y-m-d", mktime(0, 0, 0, date("12"), date("22"), date("Y")));
 
 
-		if(isset($_GET['Leave']))
+		if (isset($_GET['Leave']))
 		{
 			$startDate = $_GET['Leave']['startDate'];
 			$endDate = $_GET['Leave']['endDate'];
@@ -139,8 +139,9 @@ class LeaveReportController extends Controller
 		$leaveModel->endDate = $endDate;
 
 		$this->render('summary', array(
-			'leaveModel'=>$leaveModel,
-			'dataProvider'=>$employeeModels));
+			'leaveModel' => $leaveModel,
+			'dataProvider' => $employeeModels));
 	}
 
 }
+

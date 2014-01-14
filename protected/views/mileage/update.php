@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Mileages'=>array(
+	'Mileages' => array(
 		'index'),
-	$model->mileageId=>array(
+	$model->mileageId => array(
 		'view',
-		'id'=>$model->mileageId),
+		'id' => $model->mileageId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List Mileage',
-		'url'=>array(
+		'label' => 'List Mileage',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create Mileage',
-		'url'=>array(
+		'label' => 'Create Mileage',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'View Mileage',
-		'url'=>array(
+		'label' => 'View Mileage',
+		'url' => array(
 			'view',
-			'id'=>$model->mileageId)),
+			'id' => $model->mileageId)),
 	array(
-		'label'=>'Manage Mileage',
-		'url'=>array(
+		'label' => 'Manage Mileage',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -33,5 +33,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

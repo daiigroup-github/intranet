@@ -1,4 +1,5 @@
 <?php
+
 Swift_DependencyContainer::getInstance()
 	->register('cache')
 	->asAliasOf('cache.array')

@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'customer-sale-form',
-		'enableAjaxValidation'=>false,
+		'id' => 'customer-sale-form',
+		'enableAjaxValidation' => false,
 	));
 	?>
 
@@ -15,8 +15,8 @@
 		<?php echo $form->labelEx($model, 'customerId'); ?>
 		<?php
 		echo $form->textField($model, 'customerId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 		<?php echo $form->error($model, 'customerId'); ?>
 	</div>
@@ -25,8 +25,8 @@
 		<?php echo $form->labelEx($model, 'saleId'); ?>
 		<?php
 		echo $form->textField($model, 'saleId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 		<?php echo $form->error($model, 'saleId'); ?>
 	</div>
@@ -35,8 +35,8 @@
 		<?php echo $form->labelEx($model, 'companyValue'); ?>
 		<?php
 		echo $form->textField($model, 'companyValue', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 		<?php echo $form->error($model, 'companyValue'); ?>
 	</div>

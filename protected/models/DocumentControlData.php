@@ -46,21 +46,21 @@ class DocumentControlData extends CActiveRecord
 			array(
 				'documentControlDataName',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'fieldId, fieldValue',
 				'length',
-				'max'=>200),
+				'max' => 200),
 			array(
 				'dataModel, dataMethod',
 				'length',
-				'max'=>1000),
+				'max' => 1000),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'documentControlDataId, documentControlDataName, dataModel, dataMethod, fieldId, fieldValue',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class DocumentControlData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documentControlDataItem'=>array(
+			'documentControlDataItem' => array(
 				self::HAS_MANY,
 				'DocumentControlDataItem',
 				'documentControlDataItemId'),
@@ -85,12 +85,12 @@ class DocumentControlData extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'documentControlDataId'=>'Document Control Data',
-			'documentControlDataName'=>'ชื่อประเภทของฟิลด์',
-			'dataModel'=>'Data Model',
-			'dataMethod'=>'Data Method',
-			'fieldId'=>'Field Id',
-			'fieldValue'=>'Field Value',
+			'documentControlDataId' => 'Document Control Data',
+			'documentControlDataName' => 'ชื่อประเภทของฟิลด์',
+			'dataModel' => 'Data Model',
+			'dataMethod' => 'Data Method',
+			'fieldId' => 'Field Id',
+			'fieldValue' => 'Field Value',
 		);
 	}
 
@@ -113,12 +113,12 @@ class DocumentControlData extends CActiveRecord
 		$criteria->compare('fieldValue', $this->fieldValue, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 			/* 'sort' => array(
 			  'defaultOrder' => 't.createDateTime DESC',
 			  ), */
-			'pagination'=>array(
-				'pageSize'=>30
+			'pagination' => array(
+				'pageSize' => 30
 			),
 		));
 	}
@@ -130,7 +130,7 @@ class DocumentControlData extends CActiveRecord
 		$w = array(
 			);
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->documentControlDataId] = $model->documentControlDataName;
 		}

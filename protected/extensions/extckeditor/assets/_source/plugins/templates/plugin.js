@@ -43,14 +43,14 @@
 				// Look for pending template files to get loaded.
 				for (var i = 0, count = templateFiles.length; i < count; i++)
 				{
-					if(!loadedTemplatesFiles[ templateFiles[ i ] ])
+					if (!loadedTemplatesFiles[ templateFiles[ i ] ])
 					{
 						toLoad.push(templateFiles[ i ]);
 						loadedTemplatesFiles[ templateFiles[ i ] ] = 1;
 					}
 				}
 
-				if(toLoad.length)
+				if (toLoad.length)
 					CKEDITOR.scriptLoader.load(toLoad, callback);
 				else
 					setTimeout(callback, 0);

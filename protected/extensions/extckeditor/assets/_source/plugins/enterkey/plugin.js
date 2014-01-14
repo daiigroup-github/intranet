@@ -41,7 +41,7 @@
 
 							// We may not have valid ranges to work on, like when inside a
 							// contenteditable=false element.
-							if(!range)
+							if (!range)
 								return;
 
 							var doc = range.document;
@@ -51,25 +51,25 @@
 									path = new CKEDITOR.dom.elementPath(range.startContainer),
 									block = path.block;
 
-							if(atBlockStart && atBlockEnd)
+							if (atBlockStart && atBlockEnd)
 							{
 								// Exit the list when we're inside an empty list item block. (#5376)
-								if(block && (block.is('li') || block.getParent().is('li')))
+								if (block && (block.is('li') || block.getParent().is('li')))
 								{
 									editor.execCommand('outdent');
 									return;
 								}
 
-								if(block && block.getParent().is('blockquote'))
+								if (block && block.getParent().is('blockquote'))
 								{
 									block.breakParent(block.getParent());
 
 									// If we were at the start of <blockquote>, there will be an empty element before it now.
-									if(!block.getPrevious().getFirst(CKEDITOR.dom.walker.invisible(1)))
+									if (!block.getPrevious().getFirst(CKEDITOR.dom.walker.invisible(1)))
 										block.getPrevious().remove();
 
 									// If we were at the end of <blockquote>, there will be an empty element after it now.
-									if(!block.getNext().getFirst(CKEDITOR.dom.walker.invisible(1)))
+									if (!block.getNext().getFirst(CKEDITOR.dom.walker.invisible(1)))
 										block.getNext().remove();
 
 									range.moveToElementEditStart(block);
@@ -78,16 +78,16 @@
 								}
 							}
 							// Don't split <pre> if we're in the middle of it, act as shift enter key.
-							else if(block && block.is('pre'))
+							else if (block && block.is('pre'))
 							{
-								if(!atBlockEnd)
+								if (!atBlockEnd)
 								{
 									enterBr(editor, mode, range, forceMode);
 									return;
 								}
 							}
 							// Don't split caption blocks. (#7944)
-							else if(block && CKEDITOR.dtd.$captionBlock[ block.getName() ])
+							else if (block && CKEDITOR.dtd.$captionBlock[ block.getName() ])
 							{
 								enterBr(editor, mode, range, forceMode);
 								return;
@@ -99,7 +99,7 @@
 							// Split the range.
 							var splitInfo = range.splitBlock(blockTag);
 
-							if(!splitInfo)
+							if (!splitInfo)
 								return;
 
 							// Get the current blocks.
@@ -112,16 +112,16 @@
 							var node;
 
 							// If this is a block under a list item, split it as well. (#1647)
-							if(nextBlock)
+							if (nextBlock)
 							{
 								node = nextBlock.getParent();
-								if(node.is('li'))
+								if (node.is('li'))
 								{
 									nextBlock.breakParent(node);
 									nextBlock.move(nextBlock.getNext(), 1);
 								}
 							}
-							else if(previousBlock && (node = previousBlock.getParent()) && node.is('li'))
+							else if (previousBlock && (node = previousBlock.getParent()) && node.is('li'))
 							{
 								previousBlock.breakParent(node);
 								node = previousBlock.getNext();
@@ -132,18 +132,18 @@
 							// If we have both the previous and next blocks, it means that the
 							// boundaries were on separated blocks, or none of them where on the
 							// block limits (start/end).
-							if(!isStartOfBlock && !isEndOfBlock)
+							if (!isStartOfBlock && !isEndOfBlock)
 							{
 								// If the next block is an <li> with another list tree as the first
 								// child, we'll need to append a filler (<br>/NBSP) or the list item
 								// wouldn't be editable. (#1420)
-								if(nextBlock.is('li')
+								if (nextBlock.is('li')
 										&& (node = nextBlock.getFirst(CKEDITOR.dom.walker.invisible(true)))
 										&& node.is && node.is('ul', 'ol'))
 									(CKEDITOR.env.ie ? doc.createText('\xa0') : doc.createElement('br')).insertBefore(node);
 
 								// Move the selection to the end block.
-								if(nextBlock)
+								if (nextBlock)
 									range.moveToElementEditStart(nextBlock);
 							}
 							else
@@ -151,51 +151,51 @@
 								var newBlock,
 										newBlockDir;
 
-								if(previousBlock)
+								if (previousBlock)
 								{
 									// Do not enter this block if it's a header tag, or we are in
 									// a Shift+Enter (#77). Create a new block element instead
 									// (later in the code).
-									if(previousBlock.is('li') ||
+									if (previousBlock.is('li') ||
 											!(headerTagRegex.test(previousBlock.getName()) || previousBlock.is('pre')))
 									{
 										// Otherwise, duplicate the previous block.
 										newBlock = previousBlock.clone();
 									}
 								}
-								else if(nextBlock)
+								else if (nextBlock)
 									newBlock = nextBlock.clone();
 
-								if(!newBlock)
+								if (!newBlock)
 								{
 									// We have already created a new list item. (#6849)
-									if(node && node.is('li'))
+									if (node && node.is('li'))
 										newBlock = node;
 									else
 									{
 										newBlock = doc.createElement(blockTag);
-										if(previousBlock && (newBlockDir = previousBlock.getDirection()))
+										if (previousBlock && (newBlockDir = previousBlock.getDirection()))
 											newBlock.setAttribute('dir', newBlockDir);
 									}
 								}
 								// Force the enter block unless we're talking of a list item.
-								else if(forceMode && !newBlock.is('li'))
+								else if (forceMode && !newBlock.is('li'))
 									newBlock.renameNode(blockTag);
 
 								// Recreate the inline elements tree, which was available
 								// before hitting enter, so the same styles will be available in
 								// the new block.
 								var elementPath = splitInfo.elementPath;
-								if(elementPath)
+								if (elementPath)
 								{
 									for (var i = 0, len = elementPath.elements.length; i < len; i++)
 									{
 										var element = elementPath.elements[ i ];
 
-										if(element.equals(elementPath.block) || element.equals(elementPath.blockLimit))
+										if (element.equals(elementPath.block) || element.equals(elementPath.blockLimit))
 											break;
 
-										if(CKEDITOR.dtd.$removeEmpty[ element.getName() ])
+										if (CKEDITOR.dtd.$removeEmpty[ element.getName() ])
 										{
 											element = element.clone();
 											newBlock.moveChildren(element);
@@ -204,10 +204,10 @@
 									}
 								}
 
-								if(!CKEDITOR.env.ie)
+								if (!CKEDITOR.env.ie)
 									newBlock.appendBogus();
 
-								if(!newBlock.getParent())
+								if (!newBlock.getParent())
 									range.insertNode(newBlock);
 
 								// list item start number should not be duplicated (#7330), but we need
@@ -219,7 +219,7 @@
 								// The previousBlock check has been included because it may be
 								// empty if we have fixed a block-less space (like ENTER into an
 								// empty table cell).
-								if(CKEDITOR.env.ie && isStartOfBlock && (!isEndOfBlock || !previousBlock.getChildCount()))
+								if (CKEDITOR.env.ie && isStartOfBlock && (!isEndOfBlock || !previousBlock.getChildCount()))
 								{
 									// Move the selection to the new block.
 									range.moveToElementEditStart(isEndOfBlock ? previousBlock : newBlock);
@@ -230,9 +230,9 @@
 								range.moveToElementEditStart(isStartOfBlock && !isEndOfBlock ? nextBlock : newBlock);
 							}
 
-							if(!CKEDITOR.env.ie)
+							if (!CKEDITOR.env.ie)
 							{
-								if(nextBlock)
+								if (nextBlock)
 								{
 									// If we have split the block, adds a temporary span at the
 									// range position and scroll relatively to it.
@@ -262,7 +262,7 @@
 
 							// We may not have valid ranges to work on, like when inside a
 							// contenteditable=false element.
-							if(!range)
+							if (!range)
 								return;
 
 							var doc = range.document;
@@ -279,19 +279,19 @@
 
 							var isPre = false;
 
-							if(!forceMode && startBlockTag == 'li')
+							if (!forceMode && startBlockTag == 'li')
 							{
 								enterBlock(editor, mode, range, forceMode);
 								return;
 							}
 
 							// If we are at the end of a header block.
-							if(!forceMode && isEndOfBlock && headerTagRegex.test(startBlockTag))
+							if (!forceMode && isEndOfBlock && headerTagRegex.test(startBlockTag))
 							{
 								var newBlock,
 										newBlockDir;
 
-								if((newBlockDir = startBlock.getDirection()))
+								if ((newBlockDir = startBlock.getDirection()))
 								{
 									newBlock = doc.createElement('div');
 									newBlock.setAttribute('dir', newBlockDir);
@@ -304,7 +304,7 @@
 									doc.createElement('br').insertAfter(startBlock);
 
 									// A text node is required by Gecko only to make the cursor blink.
-									if(CKEDITOR.env.gecko)
+									if (CKEDITOR.env.gecko)
 										doc.createText('').insertAfter(startBlock);
 
 									// IE has different behaviors regarding position.
@@ -318,7 +318,7 @@
 								isPre = (startBlockTag == 'pre');
 
 								// Gecko prefers <br> as line-break inside <pre> (#4711).
-								if(isPre && !CKEDITOR.env.gecko)
+								if (isPre && !CKEDITOR.env.gecko)
 									lineBreak = doc.createText(CKEDITOR.env.ie ? '\r' : '\n');
 								else
 									lineBreak = doc.createElement('br');
@@ -327,7 +327,7 @@
 								range.insertNode(lineBreak);
 
 								// IE has different behavior regarding position.
-								if(CKEDITOR.env.ie)
+								if (CKEDITOR.env.ie)
 									range.setStartAt(lineBreak, CKEDITOR.POSITION_AFTER_END);
 								else
 								{
@@ -337,7 +337,7 @@
 									doc.createText('\ufeff').insertAfter(lineBreak);
 
 									// If we are at the end of a block, we must be sure the bogus node is available in that block.
-									if(isEndOfBlock)
+									if (isEndOfBlock)
 										lineBreak.getParent().appendBogus();
 
 									// Now we can remove the text node contents, so the caret doesn't
@@ -350,7 +350,7 @@
 									var dummy = null;
 
 									// BR is not positioned in Opera and Webkit.
-									if(!CKEDITOR.env.gecko)
+									if (!CKEDITOR.env.gecko)
 									{
 										dummy = doc.createElement('span');
 										// We need have some contents for Webkit to position it
@@ -381,7 +381,7 @@
 			function shiftEnter(editor)
 			{
 				// Only effective within document.
-				if(editor.mode != 'wysiwyg')
+				if (editor.mode != 'wysiwyg')
 					return false;
 
 				// On SHIFT+ENTER:
@@ -395,10 +395,10 @@
 				forceMode = editor.config.forceEnterMode || forceMode;
 
 				// Only effective within document.
-				if(editor.mode != 'wysiwyg')
+				if (editor.mode != 'wysiwyg')
 					return false;
 
-				if(!mode)
+				if (!mode)
 					mode = editor.config.enterMode;
 
 				// Use setTimout so the keys get cancelled immediatelly.
@@ -406,7 +406,7 @@
 				{
 					editor.fire('saveSnapshot');	// Save undo step.
 
-					if(mode == CKEDITOR.ENTER_BR)
+					if (mode == CKEDITOR.ENTER_BR)
 						enterBr(editor, mode, null, forceMode);
 					else
 						enterBlock(editor, mode, null, forceMode);

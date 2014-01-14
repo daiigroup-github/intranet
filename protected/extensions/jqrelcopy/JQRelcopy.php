@@ -100,7 +100,7 @@ class JQRelcopy extends CWidget
 		$jsOptions = CJavaScript::encode($options);
 
 		$language = isset($config['language']) ? $config['language'] : '';
-		if(!empty($language))
+		if (!empty($language))
 			$language = "jQuery.datepicker.regional['$language'],";
 
 		return "if(this.hasClass('hasDatepicker')) {this.removeClass('hasDatepicker'); this.datepicker(jQuery.extend({showMonthAfterYear:false}, $language {$jsOptions}));};";
@@ -120,7 +120,7 @@ class JQRelcopy extends CWidget
 		$jsOptions = CJavaScript::encode($options);
 
 		$language = isset($element['language']) ? $config['language'] : '';
-		if(!empty($language))
+		if (!empty($language))
 			$language = "jQuery.datepicker.regional['$language'],";
 
 		return "if(this.hasClass('hasDatepicker')) {this.removeClass('hasDatepicker').datetimepicker(jQuery.extend($language {$jsOptions}));};";
@@ -136,7 +136,7 @@ class JQRelcopy extends CWidget
 	{
 		$options = isset($config['options']) ? $config['options'] : array(
 			);
-		if(isset($config['sourceUrl']))
+		if (isset($config['sourceUrl']))
 			$options['source'] = CHtml::normalizeUrl($config['sourceUrl']);
 		else
 			$options['source'] = $config['source'];
@@ -164,26 +164,26 @@ class JQRelcopy extends CWidget
 		Yii::app()->clientScript->registerCoreScript('jquery')
 			->registerScriptFile($this->_assets . '/js/jquery.relcopy.yii.1.1.js');
 
-		if(!empty($this->removeText))
+		if (!empty($this->removeText))
 		{
 			$onClick = '$(this).parent().remove(); return false;';
 			$htmlOptions = array_merge($this->removeHtmlOptions, array(
-				'onclick'=>$onClick));
+				'onclick' => $onClick));
 			$append = CHtml::link($this->removeText, '#', $htmlOptions);
 
 			$this->options['append'] = empty($this->options['append']) ? $append : $append . ' ' . $this->options['append'];
 		}
 
-		if(!empty($this->jsBeforeClone))
+		if (!empty($this->jsBeforeClone))
 			$this->options['beforeClone'] = $this->jsBeforeClone;
 
-		if(!empty($this->jsAfterClone))
+		if (!empty($this->jsAfterClone))
 			$this->options['afterClone'] = $this->jsAfterClone;
 
-		if(!empty($this->jsBeforeNewId))
+		if (!empty($this->jsBeforeNewId))
 			$this->options['beforeNewId'] = $this->jsBeforeNewId;
 
-		if(!empty($this->jsAfterNewId))
+		if (!empty($this->jsAfterNewId))
 			$this->options['afterNewId'] = $this->jsAfterNewId;
 
 		$options = CJavaScript::encode($this->options);

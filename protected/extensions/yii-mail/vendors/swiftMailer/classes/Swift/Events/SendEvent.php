@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -17,8 +18,8 @@
  */
 class Swift_Events_SendEvent extends Swift_Events_EventObject
 {
-
 	/** Sending has yet to occur */
+
 	const RESULT_PENDING = 0x0001;
 
 	/** Sending was successful */

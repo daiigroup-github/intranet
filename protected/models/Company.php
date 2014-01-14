@@ -45,17 +45,17 @@ class Company extends CActiveRecord
 			array(
 				'status, companyValue',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'companyNameTh, companyNameEn',
 				'length',
-				'max'=>200),
+				'max' => 200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'companyId, status, companyValue, companyNameTh, companyNameEn',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -76,11 +76,11 @@ class Company extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'companyId'=>'Company',
-			'status'=>'Status',
-			'companyValue'=>'Company Value',
-			'companyNameTh'=>'Company Name Th',
-			'companyNameEn'=>'Company Name En',
+			'companyId' => 'Company',
+			'status' => 'Status',
+			'companyValue' => 'Company Value',
+			'companyNameTh' => 'Company Name Th',
+			'companyNameEn' => 'Company Name En',
 		);
 	}
 
@@ -102,7 +102,7 @@ class Company extends CActiveRecord
 		$criteria->compare('companyNameEn', $this->companyNameEn, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -112,14 +112,14 @@ class Company extends CActiveRecord
 		$c = new Company;
 
 		$models = $c->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'companyNameTh',
+			'condition' => 'status=1',
+			'order' => 'companyNameTh',
 		));
 
 		$company = array(
-			''=>'- บริษัท');
+			'' => '- บริษัท');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$company[$model->companyId] = $model->companyNameTh;
 		}
@@ -132,18 +132,18 @@ class Company extends CActiveRecord
 		$c = new Company;
 
 		$models = $c->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'companyNameTh',
+			'condition' => 'status=1',
+			'order' => 'companyNameTh',
 		));
 
 		$company = array(
-			''=>'ทุกบริษัท');
+			'' => 'ทุกบริษัท');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$employee = Employee::model()->find("companyId =:companyId AND status = 1", array(
-				":companyId"=>$model->companyId));
-			if(count($employee) > 0)
+				":companyId" => $model->companyId));
+			if (count($employee) > 0)
 			{
 				$company[$model->companyId] = $model->companyNameTh;
 			}
@@ -164,3 +164,4 @@ class Company extends CActiveRecord
 	}
 
 }
+

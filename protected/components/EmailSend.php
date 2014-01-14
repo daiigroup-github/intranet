@@ -17,24 +17,24 @@ class EmailSend //extends Controller
 		$message = new YiiMailMessage();
 		$message->view = 'document';
 		$message->setBody(array(
-			"name"=>$name,
-			"documentTypeName"=>$documentTypeName,
-			"documentNo"=>$documentNo,
-			"documentUrl"=>$website . $documentId,
-			"action"=>$action,
-			"remarks"=>$remarks,
-			"creator"=>$creator), 'text/html', 'utf-8');
+			"name" => $name,
+			"documentTypeName" => $documentTypeName,
+			"documentNo" => $documentNo,
+			"documentUrl" => $website . $documentId,
+			"action" => $action,
+			"remarks" => $remarks,
+			"creator" => $creator), 'text/html', 'utf-8');
 
-		//$message->message->setBody($body, 'text/html');
+		//$message->message->setBody($body, 'text/html'); 
 		//$message->message->setBody($body, 'text/plain','utf-8');
 
 		$message->subject = $this->subject . " " . $documentTypeName . " " . $documentNo;
 		$message->addTo($email);
 		//$message->from   = ($this->adminEmail);
 		$message->setFrom(array(
-			'No-Reply@daiigroup.com'=>'เอกสาร Intranet'));
+			'No-Reply@daiigroup.com' => 'เอกสาร Intranet'));
 
-		if(Yii::app()->getParams()->sendEmail)
+		if (Yii::app()->getParams()->sendEmail)
 		{
 			Yii::app()->mail->send($message);
 		}
@@ -52,9 +52,9 @@ class EmailSend //extends Controller
 		$message = new YiiMailMessage();
 		$message->view = 'resetPassword';
 		$message->setBody(array(
-			"name"=>$name,
-			"newPassword"=>$newPassword,
-			"documentUrl"=>$website), 'text/html', 'utf-8');
+			"name" => $name,
+			"newPassword" => $newPassword,
+			"documentUrl" => $website), 'text/html', 'utf-8');
 
 		//$message->message->setBody($body, 'text/html');
 		//$message->message->setBody($body, 'text/plain','utf-8');
@@ -63,8 +63,8 @@ class EmailSend //extends Controller
 		$message->addTo($email);
 		//$message->from   = ($this->adminEmail);
 		$message->setFrom(array(
-			'No-Reply@daiigroup.com'=>'แจ้งเตือน Intranet'));
-		if(Yii::app()->getParams()->sendEmail)
+			'No-Reply@daiigroup.com' => 'แจ้งเตือน Intranet'));
+		if (Yii::app()->getParams()->sendEmail)
 		{
 			Yii::app()->mail->send($message);
 		}
@@ -81,14 +81,14 @@ class EmailSend //extends Controller
 		$message = new YiiMailMessage();
 		$message->view = 'newEmployee';
 		$message->setBody(array(
-			"empCode"=>$empCode,
-			"nameThai"=>$nameThai,
-			"nameEng"=>$nameEng,
-			"position"=>$position,
-			"company"=>$company,
-			"website"=>$website,
-			"canView"=>$canView,
-			'empUserName'=>$empUseName), 'text/html', 'utf-8');
+			"empCode" => $empCode,
+			"nameThai" => $nameThai,
+			"nameEng" => $nameEng,
+			"position" => $position,
+			"company" => $company,
+			"website" => $website,
+			"canView" => $canView,
+			'empUserName' => $empUseName), 'text/html', 'utf-8');
 
 		//$message->message->setBody($body, 'text/html');
 		//$message->message->setBody($body, 'text/plain','utf-8');
@@ -97,8 +97,8 @@ class EmailSend //extends Controller
 		$message->addTo($toEmail);
 		//$message->from   = ($this->adminEmail);
 		$message->setFrom(array(
-			'No-Reply@daiigroup.com'=>'แจ้งเตือน Intranet'));
-		if(Yii::app()->getParams()->sendEmail)
+			'No-Reply@daiigroup.com' => 'แจ้งเตือน Intranet'));
+		if (Yii::app()->getParams()->sendEmail)
 		{
 			Yii::app()->mail->send($message);
 		}
@@ -115,9 +115,9 @@ class EmailSend //extends Controller
 		$message = new YiiMailMessage();
 		$message->view = 'newMemo';
 		$message->setBody(array(
-			"createBy"=>$createBy,
-			"website"=>$website,
-			"toEmail"=>$toEmail), 'text/html', 'utf-8');
+			"createBy" => $createBy,
+			"website" => $website,
+			"toEmail" => $toEmail), 'text/html', 'utf-8');
 
 		//$message->message->setBody($body, 'text/html');
 		//$message->message->setBody($body, 'text/plain','utf-8');
@@ -126,8 +126,8 @@ class EmailSend //extends Controller
 		$message->addTo($toEmail);
 		//$message->from   = ($this->adminEmail);
 		$message->setFrom(array(
-			'No-Reply@daiigroup.com'=>'แจ้งเตือน Intranet'));
-		if(Yii::app()->getParams()->sendEmail)
+			'No-Reply@daiigroup.com' => 'แจ้งเตือน Intranet'));
+		if (Yii::app()->getParams()->sendEmail)
 		{
 			Yii::app()->mail->send($message);
 		}
@@ -144,15 +144,15 @@ class EmailSend //extends Controller
 		$message = new YiiMailMessage();
 		$message->view = 'resignEmployee';
 		$message->setBody(array(
-			"empCode"=>$empCode,
-			"nameThai"=>$nameThai,
-			"nameEng"=>$nameEng,
-			"position"=>$position,
-			"company"=>$company,
-			"website"=>$website,
-			"canView"=>$canView,
-			"leaveDate"=>$leaveDate,
-			'empUserName'=>$empUserName), 'text/html', 'utf-8');
+			"empCode" => $empCode,
+			"nameThai" => $nameThai,
+			"nameEng" => $nameEng,
+			"position" => $position,
+			"company" => $company,
+			"website" => $website,
+			"canView" => $canView,
+			"leaveDate" => $leaveDate,
+			'empUserName' => $empUserName), 'text/html', 'utf-8');
 
 		//$message->message->setBody($body, 'text/html');
 		//$message->message->setBody($body, 'text/plain','utf-8');
@@ -161,8 +161,8 @@ class EmailSend //extends Controller
 		$message->addTo($toEmail);
 		//$message->from   = ($this->adminEmail);
 		$message->setFrom(array(
-			'No-Reply@daiigroup.com'=>'แจ้งเตือน Intranet'));
-		if(Yii::app()->getParams()->sendEmail)
+			'No-Reply@daiigroup.com' => 'แจ้งเตือน Intranet'));
+		if (Yii::app()->getParams()->sendEmail)
 		{
 			Yii::app()->mail->send($message);
 		}
@@ -174,3 +174,4 @@ class EmailSend //extends Controller
 	}
 
 }
+

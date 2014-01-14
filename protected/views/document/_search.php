@@ -5,10 +5,10 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
-		'htmlOptions'=>array(
-			'class'=>'form-horizontal well',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
+		'htmlOptions' => array(
+			'class' => 'form-horizontal well',
 		),
 	));
 
@@ -35,13 +35,13 @@
 	<div class="control-group">
 		<?php
 		echo $form->label($model, 'documentCode', array(
-			'class'=>'control-label'));
+			'class' => 'control-label'));
 		?>
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'documentCode', array(
-				'class'=>'span2',
-				'placeholder'=>'เลขที่เอกสาร'));
+				'class' => 'span2',
+				'placeholder' => 'เลขที่เอกสาร'));
 			?>
 		</div>
 	</div>
@@ -51,15 +51,15 @@
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'startDate', array(
-				'class'=>'input-small',
-				'id'=>'datePicker',
-				'placeholder'=>'วันเริ่มต้น'));
-			?> -
+				'class' => 'input-small',
+				'id' => 'datePicker',
+				'placeholder' => 'วันเริ่มต้น'));
+			?> - 
 			<?php
 			echo $form->textField($model, 'endDate', array(
-				'class'=>'input-small',
-				'id'=>'datePicker2',
-				'placeholder'=>'วันสิ้นสุด'));
+				'class' => 'input-small',
+				'id' => 'datePicker2',
+				'placeholder' => 'วันสิ้นสุด'));
 			?>
 		</div>
 	</div>
@@ -69,8 +69,8 @@
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'documentTypeId', CHtml::listData(DocumentType::model()->findAll(), 'documentTypeId', 'documentTypeName'), array(
-				'class'=>'input-medium',
-				'prompt'=>'เอกสารทั้งหมด'));
+				'class' => 'input-medium',
+				'prompt' => 'เอกสารทั้งหมด'));
 			?>
 		</div>
 	</div>
@@ -80,16 +80,16 @@
 		<div class="controls">
 			<?php
 			echo $form->checkBox($model, 'isOwner', array(
-				'class'=>'input-medium'));
+				'class' => 'input-medium'));
 			?>
 		</div>
 	</div>
 
 	<div class="control-group">
-		<div class="controls">
+		<div class="controls">	
 			<?php
 			echo CHtml::submitButton('ค้นหา', array(
-				'class'=>'btn btn-primary'));
+				'class' => 'btn btn-primary'));
 			?>
 		</div>
 	</div>

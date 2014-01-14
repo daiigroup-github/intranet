@@ -3,7 +3,7 @@
  For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
-		if(!CKEDITOR.editor)
+		if (!CKEDITOR.editor)
 {
 	/**
 	 * No element is linked to the editor instance.
@@ -93,28 +93,28 @@
 	{
 		var element = elementOrIdOrName;
 
-		if(typeof element != 'object')
+		if (typeof element != 'object')
 		{
 			// Look for the element by id. We accept any kind of element here.
 			element = document.getElementById(elementOrIdOrName);
 
 			// Elements that should go into head are unacceptable (#6791).
-			if(element && element.tagName.toLowerCase() in {style: 1, script: 1, base: 1, link: 1, meta: 1, title: 1})
+			if (element && element.tagName.toLowerCase() in {style: 1, script: 1, base: 1, link: 1, meta: 1, title: 1})
 				element = null;
 
 			// If not found, look for elements by name. In this case we accept only
 			// textareas.
-			if(!element)
+			if (!element)
 			{
 				var i = 0,
 						textareasByName = document.getElementsByName(elementOrIdOrName);
 
-				while((element = textareasByName[ i++ ]) && element.tagName.toLowerCase() != 'textarea')
+				while ((element = textareasByName[ i++ ]) && element.tagName.toLowerCase() != 'textarea')
 				{ /*jsl:pass*/
 				}
 			}
 
-			if(!element)
+			if (!element)
 				throw '[CKEDITOR.editor.replace] The element with id or name "' + elementOrIdOrName + '" was not found.';
 		}
 
@@ -140,11 +140,11 @@
 	CKEDITOR.editor.appendTo = function(elementOrId, config, data)
 	{
 		var element = elementOrId;
-		if(typeof element != 'object')
+		if (typeof element != 'object')
 		{
 			element = document.getElementById(elementOrId);
 
-			if(!element)
+			if (!element)
 				throw '[CKEDITOR.editor.appendTo] The element with id "' + elementOrId + '" was not found.';
 		}
 

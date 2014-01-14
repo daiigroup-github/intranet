@@ -56,15 +56,16 @@ class Report extends Document
 	public function attributeLabels()
 	{
 		return array(
-			'calendarId'=>'Calendar',
-			'status'=>'Status',
-			'title'=>'Title',
-			'description'=>'Description',
-			'type'=>'Type',
-			'date'=>'Date',
-			'startTime'=>'Start Time',
-			'endTime'=>'End Time',
+			'calendarId' => 'Calendar',
+			'status' => 'Status',
+			'title' => 'Title',
+			'description' => 'Description',
+			'type' => 'Type',
+			'date' => 'Date',
+			'startTime' => 'Start Time',
+			'endTime' => 'End Time',
 		);
 	}
 
 }
+

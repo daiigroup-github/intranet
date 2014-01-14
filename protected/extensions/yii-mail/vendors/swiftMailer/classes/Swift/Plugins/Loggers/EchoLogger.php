@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -9,7 +10,7 @@
 
 /**
  * Prints all log messages in real time.
- *
+ * 
  * @package Swift
  * @subpackage Transport
  * @author Chris Corbyn
@@ -22,7 +23,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
 
 	/**
 	 * Create a new EchoLogger.
-	 *
+	 * 
 	 * @param boolean $isHtml
 	 */
 	public function __construct($isHtml = true)
@@ -36,7 +37,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
 	 */
 	public function add($entry)
 	{
-		if($this->_isHtml)
+		if ($this->_isHtml)
 		{
 			printf('%s%s%s', htmlspecialchars($entry, ENT_QUOTES), '<br />', PHP_EOL);
 		}
@@ -51,7 +52,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
 	 */
 	public function clear()
 	{
-
+		
 	}
 
 	/**
@@ -59,7 +60,7 @@ class Swift_Plugins_Loggers_EchoLogger implements Swift_Plugins_Logger
 	 */
 	public function dump()
 	{
-
+		
 	}
 
 }

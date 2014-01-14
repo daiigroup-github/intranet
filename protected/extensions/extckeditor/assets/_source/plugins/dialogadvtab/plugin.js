@@ -12,7 +12,7 @@
 
 				var value = element && element.hasAttribute(attrName) && element.getAttribute(attrName) || '';
 
-				if(value !== undefined)
+				if (value !== undefined)
 					this.setValue(value);
 			}
 
@@ -24,19 +24,19 @@
 
 				for (var i = 0; i < arguments.length; i++)
 				{
-					if(arguments[ i ] instanceof CKEDITOR.dom.element)
+					if (arguments[ i ] instanceof CKEDITOR.dom.element)
 					{
 						element = arguments[ i ];
 						break;
 					}
 				}
 
-				if(element)
+				if (element)
 				{
 					var attrName = this.att,
 							value = this.getValue();
 
-					if(value)
+					if (value)
 						element.setAttribute(attrName, value);
 					else
 						element.removeAttribute(attrName, value);
@@ -52,7 +52,7 @@
 						 */
 						createAdvancedTab: function(editor, tabConfig)
 						{
-							if(!tabConfig)
+							if (!tabConfig)
 								tabConfig = {id: 1, dir: 1, classes: 1, styles: 1};
 
 							var lang = editor.lang.common;
@@ -74,9 +74,9 @@
 
 							var contents = [];
 
-							if(tabConfig.id || tabConfig.dir)
+							if (tabConfig.id || tabConfig.dir)
 							{
-								if(tabConfig.id)
+								if (tabConfig.id)
 								{
 									contents.push(
 											{
@@ -89,7 +89,7 @@
 											});
 								}
 
-								if(tabConfig.dir)
+								if (tabConfig.dir)
 								{
 									contents.push(
 											{
@@ -118,11 +118,11 @@
 										});
 							}
 
-							if(tabConfig.styles || tabConfig.classes)
+							if (tabConfig.styles || tabConfig.classes)
 							{
 								contents = [];
 
-								if(tabConfig.styles)
+								if (tabConfig.styles)
 								{
 									contents.push(
 											{
@@ -144,7 +144,7 @@
 													var styles = this.getValue();
 
 													// Remove the current value.
-													if(styles)
+													if (styles)
 													{
 														styles = styles
 																.replace(new RegExp('\\s*' + name + '\s*:[^;]*(?:$|;\s*)', 'i'), '')
@@ -152,7 +152,7 @@
 																.replace(/\s+$/, '');
 													}
 
-													if(value)
+													if (value)
 													{
 														styles && !(/;\s*$/).test(styles) && (styles += '; ');
 														styles += name + ': ' + value;
@@ -167,7 +167,7 @@
 											});
 								}
 
-								if(tabConfig.classes)
+								if (tabConfig.classes)
 								{
 									contents.push(
 											{

@@ -50,7 +50,7 @@ class CustomerInfo extends CActiveRecord
 			array(
 				'status, customerId, companyId, branchId, saleId, engineerId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'remarks',
 				'safe'),
@@ -59,7 +59,7 @@ class CustomerInfo extends CActiveRecord
 			array(
 				'costomerInfoId, createDateTime, updateDateTime, status, customerId, companyId, branchId, saleId, engineerId, remarks',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -80,16 +80,16 @@ class CustomerInfo extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'costomerInfoId'=>'Costomer Info',
-			'createDateTime'=>'Create Date Time',
-			'updateDateTime'=>'Update Date Time',
-			'status'=>'Status',
-			'customerId'=>'Customer',
-			'companyId'=>'Company',
-			'branchId'=>'Branch',
-			'saleId'=>'Sale',
-			'engineerId'=>'Engineer',
-			'remarks'=>'Remarks',
+			'costomerInfoId' => 'Costomer Info',
+			'createDateTime' => 'Create Date Time',
+			'updateDateTime' => 'Update Date Time',
+			'status' => 'Status',
+			'customerId' => 'Customer',
+			'companyId' => 'Company',
+			'branchId' => 'Branch',
+			'saleId' => 'Sale',
+			'engineerId' => 'Engineer',
+			'remarks' => 'Remarks',
 		);
 	}
 
@@ -116,7 +116,7 @@ class CustomerInfo extends CActiveRecord
 		$criteria->compare('remarks', $this->remarks, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

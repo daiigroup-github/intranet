@@ -4,13 +4,13 @@
  */
 
 		CKEDITOR.plugins.add('menubutton',
-				{
-					requires: ['button', 'menu'],
-					beforeInit: function(editor)
-					{
-						editor.ui.addHandler(CKEDITOR.UI_MENUBUTTON, CKEDITOR.ui.menuButton.handler);
-					}
-				});
+		{
+			requires: ['button', 'menu'],
+			beforeInit: function(editor)
+			{
+				editor.ui.addHandler(CKEDITOR.UI_MENUBUTTON, CKEDITOR.ui.menuButton.handler);
+			}
+		});
 
 /**
  * Button UI element.
@@ -26,14 +26,14 @@ CKEDITOR.UI_MENUBUTTON = 'menubutton';
 		var _ = this._;
 
 		// Do nothing if this button is disabled.
-		if(_.state === CKEDITOR.TRISTATE_DISABLED)
+		if (_.state === CKEDITOR.TRISTATE_DISABLED)
 			return;
 
 		_.previousState = _.state;
 
 		// Check if we already have a menu for it, otherwise just create it.
 		var menu = _.menu;
-		if(!menu)
+		if (!menu)
 		{
 			menu = _.menu = new CKEDITOR.menu(editor,
 					{
@@ -51,11 +51,11 @@ CKEDITOR.UI_MENUBUTTON = 'menubutton';
 					this);
 
 			// Initialize the menu items at this point.
-			if(this.onMenu)
+			if (this.onMenu)
 				menu.addListener(this.onMenu);
 		}
 
-		if(_.on)
+		if (_.on)
 		{
 			menu.hide();
 			return;

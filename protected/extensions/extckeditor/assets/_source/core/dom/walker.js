@@ -11,16 +11,16 @@
 				var range = this.range;
 
 				// Return null if we have reached the end.
-				if(this._.end)
+				if (this._.end)
 					return null;
 
 				// This is the first call. Initialize it.
-				if(!this._.start)
+				if (!this._.start)
 				{
 					this._.start = 1;
 
 					// A collapsed range must return null at first call.
-					if(range.collapsed)
+					if (range.collapsed)
 					{
 						this.end();
 						return null;
@@ -41,7 +41,7 @@
 						getSourceNodeFn = (rtl ? 'getPreviousSourceNode' : 'getNextSourceNode');
 
 				// Create the LTR guard function, if necessary.
-				if(!rtl && !this._.guardLTR)
+				if (!rtl && !this._.guardLTR)
 				{
 					// The node that stops walker from moving up.
 					var limitLTR = endCt.type == CKEDITOR.NODE_ELEMENT ?
@@ -62,7 +62,7 @@
 				}
 
 				// Create the RTL guard function, if necessary.
-				if(rtl && !this._.guardRTL)
+				if (rtl && !this._.guardRTL)
 				{
 					// The node that stops walker from moving up.
 					var limitRTL = startCt.type == CKEDITOR.NODE_ELEMENT ?
@@ -88,11 +88,11 @@
 
 				// Make the user defined guard function participate in the process,
 				// otherwise simply use the boundary guard.
-				if(userGuard)
+				if (userGuard)
 				{
 					guard = function(node, movingOut)
 					{
-						if(stopGuard(node, movingOut) === false)
+						if (stopGuard(node, movingOut) === false)
 							return false;
 
 						return userGuard(node, movingOut);
@@ -101,18 +101,18 @@
 				else
 					guard = stopGuard;
 
-				if(this.current)
+				if (this.current)
 					node = this.current[ getSourceNodeFn ](false, type, guard);
 				else
 				{
 					// Get the first node to be returned.
-					if(rtl)
+					if (rtl)
 					{
 						node = endCt;
 
-						if(node.type == CKEDITOR.NODE_ELEMENT)
+						if (node.type == CKEDITOR.NODE_ELEMENT)
 						{
-							if(endOffset > 0)
+							if (endOffset > 0)
 								node = node.getChild(endOffset - 1);
 							else
 								node = (guard(node, true) === false) ?
@@ -123,28 +123,28 @@
 					{
 						node = startCt;
 
-						if(node.type == CKEDITOR.NODE_ELEMENT)
+						if (node.type == CKEDITOR.NODE_ELEMENT)
 						{
-							if(!(node = node.getChild(startOffset)))
+							if (!(node = node.getChild(startOffset)))
 								node = (guard(startCt, true) === false) ?
 										null : startCt.getNextSourceNode(true, type, guard);
 						}
 					}
 
-					if(node && guard(node) === false)
+					if (node && guard(node) === false)
 						node = null;
 				}
 
-				while(node && !this._.end)
+				while (node && !this._.end)
 				{
 					this.current = node;
 
-					if(!this.evaluator || this.evaluator(node) !== false)
+					if (!this.evaluator || this.evaluator(node) !== false)
 					{
-						if(!breakOnFalse)
+						if (!breakOnFalse)
 							return node;
 					}
-					else if(breakOnFalse && this.evaluator)
+					else if (breakOnFalse && this.evaluator)
 						return false;
 
 					node = node[ getSourceNodeFn ](false, type, guard);
@@ -158,7 +158,7 @@
 			{
 				var node, last = null;
 
-				while((node = iterate.call(this, rtl)))
+				while ((node = iterate.call(this, rtl)))
 					last = node;
 
 				return last;
@@ -461,13 +461,13 @@
 					isWhitespaces = CKEDITOR.dom.walker.whitespaces(),
 					isBookmark = CKEDITOR.dom.walker.bookmark(),
 					toSkip = function(node)
-					{
-						return isBookmark(node)
-								|| isWhitespaces(node)
-								|| node.type == CKEDITOR.NODE_ELEMENT
-								&& node.getName() in CKEDITOR.dtd.$inline
-								&& !(node.getName() in CKEDITOR.dtd.$empty);
-					};
+			{
+				return isBookmark(node)
+						|| isWhitespaces(node)
+						|| node.type == CKEDITOR.NODE_ELEMENT
+						&& node.getName() in CKEDITOR.dtd.$inline
+						&& !(node.getName() in CKEDITOR.dtd.$empty);
+			};
 
 			// Check if there's a filler node at the end of an element, and return it.
 			CKEDITOR.dom.element.prototype.getBogus = function()
@@ -477,9 +477,9 @@
 				do {
 					tail = tail.getPreviousSourceNode();
 				}
-				while(toSkip(tail))
+				while (toSkip(tail))
 
-				if(tail && (!CKEDITOR.env.ie ? tail.is && tail.is('br')
+				if (tail && (!CKEDITOR.env.ie ? tail.is && tail.is('br')
 						: tail.getText && tailNbspRegex.test(tail.getText())))
 				{
 					return tail;

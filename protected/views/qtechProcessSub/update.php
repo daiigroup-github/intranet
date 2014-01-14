@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Qtech Process Subs'=>array(
+	'Qtech Process Subs' => array(
 		'index'),
-	$model->processSubId=>array(
+	$model->processSubId => array(
 		'view',
-		'id'=>$model->processSubId),
+		'id' => $model->processSubId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List QtechProcessSub',
-		'url'=>array(
+		'label' => 'List QtechProcessSub',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create QtechProcessSub',
-		'url'=>array(
+		'label' => 'Create QtechProcessSub',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'View QtechProcessSub',
-		'url'=>array(
+		'label' => 'View QtechProcessSub',
+		'url' => array(
 			'view',
-			'id'=>$model->processSubId)),
+			'id' => $model->processSubId)),
 	array(
-		'label'=>'Manage QtechProcessSub',
-		'url'=>array(
+		'label' => 'Manage QtechProcessSub',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -33,5 +33,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

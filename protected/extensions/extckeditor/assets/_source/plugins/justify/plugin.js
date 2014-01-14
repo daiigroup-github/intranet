@@ -14,14 +14,14 @@
 						useComputedState = useComputedState === undefined || useComputedState;
 
 						var align;
-						if(useComputedState)
+						if (useComputedState)
 							align = element.getComputedStyle('text-align');
 						else
 						{
-							while(!element.hasAttribute || !(element.hasAttribute('align') || element.getStyle('text-align')))
+							while (!element.hasAttribute || !(element.hasAttribute('align') || element.getStyle('text-align')))
 							{
 								var parent = element.getParent();
-								if(!parent)
+								if (!parent)
 									break;
 								element = parent;
 							}
@@ -38,7 +38,7 @@
 
 					function onSelectionChange(evt)
 					{
-						if(evt.editor.readOnly)
+						if (evt.editor.readOnly)
 							return;
 
 						evt.editor.getCommand(this.name).refresh(evt.data.path);
@@ -51,9 +51,9 @@
 						this.value = value;
 
 						var classes = editor.config.justifyClasses;
-						if(classes)
+						if (classes)
 						{
-							switch(value)
+							switch (value)
 							{
 								case 'left' :
 									this.cssClassName = classes[0];
@@ -84,12 +84,12 @@
 						var walker = new CKEDITOR.dom.walker(range),
 								node;
 
-						while((node = walker.next()))
+						while ((node = walker.next()))
 						{
-							if(node.type == CKEDITOR.NODE_ELEMENT)
+							if (node.type == CKEDITOR.NODE_ELEMENT)
 							{
 								// A child with the defined dir is to be ignored.
-								if(!node.equals(e.data.node) && node.getDirection())
+								if (!node.equals(e.data.node) && node.getDirection())
 								{
 									range.setStartAfter(node);
 									walker = new CKEDITOR.dom.walker(range);
@@ -98,16 +98,16 @@
 
 								// Switch the alignment.
 								var classes = editor.config.justifyClasses;
-								if(classes)
+								if (classes)
 								{
 									// The left align class.
-									if(node.hasClass(classes[ 0 ]))
+									if (node.hasClass(classes[ 0 ]))
 									{
 										node.removeClass(classes[ 0 ]);
 										node.addClass(classes[ 2 ]);
 									}
 									// The right align class.
-									else if(node.hasClass(classes[ 2 ]))
+									else if (node.hasClass(classes[ 2 ]))
 									{
 										node.removeClass(classes[ 2 ]);
 										node.addClass(classes[ 0 ]);
@@ -118,9 +118,9 @@
 								var style = 'text-align';
 								var align = node.getStyle(style);
 
-								if(align == 'left')
+								if (align == 'left')
 									node.setStyle(style, 'right');
-								else if(align == 'right')
+								else if (align == 'right')
 									node.setStyle(style, 'left');
 							}
 						}
@@ -132,7 +132,7 @@
 							var selection = editor.getSelection(),
 									enterMode = editor.config.enterMode;
 
-							if(!selection)
+							if (!selection)
 								return;
 
 							var bookmarks = selection.createBookmarks(),
@@ -150,7 +150,7 @@
 								iterator = ranges[ i ].createIterator();
 								iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 
-								while((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
+								while ((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
 								{
 									block.removeAttribute('align');
 									block.removeStyle('text-align');
@@ -163,15 +163,15 @@
 											(this.state == CKEDITOR.TRISTATE_OFF) &&
 											(!useComputedState || (getAlignment(block, true) != this.value));
 
-									if(cssClassName)
+									if (cssClassName)
 									{
 										// Append the desired class name.
-										if(apply)
+										if (apply)
 											block.addClass(cssClassName);
-										else if(!className)
+										else if (!className)
 											block.removeAttribute('class');
 									}
-									else if(apply)
+									else if (apply)
 										block.setStyle('text-align', this.value);
 								}
 

@@ -2,19 +2,19 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
-		'htmlOptions'=>array(
-			'class'=>'form-inline well',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
+		'htmlOptions' => array(
+			'class' => 'form-inline well',
 		),
 	));
 	?>
 
 	<?php
 	echo $form->textField($model, 'searchText', array(
-		'class'=>'input-small',
-		'placeholder'=>'Search'));
-	?>
+		'class' => 'input-small',
+		'placeholder' => 'Search'));
+	?> 
 	<?php echo CHtml::submitButton('Search'); ?>
 
 

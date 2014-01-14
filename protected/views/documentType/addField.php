@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'document-template-field-form',
-		'enableAjaxValidation'=>false,
+		'id' => 'document-template-field-form',
+		'enableAjaxValidation' => false,
 	));
 	?>
 
@@ -15,8 +15,8 @@
 		<?php echo $form->labelEx($model, 'documentTemplateFieldName'); ?>
 		<?php
 		echo $form->textField($model, 'documentTemplateFieldName', array(
-			'size'=>60,
-			'maxlength'=>500));
+			'size' => 60,
+			'maxlength' => 500));
 		?>
 		<?php echo $form->error($model, 'documentTemplateFieldName'); ?>
 	</div>
@@ -25,8 +25,8 @@
 		<?php echo $form->labelEx($model, 'documentTemplateFieldType'); ?>
 		<?php
 		echo $form->textField($model, 'documentTemplateFieldType', array(
-			'size'=>60,
-			'maxlength'=>100));
+			'size' => 60,
+			'maxlength' => 100));
 		?>
 		<?php echo $form->error($model, 'documentTemplateFieldType'); ?>
 	</div>

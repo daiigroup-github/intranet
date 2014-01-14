@@ -12,13 +12,12 @@
  */
 class ElearningExamQuestion extends CActiveRecord
 {
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return ElearningExamQuestion the static model class
 	 */
-	public static function model($className = __CLASS__)
+	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
@@ -39,30 +38,14 @@ class ElearningExamQuestion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array(
-				'title',
-				'required'),
-			array(
-				'status',
-				'numerical',
-				'integerOnly'=>true),
-			array(
-				'title',
-				'length',
-				'max'=>255),
-			array(
-				'elearningId',
-				'length',
-				'max'=>45),
-			array(
-				'description',
-				'safe'),
+			array('title', 'required'),
+			array('status', 'numerical', 'integerOnly'=>true),
+			array('title', 'length', 'max'=>255),
+			array('elearningId', 'length', 'max'=>45),
+			array('description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array(
-				'questionId, status, title, description, elearningId',
-				'safe',
-				'on'=>'search'),
+			array('questionId, status, title, description, elearningId', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,10 +57,7 @@ class ElearningExamQuestion extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'choice'=>array(
-				self::HAS_MANY,
-				'ElearningExamChoice',
-				'questionId'),
+			'choice'=>array(self::HAS_MANY, 'ElearningExamChoice', 'questionId'),
 		);
 	}
 
@@ -87,11 +67,11 @@ class ElearningExamQuestion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'questionId'=>'Question',
-			'status'=>'Status',
-			'title'=>'Title',
-			'description'=>'Description',
-			'elearningId'=>'Elearning',
+			'questionId' => 'Question',
+			'status' => 'Status',
+			'title' => 'Title',
+			'description' => 'Description',
+			'elearningId' => 'Elearning',
 		);
 	}
 
@@ -104,17 +84,16 @@ class ElearningExamQuestion extends CActiveRecord
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
-		$criteria = new CDbCriteria;
+		$criteria=new CDbCriteria;
 
-		$criteria->compare('questionId', $this->questionId);
-		$criteria->compare('status', $this->status);
-		$criteria->compare('title', $this->title, true);
-		$criteria->compare('description', $this->description, true);
-		$criteria->compare('elearningId', $this->elearningId, true);
+		$criteria->compare('questionId',$this->questionId);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('description',$this->description,true);
+		$criteria->compare('elearningId',$this->elearningId,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
 }

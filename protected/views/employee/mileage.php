@@ -1,4 +1,5 @@
 <?php
+
 // $this->breadcrumbs=array(
 // 'Employees'=>array('index'),
 // 'Mileage '.strtoupper($model->username)=>array('employee/mileage/'.$model->employeeId),
@@ -12,9 +13,10 @@ $this->pageHeader = 'Employees Mileage : ' . strtoupper($model->username) . ' ' 
 ?>
 
 <?php
+
 $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_mileage',
-	'itemsCssClass'=>'row-fluid',
+	'dataProvider' => $dataProvider,
+	'itemView' => '_mileage',
+	'itemsCssClass' => 'row-fluid',
 ));
 ?>

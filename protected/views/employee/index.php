@@ -21,49 +21,50 @@ $('.search-form form').submit(function(){
 		<!-- <a class="btn search-button"><i class="icon-search"></i></a> -->
 		<a class="btn" href="<?php echo Yii::app()->createUrl('/employee/create'); ?>"><i class="icon-plus"></i><i class="icon-user"></i></a>
 	</div>
-</div>
+</div>		
 
 <div class="search-form" style="display:inline">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'employee-grid',
-	'dataProvider'=>$model->search(),
+	'id' => 'employee-grid',
+	'dataProvider' => $model->search(),
 	//'filter'=>$model,
 	// 'htmlOptions'=>array(
 	// 'class'=>'span10 offset1',
 	// ),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-	'columns'=>array(
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+	'columns' => array(
 		'employeeCode',
 		array(
-			'name'=>'fnTh',
-			'value'=>'CHtml::encode($data->fnTh." ".$data->lnTh)',
+			'name' => 'fnTh',
+			'value' => 'CHtml::encode($data->fnTh." ".$data->lnTh)',
 		),
 		array(
-			'name'=>'position',
-			'value'=>'CHtml::encode($data->position)',
-			'filter'=>false,
+			'name' => 'position',
+			'value' => 'CHtml::encode($data->position)',
+			'filter' => false,
 		),
 		array(
-			'class'=>'CButtonColumn',
-			'header'=>'Action',
-			'template'=>'{view}{update}',
+			'class' => 'CButtonColumn',
+			'header' => 'Action',
+			'template' => '{view}{update}',
 // 				'buttons'=>array(
 // 					'Mileage'=>array(
 // 						'url'=>'Yii::app()->createUrl("employee/mileage", array("id"=>$data->employeeId))',
 // 					),
 // 				),
-			'htmlOptions'=>array(
-				'style'=>'width:120px;text-align:center;',
+			'htmlOptions' => array(
+				'style' => 'width:120px;text-align:center;',
 			),
 		),
 	),
 ));
 ?>
+	

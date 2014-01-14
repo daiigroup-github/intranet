@@ -23,12 +23,12 @@
 		 * var comment = CKEDITOR.dom.comment( 'Example' );
 		 */
 		CKEDITOR.dom.comment = function(comment, ownerDocument)
-		{
-			if(typeof comment == 'string')
-				comment = (ownerDocument ? ownerDocument.$ : document).createComment(comment);
+{
+	if (typeof comment == 'string')
+		comment = (ownerDocument ? ownerDocument.$ : document).createComment(comment);
 
-			CKEDITOR.dom.domObject.call(this, comment);
-		};
+	CKEDITOR.dom.domObject.call(this, comment);
+};
 
 CKEDITOR.dom.comment.prototype = new CKEDITOR.dom.node();
 

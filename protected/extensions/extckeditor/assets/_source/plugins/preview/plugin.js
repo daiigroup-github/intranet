@@ -21,7 +21,7 @@
 											baseTag = config.baseHref ? '<base href="' + config.baseHref + '"/>' : '',
 											isCustomDomain = CKEDITOR.env.isCustomDomain();
 
-									if(config.fullPage)
+									if (config.fullPage)
 									{
 										sHTML = editor.getData()
 												.replace(/<head>/, '$&' + baseTag)
@@ -32,11 +32,11 @@
 										var bodyHtml = '<body ',
 												body = editor.document && editor.document.getBody();
 
-										if(body)
+										if (body)
 										{
-											if(body.getAttribute('id'))
+											if (body.getAttribute('id'))
 												bodyHtml += 'id="' + body.getAttribute('id') + '" ';
-											if(body.getAttribute('class'))
+											if (body.getAttribute('class'))
 												bodyHtml += 'class="' + body.getAttribute('class') + '" ';
 										}
 
@@ -64,11 +64,11 @@
 										iHeight = Math.round(screen.height * 0.7);
 										iLeft = Math.round(screen.width * 0.1);
 									}
-									catch(e) {
+									catch (e) {
 									}
 
 									var sOpenUrl = '';
-									if(isCustomDomain)
+									if (isCustomDomain)
 									{
 										window._cke_htmlToLoad = sHTML;
 										sOpenUrl = 'javascript:void( (function(){' +
@@ -83,7 +83,7 @@
 									var oWindow = window.open(sOpenUrl, null, 'toolbar=yes,location=no,status=yes,menubar=yes,scrollbars=yes,resizable=yes,width=' +
 											iWidth + ',height=' + iHeight + ',left=' + iLeft);
 
-									if(!isCustomDomain)
+									if (!isCustomDomain)
 									{
 										var doc = oWindow.document;
 										doc.open();

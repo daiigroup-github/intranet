@@ -13,24 +13,24 @@
 						for (var i = 0; i < a.length; i++)
 							(function(j) {
 								var k = h.getAttribute('on' + j);
-								if(h.hasAttribute('on' + j)) {
+								if (h.hasAttribute('on' + j)) {
 									h.removeAttribute('on' + j);
 									h.on(j, function(l) {
 										var m = /(return\s*)?CKEDITOR\.tools\.callFunction\(([^)]+)\)/.exec(k), n = m && m[1], o = m && m[2].split(','), p = /return false;/.test(k);
-										if(o) {
+										if (o) {
 											var q = o.length, r;
 											for (var s = 0; s < q; s++) {
 												o[s] = r = CKEDITOR.tools.trim(o[s]);
 												var t = r.match(/^(["'])([^"']*?)\1$/);
-												if(t) {
+												if (t) {
 													o[s] = t[2];
 													continue;
 												}
-												if(r.match(/\d+/)) {
+												if (r.match(/\d+/)) {
 													o[s] = parseInt(r, 10);
 													continue;
 												}
-												switch(r) {
+												switch (r) {
 													case 'this':
 														o[s] = h.$;
 														break;
@@ -43,10 +43,10 @@
 												}
 											}
 											var u = CKEDITOR.tools.callFunction.apply(window, o);
-											if(n && u === false)
+											if (n && u === false)
 												p = 1;
 										}
-										if(p)
+										if (p)
 											l.data.preventDefault();
 									});
 								}
@@ -56,12 +56,12 @@
 			}
 			;
 			CKEDITOR.plugins.add('adobeair', {init: function(c) {
-					if(!CKEDITOR.env.air)
+					if (!CKEDITOR.env.air)
 						return;
 					c.addCss('body { padding: 8px }');
 					c.on('uiReady', function() {
 						b(c.container);
-						if(c.sharedSpaces)
+						if (c.sharedSpaces)
 							for (var d in c.sharedSpaces)
 								b(c.sharedSpaces[d]);
 						c.on('elementsPathUpdate', function(e) {
@@ -76,17 +76,17 @@
 				}});
 			CKEDITOR.ui.on('ready', function(c) {
 				var d = c.data;
-				if(d._.panel) {
+				if (d._.panel) {
 					var e = d._.panel._.panel, f;
 					(function() {
-						if(!e.isLoaded) {
+						if (!e.isLoaded) {
 							setTimeout(arguments.callee, 30);
 							return;
 						}
 						f = e._.holder;
 						b(f);
 					})();
-				} else if(d instanceof CKEDITOR.dialog)
+				} else if (d instanceof CKEDITOR.dialog)
 					b(d._.element);
 			});
 		})();
@@ -98,7 +98,7 @@ CKEDITOR.dom.document.prototype.write = CKEDITOR.tools.override(CKEDITOR.dom.doc
 	}
 	;
 	return function(c, d) {
-		if(this.getBody()) {
+		if (this.getBody()) {
 			var e = this, f = this.getHead();
 			c = c.replace(/(<style[^>]*>)([\s\S]*?)<\/style>/gi, function(g, h, i) {
 				b(f, 'style', h, i);

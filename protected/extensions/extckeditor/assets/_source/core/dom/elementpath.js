@@ -20,7 +20,7 @@
 				{
 					var child = childNodes.getItem(i);
 
-					if(child.type == CKEDITOR.NODE_ELEMENT && CKEDITOR.dtd.$block[ child.getName() ])
+					if (child.type == CKEDITOR.NODE_ELEMENT && CKEDITOR.dtd.$block[ child.getName() ])
 						return true;
 				}
 
@@ -38,25 +38,25 @@
 
 				var e = lastNode;
 
-				while(e)
+				while (e)
 				{
-					if(e.type == CKEDITOR.NODE_ELEMENT)
+					if (e.type == CKEDITOR.NODE_ELEMENT)
 					{
-						if(!this.lastElement)
+						if (!this.lastElement)
 							this.lastElement = e;
 
 						var elementName = e.getName();
 
-						if(!blockLimit)
+						if (!blockLimit)
 						{
-							if(!block && pathBlockElements[ elementName ])
+							if (!block && pathBlockElements[ elementName ])
 								block = e;
 
-							if(pathBlockLimitElements[ elementName ])
+							if (pathBlockLimitElements[ elementName ])
 							{
 								// DIV is considered the Block, if no block is available (#525)
 								// and if it doesn't contain other blocks.
-								if(!block && elementName == 'div' && !checkHasBlock(e))
+								if (!block && elementName == 'div' && !checkHasBlock(e))
 									block = e;
 								else
 									blockLimit = e;
@@ -65,7 +65,7 @@
 
 						elements.push(e);
 
-						if(elementName == 'body')
+						if (elementName == 'body')
 							break;
 					}
 					e = e.getParent();
@@ -91,12 +91,12 @@ CKEDITOR.dom.elementPath.prototype =
 				var thisElements = this.elements;
 				var otherElements = otherPath && otherPath.elements;
 
-				if(!otherElements || thisElements.length != otherElements.length)
+				if (!otherElements || thisElements.length != otherElements.length)
 					return false;
 
 				for (var i = 0; i < thisElements.length; i++)
 				{
-					if(!thisElements[ i ].equals(otherElements[ i ]))
+					if (!thisElements[ i ].equals(otherElements[ i ]))
 						return false;
 				}
 
@@ -107,7 +107,7 @@ CKEDITOR.dom.elementPath.prototype =
 				var elements = this.elements;
 				for (var i = 0; i < elements.length; i++)
 				{
-					if(elements[ i ].getName() in tagNames)
+					if (elements[ i ].getName() in tagNames)
 						return elements[ i ];
 				}
 

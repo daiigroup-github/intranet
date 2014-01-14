@@ -9,20 +9,20 @@
 		 * @example
 		 */
 		CKEDITOR.htmlParser.comment = function(value)
-		{
-			/**
-			 * The comment text.
-			 * @type String
-			 * @example
-			 */
-			this.value = value;
+{
+	/**
+	 * The comment text.
+	 * @type String
+	 * @example
+	 */
+	this.value = value;
 
-			/** @private */
-			this._ =
-					{
-						isBlockLike: false
-					};
-		};
+	/** @private */
+	this._ =
+			{
+				isBlockLike: false
+			};
+};
 
 CKEDITOR.htmlParser.comment.prototype =
 		{
@@ -41,12 +41,12 @@ CKEDITOR.htmlParser.comment.prototype =
 			{
 				var comment = this.value;
 
-				if(filter)
+				if (filter)
 				{
-					if(!(comment = filter.onComment(comment, this)))
+					if (!(comment = filter.onComment(comment, this)))
 						return;
 
-					if(typeof comment != 'string')
+					if (typeof comment != 'string')
 					{
 						comment.parent = this.parent;
 						comment.writeHtml(writer, filter);

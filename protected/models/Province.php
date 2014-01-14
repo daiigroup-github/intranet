@@ -44,21 +44,21 @@ class Province extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'provinceName',
 				'length',
-				'max'=>150),
+				'max' => 150),
 			array(
 				'geographyId',
 				'length',
-				'max'=>5),
+				'max' => 5),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'provinceId, provinceName, geographyId, status',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -79,10 +79,10 @@ class Province extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'provinceId'=>'Province',
-			'provinceName'=>'Province Name',
-			'geographyId'=>'Geography',
-			'status'=>'Status',
+			'provinceId' => 'Province',
+			'provinceName' => 'Province Name',
+			'geographyId' => 'Geography',
+			'status' => 'Status',
 		);
 	}
 
@@ -103,7 +103,7 @@ class Province extends CActiveRecord
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -115,7 +115,7 @@ class Province extends CActiveRecord
 		$p = array(
 			);
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$p[$model->provinceId] = $model->provinceName;
 		}

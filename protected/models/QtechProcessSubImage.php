@@ -55,33 +55,33 @@ class QtechProcessSubImage extends CActiveRecord
 			array(
 				'status, labour',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'imageName',
 				'length',
-				'max'=>255),
+				'max' => 255),
 			array(
 				'imageDetail',
 				'length',
-				'max'=>150),
+				'max' => 150),
 			array(
 				'qtechProjectId, qtechProcessId, processSubId, employeeId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'latitude, longitude, direction',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'identifier',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processSubImageId, status, imageDate, imageTime, imageName, imageDetail, qtechProjectId, qtechProcessId, processSubId, latitude, longitude, direction, employeeId, identifier, labour',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -93,16 +93,16 @@ class QtechProcessSubImage extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'project'=>array(
+			'project' => array(
 				self::BELONGS_TO,
 				'QtechProject',
 				array(
-					'qtechProjectId'=>'qtechProjectId')),
-			'employee'=>array(
+					'qtechProjectId' => 'qtechProjectId')),
+			'employee' => array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'employeeId'=>'employeeId')),
+					'employeeId' => 'employeeId')),
 		);
 	}
 
@@ -112,21 +112,21 @@ class QtechProcessSubImage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processSubImageId'=>'Process Sub Image',
-			'status'=>'Status',
-			'imageDate'=>'Image Date',
-			'imageTime'=>'Image Time',
-			'imageName'=>'Image Name',
-			'imageDetail'=>'Image Detail',
-			'qtechProjectId'=>'Project',
-			'qtechProcessId'=>'Process',
-			'processSubId'=>'Process Sub',
-			'latitude'=>'Latitude',
-			'longitude'=>'Longitude',
-			'direction'=>'Direction',
-			'employeeId'=>'Employee',
-			'identifier'=>'Identifier',
-			'labour'=>'Labour',
+			'processSubImageId' => 'Process Sub Image',
+			'status' => 'Status',
+			'imageDate' => 'Image Date',
+			'imageTime' => 'Image Time',
+			'imageName' => 'Image Name',
+			'imageDetail' => 'Image Detail',
+			'qtechProjectId' => 'Project',
+			'qtechProcessId' => 'Process',
+			'processSubId' => 'Process Sub',
+			'latitude' => 'Latitude',
+			'longitude' => 'Longitude',
+			'direction' => 'Direction',
+			'employeeId' => 'Employee',
+			'identifier' => 'Identifier',
+			'labour' => 'Labour',
 		);
 	}
 
@@ -158,7 +158,7 @@ class QtechProcessSubImage extends CActiveRecord
 		$criteria->compare('labour', $this->labour);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -168,11 +168,11 @@ class QtechProcessSubImage extends CActiveRecord
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'processSubId=:processSubId';
 		$criteria->params = array(
-			':processSubId'=>$processSubId);
+			':processSubId' => $processSubId);
 		$criteria->order = 'processSubImageId DESC';
 
 		return new CActiveDataProvider('QtechProcessSubImage', array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

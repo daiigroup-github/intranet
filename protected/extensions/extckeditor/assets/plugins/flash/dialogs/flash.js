@@ -14,49 +14,49 @@
 			function h(j, k, l) {
 				var r = this;
 				var m = d[r.id];
-				if(!m)
+				if (!m)
 					return;
 				var n = r instanceof CKEDITOR.ui.dialog.checkbox;
 				for (var o = 0; o < m.length; o++) {
 					var p = m[o];
-					switch(p.type) {
+					switch (p.type) {
 						case a:
-							if(!j)
+							if (!j)
 								continue;
-							if(j.getAttribute(p.name) !== null) {
+							if (j.getAttribute(p.name) !== null) {
 								var q = j.getAttribute(p.name);
-								if(n)
+								if (n)
 									r.setValue(q.toLowerCase() == 'true');
 								else
 									r.setValue(q);
 								return;
-							} else if(n)
+							} else if (n)
 								r.setValue(!!p['default']);
 							break;
 						case b:
-							if(!j)
+							if (!j)
 								continue;
-							if(p.name in l) {
+							if (p.name in l) {
 								q = l[p.name];
-								if(n)
+								if (n)
 									r.setValue(q.toLowerCase() == 'true');
 								else
 									r.setValue(q);
 								return;
-							} else if(n)
+							} else if (n)
 								r.setValue(!!p['default']);
 							break;
 						case c:
-							if(!k)
+							if (!k)
 								continue;
-							if(k.getAttribute(p.name)) {
+							if (k.getAttribute(p.name)) {
 								q = k.getAttribute(p.name);
-								if(n)
+								if (n)
 									r.setValue(q.toLowerCase() == 'true');
 								else
 									r.setValue(q);
 								return;
-							} else if(n)
+							} else if (n)
 								r.setValue(!!p['default']);
 					}
 				}
@@ -65,44 +65,44 @@
 			function i(j, k, l) {
 				var t = this;
 				var m = d[t.id];
-				if(!m)
+				if (!m)
 					return;
 				var n = t.getValue() === '', o = t instanceof CKEDITOR.ui.dialog.checkbox;
 				for (var p = 0; p < m.length; p++) {
 					var q = m[p];
-					switch(q.type) {
+					switch (q.type) {
 						case a:
-							if(!j || q.name == 'data' && k && !j.hasAttribute('data'))
+							if (!j || q.name == 'data' && k && !j.hasAttribute('data'))
 								continue;
 							var r = t.getValue();
-							if(n || o && r === q['default'])
+							if (n || o && r === q['default'])
 								j.removeAttribute(q.name);
 							else
 								j.setAttribute(q.name, r);
 							break;
 						case b:
-							if(!j)
+							if (!j)
 								continue;
 							r = t.getValue();
-							if(n || o && r === q['default']) {
-								if(q.name in l)
+							if (n || o && r === q['default']) {
+								if (q.name in l)
 									l[q.name].remove();
-							} else if(q.name in l)
+							} else if (q.name in l)
 								l[q.name].setAttribute('value', r);
 							else {
 								var s = CKEDITOR.dom.element.createFromHtml('<cke:param></cke:param>', j.getDocument());
 								s.setAttributes({name: q.name, value: r});
-								if(j.getChildCount() < 1)
+								if (j.getChildCount() < 1)
 									s.appendTo(j);
 								else
 									s.insertBefore(j.getFirst());
 							}
 							break;
 						case c:
-							if(!k)
+							if (!k)
 								continue;
 							r = t.getValue();
-							if(n || o && r === q['default'])
+							if (n || o && r === q['default'])
 								k.removeAttribute(q.name);
 							else
 								k.setAttribute(q.name, r);
@@ -117,20 +117,20 @@
 						A.fakeImage = A.objectNode = A.embedNode = null;
 						m = new CKEDITOR.dom.element('embed', j.document);
 						var o = A.getSelectedElement();
-						if(o && o.data('cke-real-element-type') && o.data('cke-real-element-type') == 'flash') {
+						if (o && o.data('cke-real-element-type') && o.data('cke-real-element-type') == 'flash') {
 							A.fakeImage = o;
 							var p = j.restoreRealElement(o), q = null, r = null, s = {};
-							if(p.getName() == 'cke:object') {
+							if (p.getName() == 'cke:object') {
 								q = p;
 								var t = q.getElementsByTag('embed', 'cke');
-								if(t.count() > 0)
+								if (t.count() > 0)
 									r = t.getItem(0);
 								var u = q.getElementsByTag('param', 'cke');
 								for (var v = 0, w = u.count(); v < w; v++) {
 									var x = u.getItem(v), y = x.getAttribute('name'), z = x.getAttribute('value');
 									s[y] = z;
 								}
-							} else if(p.getName() == 'cke:embed')
+							} else if (p.getName() == 'cke:embed')
 								r = p;
 							A.objectNode = q;
 							A.embedNode = r;
@@ -139,23 +139,23 @@
 					}, onOk: function() {
 						var y = this;
 						var o = null, p = null, q = null;
-						if(!y.fakeImage) {
-							if(k) {
+						if (!y.fakeImage) {
+							if (k) {
 								o = CKEDITOR.dom.element.createFromHtml('<cke:object></cke:object>', j.document);
 								var r = {classid: 'clsid:d27cdb6e-ae6d-11cf-96b8-444553540000', codebase: 'http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0'};
 								o.setAttributes(r);
 							}
-							if(l) {
+							if (l) {
 								p = CKEDITOR.dom.element.createFromHtml('<cke:embed></cke:embed>', j.document);
 								p.setAttributes({type: 'application/x-shockwave-flash', pluginspage: 'http://www.macromedia.com/go/getflashplayer'});
-								if(o)
+								if (o)
 									p.appendTo(o);
 							}
 						} else {
 							o = y.objectNode;
 							p = y.embedNode;
 						}
-						if(o) {
+						if (o) {
 							q = {};
 							var s = o.getElementsByTag('param', 'cke');
 							for (var t = 0, u = s.count(); t < u; t++)
@@ -166,13 +166,13 @@
 						var x = j.createFakeElement(o || p, 'cke_flash', 'flash', true);
 						x.setAttributes(w);
 						x.setStyles(v);
-						if(y.fakeImage) {
+						if (y.fakeImage) {
 							x.replace(y.fakeImage);
 							j.getSelection().selectElement(x);
 						} else
 							j.insertElement(x);
 					}, onHide: function() {
-						if(this.preview)
+						if (this.preview)
 							this.preview.setHtml('');
 					}, contents: [{id: 'info', label: j.lang.common.generalTab, accessKey: 'I', elements: [{type: 'vbox', padding: 0, children: [{type: 'hbox', widths: ['280px', '110px'], align: 'right', children: [{id: 'src', type: 'text', label: j.lang.common.url, required: true, validate: CKEDITOR.dialog.validate.notEmpty(j.lang.flash.validateSrc), setup: h, commit: i, onLoad: function() {
 														var o = this.getDialog(), p = function(q) {
@@ -181,7 +181,7 @@
 														};
 														o.preview = o.getContentElement('info', 'preview').getElement().getChild(3);
 														this.on('change', function(q) {
-															if(q.data && q.data.value)
+															if (q.data && q.data.value)
 																p(q.data.value);
 														});
 														this.getInputElement().on('change', function(q) {

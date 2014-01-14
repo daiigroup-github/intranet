@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -14,7 +15,7 @@
 
 /**
  * A MIME part, in a multipart message.
- *
+ * 
  * @package Swift
  * @subpackage Mime
  * @author Chris Corbyn
@@ -36,7 +37,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Create a new MimePart with $headers, $encoder and $cache.
-	 *
+	 * 
 	 * @param Swift_Mime_HeaderSet $headers
 	 * @param Swift_Mime_ContentEncoder $encoder
 	 * @param Swift_KeyCache $cache
@@ -46,7 +47,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 	{
 		parent::__construct($headers, $encoder, $cache);
 		$this->setContentType('text/plain');
-		if(!is_null($charset))
+		if (!is_null($charset))
 		{
 			$this->setCharset($charset);
 		}
@@ -55,7 +56,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 	/**
 	 * Set the body of this entity, either as a string, or as an instance of
 	 * {@link Swift_OutputByteStream}.
-	 *
+	 * 
 	 * @param mixed $body
 	 * @param string $contentType optional
 	 * @param string $charset optional
@@ -63,7 +64,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 	public function setBody($body, $contentType = null, $charset = null)
 	{
 		parent::setBody($body, $contentType);
-		if(isset($charset))
+		if (isset($charset))
 		{
 			$this->setCharset($charset);
 		}
@@ -72,7 +73,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Get the character set of this entity.
-	 *
+	 * 
 	 * @return string
 	 */
 	public function getCharset()
@@ -82,13 +83,13 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Set the character set of this entity.
-	 *
+	 * 
 	 * @param string $charset
 	 */
 	public function setCharset($charset)
 	{
 		$this->_setHeaderParameter('Content-Type', 'charset', $charset);
-		if($charset !== $this->_userCharset)
+		if ($charset !== $this->_userCharset)
 		{
 			$this->_clearCache();
 		}
@@ -99,7 +100,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Get the format of this entity (i.e. flowed or fixed).
-	 *
+	 * 
 	 * @return string
 	 */
 	public function getFormat()
@@ -109,7 +110,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Set the format of this entity (flowed or fixed).
-	 *
+	 * 
 	 * @param string $format
 	 */
 	public function setFormat($format)
@@ -121,7 +122,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Test if delsp is being used for this entity.
-	 *
+	 * 
 	 * @return boolean
 	 */
 	public function getDelSp()
@@ -131,7 +132,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Turn delsp on or off for this entity.
-	 *
+	 * 
 	 * @param boolean $delsp
 	 */
 	public function setDelSp($delsp = true)
@@ -143,7 +144,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 
 	/**
 	 * Get the nesting level of this entity.
-	 *
+	 * 
 	 * @return int
 	 * @see LEVEL_TOP, LEVEL_ALTERNATIVE, LEVEL_MIXED, LEVEL_RELATED
 	 */
@@ -155,7 +156,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 	/**
 	 * Receive notification that the charset has changed on this document, or a
 	 * parent document.
-	 *
+	 * 
 	 * @param string $charset
 	 */
 	public function charsetChanged($charset)
@@ -169,7 +170,7 @@ class Swift_Mime_MimePart extends Swift_Mime_SimpleMimeEntity
 	protected function _fixHeaders()
 	{
 		parent::_fixHeaders();
-		if(count($this->getChildren()))
+		if (count($this->getChildren()))
 		{
 			$this->_setHeaderParameter('Content-Type', 'charset', null);
 			$this->_setHeaderParameter('Content-Type', 'format', null);

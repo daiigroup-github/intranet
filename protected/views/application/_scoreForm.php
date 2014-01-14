@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'customer-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'style'=>"overflow:scroll;height:450px")
+	'id' => 'customer-form',
+	'enableAjaxValidation' => false,
+	'htmlOptions' => array(
+		'style' => "overflow:scroll;height:450px")
 	));
 ?>
 <?php
@@ -18,9 +18,9 @@ echo $form->hiddenField($exam, "examId");
 		?></div>
 </div>
 <?php
-if(!isset($appInter->score))
+if (!isset($appInter->score))
 {
-	foreach($exam->examQuesitons as $question)
+	foreach ($exam->examQuesitons as $question)
 	{
 		$genQuestion = new GenerateQuestion();
 		echo $genQuestion->generate($question);
@@ -28,14 +28,14 @@ if(!isset($appInter->score))
 }
 else
 {
-	foreach($exam->examQuesitons as $question)
+	foreach ($exam->examQuesitons as $question)
 	{
 		echo $question->title;
-		if(count($appInter->appInterviewScore) > 0)
+		if (count($appInter->appInterviewScore) > 0)
 		{
-			foreach($appInter->appInterviewScore as $item)
+			foreach ($appInter->appInterviewScore as $item)
 			{
-				if($item->questionId == $question->examQuestionId)
+				if ($item->questionId == $question->examQuestionId)
 				{
 					echo "<br>";
 					echo "คะแนน : ";
@@ -49,7 +49,7 @@ else
 }
 ?>
 <?php
-if(!isset($appInter->score))
+if (!isset($appInter->score))
 {
 	?>
 	<div class="control-group">

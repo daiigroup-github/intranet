@@ -3,19 +3,19 @@
 /* @var $model ConstructionProject */
 
 $this->breadcrumbs = array(
-	'Construction Projects'=>array(
+	'Construction Projects' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List ConstructionProject',
-		'url'=>array(
+		'label' => 'List ConstructionProject',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create ConstructionProject',
-		'url'=>array(
+		'label' => 'Create ConstructionProject',
+		'url' => array(
 			'create')),
 );
 
@@ -42,22 +42,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class'=>'search-button'));
+	'class' => 'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'construction-project-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'construction-project-grid',
+	'dataProvider' => $model->search(),
+	'filter' => $model,
+	'columns' => array(
 		'projectId',
 		'status',
 		'createDateTime',
@@ -79,7 +79,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		  'branchValue',
 		 */
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));

@@ -26,7 +26,7 @@
 					{
 						return function(evt)
 						{
-							if(this.mode == 'wysiwyg')
+							if (this.mode == 'wysiwyg')
 							{
 								this.focus();
 
@@ -58,29 +58,29 @@
 
 					function doInsertHtml(data)
 					{
-						if(this.dataProcessor)
+						if (this.dataProcessor)
 							data = this.dataProcessor.toHtml(data);
 
-						if(!data)
+						if (!data)
 							return;
 
 						// HTML insertion only considers the first range.
 						var selection = this.getSelection(),
 								range = selection.getRanges()[ 0 ];
 
-						if(range.checkReadOnly())
+						if (range.checkReadOnly())
 							return;
 
 						// Opera: force block splitting when pasted content contains block. (#7801)
-						if(CKEDITOR.env.opera)
+						if (CKEDITOR.env.opera)
 						{
 							var path = new CKEDITOR.dom.elementPath(range.startContainer);
-							if(path.block)
+							if (path.block)
 							{
 								var nodes = CKEDITOR.htmlParser.fragment.fromHtml(data, false).children;
 								for (var i = 0, count = nodes.length; i < count; i++)
 								{
-									if(nodes[ i ]._.isBlockLike)
+									if (nodes[ i ]._.isBlockLike)
 									{
 										range.splitBlock(this.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p');
 										range.insertNode(range.document.createText(''));
@@ -91,14 +91,14 @@
 							}
 						}
 
-						if(CKEDITOR.env.ie)
+						if (CKEDITOR.env.ie)
 						{
 							var $sel = selection.getNative();
 
 							// Delete control selections to avoid IE bugs on pasteHTML.
-							if($sel.type == 'Control')
+							if ($sel.type == 'Control')
 								$sel.clear();
-							else if(selection.getType() == CKEDITOR.SELECTION_TEXT)
+							else if (selection.getType() == CKEDITOR.SELECTION_TEXT)
 							{
 								// Due to IE bugs on handling contenteditable=false blocks
 								// (#6005), we need to make some checks and eventually
@@ -107,7 +107,7 @@
 								range = selection.getRanges()[ 0 ];
 								var endContainer = range && range.endContainer;
 
-								if(endContainer &&
+								if (endContainer &&
 										endContainer.type == CKEDITOR.NODE_ELEMENT &&
 										endContainer.getAttribute('contenteditable') == 'false' &&
 										range.checkBoundaryOfElement(endContainer, CKEDITOR.END))
@@ -123,7 +123,7 @@
 							this.document.$.execCommand('inserthtml', false, data);
 
 						// Webkit does not scroll to the cursor position after pasting (#5558)
-						if(CKEDITOR.env.webkit)
+						if (CKEDITOR.env.webkit)
 						{
 							selection = this.getSelection();
 							selection.scrollIntoView();
@@ -142,9 +142,9 @@
 						// Convert leading and trailing whitespaces into &nbsp;
 						html = html.replace(/^[ \t]+|[ \t]+$/g, function(match, offset, s)
 						{
-							if(match.length == 1)	// one space, preserve it
+							if (match.length == 1)	// one space, preserve it
 								return '&nbsp;';
-							else if(!offset)		// beginning of block
+							else if (!offset)		// beginning of block
 								return CKEDITOR.tools.repeat('&nbsp;', match.length - 1) + ' ';
 							else				// end of block
 								return ' ' + CKEDITOR.tools.repeat('&nbsp;', match.length - 1);
@@ -159,7 +159,7 @@
 						var paragraphTag = mode == CKEDITOR.ENTER_P ? 'p' : 'div';
 
 						// Two line-breaks create one paragraph.
-						if(!isEnterBrMode)
+						if (!isEnterBrMode)
 						{
 							html = html.replace(/(\n{2})([\s\S]*?)(?:$|\1)/g,
 									function(match, group1, text)
@@ -172,7 +172,7 @@
 						html = html.replace(/\n/g, '<br>');
 
 						// Compensate padding <br> for non-IE.
-						if(!(isEnterBrMode || CKEDITOR.env.ie))
+						if (!(isEnterBrMode || CKEDITOR.env.ie))
 						{
 							html = html.replace(new RegExp('<br>(?=</' + paragraphTag + '>)'), function(match)
 							{
@@ -181,7 +181,7 @@
 						}
 
 						// Inline styles have to be inherited in Firefox.
-						if(CKEDITOR.env.gecko || CKEDITOR.env.webkit)
+						if (CKEDITOR.env.gecko || CKEDITOR.env.webkit)
 						{
 							var path = new CKEDITOR.dom.elementPath(selection.getStartElement()),
 									context = [];
@@ -189,9 +189,9 @@
 							for (var i = 0; i < path.elements.length; i++)
 							{
 								var tag = path.elements[ i ].getName();
-								if(tag in CKEDITOR.dtd.$inline)
+								if (tag in CKEDITOR.dtd.$inline)
 									context.unshift(path.elements[ i ].getOuterHtml().match(/^<.*?>/));
-								else if(tag in CKEDITOR.dtd.$block)
+								else if (tag in CKEDITOR.dtd.$block)
 									break;
 							}
 
@@ -211,7 +211,7 @@
 
 						var selIsLocked = selection.isLocked;
 
-						if(selIsLocked)
+						if (selIsLocked)
 							selection.unlock();
 
 						var range, clone, lastElement, bookmark;
@@ -220,7 +220,7 @@
 						{
 							range = ranges[ i ];
 
-							if(!range.checkReadOnly())
+							if (!range.checkReadOnly())
 							{
 								// Remove the original contents, merge splitted nodes.
 								range.deleteContents(1);
@@ -230,18 +230,18 @@
 								// If we're inserting a block at dtd-violated position, split
 								// the parent blocks until we reach blockLimit.
 								var current, dtd;
-								if(isBlock)
+								if (isBlock)
 								{
-									while((current = range.getCommonAncestor(0, 1))
+									while ((current = range.getCommonAncestor(0, 1))
 											&& (dtd = CKEDITOR.dtd[ current.getName() ])
 											&& !(dtd && dtd [ elementName ]))
 									{
 										// Split up inline elements.
-										if(current.getName() in CKEDITOR.dtd.span)
+										if (current.getName() in CKEDITOR.dtd.span)
 											range.splitElement(current);
 										// If we're in an empty block which indicate a new paragraph,
 										// simply replace it with the inserting block.(#3664)
-										else if(range.checkStartOfBlock()
+										else if (range.checkStartOfBlock()
 												&& range.checkEndOfBlock())
 										{
 											range.setStartBefore(current);
@@ -258,38 +258,38 @@
 
 								// Save the last element reference so we can make the
 								// selection later.
-								if(!lastElement)
+								if (!lastElement)
 									lastElement = clone;
 							}
 						}
 
-						if(lastElement)
+						if (lastElement)
 						{
 							range.moveToPosition(lastElement, CKEDITOR.POSITION_AFTER_END);
 
 							// If we're inserting a block element immediatelly followed by
 							// another block element, the selection must move there. (#3100,#5436)
-							if(isBlock)
+							if (isBlock)
 							{
 								var next = lastElement.getNext(notWhitespaceEval),
 										nextName = next && next.type == CKEDITOR.NODE_ELEMENT && next.getName();
 
 								// Check if it's a block element that accepts text.
-								if(nextName && CKEDITOR.dtd.$block[ nextName ] && CKEDITOR.dtd[ nextName ]['#'])
+								if (nextName && CKEDITOR.dtd.$block[ nextName ] && CKEDITOR.dtd[ nextName ]['#'])
 									range.moveToElementEditStart(next);
 							}
 						}
 
 						selection.selectRanges([range]);
 
-						if(selIsLocked)
+						if (selIsLocked)
 							this.getSelection().lock();
 					}
 
 					// DOM modification here should not bother dirty flag.(#4385)
 					function restoreDirty(editor)
 					{
-						if(!editor.checkDirty())
+						if (!editor.checkDirty())
 							setTimeout(function() {
 								editor.resetDirty();
 							}, 0);
@@ -311,7 +311,7 @@
 
 					function restoreSelection(selection)
 					{
-						if(selection.isLocked)
+						if (selection.isLocked)
 						{
 							selection.unlock();
 							setTimeout(function() {
@@ -337,7 +337,7 @@
 								bodyFirstChild = body.getFirst(),
 								bodyChildsNum = body.getChildren().count();
 
-						if(!bodyChildsNum
+						if (!bodyChildsNum
 								|| bodyChildsNum == 1
 								&& bodyFirstChild.type == CKEDITOR.NODE_ELEMENT
 								&& bodyFirstChild.hasAttribute('_moz_editor_bogus_node'))
@@ -356,7 +356,7 @@
 									false, false, false, 0, 32);
 							doc.$.dispatchEvent(keyEventSimulate);
 
-							if(scrollTop != hostDocumentElement.$.scrollTop || scrollLeft != hostDocumentElement.$.scrollLeft)
+							if (scrollTop != hostDocumentElement.$.scrollTop || scrollLeft != hostDocumentElement.$.scrollLeft)
 								hostDocument.getWindow().$.scrollTo(scrollLeft, scrollTop);
 
 							// Restore the original document status by placing the cursor before a bogus br created (#5021).
@@ -382,7 +382,7 @@
 								body = editor.document.getBody(),
 								enterMode = editor.config.enterMode;
 
-						if(CKEDITOR.env.gecko)
+						if (CKEDITOR.env.gecko)
 						{
 							activateEditing(editor);
 
@@ -394,7 +394,7 @@
 							// 1. It is really displayed as block; (#7221)
 							// 2. It doesn't end with one inner block; (#7467)
 							// 3. It doesn't have bogus br yet.
-							if(pathBlock
+							if (pathBlock
 									&& pathBlock.isBlockBoundary()
 									&& !(lastNode && lastNode.type == CKEDITOR.NODE_ELEMENT && lastNode.isBlockBoundary())
 									&& !pathBlock.is('pre')
@@ -406,7 +406,7 @@
 
 						// When we're in block enter mode, a new paragraph will be established
 						// to encapsulate inline contents right under body. (#3657)
-						if(editor.config.autoParagraph !== false
+						if (editor.config.autoParagraph !== false
 								&& enterMode != CKEDITOR.ENTER_BR
 								&& range.collapsed
 								&& blockLimit.getName() == 'body'
@@ -416,7 +416,7 @@
 									editor.config.enterMode == CKEDITOR.ENTER_DIV ? 'div' : 'p');
 
 							// For IE, we should remove any filler node which was introduced before.
-							if(CKEDITOR.env.ie)
+							if (CKEDITOR.env.ie)
 							{
 								var first = fixedBlock.getFirst(isNotEmpty);
 								first && isNbsp(first) && first.remove();
@@ -424,10 +424,10 @@
 
 							// If the fixed block is actually blank and is already followed by an exitable blank
 							// block, we should revert the fix and move into the existed one. (#3684)
-							if(isBlankParagraph(fixedBlock))
+							if (isBlankParagraph(fixedBlock))
 							{
 								var element = fixedBlock.getNext(isNotWhitespace);
-								if(element &&
+								if (element &&
 										element.type == CKEDITOR.NODE_ELEMENT &&
 										!nonEditable(element))
 								{
@@ -437,7 +437,7 @@
 								else
 								{
 									element = fixedBlock.getPrevious(isNotWhitespace);
-									if(element &&
+									if (element &&
 											element.type == CKEDITOR.NODE_ELEMENT &&
 											!nonEditable(element))
 									{
@@ -458,15 +458,15 @@
 						var testRange = new CKEDITOR.dom.range(editor.document);
 						testRange.moveToElementEditEnd(editor.document.getBody());
 						var testPath = new CKEDITOR.dom.elementPath(testRange.startContainer);
-						if(!testPath.blockLimit.is('body'))
+						if (!testPath.blockLimit.is('body'))
 						{
 							var paddingBlock;
-							if(enterMode != CKEDITOR.ENTER_BR)
+							if (enterMode != CKEDITOR.ENTER_BR)
 								paddingBlock = body.append(editor.document.createElement(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div'));
 							else
 								paddingBlock = body;
 
-							if(!CKEDITOR.env.ie)
+							if (!CKEDITOR.env.ie)
 								paddingBlock.appendBogus();
 						}
 					}
@@ -500,7 +500,7 @@
 										// Creates the iframe that holds the editable document.
 										var createIFrame = function(data)
 										{
-											if(iframe)
+											if (iframe)
 												iframe.remove();
 
 											var src =
@@ -531,7 +531,7 @@
 																	'></iframe>');
 
 															// Running inside of Firefox chrome the load event doesn't bubble like in a normal page (#5689)
-															if(document.location.protocol == 'chrome:')
+															if (document.location.protocol == 'chrome:')
 																CKEDITOR.event.useCapture = true;
 
 															// With FF, it's better to load the data on iframe.load. (#3894,#4058)
@@ -547,13 +547,13 @@
 															});
 
 															// Reset adjustment back to default (#5689)
-															if(document.location.protocol == 'chrome:')
+															if (document.location.protocol == 'chrome:')
 																CKEDITOR.event.useCapture = false;
 
 															mainElement.append(iframe);
 
 															// Webkit: iframe size doesn't auto fit well. (#7360)
-															if(CKEDITOR.env.webkit)
+															if (CKEDITOR.env.webkit)
 															{
 																onResize = function()
 																{
@@ -578,7 +578,7 @@
 														// Editing area bootstrap code.
 														function contentDomReady(domWindow)
 														{
-															if(!frameLoaded)
+															if (!frameLoaded)
 																return;
 															frameLoaded = 0;
 
@@ -595,7 +595,7 @@
 
 															var editable = !editor.readOnly;
 
-															if(CKEDITOR.env.ie)
+															if (CKEDITOR.env.ie)
 															{
 																// Don't display the focus border.
 																body.hideFocus = true;
@@ -613,10 +613,10 @@
 																setTimeout(function()
 																{
 																	// Prefer 'contentEditable' instead of 'designMode'. (#3593)
-																	if(CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900
+																	if (CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900
 																			|| CKEDITOR.env.opera)
 																		domDocument.$.body.contentEditable = editable;
-																	else if(CKEDITOR.env.webkit)
+																	else if (CKEDITOR.env.webkit)
 																		domDocument.$.body.parentNode.contentEditable = editable;
 																	else
 																		domDocument.$.designMode = editable ? 'off' : 'on';
@@ -640,36 +640,36 @@
 															CKEDITOR.env.ie && domDocument.on('click', function(evt)
 															{
 																var element = evt.data.getTarget();
-																if(element.is('input'))
+																if (element.is('input'))
 																{
 																	var type = element.getAttribute('type');
-																	if(type == 'submit' || type == 'reset')
+																	if (type == 'submit' || type == 'reset')
 																		evt.data.preventDefault();
 																}
 															});
 
 															// Gecko/Webkit need some help when selecting control type elements. (#3448)
-															if(!(CKEDITOR.env.ie || CKEDITOR.env.opera))
+															if (!(CKEDITOR.env.ie || CKEDITOR.env.opera))
 															{
 																domDocument.on('mousedown', function(ev)
 																{
 																	var control = ev.data.getTarget();
-																	if(control.is('img', 'hr', 'input', 'textarea', 'select'))
+																	if (control.is('img', 'hr', 'input', 'textarea', 'select'))
 																		editor.getSelection().selectElement(control);
 																});
 															}
 
-															if(CKEDITOR.env.gecko)
+															if (CKEDITOR.env.gecko)
 															{
 																domDocument.on('mouseup', function(ev)
 																{
-																	if(ev.data.$.button == 2)
+																	if (ev.data.$.button == 2)
 																	{
 																		var target = ev.data.getTarget();
 
 																		// Prevent right click from selecting an empty block even
 																		// when selection is anchored inside it. (#5845)
-																		if(!target.getOuterHtml().replace(emptyParagraphRegexp, ''))
+																		if (!target.getOuterHtml().replace(emptyParagraphRegexp, ''))
 																		{
 																			var range = new CKEDITOR.dom.range(domDocument);
 																			range.moveToElementEditStart(target);
@@ -683,12 +683,12 @@
 															domDocument.on('click', function(ev)
 															{
 																ev = ev.data;
-																if(ev.getTarget().is('a') && ev.$.button != 2)
+																if (ev.getTarget().is('a') && ev.$.button != 2)
 																	ev.preventDefault();
 															});
 
 															// Webkit: avoid from editing form control elements content.
-															if(CKEDITOR.env.webkit)
+															if (CKEDITOR.env.webkit)
 															{
 																// Mark that cursor will right blinking (#7113).
 																domDocument.on('mousedown', function() {
@@ -697,14 +697,14 @@
 																// Prevent from tick checkbox/radiobox/select
 																domDocument.on('click', function(ev)
 																{
-																	if(ev.data.getTarget().is('input', 'select'))
+																	if (ev.data.getTarget().is('input', 'select'))
 																		ev.data.preventDefault();
 																});
 
 																// Prevent from editig textfield/textarea value.
 																domDocument.on('mouseup', function(ev)
 																{
-																	if(ev.data.getTarget().is('input', 'textarea'))
+																	if (ev.data.getTarget().is('input', 'textarea'))
 																		ev.data.preventDefault();
 																});
 															}
@@ -721,14 +721,14 @@
 															{
 																var doc = editor.document;
 
-																if(editable && CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900)
+																if (editable && CKEDITOR.env.gecko && CKEDITOR.env.version >= 10900)
 																	blinkCursor();
-																else if(CKEDITOR.env.opera)
+																else if (CKEDITOR.env.opera)
 																	doc.getBody().focus();
 																// Webkit needs focus for the first time on the HTML element. (#6153)
-																else if(CKEDITOR.env.webkit)
+																else if (CKEDITOR.env.webkit)
 																{
-																	if(!wasFocused)
+																	if (!wasFocused)
 																	{
 																		editor.document.getDocumentElement().focus();
 																		wasFocused = 1;
@@ -750,7 +750,7 @@
 																var keyCode = evt.data.getKeystroke();
 
 																// Backspace OR Delete.
-																if(keyCode in {8: 1, 46: 1})
+																if (keyCode in {8: 1, 46: 1})
 																{
 																	var sel = editor.getSelection(),
 																			selected = sel.getSelectedElement(),
@@ -758,7 +758,7 @@
 
 																	// Override keystrokes which should have deletion behavior
 																	//  on fully selected element . (#4047) (#7645)
-																	if(selected)
+																	if (selected)
 																	{
 																		// Make undo snapshot.
 																		editor.fire('saveSnapshot');
@@ -778,9 +778,9 @@
 																}
 
 																// PageUp OR PageDown
-																if(keyCode == 33 || keyCode == 34)
+																if (keyCode == 33 || keyCode == 34)
 																{
-																	if(CKEDITOR.env.gecko)
+																	if (CKEDITOR.env.gecko)
 																	{
 																		var body = domDocument.getBody();
 
@@ -788,7 +788,7 @@
 																		// outside of editable thus we try to intercept
 																		// the behavior, while it affects only happen
 																		// when editor contents are not overflowed. (#7955)
-																		if(domWindow.$.innerHeight > body.$.offsetHeight)
+																		if (domWindow.$.innerHeight > body.$.offsetHeight)
 																		{
 																			range = new CKEDITOR.dom.range(domDocument);
 																			range[ keyCode == 33 ? 'moveToElementEditStart' : 'moveToElementEditEnd'](body);
@@ -802,12 +802,12 @@
 
 															// PageUp/PageDown scrolling is broken in document
 															// with standard doctype, manually fix it. (#4736)
-															if(CKEDITOR.env.ie && domDocument.$.compatMode == 'CSS1Compat')
+															if (CKEDITOR.env.ie && domDocument.$.compatMode == 'CSS1Compat')
 															{
 																var pageUpDownKeys = {33: 1, 34: 1};
 																domDocument.on('keydown', function(evt)
 																{
-																	if(evt.data.getKeystroke() in pageUpDownKeys)
+																	if (evt.data.getKeystroke() in pageUpDownKeys)
 																	{
 																		setTimeout(function()
 																		{
@@ -818,7 +818,7 @@
 															}
 
 															// Prevent IE from leaving new paragraph after deleting all contents in body. (#6966)
-															if(CKEDITOR.env.ie && editor.config.enterMode != CKEDITOR.ENTER_P)
+															if (CKEDITOR.env.ie && editor.config.enterMode != CKEDITOR.ENTER_P)
 															{
 																domDocument.on('selectionchange', function()
 																{
@@ -826,14 +826,14 @@
 																			sel = editor.getSelection(),
 																			range = sel && sel.getRanges()[ 0 ];
 
-																	if(range && body.getHtml().match(/^<p>&nbsp;<\/p>$/i)
+																	if (range && body.getHtml().match(/^<p>&nbsp;<\/p>$/i)
 																			&& range.startContainer.equals(body))
 																	{
 																		// Avoid the ambiguity from a real user cursor position.
 																		setTimeout(function()
 																		{
 																			range = editor.getSelection().getRanges()[ 0 ];
-																			if(!range.startContainer.equals('body'))
+																			if (!range.startContainer.equals('body'))
 																			{
 																				body.getFirst().remove(1);
 																				range.moveToElementEditEnd(body);
@@ -845,14 +845,14 @@
 															}
 
 															// Adds the document body as a context menu target.
-															if(editor.contextMenu)
+															if (editor.contextMenu)
 																editor.contextMenu.addTarget(domDocument, editor.config.browserContextMenuOnCtrl !== false);
 
 															setTimeout(function()
 															{
 																editor.fire('contentDom');
 
-																if(fireMode)
+																if (fireMode)
 																{
 																	editor.mode = 'wysiwyg';
 																	editor.fire('mode', {previousMode: editor._.previousMode});
@@ -861,7 +861,7 @@
 
 																isLoadingData = false;
 
-																if(isPendingFocus)
+																if (isPendingFocus)
 																{
 																	editor.focus();
 																	isPendingFocus = false;
@@ -874,15 +874,15 @@
 																// IE, Opera and Safari may not support it and throw errors.
 																try {
 																	editor.document.$.execCommand('enableInlineTableEditing', false, !editor.config.disableNativeTableHandles);
-																} catch(e) {
+																} catch (e) {
 																}
-																if(editor.config.disableObjectResizing)
+																if (editor.config.disableObjectResizing)
 																{
 																	try
 																	{
 																		editor.document.$.execCommand('enableObjectResizing', false, false);
 																	}
-																	catch(e)
+																	catch (e)
 																	{
 																		// For browsers in which the above method failed, we can cancel the resizing on the fly (#4208)
 																		editor.document.getBody().on(CKEDITOR.env.ie ? 'resizestart' : 'resize', function(evt)
@@ -900,11 +900,11 @@
 																 * Also, for some unknown reasons, short timeouts (e.g. 100ms) do not
 																 * fix the problem. :(
 																 */
-																if(CKEDITOR.env.ie)
+																if (CKEDITOR.env.ie)
 																{
 																	setTimeout(function()
 																	{
-																		if(editor.document)
+																		if (editor.document)
 																		{
 																			var $body = editor.document.$.body;
 																			$body.runtimeStyle.marginBottom = '0px';
@@ -922,7 +922,7 @@
 																	{
 																		mainElement = holderElement;
 
-																		if(CKEDITOR.env.ie && CKEDITOR.env.quirks)
+																		if (CKEDITOR.env.ie && CKEDITOR.env.quirks)
 																			holderElement.setStyle('position', 'relative');
 
 																		// The editor data "may be dirty" after this
@@ -931,7 +931,7 @@
 
 																		fireMode = true;
 
-																		if(isSnapshot)
+																		if (isSnapshot)
 																			this.loadSnapshotData(data);
 																		else
 																			this.loadData(data);
@@ -957,7 +957,7 @@
 
 																		var baseTag = config.baseHref ? '<base href="' + config.baseHref + '" data-cke-temp="1" />' : '';
 
-																		if(fullPage)
+																		if (fullPage)
 																		{
 																			// Search and sweep out the doctype declaration.
 																			data = data.replace(/<!DOCTYPE[^>]*>/i, function(match)
@@ -972,23 +972,23 @@
 																		}
 
 																		// Get the HTML version of the data.
-																		if(editor.dataProcessor)
+																		if (editor.dataProcessor)
 																			data = editor.dataProcessor.toHtml(data, fixForBody);
 
-																		if(fullPage)
+																		if (fullPage)
 																		{
 																			// Check if the <body> tag is available.
-																			if(!(/<body[\s|>]/).test(data))
+																			if (!(/<body[\s|>]/).test(data))
 																				data = '<body>' + data;
 
 																			// Check if the <html> tag is available.
-																			if(!(/<html[\s|>]/).test(data))
+																			if (!(/<html[\s|>]/).test(data))
 																				data = '<html>' + data + '</html>';
 
 																			// Check if the <head> tag is available.
-																			if(!(/<head[\s|>]/).test(data))
+																			if (!(/<head[\s|>]/).test(data))
 																				data = data.replace(/<html[^>]*>/, '$&<head><title></title></head>');
-																			else if(!(/<title[\s|>]/).test(data))
+																			else if (!(/<title[\s|>]/).test(data))
 																				data = data.replace(/<head[^>]*>/, '$&<title></title>');
 
 																			// The base must be the first tag in the HEAD, e.g. to get relative
@@ -1024,7 +1024,7 @@
 																		}
 
 																		// Distinguish bogus to normal BR at the end of document for Mozilla. (#5293).
-																		if(CKEDITOR.env.gecko)
+																		if (CKEDITOR.env.gecko)
 																			data = data.replace(/<br \/>(?=\s*<\/(:?html|body)>)/, '$&<br type="_moz" />');
 
 																		data += activationScript;
@@ -1047,21 +1047,21 @@
 																				: doc.getBody().getHtml();
 
 																		// BR at the end of document is bogus node for Mozilla. (#5293).
-																		if(CKEDITOR.env.gecko)
+																		if (CKEDITOR.env.gecko)
 																			data = data.replace(/<br>(?=\s*(:?$|<\/body>))/, '');
 
-																		if(editor.dataProcessor)
+																		if (editor.dataProcessor)
 																			data = editor.dataProcessor.toDataFormat(data, fixForBody);
 
 																		// Reset empty if the document contains only one empty paragraph.
-																		if(config.ignoreEmptyParagraph)
+																		if (config.ignoreEmptyParagraph)
 																			data = data.replace(emptyParagraphRegexp, function(match, lookback) {
 																				return lookback;
 																			});
 
-																		if(xmlDeclaration)
+																		if (xmlDeclaration)
 																			data = xmlDeclaration + '\n' + data;
-																		if(docType)
+																		if (docType)
 																			data = docType + '\n' + data;
 
 																		return data;
@@ -1076,7 +1076,7 @@
 																	},
 																	onDispose: function()
 																	{
-																		if(!editor.document)
+																		if (!editor.document)
 																			return;
 
 																		editor.document.getDocumentElement().clearCustomData();
@@ -1098,7 +1098,7 @@
 																	{
 																		this.onDispose();
 
-																		if(onResize)
+																		if (onResize)
 																			win.removeListener('resize', onResize);
 
 																		editor.window = editor.document = iframe = mainElement = isPendingFocus = null;
@@ -1109,9 +1109,9 @@
 																	{
 																		var win = editor.window;
 
-																		if(isLoadingData)
+																		if (isLoadingData)
 																			isPendingFocus = true;
-																		else if(win)
+																		else if (win)
 																		{
 																			// AIR needs a while to focus when moving from a link.
 																			CKEDITOR.env.air ? setTimeout(function() {
@@ -1128,12 +1128,12 @@
 														// Auto fixing on some document structure weakness to enhance usabilities. (#3190 and #3189)
 														editor.on('selectionChange', function(evt)
 														{
-															if(editor.readOnly)
+															if (editor.readOnly)
 																return;
 
 															var sel = editor.getSelection();
 															// Do it only when selection is not locked. (#8222)
-															if(sel && !sel.isLocked)
+															if (sel && !sel.isLocked)
 															{
 																var isDirty = editor.checkDirty();
 																editor.fire('saveSnapshot', {contentOnly: 1});
@@ -1157,7 +1157,7 @@
 
 											editor.on('readOnly', function()
 											{
-												if(editor.mode == 'wysiwyg')
+												if (editor.mode == 'wysiwyg')
 												{
 													// Symply reload the wysiwyg area. It'll take care of read-only.
 													var wysiwyg = editor.getMode();
@@ -1167,7 +1167,7 @@
 
 											// IE>=8 stricts mode doesn't have 'contentEditable' in effect
 											// on element unless it has layout. (#5562)
-											if(CKEDITOR.document.$.documentMode >= 8)
+											if (CKEDITOR.document.$.documentMode >= 8)
 											{
 												editor.addCss('html.CSS1Compat [contenteditable=false]{ min-height:0 !important;}');
 
@@ -1177,13 +1177,13 @@
 												editor.addCss(selectors.join(',') + '{ display:inline-block;}');
 											}
 											// Set the HTML style to 100% to have the text cursor in affect (#6341)
-											else if(CKEDITOR.env.gecko)
+											else if (CKEDITOR.env.gecko)
 											{
 												editor.addCss('html { height: 100% !important; }');
 												editor.addCss('img:-moz-broken { -moz-force-broken-image-icon : 1;	width : 24px; height : 24px; }');
 											}
 											// Remove the margin to avoid mouse confusion. (#8835)
-											else if(CKEDITOR.env.ie && CKEDITOR.env.version < 8 && editor.config.contentsLangDirection == 'ltr')
+											else if (CKEDITOR.env.ie && CKEDITOR.env.version < 8 && editor.config.contentsLangDirection == 'ltr')
 												editor.addCss('body{margin-right:0;}');
 
 											/* #3658: [IE6] Editor document has horizontal scrollbar on long lines
@@ -1197,7 +1197,7 @@
 											// Switch on design mode for a short while and close it after then.
 											function blinkCursor(retry)
 											{
-												if(editor.readOnly)
+												if (editor.readOnly)
 													return;
 
 												CKEDITOR.tools.tryThese(
@@ -1207,7 +1207,7 @@
 															setTimeout(function()
 															{
 																editor.document.$.designMode = 'off';
-																if(CKEDITOR.currentInstance == editor)
+																if (CKEDITOR.currentInstance == editor)
 																	editor.document.getBody().focus();
 															}, 50);
 														},
@@ -1229,13 +1229,13 @@
 											editor.on('insertElement', function(evt)
 											{
 												var element = evt.data;
-												if(element.type == CKEDITOR.NODE_ELEMENT
+												if (element.type == CKEDITOR.NODE_ELEMENT
 														&& (element.is('input') || element.is('textarea')))
 												{
 													// We should flag that the element was locked by our code so
 													// it'll be editable by the editor functions (#6046).
 													var readonly = element.getAttribute('contenteditable') == 'false';
-													if(!readonly)
+													if (!readonly)
 													{
 														element.data('cke-editable', element.hasAttribute('contenteditable') ? 'true' : '1');
 														element.setAttribute('contenteditable', false);
@@ -1247,13 +1247,13 @@
 									});
 
 							// Fixing Firefox 'Back-Forward Cache' break design mode. (#4514)
-							if(CKEDITOR.env.gecko)
+							if (CKEDITOR.env.gecko)
 							{
 								(function()
 								{
 									var body = document.body;
 
-									if(!body)
+									if (!body)
 										window.addEventListener('load', arguments.callee, false);
 									else
 									{

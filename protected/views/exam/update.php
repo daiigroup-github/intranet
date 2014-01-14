@@ -3,31 +3,31 @@
 /* @var $model ExamTitle */
 
 $this->breadcrumbs = array(
-	'Exam Titles'=>array(
+	'Exam Titles' => array(
 		'index'),
-	$model->examId=>array(
+	$model->examId => array(
 		'view',
-		'id'=>$model->examId),
+		'id' => $model->examId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List ExamTitle',
-		'url'=>array(
+		'label' => 'List ExamTitle',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create ExamTitle',
-		'url'=>array(
+		'label' => 'Create ExamTitle',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'View ExamTitle',
-		'url'=>array(
+		'label' => 'View ExamTitle',
+		'url' => array(
 			'view',
-			'id'=>$model->examId)),
+			'id' => $model->examId)),
 	array(
-		'label'=>'Manage ExamTitle',
-		'url'=>array(
+		'label' => 'Manage ExamTitle',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -36,5 +36,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

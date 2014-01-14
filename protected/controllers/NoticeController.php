@@ -32,7 +32,7 @@ class NoticeController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -47,7 +47,7 @@ class NoticeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Notice']))
+		if (isset($_POST['Notice']))
 		{
 			$dateNow = new CDbExpression('NOW()');
 			$model->attributes = $_POST['Notice'];
@@ -56,7 +56,7 @@ class NoticeController extends Controller
 			$model->updateDateTime = $dateNow;
 
 			$image = CUploadedFile::getInstanceByName("Notice[imageUrl]");
-			if(!empty($image))
+			if (!empty($image))
 			{
 				$imageUrl = 'images/notice/' . time() . '-' . $image->name;
 				$imagePath = '/../' . $imageUrl;
@@ -66,13 +66,13 @@ class NoticeController extends Controller
 			}
 
 
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'admin'));
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -88,14 +88,14 @@ class NoticeController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Notice']))
+		if (isset($_POST['Notice']))
 		{
 			$dateNow = new CDbExpression('NOW()');
 			$model->attributes = $_POST['Notice'];
 			$model->updateDateTime = $dateNow;
 
 			$image = CUploadedFile::getInstanceByName("Notice[imageUrl]");
-			if(!empty($image))
+			if (!empty($image))
 			{
 				$imageUrl = 'images/notice/' . time() . '-' . $image->name;
 				$imagePath = '/../' . $imageUrl;
@@ -109,13 +109,13 @@ class NoticeController extends Controller
 				$model->imageUrl = $oldImage;
 			}
 
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'admin'));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -132,7 +132,7 @@ class NoticeController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
+		if (!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 		/* }
@@ -147,7 +147,7 @@ class NoticeController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('Notice');
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -158,11 +158,11 @@ class NoticeController extends Controller
 	{
 		$model = new Notice('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Notice']))
+		if (isset($_GET['Notice']))
 			$model->attributes = $_GET['Notice'];
 
 		$this->render('admin', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -174,7 +174,7 @@ class NoticeController extends Controller
 	public function loadModel($id)
 	{
 		$model = Notice::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -185,7 +185,7 @@ class NoticeController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'notice-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'notice-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Projects'=>array(
+	'Projects' => array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List Project',
-		'url'=>array(
+		'label' => 'List Project',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Manage Project',
-		'url'=>array(
+		'label' => 'Manage Project',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -21,7 +21,7 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model,
-	'process'=>$process,
-	'subProcess'=>$subProcess));
+	'model' => $model,
+	'process' => $process,
+	'subProcess' => $subProcess));
 ?>

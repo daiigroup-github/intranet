@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -93,7 +94,7 @@ class Swift_Mime_Headers_UnstructuredHeader extends Swift_Mime_Headers_AbstractH
 	 */
 	public function getFieldBody()
 	{
-		if(!$this->getCachedValue())
+		if (!$this->getCachedValue())
 		{
 			$this->setCachedValue(
 				str_replace('\\', '\\\\', $this->encodeWords(

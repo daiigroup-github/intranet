@@ -22,11 +22,11 @@
 	</p>
 
 	<?php
-	if($canView)
+	if ($canView)
 	{
 		?>
 		<p><b>กรุณากด</b> <a href="<?php echo $website ?>"><?php echo $website ?></a> เพื่อดูข้อมูล</p>
-	<?php } ?>
+<?php } ?>
 	<p>อีเมลฉบับนี้เป็นการแจ้งข้อมูลโดยอัตโนมัติ กรุณาอย่าตอบกลับ</p>
 </body>
 </html>

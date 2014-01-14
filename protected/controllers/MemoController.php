@@ -29,26 +29,26 @@ class MemoController extends Controller
 		return array(
 			array(
 				'allow', // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(
+				'actions' => array(
 					'index',
 					'view'),
-				'users'=>array(
+				'users' => array(
 					'*'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(
+				'actions' => array(
 					'create',
 					'update'),
-				'users'=>array(
+				'users' => array(
 					'@'),
 			),
 			array(
 				'allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(
+				'actions' => array(
 					'admin',
 					'delete'),
-				'users'=>array(
+				'users' => array(
 					'admin'),
 			),
 		);
@@ -62,18 +62,18 @@ class MemoController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$memoToList = null;
-		if($model->createBy == Yii::app()->user->id)
+		if ($model->createBy == Yii::app()->user->id)
 		{
 			$memoToList = MemoTo::model()->findAll("memoId =:memoId", array(
-				":memoId"=>$id));
+				":memoId" => $id));
 		}
 		else
 		{
 			$this->employeeIdReadedMemo($id);
 		}
 		$this->render('view', array(
-			'model'=>$model,
-			'memoToList'=>$memoToList
+			'model' => $model,
+			'memoToList' => $memoToList
 		));
 	}
 
@@ -89,11 +89,11 @@ class MemoController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Memo']) && isset($_POST["Employee"]))
+		if (isset($_POST['Memo']) && isset($_POST["Employee"]))
 		{
 			$model->attributes = $_POST['Memo'];
 			$image = CUploadedFile::getInstanceByName("Memo[image]");
-			if(isset($image) || !empty($image))
+			if (isset($image) || !empty($image))
 			{
 				$file_array = explode(".", $image->name);
 				$fileType = $file_array[count($file_array) - 1];
@@ -111,13 +111,13 @@ class MemoController extends Controller
 			try
 			{
 				$flag = 1;
-				//$model->createBy
-				if($model->save())
+				//$model->createBy 
+				if ($model->save())
 				{
 					$memoId = Yii::app()->db->lastInsertID;
-					foreach($_POST['Employee']['employeeId'] as $k=> $v)
+					foreach ($_POST['Employee']['employeeId'] as $k => $v)
 					{
-						if(!$v)
+						if (!$v)
 							continue;
 						$gm['memoId'] = $memoId;
 						$gm['employeeId'] = $v;
@@ -127,7 +127,7 @@ class MemoController extends Controller
 						$memTo = new MemoTo();
 						$memTo->attributes = $gm;
 
-						if(!$memTo->save())
+						if (!$memTo->save())
 						{
 							$flag = 0;
 							break;
@@ -149,7 +149,7 @@ class MemoController extends Controller
 					$memoLog->remark = "create memo";
 					$memoLog->status = 1;
 					$memoLog->createDateTime = $dateNow;
-					if(!$memoLog->save())
+					if (!$memoLog->save())
 					{
 						$flag = 0;
 					}
@@ -159,7 +159,7 @@ class MemoController extends Controller
 					$flag = 0;
 				}
 
-				if($flag)
+				if ($flag)
 				{
 
 					$transaction->commit();
@@ -169,7 +169,7 @@ class MemoController extends Controller
 
 				$transaction->rollback();
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -177,8 +177,8 @@ class MemoController extends Controller
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
-			'employeeModel'=>$employeeModel
+			'model' => $model,
+			'employeeModel' => $employeeModel
 		));
 	}
 
@@ -194,17 +194,17 @@ class MemoController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Memo']))
+		if (isset($_POST['Memo']))
 		{
 			$model->attributes = $_POST['Memo'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'admin'));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
-			'employeeModel'=>$employeeModel
+			'model' => $model,
+			'employeeModel' => $employeeModel
 		));
 	}
 
@@ -215,13 +215,13 @@ class MemoController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -236,7 +236,7 @@ class MemoController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('Memo');
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -247,11 +247,11 @@ class MemoController extends Controller
 	{
 		$model = new Memo('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Memo']))
+		if (isset($_GET['Memo']))
 			$model->attributes = $_GET['Memo'];
 
 		$this->render('admin', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -259,11 +259,11 @@ class MemoController extends Controller
 	{
 		$model = new Memo('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Memo']))
+		if (isset($_GET['Memo']))
 			$model->attributes = $_GET['Memo'];
 
 		$this->render('inbox', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -271,11 +271,11 @@ class MemoController extends Controller
 	{
 		$model = new Memo('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Memo']))
+		if (isset($_GET['Memo']))
 			$model->attributes = $_GET['Memo'];
 
 		$this->render('outbox', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -287,7 +287,7 @@ class MemoController extends Controller
 	public function loadModel($id)
 	{
 		$model = Memo::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -298,7 +298,7 @@ class MemoController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'memo-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'memo-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -313,13 +313,13 @@ class MemoController extends Controller
 		{
 			$flag = 1;
 			$memoTo = MemoTo::model()->find("memoId =:memoId AND employeeId =:employeeId", array(
-				':memoId'=>$memoId,
-				':employeeId'=>Yii::app()->user->id));
-			if(count($memoTo) > 0)
+				':memoId' => $memoId,
+				':employeeId' => Yii::app()->user->id));
+			if (count($memoTo) > 0)
 			{
 				$memoTo->status = 2;
 				$memoTo->updateDateTime = $dateNow;
-				if(!$memoTo->save())
+				if (!$memoTo->save())
 				{
 					$flag = 0;
 				}
@@ -329,7 +329,7 @@ class MemoController extends Controller
 				$memoLog->remark = "readed memo";
 				$memoLog->status = 1;
 				$memoLog->createDateTime = $dateNow;
-				if(!$memoLog->save())
+				if (!$memoLog->save())
 				{
 					$flag = 0;
 				}
@@ -338,7 +338,7 @@ class MemoController extends Controller
 			{
 				$flag = 0;
 			}
-			if($flag)
+			if ($flag)
 			{
 				$transaction->commit();
 			}
@@ -347,7 +347,7 @@ class MemoController extends Controller
 				$transaction->rollback();
 			}
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			throw new Exception($e->getMessage());
 			$transaction->rollback();
@@ -357,9 +357,9 @@ class MemoController extends Controller
 	public function checkIsRead($data, $row)
 	{
 		$memoTo = MemoTo::model()->find("memoId =:memoId AND employeeId = :employeeId", array(
-			':memoId'=>$data->memoId,
-			':employeeId'=>Yii::app()->user->id));
-		if($memoTo->status == 1)
+			':memoId' => $data->memoId,
+			':employeeId' => Yii::app()->user->id));
+		if ($memoTo->status == 1)
 		{
 			$result = 'ยังไม่ได้อ่าน';
 		}
@@ -372,7 +372,7 @@ class MemoController extends Controller
 
 	public function guid()
 	{
-		if(function_exists('com_create_guid'))
+		if (function_exists('com_create_guid'))
 		{
 			return com_create_guid();
 		}

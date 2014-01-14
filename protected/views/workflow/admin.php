@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Workflows'=>array(
+	'Workflows' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List Workflow',
-		'url'=>array(
+		'label' => 'List Workflow',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create Workflow',
-		'url'=>array(
+		'label' => 'Create Workflow',
+		'url' => array(
 			'create')),
 );
 
@@ -43,23 +43,23 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'workflow-grid',
-	'dataProvider'=>$model->search(),
+	'id' => 'workflow-grid',
+	'dataProvider' => $model->search(),
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		'workflowId',
 		'workflowName',
 		'employeeId',
 		'employeeGroupId',
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));

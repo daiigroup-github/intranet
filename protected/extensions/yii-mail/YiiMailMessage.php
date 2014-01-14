@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YiiMailMessage class file.
  *
@@ -8,23 +9,23 @@
  */
 
 /**
- * Any requests to set or get attributes or call methods on this class that are
- * not found in that class are redirected to the {@link Swift_Mime_Message}
+ * Any requests to set or get attributes or call methods on this class that are 
+ * not found in that class are redirected to the {@link Swift_Mime_Message} 
  * object.
- *
- * This means you need to look at the Swift Mailer documentation to see what
- * methods are availiable for this class.  There are a <b>lot</b> of methods,
- * more than I wish to document.  Any methods availiable in
+ * 
+ * This means you need to look at the Swift Mailer documentation to see what 
+ * methods are availiable for this class.  There are a <b>lot</b> of methods, 
+ * more than I wish to document.  Any methods availiable in 
  * {@link Swift_Mime_Message} are availiable here.
- *
- * Documentation for the most important methods can be found at
+ * 
+ * Documentation for the most important methods can be found at 
  * {@link http://swiftmailer.org/docs/messages}
- *
- * The YiiMailMessage component also allows using a shorthand for methods in
+ * 
+ * The YiiMailMessage component also allows using a shorthand for methods in 
  * {@link Swift_Mime_Message} that start with set* or get*
- * For instance, instead of calling $message->setFrom('...') you can use
+ * For instance, instead of calling $message->setFrom('...') you can use 
  * $message->from = '...'.
- *
+ * 
  * Here are a few methods to get you started:
  * <ul>
  * 	<li>setSubject('Your subject')</li>
@@ -37,8 +38,8 @@ class YiiMailMessage extends CComponent
 {
 
 	/**
-	 * @var string the view to use for rendering the body, null if no view is
-	 * used.  An extra variable $mail will be passed to the view .which you may
+	 * @var string the view to use for rendering the body, null if no view is 
+	 * used.  An extra variable $mail will be passed to the view .which you may 
 	 * use to set e.g. the email subject from within the view
 	 */
 	public $view;
@@ -49,7 +50,7 @@ class YiiMailMessage extends CComponent
 	public $message;
 
 	/**
-	 * Any requests to set or get attributes or call methods on this class that
+	 * Any requests to set or get attributes or call methods on this class that 
 	 * are not found are redirected to the {@link Swift_Mime_Message} object.
 	 * @param string the attribute name
 	 */
@@ -59,10 +60,10 @@ class YiiMailMessage extends CComponent
 		{
 			return parent::__get($name);
 		}
-		catch(CException $e)
+		catch (CException $e)
 		{
 			$getter = 'get' . $name;
-			if(method_exists($this->message, $getter))
+			if (method_exists($this->message, $getter))
 				return $this->message->$getter();
 			else
 				throw $e;
@@ -70,7 +71,7 @@ class YiiMailMessage extends CComponent
 	}
 
 	/**
-	 * Any requests to set or get attributes or call methods on this class that
+	 * Any requests to set or get attributes or call methods on this class that 
 	 * are not found are redirected to the {@link Swift_Mime_Message} object.
 	 * @param string the attribute name
 	 */
@@ -80,10 +81,10 @@ class YiiMailMessage extends CComponent
 		{
 			return parent::__set($name, $value);
 		}
-		catch(CException $e)
+		catch (CException $e)
 		{
 			$setter = 'set' . $name;
-			if(method_exists($this->message, $setter))
+			if (method_exists($this->message, $setter))
 				$this->message->$setter($value);
 			else
 				throw $e;
@@ -91,7 +92,7 @@ class YiiMailMessage extends CComponent
 	}
 
 	/**
-	 * Any requests to set or get attributes or call methods on this class that
+	 * Any requests to set or get attributes or call methods on this class that 
 	 * are not found are redirected to the {@link Swift_Mime_Message} object.
 	 * @param string the method name
 	 */
@@ -101,9 +102,9 @@ class YiiMailMessage extends CComponent
 		{
 			return parent::__call($name, $parameters);
 		}
-		catch(CException $e)
+		catch (CException $e)
 		{
-			if(method_exists($this->message, $name))
+			if (method_exists($this->message, $name))
 				return call_user_func_array(array(
 					$this->message,
 					$name), $parameters);
@@ -113,10 +114,10 @@ class YiiMailMessage extends CComponent
 	}
 
 	/**
-	 * You may optionally set some message info using the paramaters of this
+	 * You may optionally set some message info using the paramaters of this 
 	 * constructor.
 	 * Use {@link view} and {@link setBody()} for more control.
-	 *
+	 * 
 	 * @param string $subject
 	 * @param string $body
 	 * @param string $contentType
@@ -130,38 +131,38 @@ class YiiMailMessage extends CComponent
 	}
 
 	/**
-	 * Set the body of this entity, either as a string, or array of view
-	 * variables if a view is set, or as an instance of
+	 * Set the body of this entity, either as a string, or array of view 
+	 * variables if a view is set, or as an instance of 
 	 * {@link Swift_OutputByteStream}.
-	 *
-	 * @param mixed the body of the message.  If a $this->view is set and this
-	 * is a string, this is passed to the view as $body.  If $this->view is set
-	 * and this is an array, the array values are passed to the view like in the
+	 * 
+	 * @param mixed the body of the message.  If a $this->view is set and this 
+	 * is a string, this is passed to the view as $body.  If $this->view is set 
+	 * and this is an array, the array values are passed to the view like in the 
 	 * controller render() method
 	 * @param string content type optional. For html, set to 'html/text'
 	 * @param string charset optional
 	 */
 	public function setBody($body = '', $contentType = null, $charset = null)
 	{
-		if($this->view !== null)
+		if ($this->view !== null)
 		{
-			if(!is_array($body))
+			if (!is_array($body))
 				$body = array(
-					'body'=>$body);
+					'body' => $body);
 
-			// if Yii::app()->controller doesn't exist create a dummy
+			// if Yii::app()->controller doesn't exist create a dummy 
 			// controller to render the view (needed in the console app)
-			if(isset(Yii::app()->controller))
+			if (isset(Yii::app()->controller))
 				$controller = Yii::app()->controller;
 			else
 				$controller = new CController('YiiMail');
 
-			// renderPartial won't work with CConsoleApplication, so use
-			// renderInternal - this requires that we use an actual path to the
+			// renderPartial won't work with CConsoleApplication, so use 
+			// renderInternal - this requires that we use an actual path to the 
 			// view rather than the usual alias
 			$viewPath = Yii::getPathOfAlias(Yii::app()->mail->viewPath . '.' . $this->view) . '.php';
 			$body = $controller->renderInternal($viewPath, array_merge($body, array(
-				'mail'=>$this)), true);
+				'mail' => $this)), true);
 		}
 		return $this->message->setBody($body, $contentType, $charset);
 	}

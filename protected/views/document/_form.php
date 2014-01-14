@@ -3,11 +3,11 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'document-form',
-	'enableAjaxValidation'=>true,
-	'htmlOptions'=>array(
-		'enctype'=>'multipart/form-data',
-		'class'=>'form-horizontal',
+	'id' => 'document-form',
+	'enableAjaxValidation' => true,
+	'htmlOptions' => array(
+		'enctype' => 'multipart/form-data',
+		'class' => 'form-horizontal',
 	)
 	));
 ?>
@@ -15,7 +15,7 @@ $form = $this->beginWidget('CActiveForm', array(
 <fieldset>
 	<h3 class="text-error">กรุณาอ่านก่อนสร้างเอกสาร</h3>
 	<p class="text-info"><?php
-		if(isset($documentType))
+		if (isset($documentType))
 		{
 			echo nl2br($documentType->documentTypeDescription);
 		}
@@ -23,31 +23,31 @@ $form = $this->beginWidget('CActiveForm', array(
 	<hr />
 	<?php
 	echo CHtml::errorSummary($model, null, null, array(
-		'class'=>'text-error'));
+		'class' => 'text-error'));
 	?>
 	<?php
 	echo CHtml::errorSummary($documentItem, null, null, array(
-		'class'=>'text-error'));
+		'class' => 'text-error'));
 	?>
 	<?php
 	echo $form->hiddenField($model, 'documentTypeId');
-	foreach($documentType->documentTemplate as $template)
+	foreach ($documentType->documentTemplate as $template)
 	{
 		$editState = explode(",", $template->editState);
-		if($template->status && !$template->isItem)
+		if ($template->status && !$template->isItem)
 		{
 			$templateName = $template->documentTemplateField->documentTemplateFieldName;
-			if(!in_array("-1", $editState))
+			if (!in_array("-1", $editState))
 			{
 				echo '<div class="control-group">';
 
 				echo '<label class="control-label">' . $templateName . '</label>';
-				if($template->fieldType == 2)
+				if ($template->fieldType == 2)
 				{
 					echo '<label class="text-error">*</label>';
 				}
 				echo $form->hiddenField($template, "fieldType" . '[' . $template->documentTemplateFieldId . ']', array(
-					'value'=>$template->fieldType));
+					'value' => $template->fieldType));
 				echo '<div class="controls">';
 
 				$this->selectControlType($template, $form, "control", $template);
@@ -64,7 +64,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				echo '<div class="controls">';
 
 				echo $form->hiddenField($template, "control" . '[' . $template->documentTemplateFieldId . ']', array(
-					'class'=>'input-small'));
+					'class' => 'input-small'));
 
 				echo $form->error($template, 'control');
 				echo '</div>';
@@ -78,12 +78,12 @@ $form = $this->beginWidget('CActiveForm', array(
 
 
 	<?php
-	if(count(DocumentTemplate::model()->findItemFieldByDocumentTypeId($documentType->documentTypeId)))
+	if (count(DocumentTemplate::model()->findItemFieldByDocumentTypeId($documentType->documentTypeId)))
 	{
 		$this->renderPartial('_itemForm', array(
-			'model'=>$model,
-			'documentType'=>$documentType,
-			'form'=>$form));
+			'model' => $model,
+			'documentType' => $documentType,
+			'form' => $form));
 	}
 	?>
 
@@ -97,8 +97,8 @@ $form = $this->beginWidget('CActiveForm', array(
 	<div class="form-actions">
 		<?php
 		echo CHtml::submitButton($model->isNewRecord ? 'สร้าง' : 'บันทึก', array(
-			'confirm'=>'คุณต้องการสร้างเอกสารหรือไม่ ?',
-			'class'=>'btn btn-primary'));
+			'confirm' => 'คุณต้องการสร้างเอกสารหรือไม่ ?',
+			'class' => 'btn btn-primary'));
 		?>
 	</div>
 

@@ -56,27 +56,27 @@ class Mileage extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'mileage, branchId, qtechProjectId',
 				'length',
-				'max'=>11),
+				'max' => 11),
 			array(
 				'mileageDiff',
 				'length',
-				'max'=>5),
+				'max' => 5),
 			array(
 				'mileageImage',
 				'length',
-				'max'=>255),
+				'max' => 255),
 			array(
 				'latitude, longitude',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'employeeId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'mileageDetail',
 				'safe'),
@@ -85,7 +85,7 @@ class Mileage extends CActiveRecord
 			array(
 				'createDate, startDate, endDate, employeeId',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -97,11 +97,11 @@ class Mileage extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee'=>array(
+			'employee' => array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'employeeId'=>'employeeId')),
+					'employeeId' => 'employeeId')),
 		);
 	}
 
@@ -111,20 +111,20 @@ class Mileage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'mileageId'=>'Mileage',
-			'status'=>'Status',
-			'createDate'=>'Create Date',
-			'createTime'=>'Create Date Time',
-			'captureDateTime'=>'Capture Time',
-			'mileage'=>'Mileage',
-			'mileageDiff'=>'Mileage Diff',
-			'mileageDetail'=>'Mileage Detail',
-			'mileageImage'=>'Mileage Image',
-			'latitude'=>'Latitude',
-			'longitude'=>'Longitude',
-			'employeeId'=>'Employee',
-			'branchId'=>'Branch',
-			'qtechProjectId'=>'Project',
+			'mileageId' => 'Mileage',
+			'status' => 'Status',
+			'createDate' => 'Create Date',
+			'createTime' => 'Create Date Time',
+			'captureDateTime' => 'Capture Time',
+			'mileage' => 'Mileage',
+			'mileageDiff' => 'Mileage Diff',
+			'mileageDetail' => 'Mileage Detail',
+			'mileageImage' => 'Mileage Image',
+			'latitude' => 'Latitude',
+			'longitude' => 'Longitude',
+			'employeeId' => 'Employee',
+			'branchId' => 'Branch',
+			'qtechProjectId' => 'Project',
 		);
 	}
 
@@ -143,7 +143,7 @@ class Mileage extends CActiveRecord
 		$criteria->addCondition('employeeId="' . $this->employeeId . '" AND createDate between "' . $this->startDate . '" AND "' . $this->endDate . '"');
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -154,9 +154,9 @@ class Mileage extends CActiveRecord
 		$criteria->condition = 'employeeId=' . $employeeId . ' AND createDate="' . $createDate . '"';
 
 		return new CActiveDataProvider('Mileage', array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>5,
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 5,
 			),
 		));
 	}
@@ -170,9 +170,9 @@ class Mileage extends CActiveRecord
 		$criteria->compare('employeeId', $employeeId);
 
 		return new CActiveDataProvider('Mileage', array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>10,
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 10,
 			),
 		));
 	}
@@ -196,9 +196,9 @@ class Mileage extends CActiveRecord
 		$criteria->addCondition('employeeId="' . $employeeId . '" AND createDate="' . $date . '"');
 
 		return new CActiveDataProvider('Mileage', array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>20,
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 20,
 			),
 		));
 	}
@@ -214,11 +214,11 @@ class Mileage extends CActiveRecord
 		$models = Mileage::model()->findAll($criteria);
 
 		$e = array(
-			''=>'---');
+			'' => '---');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
-			if($model->employee)
+			if ($model->employee)
 				$e[$model->employeeId] = $model->employee->username;
 		}
 		return $e;

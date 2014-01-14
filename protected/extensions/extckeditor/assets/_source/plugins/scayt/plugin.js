@@ -20,7 +20,7 @@
 								key;
 						for (key in haystack)
 						{
-							if(haystack[ key ] == needle)
+							if (haystack[ key ] == needle)
 							{
 								found = 1;
 								break;
@@ -51,32 +51,32 @@
 							oParams.onLoad = function()
 							{
 								// Draw down word marker to avoid being covered by background-color style.(#5466)
-								if(!(CKEDITOR.env.ie && CKEDITOR.env.version < 8))
+								if (!(CKEDITOR.env.ie && CKEDITOR.env.version < 8))
 									this.addStyle(this.selectorCss(), 'padding-bottom: 2px !important;');
 
 								// Call scayt_control.focus when SCAYT loaded
 								// and only if editor has focus and scayt control creates at first time (#5720)
-								if(editor.focusManager.hasFocus && !plugin.isControlRestored(editor))
+								if (editor.focusManager.hasFocus && !plugin.isControlRestored(editor))
 									this.focus();
 
 							};
 
 							oParams.onBeforeChange = function()
 							{
-								if(plugin.getScayt(editor) && !editor.checkDirty())
+								if (plugin.getScayt(editor) && !editor.checkDirty())
 									setTimeout(function() {
 										editor.resetDirty();
 									}, 0);
 							};
 
 							var scayt_custom_params = window.scayt_custom_params;
-							if(typeof scayt_custom_params == 'object')
+							if (typeof scayt_custom_params == 'object')
 							{
 								for (var k in scayt_custom_params)
 									oParams[ k ] = scayt_custom_params[ k ];
 							}
 							// needs for restoring a specific scayt control settings
-							if(plugin.getControlId(editor))
+							if (plugin.getControlId(editor))
 								oParams.id = plugin.getControlId(editor);
 
 							var scayt_control = new window.scayt(oParams);
@@ -88,7 +88,7 @@
 
 							// Copy config.
 							var lastInstance = plugin.instances[ editor.name ];
-							if(lastInstance)
+							if (lastInstance)
 							{
 								scayt_control.sLang = lastInstance.sLang;
 								scayt_control.option(lastInstance.option());
@@ -99,7 +99,7 @@
 
 							try {
 								scayt_control.setDisabled(plugin.isPaused(editor) === false);
-							} catch(e) {
+							} catch (e) {
 							}
 
 							editor.fire('showScaytState');
@@ -119,17 +119,17 @@
 										id = script.getId(),
 										src = script.getAttribute('src');
 
-								if(id && src && id.match(scaytIdRegex) && src.match(scaytSrcRegex))
+								if (id && src && id.match(scaytIdRegex) && src.match(scaytSrcRegex))
 									script.remove();
 							}
 						});
 
 						editor.on('beforeCommandExec', function(ev)		// Disable SCAYT before Source command execution.
 						{
-							if((ev.data.name == 'source' || ev.data.name == 'newpage') && editor.mode == 'wysiwyg')
+							if ((ev.data.name == 'source' || ev.data.name == 'newpage') && editor.mode == 'wysiwyg')
 							{
 								var scayt_instance = plugin.getScayt(editor);
-								if(scayt_instance)
+								if (scayt_instance)
 								{
 									plugin.setPaused(editor, !scayt_instance.disabled);
 									// store a control id for restore a specific scayt control settings
@@ -139,16 +139,16 @@
 								}
 							}
 							// Catch on source mode switch off (#5720)
-							else if(ev.data.name == 'source' && editor.mode == 'source')
+							else if (ev.data.name == 'source' && editor.mode == 'source')
 								plugin.markControlRestore(editor);
 						});
 
 						editor.on('afterCommandExec', function(ev)
 						{
-							if(!plugin.isScaytEnabled(editor))
+							if (!plugin.isScaytEnabled(editor))
 								return;
 
-							if(editor.mode == 'wysiwyg' && (ev.data.name == 'undo' || ev.data.name == 'redo'))
+							if (editor.mode == 'wysiwyg' && (ev.data.name == 'undo' || ev.data.name == 'redo'))
 								window.setTimeout(function() {
 									plugin.getScayt(editor).refresh();
 								}, 10);
@@ -160,7 +160,7 @@
 									scayt_instance = plugin.getScayt(editor);
 
 							// SCAYT instance might already get destroyed by mode switch (#5744).
-							if(!scayt_instance)
+							if (!scayt_instance)
 								return;
 
 							delete plugin.instances[ editor.name ];
@@ -172,7 +172,7 @@
 						// Listen to data manipulation to reflect scayt markup.
 						editor.on('afterSetData', function()
 						{
-							if(plugin.isScaytEnabled(editor)) {
+							if (plugin.isScaytEnabled(editor)) {
 								window.setTimeout(function()
 								{
 									var instance = plugin.getScayt(editor);
@@ -185,11 +185,11 @@
 						editor.on('insertElement', function()
 						{
 							var scayt_instance = plugin.getScayt(editor);
-							if(plugin.isScaytEnabled(editor))
+							if (plugin.isScaytEnabled(editor))
 							{
 								// Unlock the selection before reload, SCAYT will take
 								// care selection update.
-								if(CKEDITOR.env.ie)
+								if (CKEDITOR.env.ie)
 									editor.getSelection().unlock(true);
 
 								// Return focus to the editor and refresh SCAYT markup (#5573).
@@ -204,11 +204,11 @@
 						editor.on('insertHtml', function()
 						{
 							var scayt_instance = plugin.getScayt(editor);
-							if(plugin.isScaytEnabled(editor))
+							if (plugin.isScaytEnabled(editor))
 							{
 								// Unlock the selection before reload, SCAYT will take
 								// care selection update.
-								if(CKEDITOR.env.ie)
+								if (CKEDITOR.env.ie)
 									editor.getSelection().unlock(true);
 
 								// Return focus to the editor (#5573)
@@ -232,7 +232,7 @@
 						var dataProcessor = editor.dataProcessor,
 								htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 
-						if(htmlFilter)
+						if (htmlFilter)
 						{
 							htmlFilter.addRules(
 									{
@@ -240,7 +240,7 @@
 												{
 													span: function(element)
 													{
-														if(element.attributes[ 'data-scayt_word' ]
+														if (element.attributes[ 'data-scayt_word' ]
 																&& element.attributes[ 'data-scaytid' ])
 														{
 															delete element.name;	// Write children, but don't write this node.
@@ -262,7 +262,7 @@
 										otherContents = otherImage.contents;
 								var scayt_instance = plugin.getScayt(this.editor);
 								// Making the comparison based on content without SCAYT word markers.
-								if(scayt_instance && plugin.isScaytReady(this.editor))
+								if (scayt_instance && plugin.isScaytReady(this.editor))
 								{
 									// scayt::reset might return value undefined. (#5742)
 									this.contents = scayt_instance.reset(thisContents) || '';
@@ -277,7 +277,7 @@
 							};
 						});
 
-						if(editor.document)
+						if (editor.document)
 							createInstance();
 					};
 
@@ -289,7 +289,7 @@
 								controlInfo: {},
 								setControlInfo: function(editor, o)
 								{
-									if(editor && editor.name && typeof (this.controlInfo[ editor.name ]) != 'object')
+									if (editor && editor.name && typeof (this.controlInfo[ editor.name ]) != 'object')
 										this.controlInfo[ editor.name ] = {};
 
 									for (var infoOpt in o)
@@ -297,7 +297,7 @@
 								},
 								isControlRestored: function(editor)
 								{
-									if(editor &&
+									if (editor &&
 											editor.name &&
 											this.controlInfo[ editor.name ])
 									{
@@ -315,7 +315,7 @@
 								},
 								getControlId: function(editor)
 								{
-									if(editor &&
+									if (editor &&
 											editor.name &&
 											this.controlInfo[ editor.name ] &&
 											this.controlInfo[ editor.name ].id)
@@ -330,7 +330,7 @@
 								},
 								isPaused: function(editor)
 								{
-									if(editor &&
+									if (editor &&
 											editor.name &&
 											this.controlInfo[editor.name])
 									{
@@ -375,12 +375,12 @@
 								loadEngine: function(editor)
 								{
 									// SCAYT doesn't work with Firefox2, Opera and AIR.
-									if(CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 || CKEDITOR.env.opera || CKEDITOR.env.air)
+									if (CKEDITOR.env.gecko && CKEDITOR.env.version < 10900 || CKEDITOR.env.opera || CKEDITOR.env.air)
 										return editor.fire('showScaytState');
 
-									if(this.engineLoaded === true)
+									if (this.engineLoaded === true)
 										return onEngineLoad.apply(editor);	// Add new instance.
-									else if(this.engineLoaded == -1)			// We are waiting.
+									else if (this.engineLoaded == -1)			// We are waiting.
 										return CKEDITOR.on('scaytReady', function() {
 											onEngineLoad.apply(editor);
 										});	// Use function(){} to avoid rejection as duplicate.
@@ -406,7 +406,7 @@
 									var scaytUrl = editor.config.scayt_srcUrl || (protocol + '//' + baseUrl);
 									var scaytConfigBaseUrl = plugin.parseUrl(scaytUrl).path + '/';
 
-									if(window.scayt == undefined)
+									if (window.scayt == undefined)
 									{
 										CKEDITOR._djScaytConfig =
 												{
@@ -423,14 +423,14 @@
 										// Append javascript code.
 										CKEDITOR.document.getHead().append(
 												CKEDITOR.document.createElement('script',
-														{
-															attributes:
-																	{
-																		type: 'text/javascript',
-																		async: 'true',
-																		src: scaytUrl
-																	}
-														})
+												{
+													attributes:
+															{
+																type: 'text/javascript',
+																async: 'true',
+																src: scaytUrl
+															}
+												})
 												);
 									}
 									else
@@ -441,7 +441,7 @@
 								parseUrl: function(data)
 								{
 									var match;
-									if(data.match && (match = data.match(/(.*)[\/\\](.*?\.\w+)$/)))
+									if (data.match && (match = data.match(/(.*)[\/\\](.*?\.\w+)$/)))
 										return {path: match[1], file: match[2]};
 									else
 										return data;
@@ -472,7 +472,7 @@
 								canUndo: false,
 								exec: function(editor)
 								{
-									if(plugin.isScaytReady(editor))
+									if (plugin.isScaytReady(editor))
 									{
 										var isEnabled = plugin.isScaytEnabled(editor);
 
@@ -488,7 +488,7 @@
 										scayt_control.focus();
 										scayt_control.setDisabled(isEnabled);
 									}
-									else if(!editor.config.scayt_autoStartup && plugin.engineLoaded >= 0)	// Load first time
+									else if (!editor.config.scayt_autoStartup && plugin.engineLoaded >= 0)	// Load first time
 									{
 										this.setState(CKEDITOR.TRISTATE_DISABLED);
 										plugin.loadEngine(editor);
@@ -508,7 +508,7 @@
 
 									items_order = items_order.split('|');
 
-									if(items_order && items_order.length)
+									if (items_order && items_order.length)
 									{
 										for (var pos = 0; pos < items_order.length; pos++)
 											items_order_str += 'scayt_' + items_order[ pos ] + (items_order.length != parseInt(pos, 10) + 1 ? ',' : '');
@@ -528,7 +528,7 @@
 															span: function(element)
 															{
 																var attrs = element.attributes;
-																if(attrs && attrs[ 'data-scaytid' ])
+																if (attrs && attrs[ 'data-scaytid' ])
 																	delete element.name;
 															}
 														}
@@ -561,7 +561,7 @@
 												group: menuGroup
 											};
 
-									if(uiTabs[0] == 1)
+									if (uiTabs[0] == 1)
 										uiMenuItems.scaytOptions =
 												{
 													label: lang.options,
@@ -573,7 +573,7 @@
 													}
 												};
 
-									if(uiTabs[1] == 1)
+									if (uiTabs[1] == 1)
 										uiMenuItems.scaytLangs =
 												{
 													label: lang.langs,
@@ -584,7 +584,7 @@
 														editor.openDialog(commandName);
 													}
 												};
-									if(uiTabs[2] == 1)
+									if (uiTabs[2] == 1)
 										uiMenuItems.scaytDict =
 												{
 													label: lang.dictionariesTab,
@@ -642,29 +642,29 @@
 											});
 
 									// If the "contextmenu" plugin is loaded, register the listeners.
-									if(editor.contextMenu && editor.addMenuItems)
+									if (editor.contextMenu && editor.addMenuItems)
 									{
 										editor.contextMenu.addListener(function(element, selection)
 										{
-											if(!plugin.isScaytEnabled(editor)
+											if (!plugin.isScaytEnabled(editor)
 													|| selection.getRanges()[ 0 ].checkReadOnly())
 												return null;
 
 											var scayt_control = plugin.getScayt(editor),
 													node = scayt_control.getScaytNode();
 
-											if(!node)
+											if (!node)
 												return null;
 
 											var word = scayt_control.getWord(node);
 
-											if(!word)
+											if (!word)
 												return null;
 
 											var sLang = scayt_control.getLang(),
 													_r = {},
 													items_suggestion = window.scayt.getSuggestion(word, sLang);
-											if(!items_suggestion || !items_suggestion.length)
+											if (!items_suggestion || !items_suggestion.length)
 												return null;
 											// Remove unused commands and menuitems
 											for (var m in moreSuggestions)
@@ -703,14 +703,14 @@
 													};
 												})(node, items_suggestion[i]);
 
-												if(i < maxSuggestions)
+												if (i < maxSuggestions)
 												{
 													addButtonCommand(editor, 'button_' + commandName, items_suggestion[i],
 															commandName, exec, 'scayt_suggest', i + 1);
 													_r[ commandName ] = CKEDITOR.TRISTATE_OFF;
 													mainSuggestions[ commandName ] = CKEDITOR.TRISTATE_OFF;
 												}
-												else if(moreSuggestionsUnable == 'on')
+												else if (moreSuggestionsUnable == 'on')
 												{
 													addButtonCommand(editor, 'button_' + commandName, items_suggestion[i],
 															commandName, exec, 'scayt_moresuggest', i + 1);
@@ -719,7 +719,7 @@
 												}
 											}
 
-											if(moreSuggestionsUnableAdded)
+											if (moreSuggestionsUnableAdded)
 											{
 												// Register the More suggestions group;
 												editor.addMenuItem('scayt_moresuggest',
@@ -735,7 +735,7 @@
 												mainSuggestions[ 'scayt_moresuggest' ] = CKEDITOR.TRISTATE_OFF;
 											}
 
-											if(in_array('all', contextCommands) || in_array('ignore', contextCommands))
+											if (in_array('all', contextCommands) || in_array('ignore', contextCommands))
 											{
 												var ignore_command = {
 													exec: function() {
@@ -746,7 +746,7 @@
 												mainSuggestions[ 'scayt_ignore' ] = CKEDITOR.TRISTATE_OFF;
 											}
 
-											if(in_array('all', contextCommands) || in_array('ignoreall', contextCommands))
+											if (in_array('all', contextCommands) || in_array('ignoreall', contextCommands))
 											{
 												var ignore_all_command = {
 													exec: function() {
@@ -757,7 +757,7 @@
 												mainSuggestions['scayt_ignore_all'] = CKEDITOR.TRISTATE_OFF;
 											}
 
-											if(in_array('all', contextCommands) || in_array('add', contextCommands))
+											if (in_array('all', contextCommands) || in_array('add', contextCommands))
 											{
 												var addword_command = {
 													exec: function() {
@@ -768,7 +768,7 @@
 												mainSuggestions['scayt_add_word'] = CKEDITOR.TRISTATE_OFF;
 											}
 
-											if(scayt_control.fireOnContextMenu)
+											if (scayt_control.fireOnContextMenu)
 												scayt_control.fireOnContextMenu(editor);
 
 											return mainSuggestions;
@@ -779,7 +779,7 @@
 									{
 										editor.removeListener('showScaytState', showInitialState);
 
-										if(!CKEDITOR.env.opera && !CKEDITOR.env.air)
+										if (!CKEDITOR.env.opera && !CKEDITOR.env.air)
 											command.setState(plugin.isScaytEnabled(editor) ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF);
 										else
 											command.setState(CKEDITOR.TRISTATE_DISABLED);
@@ -787,7 +787,7 @@
 
 									editor.on('showScaytState', showInitialState);
 
-									if(CKEDITOR.env.opera || CKEDITOR.env.air)
+									if (CKEDITOR.env.opera || CKEDITOR.env.air)
 									{
 										editor.on('instanceReady', function()
 										{
@@ -796,7 +796,7 @@
 									}
 
 									// Start plugin
-									if(editor.config.scayt_autoStartup)
+									if (editor.config.scayt_autoStartup)
 									{
 										editor.on('instanceReady', function()
 										{
@@ -809,12 +809,12 @@
 									// Prevent word marker line from displaying in elements path and been removed when cleaning format. (#3570) (#4125)
 									var elementsPathFilters,
 											scaytFilter = function(element)
-											{
-												if(element.hasAttribute('data-scaytid'))
-													return false;
-											};
+									{
+										if (element.hasAttribute('data-scaytid'))
+											return false;
+									};
 
-									if(editor._.elementsPath && (elementsPathFilters = editor._.elementsPath.filters))
+									if (editor._.elementsPath && (elementsPathFilters = editor._.elementsPath.filters))
 										elementsPathFilters.push(scaytFilter);
 
 									editor.addRemoveFormatFilter && editor.addRemoveFormatFilter(scaytFilter);

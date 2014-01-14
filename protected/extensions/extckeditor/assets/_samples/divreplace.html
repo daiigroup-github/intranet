@@ -34,9 +34,9 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			window.onload = function()
 			{
 				// Listen to the double click event.
-				if(window.addEventListener)
+				if (window.addEventListener)
 					document.body.addEventListener('dblclick', onDoubleClick, false);
-				else if(window.attachEvent)
+				else if (window.attachEvent)
 					document.body.attachEvent('ondblclick', onDoubleClick);
 
 			};
@@ -53,10 +53,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				{
 					element = element.parentNode;
 				}
-				while(element && (name = element.nodeName.toLowerCase()) && (name != 'div' || element.className.indexOf('editable') == -1) && name != 'body')
+				while (element && (name = element.nodeName.toLowerCase()) && (name != 'div' || element.className.indexOf('editable') == -1) && name != 'body')
 
 
-				if(name == 'div' && element.className.indexOf('editable') != -1)
+				if (name == 'div' && element.className.indexOf('editable') != -1)
 					replaceDiv(element);
 			}
 
@@ -64,7 +64,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 			function replaceDiv(div)
 			{
-				if(editor)
+				if (editor)
 					editor.destroy();
 
 				editor = CKEDITOR.replace(div);

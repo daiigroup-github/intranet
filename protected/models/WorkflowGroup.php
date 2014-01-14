@@ -42,13 +42,13 @@ class WorkflowGroup extends CActiveRecord
 			array(
 				'workflowGroupName',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'workflowGroupId, workflowGroupName',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -60,11 +60,11 @@ class WorkflowGroup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workflowState'=>array(
+			'workflowState' => array(
 				self::HAS_MANY,
 				'WorkflowState',
 				'workflowGroupId',
-				'order'=>'ordered'),
+				'order' => 'ordered'),
 		);
 	}
 
@@ -74,8 +74,8 @@ class WorkflowGroup extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowGroupId'=>'Workflow Group',
-			'workflowGroupName'=>'Group Name',
+			'workflowGroupId' => 'Workflow Group',
+			'workflowGroupName' => 'Group Name',
 		);
 	}
 
@@ -94,7 +94,7 @@ class WorkflowGroup extends CActiveRecord
 		$criteria->compare('workflowGroupName', $this->workflowGroupName, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -103,9 +103,9 @@ class WorkflowGroup extends CActiveRecord
 		$models = WorkflowGroup::model()->findAll();
 
 		$w = array(
-			''=>'Choose..');
+			'' => 'Choose..');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->workflowGroupId] = $model->workflowGroupName;
 		}

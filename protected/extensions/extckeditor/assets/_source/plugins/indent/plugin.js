@@ -15,7 +15,7 @@
 
 					function onSelectionChange(evt)
 					{
-						if(evt.editor.readOnly)
+						if (evt.editor.readOnly)
 							return null;
 
 						var editor = evt.editor,
@@ -23,25 +23,25 @@
 								list = elementPath && elementPath.contains(listNodeNames),
 								firstBlock = elementPath.block || elementPath.blockLimit;
 
-						if(list)
+						if (list)
 							return this.setState(CKEDITOR.TRISTATE_OFF);
 
-						if(!this.useIndentClasses && this.name == 'indent')
+						if (!this.useIndentClasses && this.name == 'indent')
 							return this.setState(CKEDITOR.TRISTATE_OFF);
 
-						if(!firstBlock)
+						if (!firstBlock)
 							return this.setState(CKEDITOR.TRISTATE_DISABLED);
 
-						if(this.useIndentClasses)
+						if (this.useIndentClasses)
 						{
 							var indentClass = firstBlock.$.className.match(this.classNameRegex),
 									indentStep = 0;
-							if(indentClass)
+							if (indentClass)
 							{
 								indentClass = indentClass[1];
 								indentStep = this.indentClassMap[ indentClass ];
 							}
-							if((this.name == 'outdent' && !indentStep) ||
+							if ((this.name == 'outdent' && !indentStep) ||
 									(this.name == 'indent' && indentStep == editor.config.indentClasses.length))
 								return this.setState(CKEDITOR.TRISTATE_DISABLED);
 							return this.setState(CKEDITOR.TRISTATE_OFF);
@@ -49,9 +49,9 @@
 						else
 						{
 							var indent = parseInt(firstBlock.getStyle(getIndentCssProperty(firstBlock)), 10);
-							if(isNaN(indent))
+							if (isNaN(indent))
 								indent = 0;
-							if(indent <= 0)
+							if (indent <= 0)
 								return this.setState(CKEDITOR.TRISTATE_DISABLED);
 							return this.setState(CKEDITOR.TRISTATE_OFF);
 						}
@@ -61,7 +61,7 @@
 					{
 						this.name = name;
 						this.useIndentClasses = editor.config.indentClasses && editor.config.indentClasses.length > 0;
-						if(this.useIndentClasses)
+						if (this.useIndentClasses)
 						{
 							this.classNameRegex = new RegExp('(?:^|\\s+)(' + editor.config.indentClasses.join('|') + ')(?=$|\\s)');
 							this.indentClassMap = {};
@@ -94,26 +94,26 @@
 								// So before playing with the iterator, we need to expand the block to include the list items.
 								var startContainer = range.startContainer,
 										endContainer = range.endContainer;
-								while(startContainer && !startContainer.getParent().equals(listNode))
+								while (startContainer && !startContainer.getParent().equals(listNode))
 									startContainer = startContainer.getParent();
-								while(endContainer && !endContainer.getParent().equals(listNode))
+								while (endContainer && !endContainer.getParent().equals(listNode))
 									endContainer = endContainer.getParent();
 
-								if(!startContainer || !endContainer)
+								if (!startContainer || !endContainer)
 									return;
 
 								// Now we can iterate over the individual items on the same tree depth.
 								var block = startContainer,
 										itemsToMove = [],
 										stopFlag = false;
-								while(!stopFlag)
+								while (!stopFlag)
 								{
-									if(block.equals(endContainer))
+									if (block.equals(endContainer))
 										stopFlag = true;
 									itemsToMove.push(block);
 									block = block.getNext();
 								}
-								if(itemsToMove.length < 1)
+								if (itemsToMove.length < 1)
 									return;
 
 								// Do indent or outdent operations on the array model of the list, not the
@@ -123,7 +123,7 @@
 								var listParents = listNode.getParents(true);
 								for (var i = 0; i < listParents.length; i++)
 								{
-									if(listParents[i].getName && listNodeNames[ listParents[i].getName() ])
+									if (listParents[i].getName && listNodeNames[ listParents[i].getName() ])
 									{
 										listNode = listParents[i];
 										break;
@@ -156,10 +156,10 @@
 
 								// Avoid nested <li> after outdent even they're visually same,
 								// recording them for later refactoring.(#3982)
-								if(self.name == 'outdent')
+								if (self.name == 'outdent')
 								{
 									var parentLiElement;
-									if((parentLiElement = listNode.getParent()) && parentLiElement.is('li'))
+									if ((parentLiElement = listNode.getParent()) && parentLiElement.is('li'))
 									{
 										var children = newList.listNode.getChildren(),
 												pendingLis = [],
@@ -168,17 +168,17 @@
 
 										for (i = count - 1; i >= 0; i--)
 										{
-											if((child = children.getItem(i)) && child.is && child.is('li'))
+											if ((child = children.getItem(i)) && child.is && child.is('li'))
 												pendingLis.push(child);
 										}
 									}
 								}
 
-								if(newList)
+								if (newList)
 									newList.listNode.replace(listNode);
 
 								// Move the nested <li> to be appeared after the parent.
-								if(pendingLis && pendingLis.length)
+								if (pendingLis && pendingLis.length)
 								{
 									for (i = 0; i < pendingLis.length; i++)
 									{
@@ -186,13 +186,13 @@
 												followingList = li;
 
 										// Nest preceding <ul>/<ol> inside current <li> if any.
-										while((followingList = followingList.getNext()) &&
+										while ((followingList = followingList.getNext()) &&
 												followingList.is &&
 												followingList.getName() in listNodeNames)
 										{
 											// IE requires a filler NBSP for nested list inside empty list item,
 											// otherwise the list item will be inaccessiable. (#4476)
-											if(CKEDITOR.env.ie && !li.getFirst(function(node) {
+											if (CKEDITOR.env.ie && !li.getFirst(function(node) {
 												return isNotWhitespaces(node) && isNotBookmark(node);
 											}))
 												li.append(range.document.createText('\u00a0'));
@@ -212,21 +212,21 @@
 								iterator.enforceRealBlocks = true;
 								iterator.enlargeBr = enterMode != CKEDITOR.ENTER_BR;
 								var block;
-								while((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
+								while ((block = iterator.getNextParagraph(enterMode == CKEDITOR.ENTER_P ? 'p' : 'div')))
 									indentElement(block);
 							}
 
 							function indentElement(element, dir)
 							{
-								if(element.getCustomData('indent_processed'))
+								if (element.getCustomData('indent_processed'))
 									return false;
 
-								if(self.useIndentClasses)
+								if (self.useIndentClasses)
 								{
 									// Transform current class name to indent step index.
 									var indentClass = element.$.className.match(self.classNameRegex),
 											indentStep = 0;
-									if(indentClass)
+									if (indentClass)
 									{
 										indentClass = indentClass[1];
 										indentStep = self.indentClassMap[ indentClass ];
@@ -234,36 +234,36 @@
 
 									// Operate on indent step index, transform indent step index back to class
 									// name.
-									if(self.name == 'outdent')
+									if (self.name == 'outdent')
 										indentStep--;
 									else
 										indentStep++;
 
-									if(indentStep < 0)
+									if (indentStep < 0)
 										return false;
 
 									indentStep = Math.min(indentStep, editor.config.indentClasses.length);
 									indentStep = Math.max(indentStep, 0);
 									element.$.className = CKEDITOR.tools.ltrim(element.$.className.replace(self.classNameRegex, ''));
-									if(indentStep > 0)
+									if (indentStep > 0)
 										element.addClass(editor.config.indentClasses[ indentStep - 1 ]);
 								}
 								else
 								{
 									var indentCssProperty = getIndentCssProperty(element, dir),
 											currentOffset = parseInt(element.getStyle(indentCssProperty), 10);
-									if(isNaN(currentOffset))
+									if (isNaN(currentOffset))
 										currentOffset = 0;
 									var indentOffset = editor.config.indentOffset || 40;
 									currentOffset += (self.name == 'indent' ? 1 : -1) * indentOffset;
 
-									if(currentOffset < 0)
+									if (currentOffset < 0)
 										return false;
 
 									currentOffset = Math.max(currentOffset, 0);
 									currentOffset = Math.ceil(currentOffset / indentOffset) * indentOffset;
 									element.setStyle(indentCssProperty, currentOffset ? currentOffset + (editor.config.indentUnit || 'px') : '');
-									if(element.getAttribute('style') === '')
+									if (element.getAttribute('style') === '')
 										element.removeAttribute('style');
 								}
 
@@ -278,21 +278,21 @@
 
 
 							var iterator = ranges.createIterator();
-							while((range = iterator.getNextRange()))
+							while ((range = iterator.getNextRange()))
 							{
 								var rangeRoot = range.getCommonAncestor(),
 										nearestListBlock = rangeRoot;
 
-								while(nearestListBlock && !(nearestListBlock.type == CKEDITOR.NODE_ELEMENT &&
+								while (nearestListBlock && !(nearestListBlock.type == CKEDITOR.NODE_ELEMENT &&
 										listNodeNames[ nearestListBlock.getName() ]))
 									nearestListBlock = nearestListBlock.getParent();
 
 								// Avoid having selection enclose the entire list. (#6138)
 								// [<ul><li>...</li></ul>] =><ul><li>[...]</li></ul>
-								if(!nearestListBlock)
+								if (!nearestListBlock)
 								{
 									var selectedNode = range.getEnclosedNode();
-									if(selectedNode
+									if (selectedNode
 											&& selectedNode.type == CKEDITOR.NODE_ELEMENT
 											&& selectedNode.getName() in listNodeNames)
 									{
@@ -304,7 +304,7 @@
 
 								// Avoid selection anchors under list root.
 								// <ul>[<li>...</li>]</ul> =>	<ul><li>[...]</li></ul>
-								if(nearestListBlock && range.startContainer.type == CKEDITOR.NODE_ELEMENT
+								if (nearestListBlock && range.startContainer.type == CKEDITOR.NODE_ELEMENT
 										&& range.startContainer.getName() in listNodeNames)
 								{
 									var walker = new CKEDITOR.dom.walker(range);
@@ -312,7 +312,7 @@
 									range.startContainer = walker.next();
 								}
 
-								if(nearestListBlock && range.endContainer.type == CKEDITOR.NODE_ELEMENT
+								if (nearestListBlock && range.endContainer.type == CKEDITOR.NODE_ELEMENT
 										&& range.endContainer.getName() in listNodeNames)
 								{
 									walker = new CKEDITOR.dom.walker(range);
@@ -320,7 +320,7 @@
 									range.endContainer = walker.previous();
 								}
 
-								if(nearestListBlock)
+								if (nearestListBlock)
 								{
 									var firstListItem = nearestListBlock.getFirst(isListItem),
 											hasMultipleItems = !!firstListItem.getNext(isListItem),
@@ -329,7 +329,7 @@
 
 									// Indent the entire list if cursor is inside the first list item. (#3893)
 									// Only do that for indenting or when using indent classes or when there is something to outdent. (#6141)
-									if(!(indentWholeList &&
+									if (!(indentWholeList &&
 											(self.name == 'indent' || self.useIndentClasses || parseInt(nearestListBlock.getStyle(getIndentCssProperty(nearestListBlock)), 10)) &&
 											indentElement(nearestListBlock, !hasMultipleItems && firstListItem.getDirection())))
 										indentList(nearestListBlock);
@@ -371,7 +371,7 @@
 									editor.on('selectionChange', CKEDITOR.tools.bind(onSelectionChange, outdent));
 
 									// [IE6/7] Raw lists are using margin instead of padding for visual indentation in wysiwyg mode. (#3893)
-									if(CKEDITOR.env.ie6Compat || CKEDITOR.env.ie7Compat)
+									if (CKEDITOR.env.ie6Compat || CKEDITOR.env.ie7Compat)
 									{
 										editor.addCss(
 												"ul,ol" +
@@ -391,12 +391,12 @@
 										var walker = new CKEDITOR.dom.walker(range),
 												node;
 
-										while((node = walker.next()))
+										while ((node = walker.next()))
 										{
-											if(node.type == CKEDITOR.NODE_ELEMENT)
+											if (node.type == CKEDITOR.NODE_ELEMENT)
 											{
 												// A child with the defined dir is to be ignored.
-												if(!node.equals(e.data.node) && node.getDirection())
+												if (!node.equals(e.data.node) && node.getDirection())
 												{
 													range.setStartAfter(node);
 													walker = new CKEDITOR.dom.walker(range);
@@ -405,12 +405,12 @@
 
 												// Switch alignment classes.
 												var classes = editor.config.indentClasses;
-												if(classes)
+												if (classes)
 												{
 													var suffix = (e.data.dir == 'ltr') ? ['_rtl', ''] : ['', '_rtl'];
 													for (var i = 0; i < classes.length; i++)
 													{
-														if(node.hasClass(classes[ i ] + suffix[ 0 ]))
+														if (node.hasClass(classes[ i ] + suffix[ 0 ]))
 														{
 															node.removeClass(classes[ i ] + suffix[ 0 ]);
 															node.addClass(classes[ i ] + suffix[ 1 ]);
@@ -431,13 +431,13 @@
 									editor.on('key', function(evt)
 									{
 										// Backspace at the beginning of  list item should outdent it.
-										if(editor.mode == 'wysiwyg' && evt.data.keyCode == 8)
+										if (editor.mode == 'wysiwyg' && evt.data.keyCode == 8)
 										{
 											var sel = editor.getSelection(),
 													range = sel.getRanges()[ 0 ],
 													li;
 
-											if(range.collapsed &&
+											if (range.collapsed &&
 													(li = range.startContainer.getAscendant('li', 1)) &&
 													range.checkBoundaryOfElement(li, CKEDITOR.START))
 											{

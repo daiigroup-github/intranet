@@ -2,11 +2,10 @@
 
 class m130123_200915_gallery_tables extends CDbMigration
 {
-
-	public function up()
-	{
-		//return true;
-		$this->execute(<<<SQL
+    public function up()
+    {
+        //return true;
+        $this->execute(<<<SQL
 CREATE TABLE IF NOT EXISTS `{{gallery}}` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `versions_data` text NOT NULL,
@@ -29,17 +28,16 @@ CREATE TABLE IF NOT EXISTS `{{gallery_photo}}` (
 ALTER TABLE `{{gallery_photo}}`
   ADD CONSTRAINT `fk_{{gallery_photo}}_{{gallery}}1` FOREIGN KEY (`gallery_id`) REFERENCES `{{gallery}}` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 SQL
-		);
-	}
+        );
+    }
 
-	public function down()
-	{
-		$this->execute(<<<SQL
+    public function down()
+    {
+        $this->execute(<<<SQL
 DROP TABLE IF EXISTS `{{gallery_photo}}`;
 DROP TABLE IF EXISTS `{{gallery}}`;
 SQL
-		);
-		return true;
-	}
-
+        );
+        return true;
+    }
 }

@@ -54,58 +54,58 @@
 			function loadValue(objectNode, embedNode, paramMap)
 			{
 				var attributes = attributesMap[ this.id ];
-				if(!attributes)
+				if (!attributes)
 					return;
 
 				var isCheckbox = (this instanceof CKEDITOR.ui.dialog.checkbox);
 				for (var i = 0; i < attributes.length; i++)
 				{
 					var attrDef = attributes[ i ];
-					switch(attrDef.type)
+					switch (attrDef.type)
 					{
 						case ATTRTYPE_OBJECT:
-							if(!objectNode)
+							if (!objectNode)
 								continue;
-							if(objectNode.getAttribute(attrDef.name) !== null)
+							if (objectNode.getAttribute(attrDef.name) !== null)
 							{
 								var value = objectNode.getAttribute(attrDef.name);
-								if(isCheckbox)
+								if (isCheckbox)
 									this.setValue(value.toLowerCase() == 'true');
 								else
 									this.setValue(value);
 								return;
 							}
-							else if(isCheckbox)
+							else if (isCheckbox)
 								this.setValue(!!attrDef[ 'default' ]);
 							break;
 						case ATTRTYPE_PARAM:
-							if(!objectNode)
+							if (!objectNode)
 								continue;
-							if(attrDef.name in paramMap)
+							if (attrDef.name in paramMap)
 							{
 								value = paramMap[ attrDef.name ];
-								if(isCheckbox)
+								if (isCheckbox)
 									this.setValue(value.toLowerCase() == 'true');
 								else
 									this.setValue(value);
 								return;
 							}
-							else if(isCheckbox)
+							else if (isCheckbox)
 								this.setValue(!!attrDef[ 'default' ]);
 							break;
 						case ATTRTYPE_EMBED:
-							if(!embedNode)
+							if (!embedNode)
 								continue;
-							if(embedNode.getAttribute(attrDef.name))
+							if (embedNode.getAttribute(attrDef.name))
 							{
 								value = embedNode.getAttribute(attrDef.name);
-								if(isCheckbox)
+								if (isCheckbox)
 									this.setValue(value.toLowerCase() == 'true');
 								else
 									this.setValue(value);
 								return;
 							}
-							else if(isCheckbox)
+							else if (isCheckbox)
 								this.setValue(!!attrDef[ 'default' ]);
 					}
 				}
@@ -114,7 +114,7 @@
 			function commitValue(objectNode, embedNode, paramMap)
 			{
 				var attributes = attributesMap[ this.id ];
-				if(!attributes)
+				if (!attributes)
 					return;
 
 				var isRemove = (this.getValue() === ''),
@@ -123,36 +123,36 @@
 				for (var i = 0; i < attributes.length; i++)
 				{
 					var attrDef = attributes[i];
-					switch(attrDef.type)
+					switch (attrDef.type)
 					{
 						case ATTRTYPE_OBJECT:
 							// Avoid applying the data attribute when not needed (#7733)
-							if(!objectNode || (attrDef.name == 'data' && embedNode && !objectNode.hasAttribute('data')))
+							if (!objectNode || (attrDef.name == 'data' && embedNode && !objectNode.hasAttribute('data')))
 								continue;
 							var value = this.getValue();
-							if(isRemove || isCheckbox && value === attrDef[ 'default' ])
+							if (isRemove || isCheckbox && value === attrDef[ 'default' ])
 								objectNode.removeAttribute(attrDef.name);
 							else
 								objectNode.setAttribute(attrDef.name, value);
 							break;
 						case ATTRTYPE_PARAM:
-							if(!objectNode)
+							if (!objectNode)
 								continue;
 							value = this.getValue();
-							if(isRemove || isCheckbox && value === attrDef[ 'default' ])
+							if (isRemove || isCheckbox && value === attrDef[ 'default' ])
 							{
-								if(attrDef.name in paramMap)
+								if (attrDef.name in paramMap)
 									paramMap[ attrDef.name ].remove();
 							}
 							else
 							{
-								if(attrDef.name in paramMap)
+								if (attrDef.name in paramMap)
 									paramMap[ attrDef.name ].setAttribute('value', value);
 								else
 								{
 									var param = CKEDITOR.dom.element.createFromHtml('<cke:param></cke:param>', objectNode.getDocument());
 									param.setAttributes({name: attrDef.name, value: value});
-									if(objectNode.getChildCount() < 1)
+									if (objectNode.getChildCount() < 1)
 										param.appendTo(objectNode);
 									else
 										param.insertBefore(objectNode.getFirst());
@@ -160,10 +160,10 @@
 							}
 							break;
 						case ATTRTYPE_EMBED:
-							if(!embedNode)
+							if (!embedNode)
 								continue;
 							value = this.getValue();
-							if(isRemove || isCheckbox && value === attrDef[ 'default' ])
+							if (isRemove || isCheckbox && value === attrDef[ 'default' ])
 								embedNode.removeAttribute(attrDef.name);
 							else
 								embedNode.setAttribute(attrDef.name, value);
@@ -193,17 +193,17 @@
 
 						// Try to detect any embed or object tag that has Flash parameters.
 						var fakeImage = this.getSelectedElement();
-						if(fakeImage && fakeImage.data('cke-real-element-type') && fakeImage.data('cke-real-element-type') == 'flash')
+						if (fakeImage && fakeImage.data('cke-real-element-type') && fakeImage.data('cke-real-element-type') == 'flash')
 						{
 							this.fakeImage = fakeImage;
 
 							var realElement = editor.restoreRealElement(fakeImage),
 									objectNode = null, embedNode = null, paramMap = {};
-							if(realElement.getName() == 'cke:object')
+							if (realElement.getName() == 'cke:object')
 							{
 								objectNode = realElement;
 								var embedList = objectNode.getElementsByTag('embed', 'cke');
-								if(embedList.count() > 0)
+								if (embedList.count() > 0)
 									embedNode = embedList.getItem(0);
 								var paramList = objectNode.getElementsByTag('param', 'cke');
 								for (var i = 0, length = paramList.count(); i < length; i++)
@@ -214,7 +214,7 @@
 									paramMap[ name ] = value;
 								}
 							}
-							else if(realElement.getName() == 'cke:embed')
+							else if (realElement.getName() == 'cke:embed')
 								embedNode = realElement;
 
 							this.objectNode = objectNode;
@@ -230,9 +230,9 @@
 						var objectNode = null,
 								embedNode = null,
 								paramMap = null;
-						if(!this.fakeImage)
+						if (!this.fakeImage)
 						{
-							if(makeObjectTag)
+							if (makeObjectTag)
 							{
 								objectNode = CKEDITOR.dom.element.createFromHtml('<cke:object></cke:object>', editor.document);
 								var attributes = {
@@ -241,7 +241,7 @@
 								};
 								objectNode.setAttributes(attributes);
 							}
-							if(makeEmbedTag)
+							if (makeEmbedTag)
 							{
 								embedNode = CKEDITOR.dom.element.createFromHtml('<cke:embed></cke:embed>', editor.document);
 								embedNode.setAttributes(
@@ -249,7 +249,7 @@
 											type: 'application/x-shockwave-flash',
 											pluginspage: 'http://www.macromedia.com/go/getflashplayer'
 										});
-								if(objectNode)
+								if (objectNode)
 									embedNode.appendTo(objectNode);
 							}
 						}
@@ -260,7 +260,7 @@
 						}
 
 						// Produce the paramMap if there's an object tag.
-						if(objectNode)
+						if (objectNode)
 						{
 							paramMap = {};
 							var paramList = objectNode.getElementsByTag('param', 'cke');
@@ -278,7 +278,7 @@
 						var newFakeImage = editor.createFakeElement(objectNode || embedNode, 'cke_flash', 'flash', true);
 						newFakeImage.setAttributes(extraAttributes);
 						newFakeImage.setStyles(extraStyles);
-						if(this.fakeImage)
+						if (this.fakeImage)
 						{
 							newFakeImage.replace(this.fakeImage);
 							editor.getSelection().selectElement(newFakeImage);
@@ -288,7 +288,7 @@
 					},
 					onHide: function()
 					{
-						if(this.preview)
+						if (this.preview)
 							this.preview.setHtml('');
 					},
 					contents: [
@@ -321,19 +321,19 @@
 																			{
 																				var dialog = this.getDialog(),
 																						updatePreview = function(src) {
-																							// Query the preloader to figure out the url impacted by based href.
-																							previewPreloader.setAttribute('src', src);
-																							dialog.preview.setHtml('<embed height="100%" width="100%" src="'
-																									+ CKEDITOR.tools.htmlEncode(previewPreloader.getAttribute('src'))
-																									+ '" type="application/x-shockwave-flash"></embed>');
-																						};
+																					// Query the preloader to figure out the url impacted by based href.
+																					previewPreloader.setAttribute('src', src);
+																					dialog.preview.setHtml('<embed height="100%" width="100%" src="'
+																							+ CKEDITOR.tools.htmlEncode(previewPreloader.getAttribute('src'))
+																							+ '" type="application/x-shockwave-flash"></embed>');
+																				};
 																				// Preview element
 																				dialog.preview = dialog.getContentElement('info', 'preview').getElement().getChild(3);
 
 																				// Sync on inital value loaded.
 																				this.on('change', function(evt) {
 
-																					if(evt.data && evt.data.value)
+																					if (evt.data && evt.data.value)
 																						updatePreview(evt.data.value);
 																				});
 																				// Sync when input value changed.

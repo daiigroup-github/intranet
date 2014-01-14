@@ -35,55 +35,55 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 		<a class="btn search-button"><i class="icon-search"></i></a>
 		<a class="btn" href="<?php echo Yii::app()->createUrl('/notice/create'); ?>"><i class="icon-plus"></i></a>
 	</div>
-</div>
+</div>	
 
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'notice-grid',
-	'dataProvider'=>$model->search(),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'id' => 'notice-grid',
+	'dataProvider' => $model->search(),
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
 	//'rowCssClassExpression'=>'($data->status == 1)?"row-open":"row-closed"',
-	'columns'=>array(
+	'columns' => array(
 		array(
-			'name'=>'imageUrl',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'width:100px;text-align:center'),
-			'value'=>'showImage($data->imageUrl)',
+			'name' => 'imageUrl',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'width:100px;text-align:center'),
+			'value' => 'showImage($data->imageUrl)',
 		),
 		'title',
 		'headline',
 		'description',
 		array(
-			'name'=>'employeeId',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:10%'),
-			'value'=>'CHtml::encode(isset($data->employee) ? $data->employee->fnTh." ".$data->employee->lnTh : "-")',
+			'name' => 'employeeId',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:10%'),
+			'value' => 'CHtml::encode(isset($data->employee) ? $data->employee->fnTh." ".$data->employee->lnTh : "-")',
 		),
 		//'status',
 		array(
-			'name'=>'noticeTypeId',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:10%'),
-			'value'=>'CHtml::encode(isset($data->noticeType->noticeTypeName) ? $data->noticeType->noticeTypeName : "-")',
+			'name' => 'noticeTypeId',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:10%'),
+			'value' => 'CHtml::encode(isset($data->noticeType->noticeTypeName) ? $data->noticeType->noticeTypeName : "-")',
 		),
 		/*
 		  'createDateTime',
 		  'updateDateTime',
 		 */
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));
@@ -94,9 +94,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 function showImage($imageUrl)
 {
 	$image = "";
-	if(!empty($imageUrl) && isset($imageUrl))
+	if (!empty($imageUrl) && isset($imageUrl))
 	{
-		if(strpos($imageUrl, ".pdf"))
+		if (strpos($imageUrl, ".pdf"))
 		{
 			$image = "<p><a class='pdf' Title='$imageUrl' href='$imageUrl'>ดูไฟล์แนบ</a></p>";
 		}

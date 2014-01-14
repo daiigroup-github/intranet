@@ -52,15 +52,15 @@ class ReqEq extends CActiveRecord
 			array(
 				'status, type, mgrStatus, purchaseStatus, itStatus',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'reqId, employeeId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'comment',
 				'length',
-				'max'=>200),
+				'max' => 200),
 			array(
 				'createTime, mgrDate, mgrComment, purchaseDate, purchaseComment, itSate, itComment',
 				'safe'),
@@ -69,7 +69,7 @@ class ReqEq extends CActiveRecord
 			array(
 				'reqId, createTime, status, type, employeeId, comment, mgrStatus, mgrDate, mgrComment, purchaseStatus, purchaseDate, purchaseComment, itStatus, itSate, itComment',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -90,21 +90,21 @@ class ReqEq extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'reqId'=>'Req',
-			'createTime'=>'Create Time',
-			'status'=>'Status',
-			'type'=>'Type',
-			'employeeId'=>'Employee',
-			'comment'=>'Comment',
-			'mgrStatus'=>'Mgr Status',
-			'mgrDate'=>'Mgr Date',
-			'mgrComment'=>'Mgr Comment',
-			'purchaseStatus'=>'Purchase Status',
-			'purchaseDate'=>'Purchase Date',
-			'purchaseComment'=>'Purchase Comment',
-			'itStatus'=>'It Status',
-			'itSate'=>'It Sate',
-			'itComment'=>'It Comment',
+			'reqId' => 'Req',
+			'createTime' => 'Create Time',
+			'status' => 'Status',
+			'type' => 'Type',
+			'employeeId' => 'Employee',
+			'comment' => 'Comment',
+			'mgrStatus' => 'Mgr Status',
+			'mgrDate' => 'Mgr Date',
+			'mgrComment' => 'Mgr Comment',
+			'purchaseStatus' => 'Purchase Status',
+			'purchaseDate' => 'Purchase Date',
+			'purchaseComment' => 'Purchase Comment',
+			'itStatus' => 'It Status',
+			'itSate' => 'It Sate',
+			'itComment' => 'It Comment',
 		);
 	}
 
@@ -136,7 +136,7 @@ class ReqEq extends CActiveRecord
 		$criteria->compare('itComment', $this->itComment, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

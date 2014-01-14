@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -58,13 +59,13 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
 	public function setString($nsKey, $itemKey, $string, $mode)
 	{
 		$this->_prepareCache($nsKey);
-		switch($mode)
+		switch ($mode)
 		{
 			case self::MODE_WRITE:
 				$this->_contents[$nsKey][$itemKey] = $string;
 				break;
 			case self::MODE_APPEND:
-				if(!$this->hasKey($nsKey, $itemKey))
+				if (!$this->hasKey($nsKey, $itemKey))
 				{
 					$this->_contents[$nsKey][$itemKey] = '';
 				}
@@ -89,16 +90,16 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
 	public function importFromByteStream($nsKey, $itemKey, Swift_OutputByteStream $os, $mode)
 	{
 		$this->_prepareCache($nsKey);
-		switch($mode)
+		switch ($mode)
 		{
 			case self::MODE_WRITE:
 				$this->clearKey($nsKey, $itemKey);
 			case self::MODE_APPEND:
-				if(!$this->hasKey($nsKey, $itemKey))
+				if (!$this->hasKey($nsKey, $itemKey))
 				{
 					$this->_contents[$nsKey][$itemKey] = '';
 				}
-				while(false !== $bytes = $os->read(8192))
+				while (false !== $bytes = $os->read(8192))
 				{
 					$this->_contents[$nsKey][$itemKey] .= $bytes;
 				}
@@ -124,7 +125,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
 		$is->setKeyCache($this);
 		$is->setNsKey($nsKey);
 		$is->setItemKey($itemKey);
-		if(isset($writeThrough))
+		if (isset($writeThrough))
 		{
 			$is->setWriteThroughStream($writeThrough);
 		}
@@ -140,7 +141,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
 	public function getString($nsKey, $itemKey)
 	{
 		$this->_prepareCache($nsKey);
-		if($this->hasKey($nsKey, $itemKey))
+		if ($this->hasKey($nsKey, $itemKey))
 		{
 			return $this->_contents[$nsKey][$itemKey];
 		}
@@ -198,7 +199,7 @@ class Swift_KeyCache_ArrayKeyCache implements Swift_KeyCache
 	 */
 	private function _prepareCache($nsKey)
 	{
-		if(!array_key_exists($nsKey, $this->_contents))
+		if (!array_key_exists($nsKey, $this->_contents))
 		{
 			$this->_contents[$nsKey] = array(
 				);

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -35,14 +36,14 @@ class Swift_MimePart extends Swift_Mime_MimePart
 				->createDependenciesFor('mime.part')
 		);
 
-		if(!isset($charset))
+		if (!isset($charset))
 		{
 			$charset = Swift_DependencyContainer::getInstance()
 				->lookup('properties.charset');
 		}
 		$this->setBody($body);
 		$this->setCharset($charset);
-		if($contentType)
+		if ($contentType)
 		{
 			$this->setContentType($contentType);
 		}

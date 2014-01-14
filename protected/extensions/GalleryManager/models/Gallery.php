@@ -26,25 +26,22 @@
  *
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
-class Gallery extends CActiveRecord
-{
+class Gallery extends CActiveRecord {
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Gallery the static model class
 	 */
-	public static function model($className = __CLASS__)
-	{
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
-		if($this->dbConnection->tablePrefix !== null)
+	public function tableName() {
+		if ($this->dbConnection->tablePrefix !== null)
 			return '{{gallery}}';
 		else
 			return 'gallery';
@@ -53,48 +50,36 @@ class Gallery extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
+	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array(
-				'name, description',
-				'safe'),
+			array('name, description', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array(
-				'id, sizes, name, description',
-				'safe',
-				'on'=>'search'),
+			array('id, sizes, name, description', 'safe', 'on' => 'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'galleryPhotos'=>array(
-				self::HAS_MANY,
-				'GalleryPhoto',
-				'gallery_id',
-				'order'=>'`rank` asc'),
+			'galleryPhotos' => array(self::HAS_MANY, 'GalleryPhoto', 'gallery_id', 'order' => '`rank` asc'),
 		);
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
-			'id'=>'ID',
-			'name'=>'Name',
-			'description'=>'Description',
+			'id' => 'ID',
+			'name' => 'Name',
+			'description' => 'Description',
 		);
 	}
 
@@ -102,8 +87,7 @@ class Gallery extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -114,35 +98,30 @@ class Gallery extends CActiveRecord
 		$criteria->compare('description', $this->description);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 	private $_versions;
 
-	public function getVersions()
-	{
-		if(empty($this->_versions))
+	public function getVersions() {
+		if (empty($this->_versions))
 			$this->_versions = unserialize($this->versions_data);
 		return $this->_versions;
 	}
 
-	public function setVersions($value)
-	{
+	public function setVersions($value) {
 		$this->_versions = $value;
 	}
 
-	protected function beforeSave()
-	{
-		if(!empty($this->_versions))
+	protected function beforeSave() {
+		if (!empty($this->_versions))
 			$this->versions_data = serialize($this->_versions);
 		return parent::beforeSave();
 	}
 
-	public function delete()
-	{
-		foreach($this->galleryPhotos as $photo)
-		{
+	public function delete() {
+		foreach ($this->galleryPhotos as $photo) {
 			$photo->delete();
 		}
 		return parent::delete();

@@ -4,12 +4,12 @@
  */
 
 		CKEDITOR.plugins.add('button',
-				{
-					beforeInit: function(editor)
-					{
-						editor.ui.addHandler(CKEDITOR.UI_BUTTON, CKEDITOR.ui.button.handler);
-					}
-				});
+		{
+			beforeInit: function(editor)
+			{
+				editor.ui.addHandler(CKEDITOR.UI_BUTTON, CKEDITOR.ui.button.handler);
+			}
+		});
 
 /**
  * Button UI element.
@@ -90,7 +90,7 @@ CKEDITOR.ui.button.handler =
 								execute: function()
 								{
 									// IE 6 needs some time before execution (#7922)
-									if(CKEDITOR.env.ie && CKEDITOR.env.version < 7)
+									if (CKEDITOR.env.ie && CKEDITOR.env.version < 7)
 										CKEDITOR.tools.setTimeout(function() {
 											this.button.click(editor);
 										}, 0, this);
@@ -101,7 +101,7 @@ CKEDITOR.ui.button.handler =
 
 					var keydownFn = CKEDITOR.tools.addFunction(function(ev)
 					{
-						if(instance.onkey)
+						if (instance.onkey)
 						{
 							ev = new CKEDITOR.dom.event(ev);
 							return (instance.onkey(instance, ev.getKeystroke()) !== false);
@@ -112,11 +112,11 @@ CKEDITOR.ui.button.handler =
 					{
 						var retVal;
 
-						if(instance.onfocus)
+						if (instance.onfocus)
 							retVal = (instance.onfocus(instance, new CKEDITOR.dom.event(ev)) !== false);
 
 						// FF2: prevent focus event been bubbled up to editor container, which caused unexpected editor focus.
-						if(CKEDITOR.env.gecko && CKEDITOR.env.version < 10900)
+						if (CKEDITOR.env.gecko && CKEDITOR.env.version < 10900)
 							ev.preventBubble();
 						return retVal;
 					});
@@ -125,7 +125,7 @@ CKEDITOR.ui.button.handler =
 
 
 					// Indicate a mode sensitive button.
-					if(this.modes)
+					if (this.modes)
 					{
 						var modeStates = {};
 
@@ -135,7 +135,7 @@ CKEDITOR.ui.button.handler =
 
 							var mode = editor.mode;
 
-							if(mode)
+							if (mode)
 							{
 								// Restore saved button state.
 								var state = this.modes[ mode ] ? modeStates[ mode ] != undefined ? modeStates[ mode ] :
@@ -147,7 +147,7 @@ CKEDITOR.ui.button.handler =
 
 						editor.on('beforeModeUnload', function()
 						{
-							if(editor.mode && this._.state != CKEDITOR.TRISTATE_DISABLED)
+							if (editor.mode && this._.state != CKEDITOR.TRISTATE_DISABLED)
 								modeStates[ editor.mode ] = this._.state;
 						}, this);
 
@@ -156,12 +156,12 @@ CKEDITOR.ui.button.handler =
 						// If this button is sensitive to readOnly state, update it accordingly.
 						!this.readOnly && editor.on('readOnly', updateState, this);
 					}
-					else if(command)
+					else if (command)
 					{
 						// Get the command instance.
 						command = editor.getCommand(command);
 
-						if(command)
+						if (command)
 						{
 							command.on('state', function()
 							{
@@ -175,10 +175,10 @@ CKEDITOR.ui.button.handler =
 						}
 					}
 
-					if(!command)
+					if (!command)
 						classes += 'cke_off';
 
-					if(this.className)
+					if (this.className)
 						classes += ' ' + this.className;
 
 					output.push(
@@ -196,7 +196,7 @@ CKEDITOR.ui.button.handler =
 					// Some browsers don't cancel key events in the keydown but in the
 					// keypress.
 					// TODO: Check if really needed for Gecko+Mac.
-					if(env.opera || (env.gecko && env.mac))
+					if (env.opera || (env.gecko && env.mac))
 					{
 						output.push(
 								' onkeypress="return false;"');
@@ -204,7 +204,7 @@ CKEDITOR.ui.button.handler =
 
 					// With Firefox, we need to force the button to redraw, otherwise it
 					// will remain in the focus state.
-					if(env.gecko)
+					if (env.gecko)
 					{
 						output.push(
 								' onblur="this.style.cssText = this.style.cssText;"');
@@ -217,7 +217,7 @@ CKEDITOR.ui.button.handler =
 							'="CKEDITOR.tools.callFunction(', clickFn, ', this); return false;">' +
 							'<span class="cke_icon"');
 
-					if(this.icon)
+					if (this.icon)
 					{
 						var offset = (this.iconOffset || 0) * -16;
 						output.push(' style="background-image:url(', CKEDITOR.getUrl(this.icon), ');background-position:0 ' + offset + 'px;"');
@@ -227,7 +227,7 @@ CKEDITOR.ui.button.handler =
 							'>&nbsp;</span>' +
 							'<span id="', id, '_label" class="cke_label">', this.label, '</span>');
 
-					if(this.hasArrow)
+					if (this.hasArrow)
 					{
 						output.push(
 								'<span class="cke_buttonarrow">'
@@ -240,21 +240,21 @@ CKEDITOR.ui.button.handler =
 							'</a>',
 							'</span>');
 
-					if(this.onRender)
+					if (this.onRender)
 						this.onRender();
 
 					return instance;
 				},
 				setState: function(state)
 				{
-					if(this._.state == state)
+					if (this._.state == state)
 						return false;
 
 					this._.state = state;
 
 					var element = CKEDITOR.document.getById(this._.id);
 
-					if(element)
+					if (element)
 					{
 						element.setState(state);
 						state == CKEDITOR.TRISTATE_DISABLED ?

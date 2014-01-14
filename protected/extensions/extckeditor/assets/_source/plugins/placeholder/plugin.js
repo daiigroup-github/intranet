@@ -29,7 +29,7 @@
 												icon: this.path + 'placeholder.gif'
 											});
 
-									if(editor.addMenuItems)
+									if (editor.addMenuItems)
 									{
 										editor.addMenuGroup('placeholder', 20);
 										editor.addMenuItems(
@@ -44,11 +44,11 @@
 															}
 												});
 
-										if(editor.contextMenu)
+										if (editor.contextMenu)
 										{
 											editor.contextMenu.addListener(function(element, selection)
 											{
-												if(!element || !element.data('cke-placeholder'))
+												if (!element || !element.data('cke-placeholder'))
 													return null;
 
 												return {editplaceholder: CKEDITOR.TRISTATE_OFF};
@@ -58,7 +58,7 @@
 
 									editor.on('doubleclick', function(evt)
 									{
-										if(CKEDITOR.plugins.placeholder.getSelectedPlaceHoder(editor))
+										if (CKEDITOR.plugins.placeholder.getSelectedPlaceHoder(editor))
 											evt.data.dialog = 'editplaceholder';
 									});
 
@@ -74,7 +74,7 @@
 									{
 										editor.document.getBody().on('resizestart', function(evt)
 										{
-											if(editor.getSelection().getSelectedElement().data('cke-placeholder'))
+											if (editor.getSelection().getSelectedElement().data('cke-placeholder'))
 												evt.data.preventDefault();
 										});
 									});
@@ -88,7 +88,7 @@
 											dataFilter = dataProcessor && dataProcessor.dataFilter,
 											htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 
-									if(dataFilter)
+									if (dataFilter)
 									{
 										dataFilter.addRules(
 												{
@@ -102,7 +102,7 @@
 												});
 									}
 
-									if(htmlFilter)
+									if (htmlFilter)
 									{
 										htmlFilter.addRules(
 												{
@@ -110,7 +110,7 @@
 															{
 																'span': function(element)
 																{
-																	if(element.attributes && element.attributes[ 'data-cke-placeholder' ])
+																	if (element.attributes && element.attributes[ 'data-cke-placeholder' ])
 																		delete element.name;
 																}
 															}
@@ -135,12 +135,12 @@
 
 						text && element.setText(text);
 
-						if(isGet)
+						if (isGet)
 							return element.getOuterHtml();
 
-						if(oldElement)
+						if (oldElement)
 						{
-							if(CKEDITOR.env.ie)
+							if (CKEDITOR.env.ie)
 							{
 								element.insertAfter(oldElement);
 								// Some time is required for IE before the element is removed.
@@ -163,7 +163,7 @@
 						var range = editor.getSelection().getRanges()[ 0 ];
 						range.shrink(CKEDITOR.SHRINK_TEXT);
 						var node = range.startContainer;
-						while(node && !(node.type == CKEDITOR.NODE_ELEMENT && node.data('cke-placeholder')))
+						while (node && !(node.type == CKEDITOR.NODE_ELEMENT && node.data('cke-placeholder')))
 							node = node.getParent();
 						return node;
 					}

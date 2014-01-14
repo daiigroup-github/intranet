@@ -4,13 +4,13 @@
  */
 
 		CKEDITOR.plugins.setLang('placeholder', 'hr',
-				{
-					placeholder:
-							{
-								title: 'Svojstva rezerviranog mjesta',
-								toolbar: 'Napravi rezervirano mjesto',
-								text: 'Tekst rezerviranog mjesta',
-								edit: 'Uredi rezervirano mjesto',
-								textMissing: 'Rezervirano mjesto mora sadržavati tekst.'
-							}
-				});
+		{
+			placeholder:
+					{
+						title: 'Svojstva rezerviranog mjesta',
+						toolbar: 'Napravi rezervirano mjesto',
+						text: 'Tekst rezerviranog mjesta',
+						edit: 'Uredi rezervirano mjesto',
+						textMissing: 'Rezervirano mjesto mora sadržavati tekst.'
+					}
+		});

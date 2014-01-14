@@ -37,7 +37,7 @@
 
 						<body>
 
-							<?php if(!isset($_GET['device'])): ?>
+							<?php if (!isset($_GET['device'])): ?>
 								<div class="navbar navbar-fixed-top navbar-inverse">
 									<div class="navbar-inner">
 										<div class="container">
@@ -47,7 +47,7 @@
 												<span class="icon-bar"></span>
 											</a>
 											<a class="brand" href="<?php
-											if(Yii::app()->user->name != "Guest")
+											if (Yii::app()->user->name != "Guest")
 											{
 												echo Yii::app()->createUrl('/home');
 											}
@@ -60,7 +60,7 @@
 
 												<?php
 												//if(!Yii::app()->user->isGuest):
-												if(1 == 2):
+												if (1 == 2):
 													?>
 													<ul class="nav">
 														<!--  <li><a href="<?php echo Yii::app()->createUrl('/employee'); ?>">Employee</a></li>
@@ -80,7 +80,7 @@
 													</ul>
 													<?php
 												endif;
-												if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu")
+												if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu")
 												{
 													?>
 													<ul class="nav">
@@ -89,7 +89,7 @@
 															<ul class="dropdown-menu">
 																<li><a href="<?php echo Yii::app()->createUrl('/customer'); ?>">ทั้งหมด</a></li>
 															</ul>
-														</li>
+														</li> 
 														<li class="dropdown">
 															<a href="#" class="dropdown-toggle" data-toggle="dropdown">ระยะทาง<b class="caret"></b></a>
 															<ul class="dropdown-menu">
@@ -142,7 +142,7 @@
 							<div class="container">
 
 								<?php echo $content; ?>
-							</div>
+							</div>		
 							<?php /* if(isset($this->breadcrumb)):?>
 							  <div class="row">
 							  <div class="span12">

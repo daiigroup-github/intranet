@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'qtech-process-sub-form',
-		'enableAjaxValidation'=>false,
+		'id' => 'qtech-process-sub-form',
+		'enableAjaxValidation' => false,
 	));
 	?>
 
@@ -21,8 +21,8 @@
 		<?php echo $form->labelEx($model, 'processSubName'); ?>
 		<?php
 		echo $form->textField($model, 'processSubName', array(
-			'size'=>60,
-			'maxlength'=>100));
+			'size' => 60,
+			'maxlength' => 100));
 		?>
 		<?php echo $form->error($model, 'processSubName'); ?>
 	</div>
@@ -31,8 +31,8 @@
 		<?php echo $form->labelEx($model, 'processSubDetail'); ?>
 		<?php
 		echo $form->textField($model, 'processSubDetail', array(
-			'size'=>60,
-			'maxlength'=>100));
+			'size' => 60,
+			'maxlength' => 100));
 		?>
 		<?php echo $form->error($model, 'processSubDetail'); ?>
 	</div>

@@ -10,24 +10,24 @@
 					b.addCommand('createplaceholder', new CKEDITOR.dialogCommand('createplaceholder'));
 					b.addCommand('editplaceholder', new CKEDITOR.dialogCommand('editplaceholder'));
 					b.ui.addButton('CreatePlaceholder', {label: c.toolbar, command: 'createplaceholder', icon: this.path + 'placeholder.gif'});
-					if(b.addMenuItems) {
+					if (b.addMenuItems) {
 						b.addMenuGroup('placeholder', 20);
 						b.addMenuItems({editplaceholder: {label: c.edit, command: 'editplaceholder', group: 'placeholder', order: 1, icon: this.path + 'placeholder.gif'}});
-						if(b.contextMenu)
+						if (b.contextMenu)
 							b.contextMenu.addListener(function(d, e) {
-								if(!d || !d.data('cke-placeholder'))
+								if (!d || !d.data('cke-placeholder'))
 									return null;
 								return{editplaceholder: CKEDITOR.TRISTATE_OFF};
 							});
 					}
 					b.on('doubleclick', function(d) {
-						if(CKEDITOR.plugins.placeholder.getSelectedPlaceHoder(b))
+						if (CKEDITOR.plugins.placeholder.getSelectedPlaceHoder(b))
 							d.data.dialog = 'editplaceholder';
 					});
 					b.addCss('.cke_placeholder{background-color: #ffff00;' + (CKEDITOR.env.gecko ? 'cursor: default;' : '') + '}');
 					b.on('contentDom', function() {
 						b.document.getBody().on('resizestart', function(d) {
-							if(b.getSelection().getSelectedElement().data('cke-placeholder'))
+							if (b.getSelection().getSelectedElement().data('cke-placeholder'))
 								d.data.preventDefault();
 						});
 					});
@@ -35,15 +35,15 @@
 					CKEDITOR.dialog.add('editplaceholder', this.path + 'dialogs/placeholder.js');
 				}, afterInit: function(b) {
 					var c = b.dataProcessor, d = c && c.dataFilter, e = c && c.htmlFilter;
-					if(d)
+					if (d)
 						d.addRules({text: function(f) {
 								return f.replace(a, function(g) {
 									return CKEDITOR.plugins.placeholder.createPlaceholder(b, null, g, 1);
 								});
 							}});
-					if(e)
+					if (e)
 						e.addRules({elements: {span: function(f) {
-									if(f.attributes && f.attributes['data-cke-placeholder'])
+									if (f.attributes && f.attributes['data-cke-placeholder'])
 										delete f.name;
 								}}});
 				}});
@@ -52,10 +52,10 @@ CKEDITOR.plugins.placeholder = {createPlaceholder: function(a, b, c, d) {
 		var e = new CKEDITOR.dom.element('span', a.document);
 		e.setAttributes({contentEditable: 'false', 'data-cke-placeholder': 1, 'class': 'cke_placeholder'});
 		c && e.setText(c);
-		if(d)
+		if (d)
 			return e.getOuterHtml();
-		if(b) {
-			if(CKEDITOR.env.ie) {
+		if (b) {
+			if (CKEDITOR.env.ie) {
 				e.insertAfter(b);
 				setTimeout(function() {
 					b.remove();
@@ -70,7 +70,7 @@ CKEDITOR.plugins.placeholder = {createPlaceholder: function(a, b, c, d) {
 		var b = a.getSelection().getRanges()[0];
 		b.shrink(CKEDITOR.SHRINK_TEXT);
 		var c = b.startContainer;
-		while(c && !(c.type == CKEDITOR.NODE_ELEMENT && c.data('cke-placeholder')))
+		while (c && !(c.type == CKEDITOR.NODE_ELEMENT && c.data('cke-placeholder')))
 			c = c.getParent();
 		return c;
 	}};

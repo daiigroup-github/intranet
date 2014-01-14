@@ -30,31 +30,31 @@ class ConstructionProjectController extends Controller
 		return array(
 			array(
 				'allow', // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(
+				'actions' => array(
 					'index',
 					'view'),
-				'users'=>array(
+				'users' => array(
 					'*'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(
+				'actions' => array(
 					'create',
 					'update'),
-				'users'=>array(
+				'users' => array(
 					'@'),
 			),
 			array(
 				'allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(
+				'actions' => array(
 					'admin',
 					'delete'),
-				'users'=>array(
+				'users' => array(
 					'admin'),
 			),
 			array(
 				'deny', // deny all users
-				'users'=>array(
+				'users' => array(
 					'*'),
 			),
 		);
@@ -67,7 +67,7 @@ class ConstructionProjectController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -82,17 +82,17 @@ class ConstructionProjectController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ConstructionProject']))
+		if (isset($_POST['ConstructionProject']))
 		{
 			$model->attributes = $_POST['ConstructionProject'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->projectId));
+					'id' => $model->projectId));
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -108,17 +108,17 @@ class ConstructionProjectController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['ConstructionProject']))
+		if (isset($_POST['ConstructionProject']))
 		{
 			$model->attributes = $_POST['ConstructionProject'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->projectId));
+					'id' => $model->projectId));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -132,7 +132,7 @@ class ConstructionProjectController extends Controller
 		$this->loadModel($id)->delete();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if(!isset($_GET['ajax']))
+		if (!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 					'admin'));
 	}
@@ -144,7 +144,7 @@ class ConstructionProjectController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('ConstructionProject');
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -155,11 +155,11 @@ class ConstructionProjectController extends Controller
 	{
 		$model = new ConstructionProject('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['ConstructionProject']))
+		if (isset($_GET['ConstructionProject']))
 			$model->attributes = $_GET['ConstructionProject'];
 
 		$this->render('admin', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -171,7 +171,7 @@ class ConstructionProjectController extends Controller
 	public function loadModel($id)
 	{
 		$model = ConstructionProject::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -182,7 +182,7 @@ class ConstructionProjectController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'construction-project-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'construction-project-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

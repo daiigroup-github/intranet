@@ -46,25 +46,25 @@ class QtechProcess extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'qtechProjectId, duration',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'processName',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'processDetail',
 				'length',
-				'max'=>120),
+				'max' => 120),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'qtechProcessId, status, qtechProjectId, processName, processDetail, duration',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -76,16 +76,16 @@ class QtechProcess extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'processSub'=>array(
+			'processSub' => array(
 				self::HAS_MANY,
 				'QtechProcessSub',
 				array(
-					'qtechProcessId'=>'qtechProcessId')),
-			'project'=>array(
+					'qtechProcessId' => 'qtechProcessId')),
+			'project' => array(
 				self::BELONGS_TO,
 				'QtechProject',
 				array(
-					'qtechProjectId'=>'qtechProjectId')),
+					'qtechProjectId' => 'qtechProjectId')),
 		);
 	}
 
@@ -95,12 +95,12 @@ class QtechProcess extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'qtechProcessId'=>'Process',
-			'status'=>'Status',
-			'qtechProjectId'=>'Project',
-			'processName'=>'Process Name',
-			'processDetail'=>'Process Detail',
-			'duration'=>'Duration',
+			'qtechProcessId' => 'Process',
+			'status' => 'Status',
+			'qtechProjectId' => 'Project',
+			'processName' => 'Process Name',
+			'processDetail' => 'Process Detail',
+			'duration' => 'Duration',
 		);
 	}
 
@@ -123,7 +123,7 @@ class QtechProcess extends CActiveRecord
 		$criteria->compare('duration', $this->duration, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

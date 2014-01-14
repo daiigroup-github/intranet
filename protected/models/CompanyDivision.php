@@ -44,17 +44,17 @@ class CompanyDivision extends CActiveRecord
 			array(
 				'status, companyDivisionId',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'description',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, status, companyDivisionId, description',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -75,10 +75,10 @@ class CompanyDivision extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'status'=>'Status',
-			'companyDivisionId'=>'Division',
-			'description'=>'Description',
+			'id' => 'ID',
+			'status' => 'Status',
+			'companyDivisionId' => 'Division',
+			'description' => 'Description',
 		);
 	}
 
@@ -99,7 +99,7 @@ class CompanyDivision extends CActiveRecord
 		$criteria->compare('description', $this->description, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -109,14 +109,14 @@ class CompanyDivision extends CActiveRecord
 		$c = new CompanyDivision;
 
 		$models = $c->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'description',
+			'condition' => 'status=1',
+			'order' => 'description',
 		));
 
 		$division = array(
-			''=>'- ฝ่าย');
+			'' => '- ฝ่าย');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$division[$model->companyDivisionId] = $model->description;
 		}

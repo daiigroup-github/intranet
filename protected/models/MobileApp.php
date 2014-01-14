@@ -44,21 +44,21 @@ class MobileApp extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'name',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			array(
 				'currentVersion',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'mibileAppId, status, name, currentVersion',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -70,11 +70,11 @@ class MobileApp extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'mobileAppPriv'=>array(
+			'mobileAppPriv' => array(
 				self::HAS_MANY,
 				'mobileAppPriv',
 				array(
-					'mobileAppId'=>'mobileAppId')),
+					'mobileAppId' => 'mobileAppId')),
 		);
 	}
 
@@ -84,10 +84,10 @@ class MobileApp extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'mibileAppId'=>'Mibile App',
-			'status'=>'Status',
-			'name'=>'Name',
-			'currentVersion'=>'Current Version',
+			'mibileAppId' => 'Mibile App',
+			'status' => 'Status',
+			'name' => 'Name',
+			'currentVersion' => 'Current Version',
 		);
 	}
 
@@ -108,7 +108,7 @@ class MobileApp extends CActiveRecord
 		$criteria->compare('currentVersion', $this->currentVersion, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

@@ -1,10 +1,11 @@
 <?php
+
 // $this->breadcrumbs=array(
 // 'Qtech Projects'=>array('index'),
 // $model->qtechProjectId=>array('view','id'=>$model->qtechProjectId),
 // 'Update',
 // );
-//
+// 
 // $this->menu=array(
 // array('label'=>'List QtechProject', 'url'=>array('index')),
 // array('label'=>'Create QtechProject', 'url'=>array('create')),
@@ -17,6 +18,7 @@ $this->pageHeader = 'Update QtechProject';
 ?>
 
 <?php
+
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

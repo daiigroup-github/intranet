@@ -26,19 +26,19 @@
 						{
 							// In IE, using the native XMLHttpRequest for local files may throw
 							// "Access is Denied" errors.
-							if(!CKEDITOR.env.ie || location.protocol != 'file:')
+							if (!CKEDITOR.env.ie || location.protocol != 'file:')
 								try {
 									return new XMLHttpRequest();
-								} catch(e) {
+								} catch (e) {
 								}
 
 							try {
 								return new ActiveXObject('Msxml2.XMLHTTP');
-							} catch(e) {
+							} catch (e) {
 							}
 							try {
 								return new ActiveXObject('Microsoft.XMLHTTP');
-							} catch(e) {
+							} catch (e) {
 							}
 
 							return null;
@@ -61,14 +61,14 @@
 
 						var getResponseText = function(xhr)
 						{
-							if(checkStatus(xhr))
+							if (checkStatus(xhr))
 								return xhr.responseText;
 							return null;
 						};
 
 						var getResponseXml = function(xhr)
 						{
-							if(checkStatus(xhr))
+							if (checkStatus(xhr))
 							{
 								var xml = xhr.responseXML;
 								return new CKEDITOR.xml(xml && xml.firstChild ? xml : xhr.responseText);
@@ -82,18 +82,18 @@
 
 							var xhr = createXMLHttpRequest();
 
-							if(!xhr)
+							if (!xhr)
 								return null;
 
 							xhr.open('GET', url, async);
 
-							if(async)
+							if (async)
 							{
 								// TODO: perform leak checks on this closure.
 								/** @ignore */
 								xhr.onreadystatechange = function()
 								{
-									if(xhr.readyState == 4)
+									if (xhr.readyState == 4)
 									{
 										callback(getResponseFn(xhr));
 										xhr = null;

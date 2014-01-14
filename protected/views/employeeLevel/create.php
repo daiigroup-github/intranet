@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Employee Levels'=>array(
+	'Employee Levels' => array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List EmployeeLevel',
-		'url'=>array(
+		'label' => 'List EmployeeLevel',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Manage EmployeeLevel',
-		'url'=>array(
+		'label' => 'Manage EmployeeLevel',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

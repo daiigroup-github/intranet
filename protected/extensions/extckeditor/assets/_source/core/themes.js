@@ -15,5 +15,5 @@
 		 * @example
 		 */
 		CKEDITOR.themes = new CKEDITOR.resourceManager(
-				'_source/' + // @Packager.RemoveLine
-				'themes/', 'theme');
+		'_source/' + // @Packager.RemoveLine
+		'themes/', 'theme');
