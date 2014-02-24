@@ -1,6 +1,7 @@
 <?php
+$params = require dirname(__FILE__) . '/protected/config/params.php';
 // change the following paths if necessary
-$yii = dirname(__FILE__) . '/../../Yii/yii-1.1.14.f0fee9/framework/yii.php';
+$yii = dirname(__FILE__) . $params['framework'];
 $config = dirname(__FILE__) . '/protected/config/main.php';
 
 // remove the following lines when in production mode

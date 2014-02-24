@@ -1,4 +1,5 @@
 <?php
+$params = require dirname(__FILE__) . '/params.php';
 // uncomment the following to define a path alias
 // Yii::setPathOfAlias('local','path/to/local-folder');
 // This is the main Web application configuration. Any writable
@@ -69,33 +70,7 @@ return array(
 		  'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		  ), */
 // uncomment the following to use a MySQL database
-		'db'=>array(
-//'connectionString' => 'mysql:host=122.155.168.114;dbname=dcorp',
-			'connectionString'=>'mysql:host=122.155.168.114;dbname=daiichi',
-			'emulatePrepare'=>true,
-			'username'=>'root',
-			'password'=>'wfvb0b',
-			//'username' => 'dcorp', 'password' => 'dcorpReport',
-			'charset'=>'utf8',
-		),
-		'db'=>array(
-//'connectionString' => 'mysql:host=122.155.168.114;dbname=dcorp',
-			'connectionString'=>'mysql:host=localhost;dbname=daiichi',
-			'emulatePrepare'=>true,
-			'username'=>'root',
-			'password'=>'12345',
-			//'username' => 'dcorp', 'password' => 'dcorpReport',
-			'charset'=>'utf8',
-		),
-//		'db' => array(
-//			//'connectionString' => 'mysql:host=122.155.168.114;dbname=dcorp',
-//			'connectionString' => 'mysql:host=192.168.100.5;dbname=daiichi',
-//			'emulatePrepare' => true,
-//			'username' => 'root',
-//			'password' => 'wfvb0b',
-//			//'username' => 'dcorp', 'password' => 'dcorpReport',
-//			'charset' => 'utf8',
-//		),
+		'db'=>$params['db'],
 		'mail'=>array(
 			'class'=>'application.extensions.yii-mail.YiiMail',
 			'transportType'=>'smtp', // change to 'php' when running in real domain.
