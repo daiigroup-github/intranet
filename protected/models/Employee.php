@@ -190,7 +190,21 @@ class Employee extends CActiveRecord
 				self::HAS_MANY,
 				'MobileAppPriv',
 				array(
-					'employeeId'=>'employeeId')),);
+					'employeeId'=>'employeeId')),
+			'company'=>array(
+				self::BELONGS_TO,
+				'Company',
+				'employeeId'
+			),
+			'companyDivision'=>array(
+				self::BELONGS_TO,
+				'CompanyDivision',
+				'companyDivisionId'
+			),
+			'fitAndFast'=>array(
+				self::HAS_MANY,
+				'FitAndFast',
+				'employeeId'),);
 	}
 
 	/**

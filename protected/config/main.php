@@ -39,6 +39,7 @@ return array(
 			'install'=>false, // Whether to install rights.
 //'superuserName'=>'kpu',
 		), // Enables the installer. ), ),
+		'fitfast'
 	),
 	// application components
 	'components'=>array(
@@ -59,10 +60,13 @@ return array(
 		'urlManager'=>array(
 			'urlFormat'=>'path',
 			'rules'=>array(
+				'fitfast/<controller:\w+>/<action:\w+>/<id1:\w+>/<id2:\w+>'=>'fitfast/<controller>/<action>',
+				'fitfast/<controller:\w+>/<action:\w+>/<id:\d+>'=>'fitfast/<controller>/<action>',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>/<codePrefix:\w+>'=>'<controller>/<action>',
+//				'<controller:\w+>/<action:\w+>/<codePrefix:\w+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+				'<controller:\w+>/<action:\w+>/<id1:\d+>/<id2:\d+>'=>'<controller>/<action>',
 			//'<controller:\w+>/<action:\w+>/<id:\d{3}>/<id2>'=>'<controller>/<action>',
 			),
 		),
