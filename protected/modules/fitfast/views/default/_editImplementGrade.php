@@ -4,8 +4,12 @@
  * $fitAndFastId
  * $field
  *
+ * $type = 1 (performance)
+ *  s, S, F
+ *
+ * $typs = 2 (implement)
+ *  S, SS, F
  */
-$SBtnId = 's' . $btnId;
 $SBtnId = 'S' . $btnId;
 $SSBtnId = 'SS' . $btnId;
 $fBtnId = 'f' . $btnId;
@@ -29,6 +33,7 @@ $fBtnId = 'f' . $btnId;
 				if(data.grade=="S")
 				{
 					$("#' . $SBtnId . '").addClass("btn-success");
+					$("#' . $SSBtnId . '").removeClass("btn-success");
 					$("#' . $fBtnId . '").removeClass("btn-danger");
 				}
 				else
@@ -42,6 +47,39 @@ $fBtnId = 'f' . $btnId;
 		), array(
 		'class'=>'btn btn-mini ' . $SBtnClass,
 		'id'=>$SBtnId,
+		'confirm'=>'confirm!!',
+	));
+
+	$SSBtnClass = '';
+	if($grade == 'SS')
+	{
+		$SSBtnClass = 'btn-success';
+	}
+
+	echo CHtml::ajaxLink('SS', $this->createUrl('default/updateGrade'), array(
+		'type'=>'post',
+		'data'=>'js:{grade:"SS", fitAndFastId:' . $fitAndFastId . ', field:"' . $field . '", ' . 'type:"' . $type . '"}',
+		'dataType'=>'json',
+		'success'=>'js:function(data){
+			if(data.status == true)
+			{
+				if(data.grade=="SS")
+				{
+					$("#' . $SSBtnId . '").addClass("btn-success");
+					$("#' . $SBtnId . '").removeClass("btn-success");
+					$("#' . $fBtnId . '").removeClass("btn-danger");
+				}
+				else
+					$("#' . $SSBtnId . '").removeClass("btn-success");
+			}
+			else
+			{
+				alert("ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่");
+			}
+		}',
+		), array(
+		'class'=>'btn btn-mini ' . $SSBtnClass,
+		'id'=>$SSBtnId,
 		'confirm'=>'confirm!!',
 	));
 
@@ -61,8 +99,9 @@ $fBtnId = 'f' . $btnId;
 			{
 				if(data.grade=="F")
 				{
-					$("#' . $fBtnId . '").addClass("btn-danger");
 					$("#' . $SBtnId . '").removeClass("btn-success");
+					$("#' . $SSBtnId . '").removeClass("btn-success");
+					$("#' . $fBtnId . '").addClass("btn-danger");
 				}
 				else
 					$("#' . $fBtnId . '").removeClass("btn-danger");

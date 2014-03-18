@@ -82,11 +82,11 @@ $this->pageHeader = $employeeName;
 			<i class="icon-upload-alt icon-2x"></i> คลิกเพื่อส่งงาน
 		</p>
 
-		<?php foreach($data as $k=> $v): ?>
+		<?php $i = 0; ?>
+		<?php foreach($data as $t=> $v): ?>
 			<div class="well well-small">
-				<h3><?php echo ($k == 1) ? 'Performance' : 'Implement'; ?></h3>
+				<h3><?php echo ($t == 1) ? 'Performance' : 'Implement'; ?></h3>
 
-				<?php $i = 0; ?>
 				<?php foreach($v as $faf): ?>
 					<strong><?php echo $faf['title']; ?></strong>
 					<table class="table table-bordered table-striped table-hover" style="font-size:12px;">
@@ -111,62 +111,27 @@ $this->pageHeader = $employeeName;
 						<tbody>
 							<tr>
 								<td>เป้าหมาย</td>
-								<?php foreach($this->targetArray as $target): ?>
+								<?php foreach(FitAndFast::model()->targetArray as $target): ?>
 									<td>
 										<?php echo $faf[$target]; ?>
 									</td>
 								<?php endforeach; ?>
 							</tr>
 							<tr>
-								<td>ทำได้</td>
-								<?php foreach($this->actualArray as $k=> $actual): ?>
+								<td>ส่งงาน</td>
+								<?php foreach(FitAndFast::model()->actualArray as $k=> $actual): ?>
 									<td>
 										<?php
-										/*
-										  if(!$flag)
-										  {
-										  if(empty($faf[$actual]) || in_array(Yii::app()->user->getState('username'), array(
-										  'kbw',)))
-										  {
-										  $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-										  'id'=>$actual . 'Dialog' . $i,
-										  // additional javascript options for the dialog plugin
-										  'options'=>array(
-										  'title'=>$actual . 'Dialog' . $i,
-										  'autoOpen'=>false,
-										  ),
-										  ));
-
-										  $this->renderPartial('_updateData', array(
-										  'model'=>new FitAndFast,
-										  'field'=>$actual,
-										  'dialog'=>$actual . 'Dialog' . $i,
-										  'span'=>'#' . $actual . $i,
-										  'fitAndFastId'=>$faf['fitAndFastId'],
-										  'value'=>$faf[$actual],
-										  ));
-
-										  $this->endWidget('zii.widgets.jui.CJuiDialog');
-
-										  $randId = uniqid();
-										  echo CHtml::link('<i class="icon-pencil"></i>', '#', array(
-										  'onclick'=>'$("#' . $actual . 'Dialog' . $i . '").dialog("open"); return false;',
-										  'id'=>$randId,
-										  ));
-										  }
-										  }
-										 *
-										 */
-										if(empty($faf[$this->fileArray[$k]]) && !empty($faf[$this->targetArray[$k]]))
+										if(empty($faf[FitAndFast::model()->fileArray[$k]]) && !empty($faf[FitAndFast::model()->targetArray[$k]]))
 										{
-											echo CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl($this->id . '/upload/' . $faf['fitAndFastId'] . '/' . $this->fileArray[$k]), array(
+											echo CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl($this->id . '/upload/' . $faf['fitAndFastId'] . '/' . FitAndFast::model()->fileArray[$k]), array(
 												'class'=>''));
 										}
 										else
 										{
-											if($faf[$this->fileArray[$k]])
+											if($faf[FitAndFast::model()->fileArray[$k]])
 											{
-												echo CHtml::link('<i class="icon-file"></i>', Yii::app()->baseUrl . '/' . $faf[$this->fileArray[$k]], array(
+												echo CHtml::link('<i class="icon-file"></i><br />' . $faf[FitAndFast::model()->fileArray[$k] . 'DateTime'], Yii::app()->baseUrl . '/' . $faf[FitAndFast::model()->fileArray[$k]], array(
 													'class'=>'pdf'));
 											}
 										}
@@ -179,12 +144,11 @@ $this->pageHeader = $employeeName;
 							<?php
 							/*
 							 * Grade
-							 *
 							 */
 							?>
 							<tr>
 								<td>เกรด</td>
-								<?php foreach($this->gradeArray as $l=> $grade): ?>
+								<?php foreach(FitAndFast::model()->gradeArray as $l=> $grade): ?>
 									<td>
 										<?php
 										/*
@@ -223,26 +187,54 @@ $this->pageHeader = $employeeName;
 										  }
 										 */
 
+										/**
+										 * Employee
+										 * 1 only manager can update grade
+										 * 2 only kbw can edit grade
+										 *
+										 * Manag3er
+										 * 1 only nsy can update grade
+										 * 2 only kbw can edit grade
+										 */
 										if(!empty($faf[$grade]))
 										{
-											if($faf[$grade] == 'S')
-												echo '<span class="label label-success">S</span>';
+											if(in_array(Yii::app()->user->name, $this->editGradeUsersArray))
+											{
+												$editView = ($t == 1) ? '_editPerformanceGrade' : '_editImplementGrade';
+												$this->renderPartial($editView, array(
+													'grade'=>$faf[$grade],
+													'fitAndFastId'=>$faf['fitAndFastId'],
+													'field'=>$grade,
+													'type'=>$t,
+													'btnId'=>ucfirst($grade) . $i,
+												));
+											}
 											else
-												echo '<span class="label label-important">F</span>';
+											{
+												if($faf[$grade] == 'F')
+													echo '<span class="label label-success">F</span>';
+												else
+													echo '<span class="label label-important">' . $faf[$grade] . '</span>';
+											}
 										}
 										else
 										{
-											if(!empty($faf[$this->fileArray[$l]]) && !empty($faf[$this->targetArray[$l]]))
+											if($faf[FitAndFast::model()->statusFitAndFastArray[$l]] == FitAndFast::STATUS_UPLOADED)
 											{
-												$this->renderPartial('_updateGrade', array(
-													'grade'=>$faf[$grade],
-													'sBtnId'=>'s' . ucfirst($grade) . $i,
-													'fBtnId'=>'f' . ucfirst($grade) . $i,
-													'fitAndFastId'=>$faf['fitAndFastId'],
-													'field'=>$grade
-												));
+												if(!empty($faf[FitAndFast::model()->fileArray[$l]]) && !empty($faf[FitAndFast::model()->targetArray[$l]]))
+												{
+													$this->renderPartial('_updateGrade', array(
+														'grade'=>$faf[$grade],
+														'fitAndFastId'=>$faf['fitAndFastId'],
+														'field'=>$grade,
+														'type'=>$t,
+														'btnId'=>ucfirst($grade) . $i,
+													));
+												}
 											}
 										}
+
+										//echo (!empty($faf[$grade . 'DateTime'])) ? '<br />' . $faf[$grade . 'DateTime'] : '';
 										?>
 									</td>
 								<?php endforeach; ?>

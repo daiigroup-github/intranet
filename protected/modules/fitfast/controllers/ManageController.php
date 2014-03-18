@@ -28,6 +28,12 @@ class ManageController extends Controller
 	public function accessRules()
 	{
 		return array(
+			array(
+				'allow',
+				'actions'=>array(
+					'*'),
+				'users'=>array(
+					'@')),
 //			array('allow',  // allow all users to perform 'index' and 'view' actions
 //				'actions'=>array('index','view'),
 //				'users'=>array('*'),
@@ -71,6 +77,20 @@ class ManageController extends Controller
 		if(isset($_POST['FitAndFast']))
 		{
 			$model->attributes = $_POST['FitAndFast'];
+
+			$model->statusJan = (isset($_POST['FitAndFast']['targetJan']) && empty($_POST['FitAndFast']['targetJan'])) ? 1 : 0;
+			$model->statusFeb = (isset($_POST['FitAndFast']['targetFeb']) && empty($_POST['FitAndFast']['targetFeb'])) ? 1 : 0;
+			$model->statusMar = (isset($_POST['FitAndFast']['targetMar']) && empty($_POST['FitAndFast']['targetMar'])) ? 1 : 0;
+			$model->statusApr = (isset($_POST['FitAndFast']['targetApr']) && empty($_POST['FitAndFast']['targetApr'])) ? 1 : 0;
+			$model->statusMay = (isset($_POST['FitAndFast']['targetMay']) && empty($_POST['FitAndFast']['targetMay'])) ? 1 : 0;
+			$model->statusJun = (isset($_POST['FitAndFast']['targetJun']) && empty($_POST['FitAndFast']['targetJun'])) ? 1 : 0;
+			$model->statusJul = (isset($_POST['FitAndFast']['targetJul']) && empty($_POST['FitAndFast']['targetJul'])) ? 1 : 0;
+			$model->statusAug = (isset($_POST['FitAndFast']['targetAug']) && empty($_POST['FitAndFast']['targetAug'])) ? 1 : 0;
+			$model->statusSep = (isset($_POST['FitAndFast']['targetSep']) && empty($_POST['FitAndFast']['targetSep'])) ? 1 : 0;
+			$model->statusOct = (isset($_POST['FitAndFast']['targetOct']) && empty($_POST['FitAndFast']['targetOct'])) ? 1 : 0;
+			$model->statusNov = (isset($_POST['FitAndFast']['targetNov']) && empty($_POST['FitAndFast']['targetNov'])) ? 1 : 0;
+			$model->statusDec = (isset($_POST['FitAndFast']['targetDec']) && empty($_POST['FitAndFast']['targetDec'])) ? 1 : 0;
+
 			if($model->save())
 				$this->redirect(array(
 					'view',
@@ -201,6 +221,14 @@ class ManageController extends Controller
 			$lines = file($_FILES['file']['tmp_name']);
 			$i = 0;
 			$j = 0;
+			/*
+			  $sumGrade = array(
+			  's'=>0,
+			  'S'=>0,
+			  'SS'=>0,
+			  'F'=>0,
+			  'percent'=>0);
+			 */
 
 			$transaction = Yii::app()->db->beginTransaction();
 			try
@@ -228,17 +256,30 @@ class ManageController extends Controller
 							$model->type = ($fitfast[3] == 'Performance') ? 1 : 2;
 							$model->forYear = $fitfast[4];
 							$model->targetJan = $fitfast[5];
+							$model->statusJan = !empty($fitfast[5]) ? 1 : 0;
 							$model->targetFeb = $fitfast[6];
+							$model->statusFeb = !empty($fitfast[6]) ? 1 : 0;
 							$model->targetMar = $fitfast[7];
+							$model->statusMar = !empty($fitfast[7]) ? 1 : 0;
 							$model->targetApr = $fitfast[8];
+							$model->statusApr = !empty($fitfast[8]) ? 1 : 0;
 							$model->targetMay = $fitfast[9];
+							$model->statusMay = !empty($fitfast[9]) ? 1 : 0;
 							$model->targetJun = $fitfast[10];
+							$model->statusJun = !empty($fitfast[10]) ? 1 : 0;
 							$model->targetJul = $fitfast[11];
+							$model->statusJul = !empty($fitfast[11]) ? 1 : 0;
 							$model->targetAug = $fitfast[12];
+							$model->statusAug = !empty($fitfast[12]) ? 1 : 0;
 							$model->targetSep = $fitfast[13];
+							$model->statusSep = !empty($fitfast[13]) ? 1 : 0;
 							$model->targetOct = $fitfast[14];
+							$model->statusOct = !empty($fitfast[14]) ? 1 : 0;
 							$model->targetNov = $fitfast[15];
+							$model->statusNov = !empty($fitfast[15]) ? 1 : 0;
 							$model->targetDec = $fitfast[16];
+							$model->statusDec = !empty($fitfast[16]) ? 1 : 0;
+//							$model->sumGrade = serialize($sumGrade);
 
 							if(!$model->save())
 							{

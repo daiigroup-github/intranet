@@ -4,62 +4,45 @@ class DefaultController extends Controller
 {
 
 	public $layout = '//layouts/cl1';
-	public $actualArray = array(
-		'actualJan',
-		'actualFeb',
-		'actualMar',
-		'actualApr',
-		'actualMay',
-		'actualJun',
-		'actualJul',
-		'actualAug',
-		'actualSep',
-		'actualOct',
-		'actualNov',
-		'actualDec'
-	);
-	public $gradeArray = array(
-		'gradeJan',
-		'gradeFeb',
-		'gradeMar',
-		'gradeApr',
-		'gradeMay',
-		'gradeJun',
-		'gradeJul',
-		'gradeAug',
-		'gradeSep',
-		'gradeOct',
-		'gradeNov',
-		'gradeDec'
-	);
-	public $targetArray = array(
-		'targetJan',
-		'targetFeb',
-		'targetMar',
-		'targetApr',
-		'targetMay',
-		'targetJun',
-		'targetJul',
-		'targetAug',
-		'targetSep',
-		'targetOct',
-		'targetNov',
-		'targetDec'
-	);
-	public $fileArray = array(
-		'fileJan',
-		'fileFeb',
-		'fileMar',
-		'fileApr',
-		'fileMay',
-		'fileJun',
-		'fileJul',
-		'fileAug',
-		'fileSep',
-		'fileOct',
-		'fileNov',
-		'fileDec'
-	);
+	public $editGradeUsersArray = array(
+		'kbw',
+		'npr');
+
+	public function filters()
+	{
+		return array(
+			'accessControl', // perform access control for CRUD operations
+			'postOnly + delete', // we only allow deletion via POST request
+		);
+	}
+
+	public function accessRules()
+	{
+		return array(
+			array(
+				'allow',
+				'actions'=>array(
+					'*'),
+				'users'=>array(
+					'@')
+			),
+//			array('allow',  // allow all users to perform 'index' and 'view' actions
+//				'actions'=>array('index','view'),
+//				'users'=>array('*'),
+//			),
+//			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+//				'actions'=>array('create','update'),
+//				'users'=>array('@'),
+//			),
+//			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+//				'actions'=>array('admin','delete'),
+//				'users'=>array('admin'),
+//			),
+//			array('deny',  // deny all users
+//				'users'=>array('*'),
+//			),
+		);
+	}
 
 	public function actionSummary()
 	{
@@ -79,19 +62,19 @@ class DefaultController extends Controller
 			{
 				$data[$i]['name'] = $companyModel->companyNameTh;
 				$data[$i]['companyId'] = $companyModel->companyId;
-				//echo $companyModel->companyNameTh . '<br />';
+//echo $companyModel->companyNameTh . '<br />';
 
 				$j = 0;
 				foreach($companyDivisions as $c)
 				{
-					//echo $c->companyDivision->description . '<br />';
+//echo $c->companyDivision->description . '<br />';
 
 					$data[$i]['division'][$j]['name'] = $c->companyDivision->description;
 					$data[$i]['division'][$j]['divisionId'] = $c->companyDivision->companyDivisionId;
 
 					$j++;
 				}
-				//echo '<hr />';
+//echo '<hr />';
 				$i++;
 			}
 		}
@@ -135,6 +118,19 @@ class DefaultController extends Controller
 
 	public function actionIndex($id = Null)
 	{
+		//check access
+		if(isset($id) && $id != Yii::app()->user->id)
+		{
+			$employee = Employee::model()->findByPk($id);
+			$managerId = $employee->managerId;
+
+			if(!in_array(Yii::app()->user->name, array(
+					'kbw')) && Yii::app()->user->id != $managerId)
+			{
+				$this->redirect(Yii::app()->baseUrl);
+			}
+		}
+
 		$id = (isset($id)) ? $id : Yii::app()->user->id;
 		$forYear = (isset($_GET['forYear']) && !empty($_GET['forYear'])) ? $_GET['forYear'] : date('Y');
 		$fitAndFastModels = FitAndFast::model()->findAll('employeeId=:employeeId AND forYear=:forYear', array(
@@ -150,12 +146,16 @@ class DefaultController extends Controller
 			$data[$fitAndFastModel->type][$i]['title'] = $fitAndFastModel->title;
 			$data[$fitAndFastModel->type][$i]['description'] = $fitAndFastModel->description;
 
-			foreach($this->targetArray as $k=> $v)
+			foreach(FitAndFast::model()->targetArray as $k=> $v)
 			{
 				$data[$fitAndFastModel->type][$i][$v] = $fitAndFastModel->{$v};
-				$data[$fitAndFastModel->type][$i][$this->actualArray[$k]] = $fitAndFastModel->{$this->actualArray[$k]};
-				$data[$fitAndFastModel->type][$i][$this->gradeArray[$k]] = $fitAndFastModel->{$this->gradeArray[$k]};
-				$data[$fitAndFastModel->type][$i][$this->fileArray[$k]] = $fitAndFastModel->{$this->fileArray[$k]};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->actualArray[$k]] = $fitAndFastModel->{FitAndFast::model()->actualArray[$k]};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->actualArray[$k] . 'DateTime'] = $fitAndFastModel->{FitAndFast::model()->actualArray[$k] . 'DateTime'};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->gradeArray[$k]] = $fitAndFastModel->{FitAndFast::model()->gradeArray[$k]};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->gradeArray[$k] . 'DateTime'] = $fitAndFastModel->{FitAndFast::model()->gradeArray[$k] . 'DateTime'};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->fileArray[$k]] = $fitAndFastModel->{FitAndFast::model()->fileArray[$k]};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->fileArray[$k] . 'DateTime'] = $fitAndFastModel->{FitAndFast::model()->fileArray[$k] . 'DateTime'};
+				$data[$fitAndFastModel->type][$i][FitAndFast::model()->statusFitAndFastArray[$k]] = $fitAndFastModel->{FitAndFast::model()->statusFitAndFastArray[$k]};
 			}
 
 			$i++;
@@ -185,14 +185,18 @@ class DefaultController extends Controller
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
-				//fileName = employeeId_fitAndFastId_$id2
+//fileName = employeeId_fitAndFastId_$id2
 				$fileName = Yii::app()->user->id . '_' . $id1 . '_' . $id2 . '.pdf';
 				$fileUrl = 'images/fitfast/' . $fileName;
 				$model->{$id2} = $fileUrl;
 
-				if($model->save())
+				$k = array_search($id2, $this->fileArray);
+				$model->{$this->statusFitAndFastArray[$k]} = FitAndFast::STATUS_UPLOADED;
+				$model->{$id2 . 'DateTime'} = new CDbExpression('NOW()');
+
+				if($model->save(false))
 				{
-					//save file
+//save file
 					if($file->saveAs(Yii::app()->basePath . '/../' . $fileUrl))
 					{
 						$flag = true;
@@ -227,99 +231,70 @@ class DefaultController extends Controller
 		{
 			$fitAndFastModel = FitAndFast::model()->findByPk($_POST['fitAndFastId']);
 
-			if($fitAndFastModel->$_POST['field'] != $_POST['grade'])
+			//find array key
+			$k = array_search($_POST['field'], FitAndFast::model()->gradeArray);
+			$sumGrade = array();
+
+			$this->writeToFile('/tmp/sumGrade', print_r($_POST, true));
+
+			if($fitAndFastModel->sumGrade == NULL)
 			{
-				if($_POST['grade'] == 'S')
+				$sumGrade = array(
+					's'=>0,
+					'S'=>0,
+					'SS'=>0,
+					'F'=>0);
+			}
+			else
+				$sumGrade = unserialize($fitAndFastModel->sumGrade);
+
+			//restore when edit
+			if($fitAndFastModel->{$_POST['field']} != NULL)
+				$sumGrade[$_POST['grade']] -= 1;
+
+			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true), 'a+');
+
+			if($fitAndFastModel->{$_POST['field']} != $_POST['grade'])
+			{
+				if($fitAndFastModel->{$_POST['field']} == NULL) //update
 				{
-					/**
-					 * Performance
-					 * 1 S if approve before 20th of next month
-					 * 0.5 S if approve after 20th of next month and before the end of next month
-					 *
-					 * Implement
-					 * 2 S if approve before 20th of next month
-					 * 1 S if approve after 20th of next month
-					 */
-					$today = strtotime(date('Y-m-d'));
-					$fitAndFastMonth = array_search($_POST['field'], $this->gradeArray);
-					$next20th = strtotime(date('Y') . '-' . ($fitAndFastModel + 1) . '-20' + ' +1 month');
-
-					$sPoint = 0;
-					$fPoint = 0;
-
-					if($today < $next20th)
+					$grade = '';
+					if($_POST['grade'] != 'F')
 					{
-						if($_POST['type'] == 1) // Performance
-						{
-							$sPoint = 1;
-						}
-						else //Implement
-						{
-							$sPoint = 2;
-						}
+						$grade = FitAndFast::model()->calculateGradeS($_POST['field'], $_POST['type']);
+						$sumGrade[$grade] += 1; //calculate S
 					}
 					else
 					{
-						//late
-						if($_POST['type'] == 1) // Performance
-						{
-							$sPoint = 0.5;
-						}
-						else //Implement
-						{
-							$sPoint = 1;
-						}
-					}
-
-					$fitAndFastModel->sumS += $sPoint;
-
-					//change grade from s or S to F
-					switch($fitAndFastModel->{$_POST['field']})
-					{
-						case 's'://0.5S
-							$fitAndFastModel->sumS -= 0.5;
-							break;
-
-						case 'S'://S
-							$fitAndFastModel->sumS -= 1;
-							break;
-
-						case 'SS'://0.5S
-							$fitAndFastModel->sumS -= 2;
-							break;
-
-						case 'F'://F
-							$fitAndFastModel->sumF -= 1;
-							break;
+						$sumGrade['F'] += 1;
+						$grade = $_POST['grade'];
 					}
 				}
-
-				if($_POST['grade'] == 'F')
+				else //edit
 				{
-					$fitAndFastModel->sumF += 1;
-
-					if($fitAndFastModel->$_POST['field'] == 'S')
-						$fitAndFastModel->sumS -= 1;
+					$grade = $_POST['grade'];
+					$sumGrade[$grade] += 1;
 				}
 
-				$fitAndFastModel->$_POST['field'] = $_POST['grade'];
+				$fitAndFastModel->$_POST['field'] = $grade;
 			}
 			else
 			{
 				$fitAndFastModel->$_POST['field'] = NULL;
-
-				if($_POST['grade'] == 'S')
-					$fitAndFastModel->sumS -= 1;
-
-				if($_POST['grade'] == 'F')
-					$fitAndFastModel->sumF -= 1;
 			}
 
-			if($fitAndFastModel->save())
+			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true), 'a+');
+			$fitAndFastModel->sumGrade = serialize($sumGrade);
+
+			$fitAndFastModel->{$_POST['field'] . 'DateTime'} = new CDbExpression('NOW()');
+
+			if($fitAndFastModel->save(false))
 			{
 				echo CJSON::encode(array(
 					'status'=>true,
-					'grade'=>$fitAndFastModel->$_POST['field']
+					'grade'=>$fitAndFastModel->$_POST['field'],
+					'dateTime'=>$fitAndFastModel->{$_POST['field'] . 'DateTime'},
+					'percent'=>FitAndFast::model()->calculatePercent($fitAndFastModel->forYear)
 				));
 			}
 			else

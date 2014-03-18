@@ -63,7 +63,7 @@
  * @property string $fileNov
  * @property string $fileDec
  */
-class FitAndFast extends CActiveRecord
+class FitAndFast extends FitAndFastMaster
 {
 
 	public $sumGradeS;
@@ -93,10 +93,85 @@ class FitAndFast extends CActiveRecord
 	public $sumGradeFOct;
 	public $sumGradeFNov;
 	public $sumGradeFDec;
-	public $forYear;
+	public $actualArray = array(
+		'actualJan',
+		'actualFeb',
+		'actualMar',
+		'actualApr',
+		'actualMay',
+		'actualJun',
+		'actualJul',
+		'actualAug',
+		'actualSep',
+		'actualOct',
+		'actualNov',
+		'actualDec'
+	);
+	public $gradeArray = array(
+		'gradeJan',
+		'gradeFeb',
+		'gradeMar',
+		'gradeApr',
+		'gradeMay',
+		'gradeJun',
+		'gradeJul',
+		'gradeAug',
+		'gradeSep',
+		'gradeOct',
+		'gradeNov',
+		'gradeDec'
+	);
+	public $targetArray = array(
+		'targetJan',
+		'targetFeb',
+		'targetMar',
+		'targetApr',
+		'targetMay',
+		'targetJun',
+		'targetJul',
+		'targetAug',
+		'targetSep',
+		'targetOct',
+		'targetNov',
+		'targetDec'
+	);
+	public $fileArray = array(
+		'fileJan',
+		'fileFeb',
+		'fileMar',
+		'fileApr',
+		'fileMay',
+		'fileJun',
+		'fileJul',
+		'fileAug',
+		'fileSep',
+		'fileOct',
+		'fileNov',
+		'fileDec'
+	);
+	public $statusFitAndFastArray = array(
+		'statusJan',
+		'statusFeb',
+		'statusMar',
+		'statusApr',
+		'statusMay',
+		'statusJun',
+		'statusJul',
+		'statusAug',
+		'statusSep',
+		'statusOct',
+		'statusNov',
+		'statusDec'
+	);
+
+	//public $forYear;
 
 	const TYPE_PERFORMANCE = 1;
 	const TYPE_IMPLEMENT = 2;
+	const STATUS_NA = 0;
+	const STATUS_CREATED = 0x1;
+	const STATUS_UPLOADED = 0x2;
+	const STATUS_GRADED = 0x4;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -118,50 +193,72 @@ class FitAndFast extends CActiveRecord
 
 	/**
 	 * @return array validation rules for model attributes.
+	  public function rules()
+	  {
+	  // NOTE: you should only define rules for those attributes that
+	  // will receive user inputs.
+	  return array(
+	  //array('createDateTime, updateDateTime, title, targetJan, targetFeb, targetMar, targetApr, targetMay, targetJun, targetJul, targetAug, targetSep, targetOct, targetNov, targetDec', 'required'),
+	  array(
+	  'status',
+	  'numerical',
+	  'integerOnly'=>true),
+	  //			array(
+	  //				'targetJan, actualJan, targetFeb, actualFeb, targetMar, actualMar, targetApr, actualApr, targetMay, actualMay, targetJun, actualJun, targetJul, actualJul, targetAug, actualAug, targetSep, actualSep, targetOct, actualOct, targetNov, actualNov, targetDec, actualDec',
+	  //				'length',
+	  //				'max'=>45
+	  //			),
+	  array(
+	  'gradeJan, gradeFeb, gradeMar, gradeApr, gradeMay, gradeJun, gradeJul, gradeAug, gradeSep, gradeOct, gradeNov, gradeDec',
+	  'length',
+	  'max'=>5
+	  ),
+	  array(
+	  'description, title, employeeId',
+	  'safe'),
+	  // The following rule is used by search().
+	  // Please remove those attributes that should not be searched.
+	  array(
+	  'fitAndFastId, status, createDateTime, updateDateTime, title, description, targetJan, actualJan, gradeJan, targetFeb, actualFeb, gradeFeb, targetMar, actualMar, gradeMar, targetApr, actualApr, gradeApr, targetMay, actualMay, gradeMay, targetJun, actualJun, gradeJun, targetJul, actualJul, gradeJul, targetAug, actualAug, gradeAug, targetSep, actualSep, gradeSep, targetOct, actualOct, gradeOct, targetNov, actualNov, gradeNov, targetDec, actualDec, gradeDec, employeeId, sumGradeS, sumGradeF, searchText, forYear, type',
+	  'safe',
+	  'on'=>'search'
+	  ),
+	  array(
+	  'createDateTime, updateDateTime',
+	  'default',
+	  'value'=>new CDbExpression('NOW()'),
+	  'on'=>'insert'
+	  ),
+	  array(
+	  'updateDateTime',
+	  'default',
+	  'value'=>new CDbExpression('NOW()'),
+	  'on'=>'update'
+	  ),
+	  );
+	  }
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			//array('createDateTime, updateDateTime, title, targetJan, targetFeb, targetMar, targetApr, targetMay, targetJun, targetJul, targetAug, targetSep, targetOct, targetNov, targetDec', 'required'),
-			array(
-				'status',
-				'numerical',
-				'integerOnly'=>true),
-//			array(
-//				'targetJan, actualJan, targetFeb, actualFeb, targetMar, actualMar, targetApr, actualApr, targetMay, actualMay, targetJun, actualJun, targetJul, actualJul, targetAug, actualAug, targetSep, actualSep, targetOct, actualOct, targetNov, actualNov, targetDec, actualDec',
-//				'length',
-//				'max'=>45
-//			),
-			array(
-				'gradeJan, gradeFeb, gradeMar, gradeApr, gradeMay, gradeJun, gradeJul, gradeAug, gradeSep, gradeOct, gradeNov, gradeDec',
-				'length',
-				'max'=>5
-			),
-			array(
-				'description, title, employeeId',
-				'safe'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array(
-				'fitAndFastId, status, createDateTime, updateDateTime, title, description, targetJan, actualJan, gradeJan, targetFeb, actualFeb, gradeFeb, targetMar, actualMar, gradeMar, targetApr, actualApr, gradeApr, targetMay, actualMay, gradeMay, targetJun, actualJun, gradeJun, targetJul, actualJul, gradeJul, targetAug, actualAug, gradeAug, targetSep, actualSep, gradeSep, targetOct, actualOct, gradeOct, targetNov, actualNov, gradeNov, targetDec, actualDec, gradeDec, employeeId, sumGradeS, sumGradeF, searchText, forYear, type',
-				'safe',
-				'on'=>'search'
-			),
-			array(
-				'createDateTime, updateDateTime',
-				'default',
-				'value'=>new CDbExpression('NOW()'),
-				'on'=>'insert'
-			),
-			array(
-				'updateDateTime',
-				'default',
-				'value'=>new CDbExpression('NOW()'),
-				'on'=>'update'
-			),
-		);
+		return CMap::mergeArray(parent::rules(), array(
+				//code here
+				array(
+					'searchText',
+					'safe',
+					'on'=>'search'),
+				array(
+					'createDateTime, updateDateTime',
+					'default',
+					'value'=>new CDbExpression('NOW()'),
+					'on'=>'insert'
+				),
+				array(
+					'updateDateTime',
+					'default',
+					'value'=>new CDbExpression('NOW()'),
+					'on'=>'update'
+				),
+		));
 	}
 
 	/**
@@ -456,16 +553,129 @@ class FitAndFast extends CActiveRecord
 
 	public function gradeByEmployeeId($employeeId, $forYear = null)
 	{
+		$forYear = isset($forYear) ? $forYear : date('Y');
 		$model = $this->find('employeeId=:employeeId AND forYear=:forYear', array(
 			':employeeId'=>$employeeId,
-			':forYear'=>isset($forYear) ? $forYear : date('Y')));
+			':forYear'=>$forYear));
 
-		$percent = (($model->sumF + $model->sumS) > 0) ? 100 * $model->sumS / ($model->sumS + $model->sumF) : 0;
+		$res = array();
 
-		return array(
-			'sumS'=>$model->sumS,
-			'sumF'=>$model->sumF,
-			'percent'=>number_format($percent, 2));
+		if($forYear == 2013)
+		{
+			$res = array(
+				'sumS'=>$model->sumS,
+				'sumF'=>$model->sumF,
+				'percent'=>(($model->sumF + $model->sumS) > 0) ? 100 * $model->sumS / ($model->sumS + $model->sumF) : 0);
+		}
+		else
+		{
+			$res = unserialize($model->sumGrade);
+			$res['percent'] = $this->calculatePercent($forYear);
+		}
+
+		return $res;
+	}
+
+	public function calculatePercent($forYear)
+	{
+		$fitAndFastModels = FitAndFast::model()->findAll('employeeId=:employeeId AND forYear=:forYear AND sumGrade IS NOT NULL', array(
+			':employeeId'=>Yii::app()->user->id,
+			':forYear'=>$forYear));
+
+		$s = 0;
+		$S = 0;
+		$SS = 0;
+		$f = 0;
+
+		foreach($fitAndFastModels as $fitAndFastModel)
+		{
+			$sumGrade = unserialize($fitAndFastModel->sumGrade);
+			$handle = fopen('/tmp/calculatePercent', 'w+');
+			fwrite($handle, print_r($sumGrade, true));
+			fclose($handle);
+			$s += $sumGrade['s'];
+			$S += $sumGrade['S'];
+			$SS += $sumGrade['SS'];
+			$f += $sumGrade['F'];
+		}
+
+		$sPoint = 0.5 * $s;
+		$SPoint = $S;
+		$SSPoint = 2 * $SS;
+		$sumPoint = $sPoint + $SPoint + $SSPoint;
+		$sum = $s + $S + (2 * $SS) + $f;
+
+		if($sum > 0 && $sumPoint > 0)
+		{
+			return number_format(100 * ($sumPoint) / ($sum), 2);
+		}
+
+		return 0;
+	}
+
+	public function calculateGradeS($field, $type)
+	{
+		/**
+		 * Performance
+		 * 1 S if approve before 20th of next month
+		 * 0.5 S if approve after 20th of next month and before the end of next month
+		 *
+		 * Implement
+		 * 2 S if approve before 20th of next month
+		 * 1 S if approve after 20th of next month
+		 */
+		$today = strtotime(date('Y-m-d'));
+		$fitAndFastMonth = array_search($field, $this->gradeArray);
+		$next20th = strtotime(date('Y') . '-' . ($fitAndFastMonth + 1) . '-20' + ' +1 month');
+		$grade = '';
+
+		if($today < $next20th)
+		{
+			if($type == 1) // Performance
+			{
+				$grade = 'S';
+			}
+			else //Implement
+			{
+				$grade = 'SS';
+			}
+		}
+		else
+		{
+			//late
+			if($type == 1) // Performance
+			{
+				$grade = 's';
+			}
+			else //Implement
+			{
+				$grade = 'S';
+			}
+		}
+
+		return $grade;
+	}
+
+	public function gradePoint($grade)
+	{
+		switch($grade)
+		{
+			case 's':
+				return 0.5;
+				break;
+
+			case 'S':
+				return 1;
+				break;
+
+			case 'SS':
+				return 2;
+				break;
+
+			case 'F':
+				return 1;
+				break;
+		}
 	}
 
 }
