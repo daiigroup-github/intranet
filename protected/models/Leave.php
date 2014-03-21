@@ -176,10 +176,11 @@ class Leave extends CActiveRecord {
 		$nextSalaryDateArray = explode("-", $nextSalaryDate->date);
 		$nextSalaryYear = $nextSalaryDateArray[0];
 		$currentYear = date("Y");
+
 		if ($nextSalaryYear > $currentYear) {
-			$criteria->condition .= " AND li.leaveDate BETWEEN " . ($nextSalaryYear - 1) . "-12-23 AND $nextSalaryYear-12-22 ";
+			$criteria->condition .= " AND li.leaveDate BETWEEN '" . ($nextSalaryYear - 1) . "-12-23' AND '$nextSalaryYear-12-22' ";
 		} else {
-			$criteria->condition .= " AND li.leaveDate BETWEEN " . ($currentYear - 1) . "-12-23 AND $currentYear-12-22 ";
+			$criteria->condition .= " AND li.leaveDate BETWEEN '" . ($currentYear - 1) . "-12-23' AND '$currentYear-12-22' ";
 		}
 		return $criteria;
 	}
@@ -210,7 +211,7 @@ class Leave extends CActiveRecord {
 		$criteria->params = array(
 			':leaveType' => $leaveType,
 			':employeeId' => $employeeId);
-		$this->getLeaveYear($criteria);
+		$criteria = $this->getLeaveYear($criteria);
 
 		//Controller::writeTofile('/tmp/leave', print_r($criteria, true));
 

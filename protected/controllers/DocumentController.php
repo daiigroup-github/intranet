@@ -1661,8 +1661,15 @@ class DocumentController extends Controller {
 
 	public function showItemField($itemField) {
 		$item = '';
+		$i = 1;
 		foreach ($itemField as $k => $v) {
 			$item .= '<div class="alert alert-info">';
+			$item .= '<div class="control-group">';
+			$item .= '<label class="control-label">ลำดับ</label>';
+			$item .= '<div class="controls">';
+			$item .= "$i";
+			$item .= '</div>';
+			$item .= '</div>';
 			if ($itemField[$k]['canEdit']) {
 				foreach ($itemField[$k]['fieldName'] as $k1 => $v1) {
 					$item .= '<div class="control-group">';
@@ -1696,6 +1703,7 @@ class DocumentController extends Controller {
 			}
 
 			$item .= '</div>';
+			$i++;
 		}
 
 		return $item;
