@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -75,11 +76,11 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
 	 */
 	public function setAddress($address)
 	{
-		if(is_null($address))
+		if (is_null($address))
 		{
 			$this->_address = null;
 		}
-		elseif('' == $address || preg_match('/^' . $this->getGrammar('addr-spec') . '$/D', $address))
+		elseif ('' == $address || preg_match('/^' . $this->getGrammar('addr-spec') . '$/D', $address))
 		{
 			$this->_address = $address;
 		}
@@ -111,9 +112,9 @@ class Swift_Mime_Headers_PathHeader extends Swift_Mime_Headers_AbstractHeader
 	 */
 	public function getFieldBody()
 	{
-		if(!$this->getCachedValue())
+		if (!$this->getCachedValue())
 		{
-			if(isset($this->_address))
+			if (isset($this->_address))
 			{
 				$this->setCachedValue('<' . $this->_address . '>');
 			}

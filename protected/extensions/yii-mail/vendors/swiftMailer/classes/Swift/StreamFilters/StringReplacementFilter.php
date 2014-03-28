@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -42,9 +43,9 @@ class Swift_StreamFilters_StringReplacementFilter implements Swift_StreamFilter
 	public function shouldBuffer($buffer)
 	{
 		$endOfBuffer = substr($buffer, -1);
-		foreach((array) $this->_search as $needle)
+		foreach ((array) $this->_search as $needle)
 		{
-			if(false !== strpos($needle, $endOfBuffer))
+			if (false !== strpos($needle, $endOfBuffer))
 			{
 				return true;
 			}

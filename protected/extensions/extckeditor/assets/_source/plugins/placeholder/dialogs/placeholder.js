@@ -32,7 +32,7 @@
 													validate: CKEDITOR.dialog.validate.notEmpty(lang.textMissing),
 													setup: function(element)
 													{
-														if(isEdit)
+														if (isEdit)
 															this.setValue(element.getText().slice(2, -2));
 													},
 													commit: function(element)
@@ -47,7 +47,7 @@
 							],
 					onShow: function()
 					{
-						if(isEdit)
+						if (isEdit)
 							this._element = CKEDITOR.plugins.placeholder.getSelectedPlaceHoder(editor);
 
 						this.setupContent(this._element);

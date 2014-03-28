@@ -61,19 +61,19 @@ class DocumentTemplate extends CActiveRecord
 			array(
 				'status, isItem, fieldType',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'documentTypeId, documentTemplateFieldId, documentControlTypeId, documentControlDataId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'documentItemField',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'editState, addState',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			array(
 				'fieldType ',
 				'safe',
@@ -83,7 +83,7 @@ class DocumentTemplate extends CActiveRecord
 			array(
 				'id, documentTypeId, documentTemplateFieldId, documentControlTypeId, status,oldStatus, createDateTime , documentControlDataId, isItem, documentItemField , items, editState, addState',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -95,19 +95,19 @@ class DocumentTemplate extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'documentTemplateField'=>array(
+			'documentTemplateField' => array(
 				self::BELONGS_TO,
 				'DocumentTemplateField',
 				'documentTemplateFieldId'),
-			'documentType'=>array(
+			'documentType' => array(
 				self::BELONGS_TO,
 				'DocumentType',
 				'documentTypeId'),
-			'documentControlType'=>array(
+			'documentControlType' => array(
 				self::BELONGS_TO,
 				'DocumentControlType',
 				'documentControlTypeId'),
-			'documentControlData'=>array(
+			'documentControlData' => array(
 				self::BELONGS_TO,
 				'DocumentControlData',
 				'documentControlDataId'),
@@ -120,17 +120,17 @@ class DocumentTemplate extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'documentTypeId'=>'Document Type',
-			'documentTemplateFieldId'=>'ชื่อฟิลด์ ',
-			'documentControlTypeId'=>'ประเภทของฟิลด์ ',
-			'status'=>'สถานะ',
-			'createDateTime'=>'Create Date Time',
-			'documentControlDataId'=>'ข้อมูลของฟิลด์',
-			'isItem'=>'Is Item',
-			'documentItemField'=>'ฟิลด์ของ item',
-			'editState'=>'State ที่แก้ไขได้',
-			'addState'=>'State ที่เพิ่มได้',
+			'id' => 'ID',
+			'documentTypeId' => 'Document Type',
+			'documentTemplateFieldId' => 'ชื่อฟิลด์ ',
+			'documentControlTypeId' => 'ประเภทของฟิลด์ ',
+			'status' => 'สถานะ',
+			'createDateTime' => 'Create Date Time',
+			'documentControlDataId' => 'ข้อมูลของฟิลด์',
+			'isItem' => 'Is Item',
+			'documentItemField' => 'ฟิลด์ของ item',
+			'editState' => 'State ที่แก้ไขได้',
+			'addState' => 'State ที่เพิ่มได้',
 		);
 	}
 
@@ -158,7 +158,7 @@ class DocumentTemplate extends CActiveRecord
 		$criteria->compare('addState', $this->editState, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -199,3 +199,4 @@ class DocumentTemplate extends CActiveRecord
 	}
 
 }
+

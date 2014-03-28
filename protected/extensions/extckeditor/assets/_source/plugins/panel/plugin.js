@@ -4,12 +4,12 @@
  */
 
 		CKEDITOR.plugins.add('panel',
-				{
-					beforeInit: function(editor)
-					{
-						editor.ui.addHandler(CKEDITOR.UI_PANEL, CKEDITOR.ui.panel.handler);
-					}
-				});
+		{
+			beforeInit: function(editor)
+			{
+				editor.ui.addHandler(CKEDITOR.UI_PANEL, CKEDITOR.ui.panel.handler);
+			}
+		});
 
 /**
  * Panel UI element.
@@ -21,7 +21,7 @@ CKEDITOR.UI_PANEL = 'panel';
 CKEDITOR.ui.panel = function(document, definition)
 {
 	// Copy all definition properties to this object.
-	if(definition)
+	if (definition)
 		CKEDITOR.tools.extend(this, definition);
 
 	// Set defaults.
@@ -86,13 +86,13 @@ CKEDITOR.ui.panel.prototype =
 						' role="presentation"' +
 						' class="cke_panel cke_', editor.lang.dir);
 
-				if(this.className)
+				if (this.className)
 					output.push(' ', this.className);
 
 				output.push(
 						'">');
 
-				if(this.forceIFrame || this.css.length)
+				if (this.forceIFrame || this.css.length)
 				{
 					output.push(
 							'<iframe id="', id, '_frame"' +
@@ -124,9 +124,9 @@ CKEDITOR.ui.panel.prototype =
 			{
 				var holder = this._.holder;
 
-				if(!holder)
+				if (!holder)
 				{
-					if(this.forceIFrame || this.css.length)
+					if (this.forceIFrame || this.css.length)
 					{
 						var iframe = this.document.getById(this.id + '_frame'),
 								parentDiv = iframe.getParent(),
@@ -145,7 +145,7 @@ CKEDITOR.ui.panel.prototype =
 						var onLoad = CKEDITOR.tools.addFunction(CKEDITOR.tools.bind(function(ev)
 						{
 							this.isLoaded = true;
-							if(this.onLoad)
+							if (this.onLoad)
 								this.onLoad();
 						}, this));
 
@@ -174,16 +174,16 @@ CKEDITOR.ui.panel.prototype =
 									dir = this.document.getById(this.id).getAttribute('dir');
 
 							// Delegate key processing to block.
-							if(this._.onKeyDown && this._.onKeyDown(keystroke) === false)
+							if (this._.onKeyDown && this._.onKeyDown(keystroke) === false)
 							{
 								evt.data.preventDefault();
 								return;
 							}
 
 							// ESC/ARROW-LEFT(ltr) OR ARROW-RIGHT(rtl)
-							if(keystroke == 27 || keystroke == (dir == 'rtl' ? 39 : 37))
+							if (keystroke == 27 || keystroke == (dir == 'rtl' ? 39 : 37))
 							{
-								if(this.onEscape && this.onEscape(keystroke) === false)
+								if (this.onEscape && this.onEscape(keystroke) === false)
 									evt.data.preventDefault();
 							}
 						},
@@ -206,7 +206,7 @@ CKEDITOR.ui.panel.prototype =
 				block = this._.blocks[ name ] = block instanceof CKEDITOR.ui.panel.block ? block
 						: new CKEDITOR.ui.panel.block(this.getHolderElement(), block);
 
-				if(!this._.currentBlock)
+				if (!this._.currentBlock)
 					this.showBlock(name);
 
 				return block;
@@ -226,7 +226,7 @@ CKEDITOR.ui.panel.prototype =
 				var holder = !this.forceIFrame || CKEDITOR.env.ie ?
 						this._.holder : this.document.getById(this.id + '_frame');
 
-				if(current)
+				if (current)
 				{
 					// Clean up the current block's effects on holder.
 					holder.removeAttributes(current.attributes);
@@ -273,10 +273,10 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 						}));
 
 				// Copy all definition properties to this object.
-				if(blockDefinition)
+				if (blockDefinition)
 					CKEDITOR.tools.extend(this, blockDefinition);
 
-				if(!this.attributes.title)
+				if (!this.attributes.title)
 					this.attributes.title = this.attributes[ 'aria-label' ];
 
 				this.keys = {};
@@ -292,14 +292,14 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 				 */
 				markItem: function(index)
 				{
-					if(index == -1)
+					if (index == -1)
 						return;
 					var links = this.element.getElementsByTag('a');
 					var item = links.getItem(this._.focusIndex = index);
 
 					// Safari need focus on the iframe window first(#3389), but we need
 					// lock the blur to avoid hiding the panel.
-					if(CKEDITOR.env.webkit || CKEDITOR.env.opera)
+					if (CKEDITOR.env.webkit || CKEDITOR.env.opera)
 						item.getDocument().getWindow().focus();
 					item.focus();
 
@@ -314,13 +314,13 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 						},
 						hide: function()
 						{
-							if(!this.onHide || this.onHide.call(this) !== true)
+							if (!this.onHide || this.onHide.call(this) !== true)
 								this.element.setStyle('display', 'none');
 						},
 						onKeyDown: function(keystroke)
 						{
 							var keyAction = this.keys[ keystroke ];
-							switch(keyAction)
+							switch (keyAction)
 							{
 								// Move forward.
 								case 'next' :
@@ -328,12 +328,12 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 											links = this.element.getElementsByTag('a'),
 											link;
 
-									while((link = links.getItem(++index)))
+									while ((link = links.getItem(++index)))
 									{
 										// Move the focus only if the element is marked with
 										// the _cke_focus and it it's visible (check if it has
 										// width).
-										if(link.getAttribute('_cke_focus') && link.$.offsetWidth)
+										if (link.getAttribute('_cke_focus') && link.$.offsetWidth)
 										{
 											this._.focusIndex = index;
 											link.focus();
@@ -347,12 +347,12 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 									index = this._.focusIndex;
 									links = this.element.getElementsByTag('a');
 
-									while(index > 0 && (link = links.getItem(--index)))
+									while (index > 0 && (link = links.getItem(--index)))
 									{
 										// Move the focus only if the element is marked with
 										// the _cke_focus and it it's visible (check if it has
 										// width).
-										if(link.getAttribute('_cke_focus') && link.$.offsetWidth)
+										if (link.getAttribute('_cke_focus') && link.$.offsetWidth)
 										{
 											this._.focusIndex = index;
 											link.focus();
@@ -366,7 +366,7 @@ CKEDITOR.ui.panel.block = CKEDITOR.tools.createClass(
 									index = this._.focusIndex;
 									link = index >= 0 && this.element.getElementsByTag('a').getItem(index);
 
-									if(link)
+									if (link)
 										link.$[ keyAction ] ? link.$[ keyAction ]() : link.$[ 'on' + keyAction ]();
 
 									return false;

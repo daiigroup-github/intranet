@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-	'htmlOptions'=>array(
-		'class'=>'form-horizontal well')
+	'action' => Yii::app()->createUrl($this->route),
+	'method' => 'get',
+	'htmlOptions' => array(
+		'class' => 'form-horizontal well')
 	));
 ?>
 
@@ -13,29 +13,29 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowGroupId', array(
-				'size'=>20,
-				'maxlength'=>20));
+				'size' => 20,
+				'maxlength' => 20));
 			?>
 		</div>
-	</div>
+	</div>	
 	<div class="control-group">
 		<label class="control-label"><?php echo $form->label($model, 'workflowGroupName'); ?></label>
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowGroupName', array(
-				'size'=>60,
-				'maxlength'=>80));
+				'size' => 60,
+				'maxlength' => 80));
 			?>
 		</div>
-	</div>
+	</div>	
 	<div class="control-group">
 		<div class="controls">
 			<?php
 			echo CHtml::submitButton('Search', array(
-				'class'=>'btn btn-primary'));
+				'class' => 'btn btn-primary'));
 			?>
 		</div>
-	</div>
+	</div>	
 </fieldset>
 
 <?php $this->endWidget(); ?>

@@ -25,7 +25,7 @@ class InstallController extends RController
 	 */
 	public function init()
 	{
-		if($this->module->install !== true)
+		if ($this->module->install !== true)
 			$this->redirect(Yii::app()->homeUrl);
 
 		$this->_authorizer = $this->module->getAuthorizer();
@@ -58,13 +58,13 @@ class InstallController extends RController
 		return array(
 			array(
 				'allow', // Allow superusers to access Rights
-				'actions'=>array(
+				'actions' => array(
 					'confirm',
 					'run',
 					'error',
 					'ready',
 				),
-				'users'=>$this->_authorizer->getSuperusers(),
+				'users' => $this->_authorizer->getSuperusers(),
 			),
 			/* array('deny', // Deny all users
 			  'users'=>array('*'),
@@ -87,13 +87,13 @@ class InstallController extends RController
 	public function actionRun()
 	{
 		// Make sure the user is not a guest.
-		if(Yii::app()->user->isGuest === false)
+		if (Yii::app()->user->isGuest === false)
 		{
 			// Make sure that the module is not already installed.
-			if(isset($_GET['confirm']) === true || $this->_installer->installed === false)
+			if (isset($_GET['confirm']) === true || $this->_installer->installed === false)
 			{
 				// Run the installer and check for an error.
-				if($this->_installer->run() === RInstaller::ERROR_NONE)
+				if ($this->_installer->run() === RInstaller::ERROR_NONE)
 				{
 					// Mark the user to have superuser privileges.
 					Yii::app()->user->isSuperuser = true;

@@ -7,7 +7,7 @@ $this->breadcrumbs = array(
 
 <h1>Contact Us</h1>
 
-<?php if(Yii::app()->user->hasFlash('contact')): ?>
+<?php if (Yii::app()->user->hasFlash('contact')): ?>
 
 	<div class="flash-success">
 		<?php echo Yii::app()->user->getFlash('contact'); ?>
@@ -23,10 +23,10 @@ $this->breadcrumbs = array(
 
 		<?php
 		$form = $this->beginWidget('CActiveForm', array(
-			'id'=>'contact-form',
-			'enableClientValidation'=>true,
-			'clientOptions'=>array(
-				'validateOnSubmit'=>true,
+			'id' => 'contact-form',
+			'enableClientValidation' => true,
+			'clientOptions' => array(
+				'validateOnSubmit' => true,
 			),
 		));
 		?>
@@ -51,8 +51,8 @@ $this->breadcrumbs = array(
 			<?php echo $form->labelEx($model, 'subject'); ?>
 			<?php
 			echo $form->textField($model, 'subject', array(
-				'size'=>60,
-				'maxlength'=>128));
+				'size' => 60,
+				'maxlength' => 128));
 			?>
 			<?php echo $form->error($model, 'subject'); ?>
 		</div>
@@ -61,13 +61,13 @@ $this->breadcrumbs = array(
 			<?php echo $form->labelEx($model, 'body'); ?>
 			<?php
 			echo $form->textArea($model, 'body', array(
-				'rows'=>6,
-				'cols'=>50));
+				'rows' => 6,
+				'cols' => 50));
 			?>
 			<?php echo $form->error($model, 'body'); ?>
 		</div>
 
-		<?php if(CCaptcha::checkRequirements()): ?>
+		<?php if (CCaptcha::checkRequirements()): ?>
 			<div class="row">
 				<?php echo $form->labelEx($model, 'verifyCode'); ?>
 				<div>

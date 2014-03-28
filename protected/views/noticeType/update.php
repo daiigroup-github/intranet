@@ -1,30 +1,30 @@
 <?php
 $this->breadcrumbs = array(
-	'Notice Types'=>array(
+	'Notice Types' => array(
 		'index'),
-	$model->noticeTypeId=>array(
+	$model->noticeTypeId => array(
 		'view',
-		'id'=>$model->noticeTypeId),
+		'id' => $model->noticeTypeId),
 	'Update',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List NoticeType',
-		'url'=>array(
+		'label' => 'List NoticeType',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create NoticeType',
-		'url'=>array(
+		'label' => 'Create NoticeType',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'View NoticeType',
-		'url'=>array(
+		'label' => 'View NoticeType',
+		'url' => array(
 			'view',
-			'id'=>$model->noticeTypeId)),
+			'id' => $model->noticeTypeId)),
 	array(
-		'label'=>'Manage NoticeType',
-		'url'=>array(
+		'label' => 'Manage NoticeType',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -33,5 +33,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

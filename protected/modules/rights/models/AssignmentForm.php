@@ -30,7 +30,7 @@ class AssignmentForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'itemname'=>Rights::t('core', 'Authorization item'),
+			'itemname' => Rights::t('core', 'Authorization item'),
 		);
 	}
 

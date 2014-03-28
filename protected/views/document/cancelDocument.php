@@ -1,10 +1,10 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'document-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'enctype'=>'multipart/form-data',
-		'class'=>'form-horizontal',
+	'id' => 'document-form',
+	'enableAjaxValidation' => false,
+	'htmlOptions' => array(
+		'enctype' => 'multipart/form-data',
+		'class' => 'form-horizontal',
 	)
 	));
 ?>
@@ -19,8 +19,8 @@ $form = $this->beginWidget('CActiveForm', array(
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton('ลบเอกสาร', array(
-		'confirm'=>'คุณต้องการลบเอกสารหรือไม่ ?',
-		'class'=>'btn btn-danger'));
+		'confirm' => 'คุณต้องการลบเอกสารหรือไม่ ?',
+		'class' => 'btn btn-danger'));
 	?>
 </div>
 

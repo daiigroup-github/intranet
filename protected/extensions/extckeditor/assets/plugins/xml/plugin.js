@@ -7,22 +7,22 @@
 			CKEDITOR.plugins.add('xml', {});
 			CKEDITOR.xml = function(a) {
 				var b = null;
-				if(typeof a == 'object')
+				if (typeof a == 'object')
 					b = a;
 				else {
 					var c = (a || '').replace(/&nbsp;/g, '\xa0');
-					if(window.DOMParser)
+					if (window.DOMParser)
 						b = new DOMParser().parseFromString(c, 'text/xml');
-					else if(window.ActiveXObject) {
+					else if (window.ActiveXObject) {
 						try {
 							b = new ActiveXObject('MSXML2.DOMDocument');
-						} catch(d) {
+						} catch (d) {
 							try {
 								b = new ActiveXObject('Microsoft.XmlDom');
-							} catch(d) {
+							} catch (d) {
 							}
 						}
-						if(b) {
+						if (b) {
 							b.async = false;
 							b.resolveExternals = false;
 							b.validateOnParse = false;
@@ -34,36 +34,36 @@
 			};
 			CKEDITOR.xml.prototype = {selectSingleNode: function(a, b) {
 					var c = this.baseXml;
-					if(b || (b = c))
-						if(CKEDITOR.env.ie || b.selectSingleNode)
+					if (b || (b = c))
+						if (CKEDITOR.env.ie || b.selectSingleNode)
 							return b.selectSingleNode(a);
-						else if(c.evaluate) {
+						else if (c.evaluate) {
 							var d = c.evaluate(a, b, null, 9, null);
 							return d && d.singleNodeValue || null;
 						}
 					return null;
 				}, selectNodes: function(a, b) {
 					var c = this.baseXml, d = [];
-					if(b || (b = c))
-						if(CKEDITOR.env.ie || b.selectNodes)
+					if (b || (b = c))
+						if (CKEDITOR.env.ie || b.selectNodes)
 							return b.selectNodes(a);
-						else if(c.evaluate) {
+						else if (c.evaluate) {
 							var e = c.evaluate(a, b, null, 5, null);
-							if(e) {
+							if (e) {
 								var f;
-								while(f = e.iterateNext())
+								while (f = e.iterateNext())
 									d.push(f);
 							}
 						}
 					return d;
 				}, getInnerXml: function(a, b) {
 					var c = this.selectSingleNode(a, b), d = [];
-					if(c) {
+					if (c) {
 						c = c.firstChild;
-						while(c) {
-							if(c.xml)
+						while (c) {
+							if (c.xml)
 								d.push(c.xml);
-							else if(window.XMLSerializer)
+							else if (window.XMLSerializer)
 								d.push(new XMLSerializer().serializeToString(c));
 							c = c.nextSibling;
 						}

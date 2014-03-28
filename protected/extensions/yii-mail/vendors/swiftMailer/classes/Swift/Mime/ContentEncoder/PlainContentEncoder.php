@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -54,7 +55,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 	 */
 	public function encodeString($string, $firstLineOffset = 0, $maxLineLength = 0)
 	{
-		if($this->_canonical)
+		if ($this->_canonical)
 		{
 			$string = $this->_canonicalize($string);
 		}
@@ -72,10 +73,10 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 	Swift_OutputByteStream $os, Swift_InputByteStream $is, $firstLineOffset = 0, $maxLineLength = 0)
 	{
 		$leftOver = '';
-		while(false !== $bytes = $os->read(8192))
+		while (false !== $bytes = $os->read(8192))
 		{
 			$toencode = $leftOver . $bytes;
-			if($this->_canonical)
+			if ($this->_canonical)
 			{
 				$toencode = $this->_canonicalize($toencode);
 			}
@@ -86,7 +87,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 
 			$is->write($wrapped);
 		}
-		if(strlen($leftOver))
+		if (strlen($leftOver))
 		{
 			$is->write($leftOver);
 		}
@@ -106,7 +107,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 	 */
 	public function charsetChanged($charset)
 	{
-
+		
 	}
 
 	// -- Private methods
@@ -121,7 +122,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 	 */
 	private function _safeWordwrap($string, $length = 75, $le = "\r\n")
 	{
-		if(0 >= $length)
+		if (0 >= $length)
 		{
 			return $string;
 		}
@@ -132,7 +133,7 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 			);
 		$lineCount = 0;
 
-		foreach($originalLines as $originalLine)
+		foreach ($originalLines as $originalLine)
 		{
 			$lines[] = '';
 			$currentLine = & $lines[$lineCount++];
@@ -140,9 +141,9 @@ class Swift_Mime_ContentEncoder_PlainContentEncoder implements Swift_Mime_Conten
 			//$chunks = preg_split('/(?<=[\ \t,\.!\?\-&\+\/])/', $originalLine);
 			$chunks = preg_split('/(?<=\s)/', $originalLine);
 
-			foreach($chunks as $chunk)
+			foreach ($chunks as $chunk)
 			{
-				if(0 != strlen($currentLine) && strlen($currentLine . $chunk) > $length)
+				if (0 != strlen($currentLine) && strlen($currentLine . $chunk) > $length)
 				{
 					$lines[] = '';
 					$currentLine = & $lines[$lineCount++];

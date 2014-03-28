@@ -16,7 +16,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var regex = new RegExp(regexS);
 				var results = regex.exec(window.location.href);
 
-				if(results)
+				if (results)
 					return results[ 1 ];
 				else
 					return '';
@@ -29,13 +29,13 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 				var destination = window.parent.parent;
 				try
 				{
-					if(destination.XDTMaster)
+					if (destination.XDTMaster)
 					{
 						var t = destination.XDTMaster.read([gup('cmd'), gup('data')]);
 						window.clearInterval(interval);
 					}
 				}
-				catch(e) {
+				catch (e) {
 				}
 			}
 

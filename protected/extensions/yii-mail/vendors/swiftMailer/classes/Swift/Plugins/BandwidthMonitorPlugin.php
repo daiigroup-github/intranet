@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -47,7 +48,7 @@ class Swift_Plugins_BandwidthMonitorPlugin implements Swift_Events_SendListener,
 	 */
 	public function beforeSendPerformed(Swift_Events_SendEvent $evt)
 	{
-
+		
 	}
 
 	/**
@@ -87,7 +88,7 @@ class Swift_Plugins_BandwidthMonitorPlugin implements Swift_Events_SendListener,
 	public function write($bytes)
 	{
 		$this->_out += strlen($bytes);
-		foreach($this->_mirrors as $stream)
+		foreach ($this->_mirrors as $stream)
 		{
 			$stream->write($bytes);
 		}
@@ -98,14 +99,14 @@ class Swift_Plugins_BandwidthMonitorPlugin implements Swift_Events_SendListener,
 	 */
 	public function commit()
 	{
-
+		
 	}
 
 	/**
 	 * Attach $is to this stream.
 	 * The stream acts as an observer, receiving all data that is written.
 	 * All {@link write()} and {@link flushBuffers()} operations will be mirrored.
-	 *
+	 * 
 	 * @param Swift_InputByteStream $is
 	 */
 	public function bind(Swift_InputByteStream $is)
@@ -118,14 +119,14 @@ class Swift_Plugins_BandwidthMonitorPlugin implements Swift_Events_SendListener,
 	 * If $is is not bound, no errors will be raised.
 	 * If the stream currently has any buffered data it will be written to $is
 	 * before unbinding occurs.
-	 *
+	 * 
 	 * @param Swift_InputByteStream $is
 	 */
 	public function unbind(Swift_InputByteStream $is)
 	{
-		foreach($this->_mirrors as $k=> $stream)
+		foreach ($this->_mirrors as $k => $stream)
 		{
-			if($is === $stream)
+			if ($is === $stream)
 			{
 				unset($this->_mirrors[$k]);
 			}
@@ -137,7 +138,7 @@ class Swift_Plugins_BandwidthMonitorPlugin implements Swift_Events_SendListener,
 	 */
 	public function flushBuffers()
 	{
-		foreach($this->_mirrors as $stream)
+		foreach ($this->_mirrors as $stream)
 		{
 			$stream->flushBuffers();
 		}

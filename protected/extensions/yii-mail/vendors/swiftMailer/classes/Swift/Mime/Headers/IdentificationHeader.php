@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -88,7 +89,7 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
 	 */
 	public function getId()
 	{
-		if(count($this->_ids) > 0)
+		if (count($this->_ids) > 0)
 		{
 			return $this->_ids[0];
 		}
@@ -104,9 +105,9 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
 		$actualIds = array(
 			);
 
-		foreach($ids as $k=> $id)
+		foreach ($ids as $k => $id)
 		{
-			if(preg_match(
+			if (preg_match(
 					'/^' . $this->getGrammar('id-left') . '@' .
 					$this->getGrammar('id-right') . '$/D', $id
 				))
@@ -144,12 +145,12 @@ class Swift_Mime_Headers_IdentificationHeader extends Swift_Mime_Headers_Abstrac
 	 */
 	public function getFieldBody()
 	{
-		if(!$this->getCachedValue())
+		if (!$this->getCachedValue())
 		{
 			$angleAddrs = array(
 				);
 
-			foreach($this->_ids as $id)
+			foreach ($this->_ids as $id)
 			{
 				$angleAddrs[] = '<' . $id . '>';
 			}

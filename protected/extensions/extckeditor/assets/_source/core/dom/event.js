@@ -15,14 +15,14 @@
 		 * @example
 		 */
 		CKEDITOR.dom.event = function(domEvent)
-		{
-			/**
-			 * The native DOM event object represented by this class instance.
-			 * @type Object
-			 * @example
-			 */
-			this.$ = domEvent;
-		};
+{
+	/**
+	 * The native DOM event object represented by this class instance.
+	 * @type Object
+	 * @example
+	 */
+	this.$ = domEvent;
+};
 
 CKEDITOR.dom.event.prototype =
 		{
@@ -50,13 +50,13 @@ CKEDITOR.dom.event.prototype =
 			{
 				var keystroke = this.getKey();
 
-				if(this.$.ctrlKey || this.$.metaKey)
+				if (this.$.ctrlKey || this.$.metaKey)
 					keystroke += CKEDITOR.CTRL;
 
-				if(this.$.shiftKey)
+				if (this.$.shiftKey)
 					keystroke += CKEDITOR.SHIFT;
 
-				if(this.$.altKey)
+				if (this.$.altKey)
 					keystroke += CKEDITOR.ALT;
 
 				return keystroke;
@@ -79,18 +79,18 @@ CKEDITOR.dom.event.prototype =
 			preventDefault: function(stopPropagation)
 			{
 				var $ = this.$;
-				if($.preventDefault)
+				if ($.preventDefault)
 					$.preventDefault();
 				else
 					$.returnValue = false;
 
-				if(stopPropagation)
+				if (stopPropagation)
 					this.stopPropagation();
 			},
 			stopPropagation: function()
 			{
 				var $ = this.$;
-				if($.stopPropagation)
+				if ($.stopPropagation)
 					$.stopPropagation();
 				else
 					$.cancelBubble = true;

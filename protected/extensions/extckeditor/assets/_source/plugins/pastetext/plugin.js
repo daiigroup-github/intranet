@@ -18,14 +18,14 @@
 											function()
 											{
 												var clipboardText = window.clipboardData.getData('Text');
-												if(!clipboardText)
+												if (!clipboardText)
 													throw 0;
 												return clipboardText;
 											}
 									// Any other approach that's working...
 									);
 
-									if(!clipboardText)   // Clipboard access privilege is not granted.
+									if (!clipboardText)   // Clipboard access privilege is not granted.
 									{
 										editor.openDialog('pastetext');
 										return false;
@@ -53,14 +53,14 @@
 
 									CKEDITOR.dialog.add(commandName, CKEDITOR.getUrl(this.path + 'dialogs/pastetext.js'));
 
-									if(editor.config.forcePasteAsPlainText)
+									if (editor.config.forcePasteAsPlainText)
 									{
 										// Intercept the default pasting process.
 										editor.on('beforeCommandExec', function(evt)
 										{
 											var mode = evt.data.commandData;
 											// Do NOT overwrite if HTML format is explicitly requested.
-											if(evt.data.name == 'paste' && mode != 'html')
+											if (evt.data.name == 'paste' && mode != 'html')
 											{
 												editor.execCommand('pastetext');
 												evt.cancel();

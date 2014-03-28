@@ -23,10 +23,10 @@
 							thick: '2px'
 						};
 
-				if(computed.indexOf('px') < 0)
+				if (computed.indexOf('px') < 0)
 				{
 					// look up keywords
-					if(computed in borderMap && element.getComputedStyle('border-style') != 'none')
+					if (computed in borderMap && element.getComputedStyle('border-style') != 'none')
 						computed = borderMap[ computed ];
 					else
 						computed = 0;
@@ -47,7 +47,7 @@
 					$tr = $rows[ i ];
 					cellsCount = $tr.cells.length;
 
-					if(cellsCount > maxCells)
+					if (cellsCount > maxCells)
 					{
 						maxCells = cellsCount;
 						$elected = $tr;
@@ -92,7 +92,7 @@
 							pillarLeft = x + td.$.offsetWidth - getBorderWidth(td, 'right');
 
 					// Calculate positions based on the next cell, if available.
-					if(nextTd)
+					if (nextTd)
 					{
 						x = nextTd.getDocumentPosition().x;
 
@@ -133,7 +133,7 @@
 				{
 					var pillar = pillars[ i ];
 
-					if(positionX >= pillar.x && positionX <= (pillar.x + pillar.width))
+					if (positionX >= pillar.x && positionX <= (pillar.x + pillar.width))
 						return pillar;
 				}
 
@@ -194,7 +194,7 @@
 						leftCell = leftCell && new CKEDITOR.dom.element(leftCell);
 						rightCell = rightCell && new CKEDITOR.dom.element(rightCell);
 
-						if(!leftCell || !rightCell || !leftCell.equals(rightCell))
+						if (!leftCell || !rightCell || !leftCell.equals(rightCell))
 						{
 							leftCell && (leftMinSize = Math.min(leftMinSize, getWidth(leftCell)));
 							rightCell && (rightMinSize = Math.min(rightMinSize, getWidth(rightCell)));
@@ -259,15 +259,15 @@
 									rightCell && rightCell.setStyle('width', pxUnit(Math.max(rightOldWidth - sizeShift, 0)));
 
 									// If we're in the last cell, we need to resize the table as well
-									if(tableWidth)
+									if (tableWidth)
 										table.setStyle('width', pxUnit(tableWidth + sizeShift * (rtl ? -1 : 1)));
 								}
 						, 0,
 								this, [
-									leftCell, leftCell && getWidth(leftCell),
-									rightCell, rightCell && getWidth(rightCell),
-									(!leftCell || !rightCell) && (getWidth(table) + getBorderWidth(table, 'left') + getBorderWidth(table, 'right')),
-									currentShift]);
+							leftCell, leftCell && getWidth(leftCell),
+							rightCell, rightCell && getWidth(rightCell),
+							(!leftCell || !rightCell) && (getWidth(table) + getBorderWidth(table, 'left') + getBorderWidth(table, 'right')),
+							currentShift]);
 					}
 				}
 
@@ -301,17 +301,17 @@
 
 				// Except on IE6/7 (#5890), place the resizer after body to prevent it
 				// from being editable.
-				if(!needsIEHacks)
+				if (!needsIEHacks)
 					document.getDocumentElement().append(resizer);
 
 				this.attachTo = function(targetPillar)
 				{
 					// Accept only one pillar at a time.
-					if(isResizing)
+					if (isResizing)
 						return;
 
 					// On IE6/7, we append the resizer everytime we need it. (#5890)
-					if(needsIEHacks)
+					if (needsIEHacks)
 					{
 						document.getBody().append(resizer);
 						currentShift = 0;
@@ -343,10 +343,10 @@
 
 				var move = this.move = function(posX)
 				{
-					if(!pillar)
+					if (!pillar)
 						return 0;
 
-					if(!isResizing && (posX < pillar.x || posX > (pillar.x + pillar.width)))
+					if (!isResizing && (posX < pillar.x || posX > (pillar.x + pillar.width)))
 					{
 						detach();
 						return 0;
@@ -354,9 +354,9 @@
 
 					var resizerNewPosition = posX - Math.round(resizer.$.offsetWidth / 2);
 
-					if(isResizing)
+					if (isResizing)
 					{
-						if(resizerNewPosition == leftShiftBoundary || resizerNewPosition == rightShiftBoundary)
+						if (resizerNewPosition == leftShiftBoundary || resizerNewPosition == rightShiftBoundary)
 							return 1;
 
 						resizerNewPosition = Math.max(resizerNewPosition, leftShiftBoundary);
@@ -375,16 +375,16 @@
 			{
 				var target = evt.data.getTarget();
 
-				if(evt.name == 'mouseout')
+				if (evt.name == 'mouseout')
 				{
 					// Bypass interal mouse move.
-					if(!target.is('table'))
+					if (!target.is('table'))
 						return;
 
 					var dest = new CKEDITOR.dom.element(evt.data.$.relatedTarget || evt.data.$.toElement);
-					while(dest && dest.$ && !dest.equals(target) && !dest.is('body'))
+					while (dest && dest.$ && !dest.equals(target) && !dest.is('body'))
 						dest = dest.getParent();
-					if(!dest || dest.equals(target))
+					if (!dest || dest.equals(target))
 						return;
 				}
 
@@ -407,7 +407,7 @@
 
 									// If we're already attached to a pillar, simply move the
 									// resizer.
-									if(resizer && resizer.move(evt.$.clientX))
+									if (resizer && resizer.move(evt.$.clientX))
 									{
 										cancel(evt);
 										return;
@@ -418,12 +418,12 @@
 											table,
 											pillars;
 
-									if(!target.is('table') && !target.getAscendant('tbody', 1))
+									if (!target.is('table') && !target.getAscendant('tbody', 1))
 										return;
 
 									table = target.getAscendant('table', 1);
 
-									if(!(pillars = table.getCustomData('_cke_table_pillars')))
+									if (!(pillars = table.getCustomData('_cke_table_pillars')))
 									{
 										// Cache table pillars calculation result.
 										table.setCustomData('_cke_table_pillars', (pillars = buildTableColumnPillars(table)));
@@ -432,7 +432,7 @@
 									}
 
 									var pillar = getPillarAtPosition(pillars, evt.$.clientX);
-									if(pillar)
+									if (pillar)
 									{
 										!resizer && (resizer = new columnResizer(editor));
 										resizer.attachTo(pillar);

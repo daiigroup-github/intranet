@@ -32,7 +32,7 @@ class ContactForm extends CFormModel
 			array(
 				'verifyCode',
 				'captcha',
-				'allowEmpty'=>!CCaptcha::checkRequirements()),
+				'allowEmpty' => !CCaptcha::checkRequirements()),
 		);
 	}
 
@@ -44,7 +44,7 @@ class ContactForm extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'verifyCode'=>'Verification Code',
+			'verifyCode' => 'Verification Code',
 		);
 	}
 

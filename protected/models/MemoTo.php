@@ -46,17 +46,17 @@ class MemoTo extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'memoId, employeeId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, memoId, employeeId, status, createDateTime, updateDateTime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -68,11 +68,11 @@ class MemoTo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee'=>array(
+			'employee' => array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'employeeId'=>'employeeId')),
+					'employeeId' => 'employeeId')),
 		);
 	}
 
@@ -82,12 +82,12 @@ class MemoTo extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'memoId'=>'Memo',
-			'employeeId'=>'Employee',
-			'status'=>'Status',
-			'createDateTime'=>'Create Date Time',
-			'updateDateTime'=>'Update Date Time',
+			'id' => 'ID',
+			'memoId' => 'Memo',
+			'employeeId' => 'Employee',
+			'status' => 'Status',
+			'createDateTime' => 'Create Date Time',
+			'updateDateTime' => 'Update Date Time',
 		);
 	}
 
@@ -110,7 +110,7 @@ class MemoTo extends CActiveRecord
 		$criteria->compare('updateDateTime', $this->updateDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

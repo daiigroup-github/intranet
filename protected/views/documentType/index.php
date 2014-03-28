@@ -21,44 +21,44 @@ $('.search-form form').submit(function(){
 		<a class="btn search-button"><i class="icon-search"></i></a>
 		<a class="btn" href="<?php echo Yii::app()->createUrl('/documentType/Create'); ?>"><i class="icon-plus"></i></a>
 	</div>
-</div>
+</div>	
 <?php //echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'document-type-grid',
-	'dataProvider'=>$model->search(),
+	'id' => 'document-type-grid',
+	'dataProvider' => $model->search(),
 	//'filter'=>$model,
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-	'columns'=>array(
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+	'columns' => array(
 		//'documentTypeId',
 		'documentTypeName',
 		array(
-			'name'=>'status',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:10%'),
-			'value'=>'CHtml::encode($data->status==1 ? "Active":"In Active")',
+			'name' => 'status',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:10%'),
+			'value' => 'CHtml::encode($data->status==1 ? "Active":"In Active")',
 		),
 		array(
-			'name'=>'workflowGroupId',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:10%'),
-			'value'=>'CHtml::encode($data->workflowGroupId)',
+			'name' => 'workflowGroupId',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:10%'),
+			'value' => 'CHtml::encode($data->workflowGroupId)',
 		),
 		array(
-			'header'=>'Actions',
-			'class'=>'CButtonColumn',
-			'template'=>'{update} {delete}   ',
-			'buttons'=>array(
+			'header' => 'Actions',
+			'class' => 'CButtonColumn',
+			'template' => '{update} {delete}   ',
+			'buttons' => array(
 			),
 		),
 	),

@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Rights'=>Rights::getBaseUrl(),
+	'Rights' => Rights::getBaseUrl(),
 	Rights::t('core', 'Permissions'),
 );
 ?>
@@ -13,11 +13,11 @@ $this->breadcrumbs = array(
 		<?php echo Rights::t('core', 'Here you can view and manage the permissions assigned to each role.'); ?><br />
 		<?php
 		echo Rights::t('core', 'Authorization items can be managed under {roleLink}, {taskLink} and {operationLink}.', array(
-			'{roleLink}'=>CHtml::link(Rights::t('core', 'Roles'), array(
+			'{roleLink}' => CHtml::link(Rights::t('core', 'Roles'), array(
 				'authItem/roles')),
-			'{taskLink}'=>CHtml::link(Rights::t('core', 'Tasks'), array(
+			'{taskLink}' => CHtml::link(Rights::t('core', 'Tasks'), array(
 				'authItem/tasks')),
-			'{operationLink}'=>CHtml::link(Rights::t('core', 'Operations'), array(
+			'{operationLink}' => CHtml::link(Rights::t('core', 'Operations'), array(
 				'authItem/operations')),
 		));
 		?>
@@ -26,18 +26,18 @@ $this->breadcrumbs = array(
 	<p><?php
 		echo CHtml::link(Rights::t('core', 'Generate items for controller actions'), array(
 			'authItem/generate'), array(
-			'class'=>'generator-link',
+			'class' => 'generator-link',
 		));
 		?></p>
 
 	<?php
 	$this->widget('zii.widgets.grid.CGridView', array(
-		'dataProvider'=>$dataProvider,
-		'template'=>'{items}',
-		'emptyText'=>Rights::t('core', 'No authorization items found.'),
-		'htmlOptions'=>array(
-			'class'=>'grid-view permission-table'),
-		'columns'=>$columns,
+		'dataProvider' => $dataProvider,
+		'template' => '{items}',
+		'emptyText' => Rights::t('core', 'No authorization items found.'),
+		'htmlOptions' => array(
+			'class' => 'grid-view permission-table'),
+		'columns' => $columns,
 	));
 	?>
 

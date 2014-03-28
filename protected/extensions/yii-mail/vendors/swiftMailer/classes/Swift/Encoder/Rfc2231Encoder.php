@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -51,7 +52,7 @@ class Swift_Encoder_Rfc2231Encoder implements Swift_Encoder
 		$lines[] = '';
 		$currentLine = & $lines[$lineCount++];
 
-		if(0 >= $maxLineLength)
+		if (0 >= $maxLineLength)
 		{
 			$maxLineLength = 75;
 		}
@@ -61,10 +62,10 @@ class Swift_Encoder_Rfc2231Encoder implements Swift_Encoder
 
 		$thisLineLength = $maxLineLength - $firstLineOffset;
 
-		while(false !== $char = $this->_charStream->read(4))
+		while (false !== $char = $this->_charStream->read(4))
 		{
 			$encodedChar = rawurlencode($char);
-			if(0 != strlen($currentLine) && strlen($currentLine . $encodedChar) > $thisLineLength)
+			if (0 != strlen($currentLine) && strlen($currentLine . $encodedChar) > $thisLineLength)
 			{
 				$lines[] = '';
 				$currentLine = & $lines[$lineCount++];

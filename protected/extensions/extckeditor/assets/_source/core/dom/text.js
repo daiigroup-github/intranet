@@ -23,26 +23,26 @@
 		 * var text = CKEDITOR.dom.text( 'Example' );
 		 */
 		CKEDITOR.dom.text = function(text, ownerDocument)
-		{
-			if(typeof text == 'string')
-				text = (ownerDocument ? ownerDocument.$ : document).createTextNode(text);
+{
+	if (typeof text == 'string')
+		text = (ownerDocument ? ownerDocument.$ : document).createTextNode(text);
 
-			// Theoretically, we should call the base constructor here
-			// (not CKEDITOR.dom.node though). But, IE doesn't support expando
-			// properties on text node, so the features provided by domObject will not
-			// work for text nodes (which is not a big issue for us).
-			//
-			// CKEDITOR.dom.domObject.call( this, element );
+	// Theoretically, we should call the base constructor here
+	// (not CKEDITOR.dom.node though). But, IE doesn't support expando
+	// properties on text node, so the features provided by domObject will not
+	// work for text nodes (which is not a big issue for us).
+	//
+	// CKEDITOR.dom.domObject.call( this, element );
 
-			/**
-			 * The native DOM text node represented by this class instance.
-			 * @type Object
-			 * @example
-			 * var element = new CKEDITOR.dom.text( 'Example' );
-			 * alert( element.$.nodeType );  // "3"
-			 */
-			this.$ = text;
-		};
+	/**
+	 * The native DOM text node represented by this class instance.
+	 * @type Object
+	 * @example
+	 * var element = new CKEDITOR.dom.text( 'Example' );
+	 * alert( element.$.nodeType );  // "3"
+	 */
+	this.$ = text;
+};
 
 CKEDITOR.dom.text.prototype = new CKEDITOR.dom.node();
 
@@ -83,7 +83,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.text.prototype,
 						// If the offset is after the last char, IE creates the text node
 						// on split, but don't include it into the DOM. So, we have to do
 						// that manually here.
-						if(CKEDITOR.env.ie && offset == this.getLength())
+						if (CKEDITOR.env.ie && offset == this.getLength())
 						{
 							var next = this.getDocument().createText('');
 							next.insertAfter(this);
@@ -95,7 +95,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.text.prototype,
 
 						// IE BUG: IE8 does not update the childNodes array in DOM after splitText(),
 						// we need to make some DOM changes to make it update. (#3436)
-						if(CKEDITOR.env.ie8)
+						if (CKEDITOR.env.ie8)
 						{
 							var workaround = new CKEDITOR.dom.text('', doc);
 							workaround.insertAfter(retval);
@@ -115,7 +115,7 @@ CKEDITOR.tools.extend(CKEDITOR.dom.text.prototype,
 					{
 						// We need the following check due to a Firefox bug
 						// https://bugzilla.mozilla.org/show_bug.cgi?id=458886
-						if(typeof indexB != 'number')
+						if (typeof indexB != 'number')
 							return this.$.nodeValue.substr(indexA);
 						else
 							return this.$.nodeValue.substring(indexA, indexB);

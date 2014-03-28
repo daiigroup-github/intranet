@@ -13,14 +13,14 @@ class SiteController extends Controller
 	{
 		return array(
 			// captcha action renders the CAPTCHA image displayed on the contact page
-			'captcha'=>array(
-				'class'=>'CCaptchaAction',
-				'backColor'=>0xFFFFFF,
+			'captcha' => array(
+				'class' => 'CCaptchaAction',
+				'backColor' => 0xFFFFFF,
 			),
 			// page action renders "static" pages stored under 'protected/views/site/pages'
 			// They can be accessed via: index.php?r=site/page&view=FileName
-			'page'=>array(
-				'class'=>'CViewAction',
+			'page' => array(
+				'class' => 'CViewAction',
 			),
 		);
 	}
@@ -42,9 +42,9 @@ class SiteController extends Controller
 	 */
 	public function actionError()
 	{
-		if($error = Yii::app()->errorHandler->error)
+		if ($error = Yii::app()->errorHandler->error)
 		{
-			if(Yii::app()->request->isAjaxRequest)
+			if (Yii::app()->request->isAjaxRequest)
 				echo $error['message'];
 			else
 				$this->render('error', $error);
@@ -57,10 +57,10 @@ class SiteController extends Controller
 	public function actionContact()
 	{
 		$model = new ContactForm;
-		if(isset($_POST['ContactForm']))
+		if (isset($_POST['ContactForm']))
 		{
 			$model->attributes = $_POST['ContactForm'];
-			if($model->validate())
+			if ($model->validate())
 			{
 				$headers = "From: {$model->email}\r\nReply-To: {$model->email}";
 				mail(Yii::app()->params['adminEmail'], $model->subject, $model->body, $headers);
@@ -69,7 +69,7 @@ class SiteController extends Controller
 			}
 		}
 		$this->render('contact', array(
-			'model'=>$model));
+			'model' => $model));
 	}
 
 	/**
@@ -84,18 +84,18 @@ class SiteController extends Controller
 
 		$model = new LoginForm;
 		// if it is ajax validation request
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
 		$this->redirectUrl = Yii::app()->user->returnUrl;
 		// collect user input data
-		if(isset($_POST['LoginForm']))
+		if (isset($_POST['LoginForm']))
 		{
 			$model->attributes = $_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
+			if ($model->validate() && $model->login())
 			{
 				//echo Yii::app()->user->returnUrl;
 				//$this->redirect(Yii::app()->user->returnUrl);
@@ -104,13 +104,13 @@ class SiteController extends Controller
 
 				$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
 
-				if(!$employeeModel->isFirstLogin)
+				if (!$employeeModel->isFirstLogin)
 				{
 					$this->redirect(Yii::app()->createUrl('/changePassword'));
 				}
 				else
 				{
-					if(isset($_POST['LoginForm']['device']) && $_POST['LoginForm']['device'] == 'mobile')
+					if (isset($_POST['LoginForm']['device']) && $_POST['LoginForm']['device'] == 'mobile')
 					{
 						$res['result'] = true;
 						// Select use in mobile documentType
@@ -128,7 +128,7 @@ class SiteController extends Controller
 					}
 					else
 					{
-						if(substr($this->redirectUrl, -9, 9) != 'index.php')
+						if (substr($this->redirectUrl, -9, 9) != 'index.php')
 						{
 							$this->redirect($this->redirectUrl);
 						}
@@ -142,7 +142,7 @@ class SiteController extends Controller
 		}
 
 		//login failed
-		if(isset($_POST['LoginForm']['device']) && $_POST['LoginForm']['device'] == 'mobile')
+		if (isset($_POST['LoginForm']['device']) && $_POST['LoginForm']['device'] == 'mobile')
 		{
 			$res['result'] = false;
 			$this->jsonEncode($res);
@@ -150,7 +150,7 @@ class SiteController extends Controller
 
 		// display the login form
 		$this->render('login', array(
-			'model'=>$model));
+			'model' => $model));
 	}
 
 	/**
@@ -160,7 +160,7 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 
-		if(!isset($_POST['LoginForm']['device']))
+		if (!isset($_POST['LoginForm']['device']))
 			$this->redirect(Yii::app()->homeUrl);
 		else
 		{
@@ -172,12 +172,12 @@ class SiteController extends Controller
 	public function actionResetPassword()
 	{
 		$model = new Employee();
-		if(isset($_POST["Employee"]))
+		if (isset($_POST["Employee"]))
 		{
 			$username = $_POST["Employee"]["username"];
 			$employee = $model->find("username =:username", array(
-				':username'=>$username));
-			if(count($employee) == 1)
+				':username' => $username));
+			if (count($employee) == 1)
 			{
 				$emailController = new EmailSend();
 				$emailName = $employee->fnTh . "  " . $employee->lnTh;
@@ -186,25 +186,25 @@ class SiteController extends Controller
 				$website = "http://" . Yii::app()->request->getServerName() . Yii::app()->baseUrl . "/";
 				$employee->password = $model->hashPassword($username, $newPassword);
 				$employee->isFirstLogin = 0;
-				if($employee->save(true))
+				if ($employee->save(true))
 				{
 					$emailController->mailResetPassword($emailName, $newPassword, $emailEmail, $website);
 					$this->redirect(array(
 						"Login",
-						'resetMessage'=>"reset"));
+						'resetMessage' => "reset"));
 				}
 			}
 			else
 			{
 				$model->addError("resetPwdError", "ไม่มี username นี้อยู่ในระบบ");
 				$this->render("resetPassword", array(
-					'model'=>$model));
+					'model' => $model));
 			}
 		}
 		else
 		{
 			$this->render("resetPassword", array(
-				'model'=>$model));
+				'model' => $model));
 		}
 	}
 

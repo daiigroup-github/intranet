@@ -2,11 +2,11 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'qtech-project-form',
-		'enableAjaxValidation'=>false,
-		'htmlOptions'=>array(
-			'enctype'=>'multipart/form-data',
-			'class'=>'form-horizontal',
+		'id' => 'qtech-project-form',
+		'enableAjaxValidation' => false,
+		'htmlOptions' => array(
+			'enctype' => 'multipart/form-data',
+			'class' => 'form-horizontal',
 		),
 	));
 	?>
@@ -17,7 +17,7 @@
 
 			<?php
 			echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-				'class'=>'alert alert-error'));
+				'class' => 'alert alert-error'));
 			?>
 		</div>
 	</div>
@@ -35,8 +35,8 @@
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'name', array(
-				'size'=>60,
-				'maxlength'=>100));
+				'size' => 60,
+				'maxlength' => 100));
 			?>
 			<?php echo $form->error($model, 'name'); ?>
 		</div>
@@ -47,8 +47,8 @@
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'detail', array(
-				'size'=>60,
-				'maxlength'=>255));
+				'size' => 60,
+				'maxlength' => 255));
 			?>
 		</div>
 	</div>
@@ -66,8 +66,8 @@
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'address', array(
-				'size'=>60,
-				'maxlength'=>255));
+				'size' => 60,
+				'maxlength' => 255));
 			?>
 		</div>
 	</div>
@@ -77,7 +77,7 @@
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'customerId', Customer::getAllCustomer(), array(
-				'prompt'=>'-- Select --'));
+				'prompt' => '-- Select --'));
 			?>
 			<?php echo $form->error($model, 'customerId'); ?>
 		</div>
@@ -88,14 +88,14 @@
 		<div class="controls">
 			<?php
 			$this->widget('zii.widgets.jui.CJuiDatePicker', array(
-				'model'=>$model,
-				'attribute'=>'startDate',
-				'options'=>array(
-					'dateFormat'=>'yy-mm-dd',
+				'model' => $model,
+				'attribute' => 'startDate',
+				'options' => array(
+					'dateFormat' => 'yy-mm-dd',
 				),
-				'htmlOptions'=>array(
-					'size'=>'10', // textField size
-					'maxlength'=>'10', // textField maxlength
+				'htmlOptions' => array(
+					'size' => '10', // textField size
+					'maxlength' => '10', // textField maxlength
 				),
 			));
 			?>
@@ -116,7 +116,7 @@
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'engineerId', Employee::model()->getAllEngineer(), array(
-				'prompt'=>'-- Select --'));
+				'prompt' => '-- Select --'));
 			?>
 			<?php echo $form->error($model, 'engineerId'); ?>
 		</div>
@@ -125,7 +125,7 @@
 	<div class="form-actions">
 		<?php
 		echo CHtml::submitButton($model->isNewRecord ? 'Next' : 'Save', array(
-			'class'=>'btn btn-primary'));
+			'class' => 'btn btn-primary'));
 		?>
 	</div>
 

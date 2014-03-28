@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->qtechProjectId), array(
 		'view',
-		'id'=>$data->qtechProjectId));
+		'id' => $data->qtechProjectId));
 	?>
 	<br />
 

@@ -8,10 +8,10 @@
 		 *		load core scripts and their dependencies from _source.
 		 */
 
-		if(typeof CKEDITOR == 'undefined')
+		if (typeof CKEDITOR == 'undefined')
 	CKEDITOR = {};
 
-if(!CKEDITOR.loader)
+if (!CKEDITOR.loader)
 {
 	/**
 	 * Load core scripts and their dependencies from _source.
@@ -72,7 +72,7 @@ if(!CKEDITOR.loader)
 		{
 			// This is a copy of CKEDITOR.basePath, but requires the script having
 			// "_source/core/loader.js".
-			if(CKEDITOR && CKEDITOR.basePath)
+			if (CKEDITOR && CKEDITOR.basePath)
 				return CKEDITOR.basePath;
 
 			// Find out the editor directory path, based on its <script> tag.
@@ -83,7 +83,7 @@ if(!CKEDITOR.loader)
 			{
 				var match = scripts[i].src.match(/(^|.*?[\\\/])(?:_source\/)?core\/loader.js(?:\?.*)?$/i);
 
-				if(match)
+				if (match)
 				{
 					path = match[1];
 					break;
@@ -92,10 +92,10 @@ if(!CKEDITOR.loader)
 
 			// In IE (only) the script.src string is the raw valued entered in the
 			// HTML. Other browsers return the full resolved URL instead.
-			if(path.indexOf('://') == -1)
+			if (path.indexOf('://') == -1)
 			{
 				// Absolute path.
-				if(path.indexOf('/') === 0)
+				if (path.indexOf('/') === 0)
 					path = location.href.match(/^.*?:\/\/[^\/]*/)[0] + path;
 				// Relative path.
 				else
@@ -109,7 +109,7 @@ if(!CKEDITOR.loader)
 
 		var getUrl = function(resource)
 		{
-			if(CKEDITOR && CKEDITOR.getUrl)
+			if (CKEDITOR && CKEDITOR.getUrl)
 				return CKEDITOR.getUrl(resource);
 
 			return basePath + resource +
@@ -133,7 +133,7 @@ if(!CKEDITOR.loader)
 			{
 				var scriptName = pendingLoad.shift();
 
-				if(!scriptName)
+				if (!scriptName)
 					return;
 
 				var scriptSrc = getUrl('_source/' + scriptName + '.js');
@@ -154,12 +154,12 @@ if(!CKEDITOR.loader)
 				// We must guarantee the execution order of the scripts, so we
 				// need to load them one by one. (#4145)
 				// The following if/else block has been taken from the scriptloader core code.
-				if(typeof (script.onreadystatechange) !== "undefined")
+				if (typeof(script.onreadystatechange) !== "undefined")
 				{
 					/** @ignore */
 					script.onreadystatechange = function()
 					{
-						if(script.readyState == 'loaded' || script.readyState == 'complete')
+						if (script.readyState == 'loaded' || script.readyState == 'complete')
 						{
 							script.onreadystatechange = null;
 							onScriptLoaded();
@@ -191,12 +191,12 @@ if(!CKEDITOR.loader)
 			load: function(scriptName, defer)
 			{
 				// Check if the script has already been loaded.
-				if(scriptName in this.loadedScripts)
+				if (scriptName in this.loadedScripts)
 					return;
 
 				// Get the script dependencies list.
 				var dependencies = scripts[ scriptName ];
-				if(!dependencies)
+				if (!dependencies)
 					throw 'The script name"' + scriptName + '" is not defined.';
 
 				// Mark the script as loaded, even before really loading it, to
@@ -213,11 +213,11 @@ if(!CKEDITOR.loader)
 				// If the page is fully loaded, we can't use document.write
 				// but if the script is run while the body is loading then it's safe to use it
 				// Unfortunately, Firefox <3.6 doesn't support document.readyState, so it won't get this improvement
-				if(document.body && (!document.readyState || document.readyState == 'complete'))
+				if (document.body && (!document.readyState || document.readyState == 'complete'))
 				{
 					pendingLoad.push(scriptName);
 
-					if(!defer)
+					if (!defer)
 						this.loadPending();
 				}
 				else
@@ -233,7 +233,7 @@ if(!CKEDITOR.loader)
 }
 
 // Check if any script has been defined for autoload.
-if(CKEDITOR._autoLoad)
+if (CKEDITOR._autoLoad)
 {
 	CKEDITOR.loader.load(CKEDITOR._autoLoad);
 	delete CKEDITOR._autoLoad;

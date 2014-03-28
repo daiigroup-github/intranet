@@ -49,38 +49,34 @@ class Elearning extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'title',
 				'length',
-				'max'=>255),
+				'max' => 255),
 			array(
 				'parentId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'description',
 				'safe'),
 			array(
 				'createDateTime',
 				'default',
-				'value'=>new CDbExpression('NOW()'),
-				'on'=>'insert'),
+				'value' => new CDbExpression('NOW()'),
+				'on' => 'insert'),
 			array(
 				'updateDateTime',
 				'default',
-				'value'=>new CDbExpression('NOW()')),
+				'value' => new CDbExpression('NOW()')),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'elearningId, status, createDateTime, updateDateTime, title, description, pdfFile, parentId, numberOfQuestion',
 				'safe',
-				'on'=>'search'),
-			array(
-				'pdfFile',
-				'file',
-				'types'=>'pdf',
-				'allowEmpty'=>true),
+				'on' => 'search'),
+			array('pdfFile', 'file', 'types'=>'pdf', 'allowEmpty'=>true),
 		);
 	}
 
@@ -101,13 +97,13 @@ class Elearning extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'elearningId'=>'Elearning',
-			'status'=>'Status',
-			'createDateTime'=>'Create Date Time',
-			'updateDateTime'=>'Update Date Time',
-			'title'=>'หัวข้อ',
-			'description'=>'รายละเอียด',
-			'parentId'=>'Parent',
+			'elearningId' => 'Elearning',
+			'status' => 'Status',
+			'createDateTime' => 'Create Date Time',
+			'updateDateTime' => 'Update Date Time',
+			'title' => 'หัวข้อ',
+			'description' => 'รายละเอียด',
+			'parentId' => 'Parent',
 			'pdfFilel'=>'PDF File',
 			'numberOfQuestion'=>'จำนวนข้อสอบ'
 		);
@@ -133,8 +129,9 @@ class Elearning extends CActiveRecord
 		$criteria->compare('parentId', $this->parentId, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 }
+

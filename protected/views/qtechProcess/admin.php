@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Qtech Processes'=>array(
+	'Qtech Processes' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List QtechProcess',
-		'url'=>array(
+		'label' => 'List QtechProcess',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create QtechProcess',
-		'url'=>array(
+		'label' => 'Create QtechProcess',
+		'url' => array(
 			'create')),
 );
 
@@ -39,22 +39,22 @@ $('.search-form form').submit(function(){
 
 <?php
 echo CHtml::link('Advanced Search', '#', array(
-	'class'=>'search-button'));
+	'class' => 'search-button'));
 ?>
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'qtech-process-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
+	'id' => 'qtech-process-grid',
+	'dataProvider' => $model->search(),
+	'filter' => $model,
+	'columns' => array(
 		'qtechProcessId',
 		'status',
 		'qtechProjectId',
@@ -62,7 +62,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'processDetail',
 		'duration',
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));

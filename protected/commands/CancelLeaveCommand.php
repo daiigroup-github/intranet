@@ -19,31 +19,31 @@ class CancelLeaveCommand extends CConsoleCommand
 		 * 1 find leave status=0
 		 * 2 set status=2 ( cancel all sick, Personal & Vocation check startDate before 23rd 12.00)
 		 * 	2.1 cancel doc
-		 * 	2.2 add workflow log : currentState = 0,
+		 * 	2.2 add workflow log : currentState = 0, 
 		 * 	2.3 documentWorkflow : isFinish = 1, currentState = 0
-		 *
+		 * 
 		 */
 		//find all unapproved doc
 		$leaveModels = Leave::model()->findAll('status=0');
 
-		foreach($leaveModels as $leaveModel)
+		foreach ($leaveModels as $leaveModel)
 		{
 			$this->writeToFile('/tmp/ll', print_r($leaveModel->leaveType, true) . " | ", 'a+');
-			if($leaveModel->leaveType != Leave::LEAVE_TYPE_SICK)
+			if ($leaveModel->leaveType != Leave::LEAVE_TYPE_SICK)
 			{
 				$criteria = new CDbCriteria();
 				$criteria->condition = 'leaveId = :leaveId';
 				$criteria->params = array(
-					':leaveId'=>$leaveModel->leaveId);
+					':leaveId' => $leaveModel->leaveId);
 				$criteria->order = 'leaveDate';
 				$criteria->limit = 1;
 
 				$leaveItemModel = LeaveItem::model()->find($criteria);
 
-				if($leaveItemModel)
+				if ($leaveItemModel)
 				{
 
-					if(strtotime($leaveItemModel->leaveDate) >= strtotime(date('Y-m' . '-23')))
+					if (strtotime($leaveItemModel->leaveDate) >= strtotime(date('Y-m' . '-23')))
 					{
 						continue;
 					}

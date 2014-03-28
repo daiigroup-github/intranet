@@ -56,32 +56,32 @@ class Project extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'projectPrice',
 				'numerical'),
 			array(
 				'productCatId, productValue, customerId, branchValue',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'projectName',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'projectDetail, projectImageName, projectAddress',
 				'length',
-				'max'=>255),
+				'max' => 255),
 			array(
 				'latitude, longitude',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'projectId, status, createDateTime, productCatId, productValue, projectName, projectDetail, projectPrice, projectImageName, projectAddress, customerId, startDate, endDate, latitude, longitude, branchValue',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -93,26 +93,26 @@ class Project extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'customer'=>array(
+			'customer' => array(
 				self::BELONGS_TO,
 				'Customer',
 				array(
-					'customerId'=>'customerId')),
-			'productCat'=>array(
+					'customerId' => 'customerId')),
+			'productCat' => array(
 				self::BELONGS_TO,
 				'ProductCategory',
 				array(
-					'productCatId'=>'productCatId')),
-			'branch'=>array(
+					'productCatId' => 'productCatId')),
+			'branch' => array(
 				self::BELONGS_TO,
 				'Branch',
 				array(
-					'branchId'=>'branchId')),
-			'process'=>array(
+					'branchId' => 'branchId')),
+			'process' => array(
 				self::HAS_MANY,
 				'Process',
 				array(
-					'projectId'=>'projectId')),
+					'projectId' => 'projectId')),
 		);
 	}
 
@@ -122,22 +122,22 @@ class Project extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'projectId'=>'โครงการ',
-			'status'=>'สถานะ',
-			'createDateTime'=>'วันที่สร้าง',
-			'productCatId'=>'Product Cat',
-			'productValue'=>'Product Value',
-			'projectName'=>'ชื่อโครงการ',
-			'projectDetail'=>'รายละเอียดโครงการ',
-			'projectPrice'=>'ราคาโครงการ',
-			'projectImageName'=>'ชื่อรูปโครงการ',
-			'projectAddress'=>'ที่อยู่โครงการ',
-			'customerId'=>'ลูกค้า',
-			'startDate'=>'วันเริ่ม',
-			'endDate'=>'วันสิ้นสุด',
-			'latitude'=>'Latitude',
-			'longitude'=>'Longitude',
-			'branchValue'=>'Branch Value',
+			'projectId' => 'โครงการ',
+			'status' => 'สถานะ',
+			'createDateTime' => 'วันที่สร้าง',
+			'productCatId' => 'Product Cat',
+			'productValue' => 'Product Value',
+			'projectName' => 'ชื่อโครงการ',
+			'projectDetail' => 'รายละเอียดโครงการ',
+			'projectPrice' => 'ราคาโครงการ',
+			'projectImageName' => 'ชื่อรูปโครงการ',
+			'projectAddress' => 'ที่อยู่โครงการ',
+			'customerId' => 'ลูกค้า',
+			'startDate' => 'วันเริ่ม',
+			'endDate' => 'วันสิ้นสุด',
+			'latitude' => 'Latitude',
+			'longitude' => 'Longitude',
+			'branchValue' => 'Branch Value',
 		);
 	}
 
@@ -170,9 +170,9 @@ class Project extends CActiveRecord
 		$criteria->compare('branchValue', $this->branchValue, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>30
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 30
 			),
 		));
 	}
@@ -180,11 +180,11 @@ class Project extends CActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'ERememberFiltersBehavior'=>array(
-				'class'=>'application.components.ERememberFiltersBehavior',
-				'defaults'=>array(
+			'ERememberFiltersBehavior' => array(
+				'class' => 'application.components.ERememberFiltersBehavior',
+				'defaults' => array(
 				), /* optional line */
-				'defaultStickOnClear'=>false /* optional line */
+				'defaultStickOnClear' => false /* optional line */
 			),
 		);
 	}

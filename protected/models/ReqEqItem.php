@@ -46,21 +46,21 @@ class ReqEqItem extends CActiveRecord
 			array(
 				'status, type, reqStockId, amt, amtApproved',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'reqId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'detail, remarks',
 				'length',
-				'max'=>200),
+				'max' => 200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'reqItemId, status, reqId, type, reqStockId, amt, amtApproved, detail, remarks',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -81,15 +81,15 @@ class ReqEqItem extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'reqItemId'=>'Req Item',
-			'status'=>'Status',
-			'reqId'=>'Req',
-			'type'=>'Type',
-			'reqStockId'=>'Req Stock',
-			'amt'=>'Amt',
-			'amtApproved'=>'Amt Approved',
-			'detail'=>'Detail',
-			'remarks'=>'Remarks',
+			'reqItemId' => 'Req Item',
+			'status' => 'Status',
+			'reqId' => 'Req',
+			'type' => 'Type',
+			'reqStockId' => 'Req Stock',
+			'amt' => 'Amt',
+			'amtApproved' => 'Amt Approved',
+			'detail' => 'Detail',
+			'remarks' => 'Remarks',
 		);
 	}
 
@@ -115,7 +115,7 @@ class ReqEqItem extends CActiveRecord
 		$criteria->compare('remarks', $this->remarks, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

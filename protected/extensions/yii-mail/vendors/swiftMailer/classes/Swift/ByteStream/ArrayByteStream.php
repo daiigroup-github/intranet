@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -52,12 +53,12 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	 */
 	public function __construct($stack = null)
 	{
-		if(is_array($stack))
+		if (is_array($stack))
 		{
 			$this->_array = $stack;
 			$this->_arraySize = count($stack);
 		}
-		elseif(is_string($stack))
+		elseif (is_string($stack))
 		{
 			$this->write($stack);
 		}
@@ -78,7 +79,7 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	 */
 	public function read($length)
 	{
-		if($this->_offset == $this->_arraySize)
+		if ($this->_offset == $this->_arraySize)
 		{
 			return false;
 		}
@@ -87,7 +88,7 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 		$end = $length + $this->_offset;
 		$end = $this->_arraySize < $end ? $this->_arraySize : $end;
 		$ret = '';
-		for(; $this->_offset < $end; ++$this->_offset)
+		for (; $this->_offset < $end; ++$this->_offset)
 		{
 			$ret .= $this->_array[$this->_offset];
 		}
@@ -101,13 +102,13 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	public function write($bytes)
 	{
 		$to_add = str_split($bytes);
-		foreach($to_add as $value)
+		foreach ($to_add as $value)
 		{
 			$this->_array[] = $value;
 		}
 		$this->_arraySize = count($this->_array);
 
-		foreach($this->_mirrors as $stream)
+		foreach ($this->_mirrors as $stream)
 		{
 			$stream->write($bytes);
 		}
@@ -118,7 +119,7 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	 */
 	public function commit()
 	{
-
+		
 	}
 
 	/**
@@ -143,9 +144,9 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	 */
 	public function unbind(Swift_InputByteStream $is)
 	{
-		foreach($this->_mirrors as $k=> $stream)
+		foreach ($this->_mirrors as $k => $stream)
 		{
-			if($is === $stream)
+			if ($is === $stream)
 			{
 				unset($this->_mirrors[$k]);
 			}
@@ -159,11 +160,11 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 	 */
 	public function setReadPointer($byteOffset)
 	{
-		if($byteOffset > $this->_arraySize)
+		if ($byteOffset > $this->_arraySize)
 		{
 			$byteOffset = $this->_arraySize;
 		}
-		elseif($byteOffset < 0)
+		elseif ($byteOffset < 0)
 		{
 			$byteOffset = 0;
 		}
@@ -182,7 +183,7 @@ class Swift_ByteStream_ArrayByteStream implements Swift_InputByteStream, Swift_O
 			);
 		$this->_arraySize = 0;
 
-		foreach($this->_mirrors as $stream)
+		foreach ($this->_mirrors as $stream)
 		{
 			$stream->flushBuffers();
 		}

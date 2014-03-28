@@ -1,9 +1,9 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'workflow-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'class'=>'form-horizontal'),
+	'id' => 'workflow-form',
+	'enableAjaxValidation' => false,
+	'htmlOptions' => array(
+		'class' => 'form-horizontal'),
 	));
 ?>
 
@@ -11,7 +11,7 @@ $form = $this->beginWidget('CActiveForm', array(
 	Fields with <span class="required">*</span> are required.
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class'=>'alert alert-error'));
+		'class' => 'alert alert-error'));
 	$form->error($model, 'workflowName');
 	$form->error($model, 'employeeId');
 	$form->error($model, 'groupId');
@@ -24,8 +24,8 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowName', array(
-				'size'=>60,
-				'maxlength'=>500));
+				'size' => 60,
+				'maxlength' => 500));
 			?>
 		</div>
 	</div>
@@ -35,7 +35,7 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'employeeId', Employee::model()->getAllEmployeeByDivisionValue(65535), array(
-				'class'=>'input-medium'));
+				'class' => 'input-medium'));
 			?>
 		</div>
 	</div>
@@ -45,7 +45,7 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->dropDownList($model, 'groupId', Group::model()->getAllGroup(), array(
-				'class'=>'input-medium'));
+				'class' => 'input-medium'));
 			?>
 		</div>
 	</div>
@@ -54,7 +54,7 @@ $form = $this->beginWidget('CActiveForm', array(
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class'=>'btn btn-primary'));
+		'class' => 'btn btn-primary'));
 	?>
 </div>
 

@@ -1,35 +1,35 @@
 <?php
 $this->breadcrumbs = array(
-	'Document Control Datas'=>array(
+	'Document Control Datas' => array(
 		'index'),
 	$model->documentControlDataId,
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List DocumentControlData',
-		'url'=>array(
+		'label' => 'List DocumentControlData',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create DocumentControlData',
-		'url'=>array(
+		'label' => 'Create DocumentControlData',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'Update DocumentControlData',
-		'url'=>array(
+		'label' => 'Update DocumentControlData',
+		'url' => array(
 			'update',
-			'id'=>$model->documentControlDataId)),
+			'id' => $model->documentControlDataId)),
 	array(
-		'label'=>'Delete DocumentControlData',
-		'url'=>'#',
-		'linkOptions'=>array(
-			'submit'=>array(
+		'label' => 'Delete DocumentControlData',
+		'url' => '#',
+		'linkOptions' => array(
+			'submit' => array(
 				'delete',
-				'id'=>$model->documentControlDataId),
-			'confirm'=>'Are you sure you want to delete this item?')),
+				'id' => $model->documentControlDataId),
+			'confirm' => 'Are you sure you want to delete this item?')),
 	array(
-		'label'=>'Manage DocumentControlData',
-		'url'=>array(
+		'label' => 'Manage DocumentControlData',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -38,8 +38,8 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'documentControlDataId',
 		'documentControlDataName',
 		'dataModel',

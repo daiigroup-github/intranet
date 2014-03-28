@@ -39,7 +39,7 @@
 									var spaceElement;
 									var getSpaceElement = function()
 									{
-										if(!spaceElement)
+										if (!spaceElement)
 											spaceElement = CKEDITOR.document.getById(spaceId);
 										return spaceElement;
 									};
@@ -50,7 +50,7 @@
 
 									editor.on('themeSpace', function(event)
 									{
-										if(event.data.space == 'bottom')
+										if (event.data.space == 'bottom')
 										{
 											event.data.html +=
 													'<span id="' + spaceId + '_label" class="cke_voice_label">' + editor.lang.elementsPath.eleLabel + '</span>' +
@@ -62,7 +62,7 @@
 									{
 										editor.focus();
 										var element = editor._.elementsPath.list[ elementIndex ];
-										if(element.is('body'))
+										if (element.is('body'))
 										{
 											var range = new CKEDITOR.dom.range(editor.document);
 											range.selectNodeContents(element);
@@ -82,12 +82,12 @@
 										ev = new CKEDITOR.dom.event(ev);
 
 										var rtl = editor.lang.dir == 'rtl';
-										switch(ev.getKeystroke())
+										switch (ev.getKeystroke())
 										{
 											case rtl ? 39 : 37 :		// LEFT-ARROW
 											case 9 :					// TAB
 												element = CKEDITOR.document.getById(idBase + (elementIndex + 1));
-												if(!element)
+												if (!element)
 													element = CKEDITOR.document.getById(idBase + '0');
 												element.focus();
 												return false;
@@ -95,7 +95,7 @@
 											case rtl ? 37 : 39 :		// RIGHT-ARROW
 											case CKEDITOR.SHIFT + 9 :	// SHIFT + TAB
 												element = CKEDITOR.document.getById(idBase + (elementIndex - 1));
-												if(!element)
+												if (!element)
 													element = CKEDITOR.document.getById(idBase + (editor._.elementsPath.list.length - 1));
 												element.focus();
 												return false;
@@ -122,14 +122,14 @@
 												elementsList = editor._.elementsPath.list = [],
 												filters = editor._.elementsPath.filters;
 
-										while(element)
+										while (element)
 										{
 											var ignore = 0,
 													name;
 
-											if(element.data('cke-display-name'))
+											if (element.data('cke-display-name'))
 												name = element.data('cke-display-name');
-											else if(element.data('cke-real-element-type'))
+											else if (element.data('cke-real-element-type'))
 												name = element.data('cke-real-element-type');
 											else
 												name = element.getName();
@@ -137,7 +137,7 @@
 											for (var i = 0; i < filters.length; i++)
 											{
 												var ret = filters[ i ](element, name);
-												if(ret === false)
+												if (ret === false)
 												{
 													ignore = 1;
 													break;
@@ -145,7 +145,7 @@
 												name = ret || name;
 											}
 
-											if(!ignore)
+											if (!ignore)
 											{
 												var index = elementsList.push(element) - 1;
 
@@ -156,12 +156,12 @@
 												// Some browsers don't cancel key events in the keydown but in the
 												// keypress.
 												// TODO: Check if really needed for Gecko+Mac.
-												if(env.opera || (env.gecko && env.mac))
+												if (env.opera || (env.gecko && env.mac))
 													extra += ' onkeypress="return false;"';
 
 												// With Firefox, we need to force the button to redraw, otherwise it
 												// will remain in the focus state.
-												if(env.gecko)
+												if (env.gecko)
 													extra += ' onblur="this.style.cssText = this.style.cssText;"';
 
 												var label = editor.lang.elementsPath.eleTitle.replace(/%1/, name);
@@ -184,7 +184,7 @@
 
 											}
 
-											if(name == 'body')
+											if (name == 'body')
 												break;
 
 											element = element.getParent();

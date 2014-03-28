@@ -1,4 +1,5 @@
 <?php
+
 Swift_DependencyContainer::getInstance()
 	->register('transport.smtp')
 	->asNewInstanceOf('Swift_Transport_EsmtpTransport')

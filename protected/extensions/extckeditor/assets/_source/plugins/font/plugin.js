@@ -19,7 +19,7 @@
 				{
 					var parts = names[ i ];
 
-					if(parts)
+					if (parts)
 					{
 						parts = parts.split('/');
 
@@ -65,7 +65,7 @@
 
 								var style = styles[ value ];
 
-								if(this.getValue() == value)
+								if (this.getValue() == value)
 									style.remove(editor.document);
 								else
 									style.apply(editor.document);
@@ -90,9 +90,9 @@
 										// the styles.
 										for (var value in styles)
 										{
-											if(styles[ value ].checkElementRemovable(element, true))
+											if (styles[ value ].checkElementRemovable(element, true))
 											{
-												if(value != currentValue)
+												if (value != currentValue)
 													this.setValue(value);
 												return;
 											}

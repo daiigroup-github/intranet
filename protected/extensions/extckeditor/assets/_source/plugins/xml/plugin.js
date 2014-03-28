@@ -24,27 +24,27 @@
 					{
 						var baseXml = null;
 
-						if(typeof xmlObjectOrData == 'object')
+						if (typeof xmlObjectOrData == 'object')
 							baseXml = xmlObjectOrData;
 						else
 						{
 							var data = (xmlObjectOrData || '').replace(/&nbsp;/g, '\xA0');
-							if(window.DOMParser)
+							if (window.DOMParser)
 								baseXml = (new DOMParser()).parseFromString(data, 'text/xml');
-							else if(window.ActiveXObject)
+							else if (window.ActiveXObject)
 							{
 								try {
 									baseXml = new ActiveXObject('MSXML2.DOMDocument');
 								}
-								catch(e)
+								catch (e)
 								{
 									try {
 										baseXml = new ActiveXObject('Microsoft.XmlDom');
-									} catch(e) {
+									} catch (e) {
 									}
 								}
 
-								if(baseXml)
+								if (baseXml)
 								{
 									baseXml.async = false;
 									baseXml.resolveExternals = false;
@@ -82,11 +82,11 @@
 								{
 									var baseXml = this.baseXml;
 
-									if(contextNode || (contextNode = baseXml))
+									if (contextNode || (contextNode = baseXml))
 									{
-										if(CKEDITOR.env.ie || contextNode.selectSingleNode)	// IE
+										if (CKEDITOR.env.ie || contextNode.selectSingleNode)	// IE
 											return contextNode.selectSingleNode(xpath);
-										else if(baseXml.evaluate)							// Others
+										else if (baseXml.evaluate)							// Others
 										{
 											var result = baseXml.evaluate(xpath, contextNode, null, 9, null);
 											return (result && result.singleNodeValue) || null;
@@ -116,18 +116,18 @@
 									var baseXml = this.baseXml,
 											nodes = [];
 
-									if(contextNode || (contextNode = baseXml))
+									if (contextNode || (contextNode = baseXml))
 									{
-										if(CKEDITOR.env.ie || contextNode.selectNodes)		// IE
+										if (CKEDITOR.env.ie || contextNode.selectNodes)		// IE
 											return contextNode.selectNodes(xpath);
-										else if(baseXml.evaluate)							// Others
+										else if (baseXml.evaluate)							// Others
 										{
 											var result = baseXml.evaluate(xpath, contextNode, null, 5, null);
 
-											if(result)
+											if (result)
 											{
 												var node;
-												while((node = result.iterateNext()))
+												while ((node = result.iterateNext()))
 													nodes.push(node);
 											}
 										}
@@ -153,14 +153,14 @@
 								{
 									var node = this.selectSingleNode(xpath, contextNode),
 											xml = [];
-									if(node)
+									if (node)
 									{
 										node = node.firstChild;
-										while(node)
+										while (node)
 										{
-											if(node.xml)				// IE
+											if (node.xml)				// IE
 												xml.push(node.xml);
-											else if(window.XMLSerializer)	// Others
+											else if (window.XMLSerializer)	// Others
 												xml.push((new XMLSerializer()).serializeToString(node));
 
 											node = node.nextSibling;

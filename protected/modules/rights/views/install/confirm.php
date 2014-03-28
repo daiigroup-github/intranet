@@ -12,7 +12,7 @@
 		<?php
 		echo CHtml::link(Rights::t('install', 'Yes'), array(
 			'install/run',
-			'confirm'=>1));
+			'confirm' => 1));
 		?> /
 		<?php echo CHtml::link(Rights::t('install', 'No'), Yii::app()->homeUrl); ?>
 	</p>

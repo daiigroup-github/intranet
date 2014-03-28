@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -19,8 +20,8 @@
 interface Swift_Transport_IoBuffer
 extends Swift_InputByteStream, Swift_OutputByteStream
 {
-
 	/** A socket buffer over TCP */
+
 	const TYPE_SOCKET = 0x0001;
 
 	/** A process buffer with I/O support */

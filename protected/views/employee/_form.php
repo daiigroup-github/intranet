@@ -3,10 +3,10 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'employee-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'class'=>'form-horizontal'),
+	'id' => 'employee-form',
+	'enableAjaxValidation' => false,
+	'htmlOptions' => array(
+		'class' => 'form-horizontal'),
 	));
 
 Yii::app()->clientScript->registerScript('birthDatePicker', "
@@ -64,7 +64,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 	Fields with <span class="required">*</span> are required.
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class'=>'alert alert-error'));
+		'class' => 'alert alert-error'));
 	$form->error($model, 'prefix');
 	$form->error($model, 'gender');
 	$form->error($model, 'fnTh');
@@ -87,8 +87,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 
 <fieldset>
 	<?php
-	if(!$model->isNewRecord)
-	{
+	if (!$model->isNewRecord) {
 		?>
 		<div class="control-group">
 			<label class="control-label"><?php echo $form->labelEx($model, 'employeeCode'); ?></label>
@@ -222,7 +221,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'birthDate', array(
-				'id'=>'birthDatePicker'));
+				'id' => 'birthDatePicker'));
 			?>
 		</div>
 	</div>
@@ -232,17 +231,17 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'startDate', array(
-				'id'=>'startDatePicker'));
+				'id' => 'startDatePicker'));
 			?>
 		</div>
 	</div>
-	<?php if($this->action->id == "update"): ?>
+	<?php if ($this->action->id == "update"): ?>
 		<div class="control-group">
 			<label class="control-label"><?php echo $form->labelEx($model, 'proDate'); ?></label>
 			<div class="controls">
 				<?php
 				echo $form->textField($model, 'proDate', array(
-					'id'=>'proDatePicker',));
+					'id' => 'proDatePicker',));
 				?>
 			</div>
 		</div>
@@ -253,7 +252,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'endDate', array(
-				'id'=>'endDatePicker'));
+				'id' => 'endDatePicker'));
 			?>
 		</div>
 	</div>
@@ -263,7 +262,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'transferDate', array(
-				'id'=>'transferDatePicker'));
+				'id' => 'transferDatePicker'));
 			?>
 		</div>
 	</div>
@@ -294,7 +293,7 @@ Yii::app()->clientScript->registerScript('proDatePicker', "
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class'=>'btn btn-primary'));
+		'class' => 'btn btn-primary'));
 	?>
 </div>
 

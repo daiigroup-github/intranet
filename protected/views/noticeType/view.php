@@ -1,35 +1,35 @@
 <?php
 $this->breadcrumbs = array(
-	'Notice Types'=>array(
+	'Notice Types' => array(
 		'index'),
 	$model->noticeTypeId,
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List NoticeType',
-		'url'=>array(
+		'label' => 'List NoticeType',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create NoticeType',
-		'url'=>array(
+		'label' => 'Create NoticeType',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'Update NoticeType',
-		'url'=>array(
+		'label' => 'Update NoticeType',
+		'url' => array(
 			'update',
-			'id'=>$model->noticeTypeId)),
+			'id' => $model->noticeTypeId)),
 	array(
-		'label'=>'Delete NoticeType',
-		'url'=>'#',
-		'linkOptions'=>array(
-			'submit'=>array(
+		'label' => 'Delete NoticeType',
+		'url' => '#',
+		'linkOptions' => array(
+			'submit' => array(
 				'delete',
-				'id'=>$model->noticeTypeId),
-			'confirm'=>'Are you sure you want to delete this item?')),
+				'id' => $model->noticeTypeId),
+			'confirm' => 'Are you sure you want to delete this item?')),
 	array(
-		'label'=>'Manage NoticeType',
-		'url'=>array(
+		'label' => 'Manage NoticeType',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -38,16 +38,16 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'noticeTypeId',
 		'noticeTypeName',
 		array(
-			'name'=>'createDateTime',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:center;width:17%;'),
-			'value'=>($model->createDateTime) ? Controller::dateThai($model->createDateTime, 3) : "-",
+			'name' => 'createDateTime',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:center;width:17%;'),
+			'value' => ($model->createDateTime) ? Controller::dateThai($model->createDateTime, 3) : "-",
 		),
 	),
 ));

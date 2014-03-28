@@ -118,10 +118,10 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						{
 							var rules = this._.rules[ tagName ];
 
-							if(this._.indent)
+							if (this._.indent)
 								this.indentation();
 							// Do not break if indenting.
-							else if(rules && rules.breakBeforeOpen)
+							else if (rules && rules.breakBeforeOpen)
 							{
 								this.lineBreak();
 								this.indentation();
@@ -145,17 +145,17 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						{
 							var rules = this._.rules[ tagName ];
 
-							if(isSelfClose)
+							if (isSelfClose)
 								this._.output.push(this.selfClosingEnd);
 							else
 							{
 								this._.output.push('>');
 
-								if(rules && rules.indent)
+								if (rules && rules.indent)
 									this._.indentation += this.indentationChars;
 							}
 
-							if(rules && rules.breakAfterOpen)
+							if (rules && rules.breakAfterOpen)
 								this.lineBreak();
 							tagName == 'pre' && (this._.inPre = 1);
 						},
@@ -171,7 +171,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						attribute: function(attName, attValue)
 						{
 
-							if(typeof attValue == 'string')
+							if (typeof attValue == 'string')
 							{
 								this.forceSimpleAmpersand && (attValue = attValue.replace(/&amp;/g, '&'));
 								// Browsers don't always escape special character in attribute values. (#4683, #4719).
@@ -191,13 +191,13 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						{
 							var rules = this._.rules[ tagName ];
 
-							if(rules && rules.indent)
+							if (rules && rules.indent)
 								this._.indentation = this._.indentation.substr(this.indentationChars.length);
 
-							if(this._.indent)
+							if (this._.indent)
 								this.indentation();
 							// Do not break if indenting.
-							else if(rules && rules.breakBeforeClose)
+							else if (rules && rules.breakBeforeClose)
 							{
 								this.lineBreak();
 								this.indentation();
@@ -206,7 +206,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 							this._.output.push('</', tagName, '>');
 							tagName == 'pre' && (this._.inPre = 0);
 
-							if(rules && rules.breakAfterClose)
+							if (rules && rules.breakAfterClose)
 								this.lineBreak();
 						},
 						/**
@@ -218,7 +218,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						 */
 						text: function(text)
 						{
-							if(this._.indent)
+							if (this._.indent)
 							{
 								this.indentation();
 								!this._.inPre && (text = CKEDITOR.tools.ltrim(text));
@@ -235,7 +235,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						 */
 						comment: function(comment)
 						{
-							if(this._.indent)
+							if (this._.indent)
 								this.indentation();
 
 							this._.output.push('<!--', comment, '-->');
@@ -248,7 +248,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						 */
 						lineBreak: function()
 						{
-							if(!this._.inPre && this._.output.length > 0)
+							if (!this._.inPre && this._.output.length > 0)
 								this._.output.push(this.lineBreakChars);
 							this._.indent = 1;
 						},
@@ -262,7 +262,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						 */
 						indentation: function()
 						{
-							if(!this._.inPre)
+							if (!this._.inPre)
 								this._.output.push(this._.indentation);
 							this._.indent = 0;
 						},
@@ -300,7 +300,7 @@ CKEDITOR.htmlWriter = CKEDITOR.tools.createClass(
 						{
 							var currentRules = this._.rules[ tagName ];
 
-							if(currentRules)
+							if (currentRules)
 								CKEDITOR.tools.extend(currentRules, rules, true);
 							else
 								this._.rules[ tagName ] = rules;

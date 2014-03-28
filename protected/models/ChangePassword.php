@@ -37,9 +37,9 @@ class ChangePassword extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'oldPassword'=>'รหัสผ่านเดิม',
-			'password'=>'รหัสผ่านใหม่',
-			'password_repeat'=>'ยืนยันรหัสผ่านใหม่',
+			'oldPassword' => 'รหัสผ่านเดิม',
+			'password' => 'รหัสผ่านใหม่',
+			'password_repeat' => 'ยืนยันรหัสผ่านใหม่',
 		);
 	}
 
@@ -48,7 +48,7 @@ class ChangePassword extends CFormModel
 		//Password complexity
 		//Tests if the input consists of 8 or more characters.
 		//The input must contain at least one upper case letter, one lower case letter and one digit.
-		if(preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password))
+		if (preg_match('/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/', $password))
 		{
 			return TRUE;
 		}

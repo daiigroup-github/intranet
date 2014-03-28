@@ -45,21 +45,21 @@ class MobileAppPriv extends CActiveRecord
 			array(
 				'status, mobileAppId',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'employeeId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'priv',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, status, mobileAppId, employeeId, priv',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -71,16 +71,16 @@ class MobileAppPriv extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'mobileApp'=>array(
+			'mobileApp' => array(
 				self::BELONGS_TO,
 				'MobileApp',
 				array(
-					'mobileAppId'=>'mobileAppId')),
-			'employee'=>array(
+					'mobileAppId' => 'mobileAppId')),
+			'employee' => array(
 				self::HAS_ONE,
 				'Employee',
 				array(
-					'employeeId'=>'employeeId')),
+					'employeeId' => 'employeeId')),
 		);
 	}
 
@@ -90,11 +90,11 @@ class MobileAppPriv extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'=>'ID',
-			'status'=>'Status',
-			'mobileAppId'=>'Mobile App',
-			'employeeId'=>'Employee',
-			'priv'=>'Priv',
+			'id' => 'ID',
+			'status' => 'Status',
+			'mobileAppId' => 'Mobile App',
+			'employeeId' => 'Employee',
+			'priv' => 'Priv',
 		);
 	}
 
@@ -116,7 +116,7 @@ class MobileAppPriv extends CActiveRecord
 		$criteria->compare('priv', $this->priv, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

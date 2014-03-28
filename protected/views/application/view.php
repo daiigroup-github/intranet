@@ -18,9 +18,9 @@
 			<?php
 			//if(!isset($appInter->score)){ //check ว่า สามารถให้คะแนนคนนั้นได้มั้ย
 			echo $this->renderPartial('_scoreForm', array(
-				'model'=>$model,
-				'exam'=>$exam,
-				'appInter'=>$appInter));
+				'model' => $model,
+				'exam' => $exam,
+				'appInter' => $appInter));
 			//}//check ว่า สามารถให้คะแนนคนนั้นได้มั้ย
 			?>
 
@@ -33,13 +33,13 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				array(
-					'name'=>'ชื่อ',
-					'value'=>CHtml::encode(Employee::model()->employeePrefixTh($model->prefix) . $model->fnTh . ' ' . $model->lnTh . ' / ' . Employee::model()->employeePrefixEN($model->prefix) . $model->fnEn . ' ' . $model->lnEn),
+					'name' => 'ชื่อ',
+					'value' => CHtml::encode(Employee::model()->employeePrefixTh($model->prefix) . $model->fnTh . ' ' . $model->lnTh . ' / ' . Employee::model()->employeePrefixEN($model->prefix) . $model->fnEn . ' ' . $model->lnEn),
 				),
 				'appliedPosition',
 				'appliedSalary',
@@ -47,18 +47,18 @@
 				'tumbol',
 				'aumper',
 				array(
-					'name'=>'province',
-					'value'=>Province::model()->getProvinceName($model->province),
+					'name' => 'province',
+					'value' => Province::model()->getProvinceName($model->province),
 				),
 				'postcode',
 				'otherEmail',
 				array(
-					'name'=>'livingWith',
-					'value'=>$model->liveingWithText($model->livingWith),
+					'name' => 'livingWith',
+					'value' => $model->liveingWithText($model->livingWith),
 				),
 				array(
-					'name'=>'birthDate',
-					'value'=>$this->dateThai($model->birthDate, 1) . ' (' . floor((strtotime(date('Y-m-d')) - strtotime($model->birthDate)) / 31556926) . ')',
+					'name' => 'birthDate',
+					'value' => $this->dateThai($model->birthDate, 1) . ' (' . floor((strtotime(date('Y-m-d')) - strtotime($model->birthDate)) / 31556926) . ')',
 				),
 				'race',
 				'nationality',
@@ -66,12 +66,12 @@
 				'height',
 				'weight',
 				array(
-					'name'=>'militaryStatus',
-					'value'=>$model->militaryStatusText($model->militaryStatus),
+					'name' => 'militaryStatus',
+					'value' => $model->militaryStatusText($model->militaryStatus),
 				),
 				array(
-					'name'=>'maritalStatus',
-					'value'=>$model->maritalStatusText($model->maritalStatus),
+					'name' => 'maritalStatus',
+					'value' => $model->maritalStatusText($model->maritalStatus),
 				),
 			),
 		));
@@ -83,10 +83,10 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'dadName',
 				'dadAge',
 				'dadOccupation',
@@ -111,10 +111,10 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'EducationHighest',
 				'EducationHighestInstitution',
 				'EducationHighestMajor',
@@ -134,13 +134,13 @@
 
 		<?php $exp = false; ?>
 
-		<?php if($model->WorkExp1At): ?>
+		<?php if ($model->WorkExp1At): ?>
 			<?php
 			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$model,
-				'htmlOptions'=>array(
-					'class'=>'table table-bordered table-striped'),
-				'attributes'=>array(
+				'data' => $model,
+				'htmlOptions' => array(
+					'class' => 'table table-bordered table-striped'),
+				'attributes' => array(
 					'WorkExp1StartEnd',
 					'WorkExp1At',
 					'WorkExp1Position',
@@ -152,32 +152,32 @@
 			<?php $exp = true; ?>
 		<?php endif; ?>
 
-		<?php if($model->WorkExp2At): ?>
+		<?php if ($model->WorkExp2At): ?>
 			<?php
 			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$model,
-				'htmlOptions'=>array(
-					'class'=>'table table-bordered table-striped'),
-				'attributes'=>array(
+				'data' => $model,
+				'htmlOptions' => array(
+					'class' => 'table table-bordered table-striped'),
+				'attributes' => array(
 					array(
-						'name'=>'WorkExp1StartEnd',
-						'value'=>$model->WorkExp2StartEnd,
+						'name' => 'WorkExp1StartEnd',
+						'value' => $model->WorkExp2StartEnd,
 					),
 					array(
-						'name'=>'WorkExp1At',
-						'value'=>$model->WorkExp2At,
+						'name' => 'WorkExp1At',
+						'value' => $model->WorkExp2At,
 					),
 					array(
-						'name'=>'WorkExp1Position',
-						'value'=>$model->WorkExp2Position,
+						'name' => 'WorkExp1Position',
+						'value' => $model->WorkExp2Position,
 					),
 					array(
-						'name'=>'WorkExp1ReasonLeaving',
-						'value'=>$model->WorkExp2ReasonLeaving,
+						'name' => 'WorkExp1ReasonLeaving',
+						'value' => $model->WorkExp2ReasonLeaving,
 					),
 					array(
-						'name'=>'WorkExp1SalaryStartEnd',
-						'value'=>$model->WorkExp2SalaryStartEnd,
+						'name' => 'WorkExp1SalaryStartEnd',
+						'value' => $model->WorkExp2SalaryStartEnd,
 					),
 				),
 			));
@@ -185,70 +185,37 @@
 			<?php $exp = true; ?>
 		<?php endif; ?>
 
-		<?php if($model->WorkExp3At): ?>
+		<?php if ($model->WorkExp3At): ?>
 			<?php
 			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$model,
-				'htmlOptions'=>array(
-					'class'=>'table table-bordered table-striped'),
-				'attributes'=>array(
+				'data' => $model,
+				'htmlOptions' => array(
+					'class' => 'table table-bordered table-striped'),
+				'attributes' => array(
 					'WorkExp3StartEnd',
 					'WorkExp3At',
 					'WorkExp3Position',
 					'WorkExp3ReasonLeaving',
 					'WorkExp3SalaryStartEnd',
 					array(
-						'name'=>'WorkExp1StartEnd',
-						'value'=>$model->WorkExp3StartEnd,
+						'name' => 'WorkExp1StartEnd',
+						'value' => $model->WorkExp3StartEnd,
 					),
 					array(
-						'name'=>'WorkExp1At',
-						'value'=>$model->WorkExp3At,
+						'name' => 'WorkExp1At',
+						'value' => $model->WorkExp3At,
 					),
 					array(
-						'name'=>'WorkExp1Position',
-						'value'=>$model->WorkExp3Position,
+						'name' => 'WorkExp1Position',
+						'value' => $model->WorkExp3Position,
 					),
 					array(
-						'name'=>'WorkExp1ReasonLeaving',
-						'value'=>$model->WorkExp3ReasonLeaving,
+						'name' => 'WorkExp1ReasonLeaving',
+						'value' => $model->WorkExp3ReasonLeaving,
 					),
 					array(
-						'name'=>'WorkExp1SalaryStartEnd',
-						'value'=>$model->WorkExp3SalaryStartEnd,
-					),
-				),
-			));
-			?>
-			<?php $exp = true; ?>
-		<?php endif; ?>
-
-		<?php if($model->WorkExp4At): ?>
-			<?php
-			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$model,
-				'htmlOptions'=>array(
-					'class'=>'table table-bordered table-striped'),
-				'attributes'=>array(
-					array(
-						'name'=>'WorkExp1StartEnd',
-						'value'=>$model->WorkExp4StartEnd,
-					),
-					array(
-						'name'=>'WorkExp1At',
-						'value'=>$model->WorkExp4At,
-					),
-					array(
-						'name'=>'WorkExp1Position',
-						'value'=>$model->WorkExp4Position,
-					),
-					array(
-						'name'=>'WorkExp1ReasonLeaving',
-						'value'=>$model->WorkExp4ReasonLeaving,
-					),
-					array(
-						'name'=>'WorkExp1SalaryStartEnd',
-						'value'=>$model->WorkExp4SalaryStartEnd,
+						'name' => 'WorkExp1SalaryStartEnd',
+						'value' => $model->WorkExp3SalaryStartEnd,
 					),
 				),
 			));
@@ -256,32 +223,65 @@
 			<?php $exp = true; ?>
 		<?php endif; ?>
 
-		<?php if($model->WorkExp5At): ?>
+		<?php if ($model->WorkExp4At): ?>
 			<?php
 			$this->widget('zii.widgets.CDetailView', array(
-				'data'=>$model,
-				'htmlOptions'=>array(
-					'class'=>'table table-bordered table-striped'),
-				'attributes'=>array(
+				'data' => $model,
+				'htmlOptions' => array(
+					'class' => 'table table-bordered table-striped'),
+				'attributes' => array(
 					array(
-						'name'=>'WorkExp1StartEnd',
-						'value'=>$model->WorkExp5StartEnd,
+						'name' => 'WorkExp1StartEnd',
+						'value' => $model->WorkExp4StartEnd,
 					),
 					array(
-						'name'=>'WorkExp1At',
-						'value'=>$model->WorkExp5At,
+						'name' => 'WorkExp1At',
+						'value' => $model->WorkExp4At,
 					),
 					array(
-						'name'=>'WorkExp1Position',
-						'value'=>$model->WorkExp5Position,
+						'name' => 'WorkExp1Position',
+						'value' => $model->WorkExp4Position,
 					),
 					array(
-						'name'=>'WorkExp1ReasonLeaving',
-						'value'=>$model->WorkExp5ReasonLeaving,
+						'name' => 'WorkExp1ReasonLeaving',
+						'value' => $model->WorkExp4ReasonLeaving,
 					),
 					array(
-						'name'=>'WorkExp1SalaryStartEnd',
-						'value'=>$model->WorkExp5SalaryStartEnd,
+						'name' => 'WorkExp1SalaryStartEnd',
+						'value' => $model->WorkExp4SalaryStartEnd,
+					),
+				),
+			));
+			?>
+			<?php $exp = true; ?>
+		<?php endif; ?>
+
+		<?php if ($model->WorkExp5At): ?>
+			<?php
+			$this->widget('zii.widgets.CDetailView', array(
+				'data' => $model,
+				'htmlOptions' => array(
+					'class' => 'table table-bordered table-striped'),
+				'attributes' => array(
+					array(
+						'name' => 'WorkExp1StartEnd',
+						'value' => $model->WorkExp5StartEnd,
+					),
+					array(
+						'name' => 'WorkExp1At',
+						'value' => $model->WorkExp5At,
+					),
+					array(
+						'name' => 'WorkExp1Position',
+						'value' => $model->WorkExp5Position,
+					),
+					array(
+						'name' => 'WorkExp1ReasonLeaving',
+						'value' => $model->WorkExp5ReasonLeaving,
+					),
+					array(
+						'name' => 'WorkExp1SalaryStartEnd',
+						'value' => $model->WorkExp5SalaryStartEnd,
 					),
 				),
 			));
@@ -290,7 +290,7 @@
 		<?php endif; ?>
 
 		<?php
-		if(!$exp)
+		if (!$exp)
 			echo "<blockquote><p>ไม่มีประสบการณ์ทำงาน</p></blockquote>";
 		?>
 
@@ -300,20 +300,20 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				array(
-					'name'=>'typing',
-					'value'=>$model->statusText($model->typing),
+					'name' => 'typing',
+					'value' => $model->statusText($model->typing),
 				),
 				'speedTypingTh',
 				'speedTypingEn',
 				'computerSkill',
 				array(
-					'name'=>'driving',
-					'value'=>$model->statusText($model->driving),
+					'name' => 'driving',
+					'value' => $model->statusText($model->driving),
 				),
 				'drivingLicenseNo',
 				'officeMachine',
@@ -322,8 +322,8 @@
 				'spacialKnowledge',
 				'other',
 				array(
-					'name'=>'canWorkUpCountry',
-					'value'=>$model->statusText($model->canWorkUpCountry),
+					'name' => 'canWorkUpCountry',
+					'value' => $model->statusText($model->canWorkUpCountry),
 				),
 			),
 		));
@@ -335,23 +335,23 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'personAtEmergencyName',
 				'personAtEmergencyRelated',
 				'personAtEmergencyAddress',
 				'personAtEmergencyTel',
 				'sourceOfJobInfo',
 				array(
-					'name'=>'hasBeenSeriouslyOrContractedSick',
-					'value'=>$model->usedToText($model->hasBeenSeriouslyOrContractedSick),
+					'name' => 'hasBeenSeriouslyOrContractedSick',
+					'value' => $model->usedToText($model->hasBeenSeriouslyOrContractedSick),
 				),
 				'whatSick',
 				array(
-					'name'=>'everAppliedBefore',
-					'value'=>$model->usedToText($model->everAppliedBefore),
+					'name' => 'everAppliedBefore',
+					'value' => $model->usedToText($model->everAppliedBefore),
 				),
 				'appliedWhen',
 			),
@@ -364,19 +364,19 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				array(
-					'name'=>'ภาษาไทย',
-					'type'=>'html',
-					'value'=>'<strong>พูด : </strong>' . $model->langLevelText($model->langThSpeaking) . ', <strong>เขียน : </strong>' . $model->langLevelText($model->langThWriting) . ', <strong>อ่าน : </strong>' . $model->langLevelText($model->langThReading),
+					'name' => 'ภาษาไทย',
+					'type' => 'html',
+					'value' => '<strong>พูด : </strong>' . $model->langLevelText($model->langThSpeaking) . ', <strong>เขียน : </strong>' . $model->langLevelText($model->langThWriting) . ', <strong>อ่าน : </strong>' . $model->langLevelText($model->langThReading),
 				),
 				array(
-					'name'=>'ภาษาอังกฤษ',
-					'type'=>'html',
-					'value'=>'<strong>พูด : </strong>' . $model->langLevelText($model->langEnSpeaking) . ', <strong>เขียน : </strong>' . $model->langLevelText($model->langEnWriting) . ', <strong>อ่าน : </strong>' . $model->langLevelText($model->langEnReading),
+					'name' => 'ภาษาอังกฤษ',
+					'type' => 'html',
+					'value' => '<strong>พูด : </strong>' . $model->langLevelText($model->langEnSpeaking) . ', <strong>เขียน : </strong>' . $model->langLevelText($model->langEnWriting) . ', <strong>อ่าน : </strong>' . $model->langLevelText($model->langEnReading),
 				),
 				'langOther',
 			),
@@ -389,10 +389,10 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'uKnowEmployeeInOffice',
 			),
 		));
@@ -404,10 +404,10 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'NameAddressOfRelatedPeople1',
 				'NameAddressOfRelatedPeople2',
 			),
@@ -420,10 +420,10 @@
 
 		<?php
 		$this->widget('zii.widgets.CDetailView', array(
-			'data'=>$model,
-			'htmlOptions'=>array(
-				'class'=>'table table-bordered table-striped'),
-			'attributes'=>array(
+			'data' => $model,
+			'htmlOptions' => array(
+				'class' => 'table table-bordered table-striped'),
+			'attributes' => array(
 				'introductionOfU',
 			),
 		));

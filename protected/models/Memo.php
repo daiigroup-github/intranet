@@ -46,25 +46,25 @@ class Memo extends CActiveRecord
 			array(
 				'subject',
 				'length',
-				'max'=>1000),
+				'max' => 1000),
 			array(
 				'image',
 				'length',
-				'max'=>2000),
+				'max' => 2000),
 			array(
 				'detail',
 				'length',
-				'max'=>3000),
+				'max' => 3000),
 			array(
 				'createBy',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'memoId, subject, detail, image, createBy, createDateTime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -76,16 +76,16 @@ class Memo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee'=>array(
+			'employee' => array(
 				self::BELONGS_TO,
 				'Employee',
 				array(
-					'createBy'=>'employeeId')),
-			'memoTo'=>array(
+					'createBy' => 'employeeId')),
+			'memoTo' => array(
 				self::HAS_MANY,
 				'MemoTo',
 				array(
-					'memoId'=>'memoId')),
+					'memoId' => 'memoId')),
 		);
 	}
 
@@ -95,12 +95,12 @@ class Memo extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'memoId'=>'Memo',
-			'subject'=>'หัวข้อ',
-			'detail'=>'รายละเอียด',
-			'image'=>'รูปภาพ',
-			'createBy'=>'ผู้สร้าง',
-			'createDateTime'=>'วันที่สร้าง',
+			'memoId' => 'Memo',
+			'subject' => 'หัวข้อ',
+			'detail' => 'รายละเอียด',
+			'image' => 'รูปภาพ',
+			'createBy' => 'ผู้สร้าง',
+			'createDateTime' => 'วันที่สร้าง',
 		);
 	}
 
@@ -122,7 +122,7 @@ class Memo extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -140,12 +140,12 @@ class Memo extends CActiveRecord
 		//$criteria->compare('createBy',$this->createBy,true);
 		//$criteria->compare('createDateTime',$this->createDateTime,true);
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'mt.status ASC , t.createDateTime ASC',
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 'mt.status ASC , t.createDateTime ASC',
 			),
-			'pagination'=>array(
-				'pageSize'=>10
+			'pagination' => array(
+				'pageSize' => 10
 			),
 		));
 	}
@@ -163,12 +163,12 @@ class Memo extends CActiveRecord
 		//$criteria->compare('createBy',$this->createBy,true);
 		//$criteria->compare('createDateTime',$this->createDateTime,true);
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'t.createDateTime DESC',
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 't.createDateTime DESC',
 			),
-			'pagination'=>array(
-				'pageSize'=>10
+			'pagination' => array(
+				'pageSize' => 10
 			),
 		));
 	}

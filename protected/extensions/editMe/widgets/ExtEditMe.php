@@ -15,8 +15,7 @@
  * @package ext.editMe.widgets
  * @since 1.0
  */
-class ExtEditMe extends CInputWidget
-{
+class ExtEditMe extends CInputWidget {
 
 	/**
 	 * @var string "class" attribute value that should be used in the HTML "body" tag of the editor
@@ -118,44 +117,45 @@ class ExtEditMe extends CInputWidget
 	 * <pre>
 	 * // Array for a full toolbar. Slashes represent line breaks and dashes represent separators.
 	 * array(
-	 * 		array(
-	 * 			'Source', '-', 'Save', 'NewPage', 'DocProps', 'Preview', 'Print', '-', 'Templates',
-	 * 		),
-	 * 	    array(
-	 * 	        'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker', 'Scayt'
-	 * 	    ),
-	 * 	    array(
-	 * 	        'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'
-	 * 	    ),
-	 * 	    '/',
-	 * 	    array(
-	 * 	        'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'BidiLtr', 'BidiRtl',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'Link', 'Unlink', 'Anchor',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'
-	 * 	    ),
-	 * 	    '/',
-	 * 	    array(
-	 * 	        'Styles', 'Format', 'Font', 'FontSize',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'TextColor', 'BGColor',
-	 * 	    ),
-	 * 	    array(
-	 * 	        'Maximize', 'ShowBlocks', '-', 'About',
-	 * 	    ),
+	 *		array(
+	 *			'Source', '-', 'Save', 'NewPage', 'DocProps', 'Preview', 'Print', '-', 'Templates',
+	 *		),
+	 *	    array(
+	 *	        'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo',
+	 *	    ),
+	 *	    array(
+	 *	        'Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker', 'Scayt'
+	 *	    ),
+	 *	    array(
+	 *	        'Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'
+	 *	    ),
+	 *	    '/',
+	 *	    array(
+	 *	        'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat',
+	 *	    ),
+	 *	    array(
+	 *	        'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', 'BidiLtr', 'BidiRtl',
+	 *	    ),
+	 *	    array(
+	 *	        'Link', 'Unlink', 'Anchor',
+	 *	    ),
+	 *	    array(
+	 *	        'Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'
+	 *	    ),
+	 *	    '/',
+	 *	    array(
+	 *	        'Styles', 'Format', 'Font', 'FontSize',
+	 *	    ),
+	 *	    array(
+	 *	        'TextColor', 'BGColor',
+	 *	    ),
+	 *	    array(
+	 *	        'Maximize', 'ShowBlocks', '-', 'About',
+	 *	    ),
 	 * )
 	 * </pre>
 	 */
+
 	public $toolbar = array();
 
 	/**
@@ -237,19 +237,16 @@ class ExtEditMe extends CInputWidget
 	/**
 	 * Initialize the editMe widget.
 	 */
-	public function init()
-	{
-		$this->_ckeExtensionPath = dirname(dirname(__FILE__)) . '/vendors/CKEditor';
+	public function init() {
+		$this -> _ckeExtensionPath = dirname(dirname(__FILE__)) . '/vendors/CKEditor';
 		// Start the publishing process if it has not been executed on the current page already
-		if(empty(self::$_ckeAssetUrl))
-		{
-			$excludeFiles = Yii::app()->assetManager->excludeFiles;
-			array_push(Yii::app()->assetManager->excludeFiles, '_source.7z', 'INSTALL.html', 'CHANGES.html', 'ckeditor_basic_source.js', 'ckeditor_basic.js', 'ckeditor_php4.php', 'ckeditor_php5.php', 'ckeditor_source.js', 'ckeditor.asp', 'ckeditor.pack', 'ckeditor.php', '_samples', '_source');
-			self::$_ckeAssetUrl = Yii::app()->assetManager->publish($this->_ckeExtensionPath);
-			Yii::app()->assetManager->excludeFiles = $excludeFiles;
-			$ckeAssetPath = str_replace(Yii::app()->assetManager->baseUrl, Yii::app()->assetManager->basePath, self::$_ckeAssetUrl);
-			if(@is_file($ckeAssetPath . '/' . md5(self::$_ckeAssetUrl) . '.js') === false)
-			{
+		if (empty(self::$_ckeAssetUrl)) {
+			$excludeFiles = Yii::app() -> assetManager -> excludeFiles;
+			array_push(Yii::app() -> assetManager -> excludeFiles, '_source.7z', 'INSTALL.html', 'CHANGES.html', 'ckeditor_basic_source.js', 'ckeditor_basic.js', 'ckeditor_php4.php', 'ckeditor_php5.php', 'ckeditor_source.js', 'ckeditor.asp', 'ckeditor.pack', 'ckeditor.php', '_samples', '_source');
+			self::$_ckeAssetUrl = Yii::app() -> assetManager -> publish($this -> _ckeExtensionPath);
+			Yii::app() -> assetManager -> excludeFiles = $excludeFiles;
+			$ckeAssetPath = str_replace(Yii::app() -> assetManager -> baseUrl, Yii::app() -> assetManager -> basePath, self::$_ckeAssetUrl);
+			if (@is_file($ckeAssetPath . '/' . md5(self::$_ckeAssetUrl) . '.js') === false) {
 				@file_put_contents($ckeAssetPath . '/' . md5(self::$_ckeAssetUrl) . '.js', 'var CKEDITOR_BASEPATH="' . self::$_ckeAssetUrl . '/";', LOCK_EX);
 			}
 		}
@@ -261,129 +258,105 @@ class ExtEditMe extends CInputWidget
 	 * @return array CKEditor config values.
 	 * @since 2.0
 	 */
-	protected function _ckeGenerateConfig()
-	{
+	protected function _ckeGenerateConfig() {
 		// Generate "toolbar" config value
-		foreach((array) $this->toolbar as $toolbarGroup)
-		{
-			if(is_array($toolbarGroup))
-			{
-				foreach($toolbarGroup as $toolbarItem)
-				{
-					if($toolbarItem != '-')
-					{
+		foreach ((array)$this -> toolbar as $toolbarGroup) {
+			if (is_array($toolbarGroup)) {
+				foreach ($toolbarGroup as $toolbarItem) {
+					if ($toolbarItem != '-') {
 						$toolbarItems[] = $toolbarItem;
 					}
 				}
 			}
 		}
-		$ckeConfig['toolbar'] = (empty($this->toolbar)) ? 'Full' : $this->toolbar;
+		$ckeConfig['toolbar'] = (empty($this -> toolbar)) ? 'Full' : $this -> toolbar;
 		// Generate "forcePasteAsPlainText" config value
 		$ckeConfig['forcePasteAsPlainText'] = (isset($toolbarItems['Paste']) || isset($toolbarItems['PasteFromWord'])) ? false : true;
 		// Generate "extraPlugins" config value
 		$extraPluginsItems = array();
-		if((empty($toolbar) || isset($toolbarItems['DocProps'])) && $this->fullPage)
-		{
+		if ((empty($toolbar) || isset($toolbarItems['DocProps'])) && $this -> fullPage) {
 			$extraPluginsItems[] = 'docprops';
 		}
-		if($this->resizeMode == 'auto')
-		{
+		if ($this -> resizeMode == 'auto') {
 			$extraPluginsItems[] = 'autogrow';
 		}
 		$ckeConfig['extraPlugins'] = implode(',', $extraPluginsItems);
 		// Generate "removeDialogTabs" config value
-		$ckeConfig['removeDialogTabs'] = ($this->advancedTabs === false) ? 'imagebutton:advanced;creatediv:advanced;editdiv:advanced;link:advanced;image:advanced;table:advanced;tableProperties:advanced;flash:advanced;iframe:advanced;' : '';
+		$ckeConfig['removeDialogTabs'] = ($this -> advancedTabs === false) ? 'imagebutton:advanced;creatediv:advanced;editdiv:advanced;link:advanced;image:advanced;table:advanced;tableProperties:advanced;flash:advanced;iframe:advanced;' : '';
 		// Generate "contentsCss" config value
-		$ckeConfig['contentsCss'] = array_merge(array(
-			self::$_ckeAssetUrl . '/contents.css'), (array) $this->contentsCss);
+		$ckeConfig['contentsCss'] = array_merge(array(self::$_ckeAssetUrl . '/contents.css'), (array)$this -> contentsCss);
 		// Generate "resize_enabled", "resize_dir" and "autoGrow_onStartup" config values.
 		$ckeConfig['resize_enabled'] = true;
 		$ckeConfig['resize_dir'] = 'both';
 		$ckeConfig['autoGrow_onStartup'] = false;
-		if($this->resizeMode == 'both' || $this->resizeMode == 'vertical' || $this->resizeMode == 'horizontal')
-		{
-			$ckeConfig['resize_dir'] = $this->resizeMode;
-		}
-		elseif($this->resizeMode == 'auto')
-		{
+		if ($this -> resizeMode == 'both' || $this -> resizeMode == 'vertical' || $this -> resizeMode == 'horizontal') {
+			$ckeConfig['resize_dir'] = $this -> resizeMode;
+		} elseif ($this -> resizeMode == 'auto') {
 			$ckeConfig['resize_enabled'] = false;
 			$ckeConfig['autoGrow_onStartup'] = true;
-		}
-		elseif($this->resizeMode === false)
-		{
+		} elseif ($this -> resizeMode === false) {
 			$ckeConfig['resize_enabled'] = false;
 		}
 		// Generate "language" config value
 		$ckeConfig['language'] = '';
-		if($this->autoLanguage === false)
-		{
-			if(empty(self::$_languages))
-			{
-				$languages = glob($this->_ckeExtensionPath . '/lang/*', GLOB_NOSORT);
-				if(empty($languages))
-				{
-					throw new CException('Cannot access CKEditor language folder "' . $this->_ckeExtensionPath . '/lang".');
+		if ($this -> autoLanguage === false) {
+			if (empty(self::$_languages)) {
+				$languages = glob($this -> _ckeExtensionPath . '/lang/*', GLOB_NOSORT);
+				if (empty($languages)) {
+					throw new CException('Cannot access CKEditor language folder "' . $this -> _ckeExtensionPath . '/lang".');
 				}
-				foreach($languages as $language)
-				{
-					$language = str_replace($this->_ckeExtensionPath . '/lang/', '', $language);
-					if(strpos($language, '_') !== 0)
-					{
+				foreach ($languages as $language) {
+					$language = str_replace($this -> _ckeExtensionPath . '/lang/', '', $language);
+					if (strpos($language, '_') !== 0) {
 						self::$_languages[] = substr($language, 0, -3);
 					}
 				}
 			}
-			$yiiLanguage = str_replace('_', '-', strtolower(Yii::app()->language));
-			if(in_array($yiiLanguage, self::$_languages))
-			{
+			$yiiLanguage = str_replace('_', '-', strtolower(Yii::app() -> language));
+			if (in_array($yiiLanguage, self::$_languages)) {
 				$ckeConfig['language'] = $yiiLanguage;
-			}
-			elseif(in_array(substr($yiiLanguage, 0, 2), self::$_languages))
-			{
+			} elseif (in_array(substr($yiiLanguage, 0, 2), self::$_languages)) {
 				$ckeConfig['language'] = substr($yiiLanguage, 0, 2);
-			}
-			else
-			{
+			} else {
 				$ckeConfig['language'] = 'en';
 			}
 		}
 		// Generate "baseHref" config value
-		$ckeConfig['baseHref'] = $this->baseHref;
+		$ckeConfig['baseHref'] = $this -> baseHref;
 		// Generate "bodyClass" config value
-		$ckeConfig['bodyClass'] = $this->bodyClass;
+		$ckeConfig['bodyClass'] = $this -> bodyClass;
 		// Generate "bodyId" config value
-		$ckeConfig['bodyId'] = $this->bodyId;
+		$ckeConfig['bodyId'] = $this -> bodyId;
 		// Generate "docType" config value
-		$ckeConfig['docType'] = $this->docType;
+		$ckeConfig['docType'] = $this -> docType;
 		// Generate "filebrowserBrowseUrl" config value
-		$ckeConfig['filebrowserBrowseUrl'] = $this->filebrowserBrowseUrl;
+		$ckeConfig['filebrowserBrowseUrl'] = $this -> filebrowserBrowseUrl;
 		// Generate "filebrowserFlashBrowseUrl" config value
-		$ckeConfig['filebrowserFlashBrowseUrl'] = $this->filebrowserFlashBrowseUrl;
+		$ckeConfig['filebrowserFlashBrowseUrl'] = $this -> filebrowserFlashBrowseUrl;
 		// Generate "filebrowserImageBrowseUrl" config value
-		$ckeConfig['filebrowserImageBrowseUrl'] = $this->filebrowserImageBrowseUrl;
+		$ckeConfig['filebrowserImageBrowseUrl'] = $this -> filebrowserImageBrowseUrl;
 		// Generate "filebrowserFlashUploadUrl" config value
-		$ckeConfig['filebrowserFlashUploadUrl'] = $this->filebrowserFlashUploadUrl;
+		$ckeConfig['filebrowserFlashUploadUrl'] = $this -> filebrowserFlashUploadUrl;
 		// Generate "filebrowserUploadUrl" config value
-		$ckeConfig['filebrowserUploadUrl'] = $this->filebrowserUploadUrl;
+		$ckeConfig['filebrowserUploadUrl'] = $this -> filebrowserUploadUrl;
 		// Generate "filebrowserImageBrowseLinkUrl" config value
-		$ckeConfig['filebrowserImageBrowseLinkUrl'] = $this->filebrowserImageBrowseLinkUrl;
+		$ckeConfig['filebrowserImageBrowseLinkUrl'] = $this -> filebrowserImageBrowseLinkUrl;
 		// Generate "filebrowserImageUploadUrl" config value
-		$ckeConfig['filebrowserImageUploadUrl'] = $this->filebrowserImageUploadUrl;
+		$ckeConfig['filebrowserImageUploadUrl'] = $this -> filebrowserImageUploadUrl;
 		// Generate "fullPage" config value
-		$ckeConfig['fullPage'] = $this->fullPage;
+		$ckeConfig['fullPage'] = $this -> fullPage;
 		// Generate "height" config value
-		$ckeConfig['height'] = $this->height;
+		$ckeConfig['height'] = $this -> height;
 		// Generate "width" config value
-		$ckeConfig['width'] = $this->width;
+		$ckeConfig['width'] = $this -> width;
 		// Generate "uiColor" config value
-		$ckeConfig['uiColor'] = $this->uiColor;
+		$ckeConfig['uiColor'] = $this -> uiColor;
 		// Generate "disableNativeSpellChecker" config value
 		$ckeConfig['disableNativeSpellChecker'] = false;
 		// Generate "autoUpdateElement" config value
 		$ckeConfig['autoUpdateElement'] = true;
 		// Generate config values which are defined in ExtEditMe::$ckeConfig
-		foreach($this->ckeConfig as $ckeConfigName=> $ckeConfigValue)
-		{
+		foreach ($this -> ckeConfig as $ckeConfigName => $ckeConfigValue) {
 			$ckeConfig[$ckeConfigName] = $ckeConfigValue;
 		}
 		// Return the CKEditor config values
@@ -393,28 +366,24 @@ class ExtEditMe extends CInputWidget
 	/**
 	 * Run the editMe Widget.
 	 */
-	public function run()
-	{
+	public function run() {
 		// Register JavaScript files
-		Yii::app()->clientScript->registerCoreScript('jquery');
-		Yii::app()->clientScript->registerScriptFile(self::$_ckeAssetUrl . '/' . md5(self::$_ckeAssetUrl) . '.js');
-		Yii::app()->clientScript->registerScriptFile(self::$_ckeAssetUrl . '/ckeditor.js');
-		Yii::app()->clientScript->registerScriptFile(self::$_ckeAssetUrl . '/adapters/jquery.js');
+		Yii::app() -> clientScript -> registerCoreScript('jquery');
+		Yii::app() -> clientScript -> registerScriptFile(self::$_ckeAssetUrl . '/' . md5(self::$_ckeAssetUrl) . '.js');
+		Yii::app() -> clientScript -> registerScriptFile(self::$_ckeAssetUrl . '/ckeditor.js');
+		Yii::app() -> clientScript -> registerScriptFile(self::$_ckeAssetUrl . '/adapters/jquery.js');
 		// Generate textarea
-		$nameId = $this->resolveNameID();
-		$this->htmlOptions['id'] = $nameId[1];
-		if($this->hasModel())
-		{
-			echo CHtml::activeTextArea($this->model, $this->attribute, $this->htmlOptions);
-		}
-		else
-		{
-			echo CHtml::textArea($this->name, $this->value, $this->htmlOptions);
+		$nameId = $this -> resolveNameID();
+		$this -> htmlOptions['id'] = $nameId[1];
+		if ($this -> hasModel()) {
+			echo CHtml::activeTextArea($this -> model, $this -> attribute, $this -> htmlOptions);
+		} else {
+			echo CHtml::textArea($this -> name, $this -> value, $this -> htmlOptions);
 		}
 		// Load CKEditor
-		$jquerySelector = CJavaScript::encode('#' . $this->htmlOptions['id']);
-		$ckeConfig = CJavaScript::encode($this->_ckeGenerateConfig());
-		Yii::app()->clientScript->registerScript('editMe_' . $this->htmlOptions['id'], 'jQuery(' . $jquerySelector . ').ckeditor(' . $ckeConfig . ');', 2);
+		$jquerySelector = CJavaScript::encode('#' . $this -> htmlOptions['id']);
+		$ckeConfig = CJavaScript::encode($this -> _ckeGenerateConfig());
+		Yii::app() -> clientScript -> registerScript('editMe_' . $this -> htmlOptions['id'], 'jQuery(' . $jquerySelector . ').ckeditor(' . $ckeConfig . ');', 2);
 	}
 
 }

@@ -12,10 +12,10 @@
 		 * @param {Object} ownerDocument
 		 */
 		CKEDITOR.dom.documentFragment = function(ownerDocument)
-		{
-			ownerDocument = ownerDocument || CKEDITOR.document;
-			this.$ = ownerDocument.$.createDocumentFragment();
-		};
+{
+	ownerDocument = ownerDocument || CKEDITOR.document;
+	this.$ = ownerDocument.$.createDocumentFragment();
+};
 
 CKEDITOR.tools.extend(CKEDITOR.dom.documentFragment.prototype,
 		CKEDITOR.dom.element.prototype,

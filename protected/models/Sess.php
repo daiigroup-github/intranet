@@ -43,17 +43,17 @@ class Sess extends CActiveRecord
 			array(
 				'employeeId',
 				'length',
-				'max'=>11),
+				'max' => 11),
 			array(
 				'sessId',
 				'length',
-				'max'=>40),
+				'max' => 40),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'employeeId, sessId, datetime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -74,9 +74,9 @@ class Sess extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'employeeId'=>'Employee',
-			'sessId'=>'Sess',
-			'datetime'=>'Datetime',
+			'employeeId' => 'Employee',
+			'sessId' => 'Sess',
+			'datetime' => 'Datetime',
 		);
 	}
 
@@ -96,7 +96,7 @@ class Sess extends CActiveRecord
 		$criteria->compare('datetime', $this->datetime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

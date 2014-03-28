@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -45,7 +46,7 @@ class Swift_Transport_Esmtp_Auth_PlainAuthenticator implements Swift_Transport_E
 				235));
 			return true;
 		}
-		catch(Swift_TransportException $e)
+		catch (Swift_TransportException $e)
 		{
 			$agent->executeCommand("RSET\r\n", array(
 				250));

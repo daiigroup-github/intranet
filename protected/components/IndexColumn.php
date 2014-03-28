@@ -16,5 +16,15 @@ class IndexColumn extends CGridColumn {
 		$index = $pagination->pageSize * $pagination->currentPage + $row + 1;
 		echo $index;
 	}
-
 }
+
+/*
+ $this->widget('zii.widgets.grid.CGridView', array(
+    ...
+    'columns'=>array(
+        array('class'=>'IndexColumn', ), // add this line
+        // other columns here
+        ...
+    ),
+));
+ */

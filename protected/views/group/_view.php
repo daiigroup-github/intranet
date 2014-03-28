@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->groupId), array(
 		'view',
-		'id'=>$data->groupId));
+		'id' => $data->groupId));
 	?>
 	<br />
 

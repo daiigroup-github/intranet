@@ -52,24 +52,24 @@ class ConstructionProcessSub extends CActiveRecord
 			array(
 				'status, earningPrecent, duration, paymentNo',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'contractorCost',
 				'numerical'),
 			array(
 				'projectId, processId, engineerId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'name, detail',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'processSubId, status, projectId, processId, engineerId, name, detail, earningPrecent, contractorCost, startDate, duration, paymentNo',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -81,15 +81,15 @@ class ConstructionProcessSub extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'process'=>array(
+			'process' => array(
 				self::BELONGS_TO,
 				'ConstructionProcess',
 				'processId'),
-			'processSubImage'=>array(
+			'processSubImage' => array(
 				self::HAS_MANY,
 				'ConstructionProcessSubImage',
 				'processSubId'),
-			'processSubImageCount'=>array(
+			'processSubImageCount' => array(
 				self::STAT,
 				'ConstructionProcessSubImage',
 				'processSubId'),
@@ -102,18 +102,18 @@ class ConstructionProcessSub extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'processSubId'=>'Process Sub',
-			'status'=>'Status',
-			'projectId'=>'Project',
-			'processId'=>'Process',
-			'engineerId'=>'Engineer',
-			'name'=>'Name',
-			'detail'=>'Detail',
-			'earningPrecent'=>'Earning Precent',
-			'contractorCost'=>'Contractor Cost',
-			'startDate'=>'Start Date',
-			'duration'=>'Duration',
-			'paymentNo'=>'Payment No',
+			'processSubId' => 'Process Sub',
+			'status' => 'Status',
+			'projectId' => 'Project',
+			'processId' => 'Process',
+			'engineerId' => 'Engineer',
+			'name' => 'Name',
+			'detail' => 'Detail',
+			'earningPrecent' => 'Earning Precent',
+			'contractorCost' => 'Contractor Cost',
+			'startDate' => 'Start Date',
+			'duration' => 'Duration',
+			'paymentNo' => 'Payment No',
 		);
 	}
 
@@ -142,7 +142,7 @@ class ConstructionProcessSub extends CActiveRecord
 		$criteria->compare('paymentNo', $this->paymentNo);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

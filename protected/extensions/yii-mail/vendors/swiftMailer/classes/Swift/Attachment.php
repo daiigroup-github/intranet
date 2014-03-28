@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -38,7 +39,7 @@ class Swift_Attachment extends Swift_Mime_Attachment
 
 		$this->setBody($data);
 		$this->setFilename($filename);
-		if($contentType)
+		if ($contentType)
 		{
 			$this->setContentType($contentType);
 		}

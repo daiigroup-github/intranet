@@ -2,12 +2,11 @@
 
 class ElearningExamQuestionController extends Controller
 {
-
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout = '//layouts/cl1';
+	public $layout='//layouts/cl1';
 
 	/**
 	 * @return array action filters
@@ -52,7 +51,7 @@ class ElearningExamQuestionController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$this->render('view', array(
+		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
@@ -63,7 +62,7 @@ class ElearningExamQuestionController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new ElearningExamQuestion;
+		$model=new ElearningExamQuestion;
 		$choiceModel = new ElearningExamChoice;
 		$choiceModels = null;
 
@@ -76,17 +75,17 @@ class ElearningExamQuestionController extends Controller
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
-				$model->attributes = $_POST['ElearningExamQuestion'];
+				$model->attributes=$_POST['ElearningExamQuestion'];
 
 				if($model->save())
 				{
 					$questionId = Yii::app()->db->getLastInsertId();
 					$i = 0;
-					foreach($_POST['ElearningExamChoice'] as $key=> $value)
+					foreach ($_POST['ElearningExamChoice'] as $key => $value) 
 					{
 						$choiceModel = new ElearningExamChoice;
 						$choiceModel->attributes = $value;
-						$choiceModel->isCorrect = ($key == $_POST['isCorrect']) ? 1 : 0;
+						$choiceModel->isCorrect = ($key == $_POST['isCorrect'])	? 1 : 0;
 						$choiceModel->questionId = $questionId;
 
 						$choiceModels[$key] = $choiceModel;
@@ -97,25 +96,23 @@ class ElearningExamQuestionController extends Controller
 						}
 					}
 
-					if(!$i)
+					if (!$i) 
 					{
 						$flag = true;
 					}
 				}
-
+			
 				if($flag)
 				{
 					$transaction->commit();
-					$this->redirect(array(
-						'view',
-						'id'=>$model->questionId));
+					$this->redirect(array('view','id'=>$model->questionId));
 				}
 				else
 				{
 					$transaction->rollback();
 				}
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -124,7 +121,7 @@ class ElearningExamQuestionController extends Controller
 			// 	$this->redirect(array('view','id'=>$model->questionId));
 		}
 
-		$this->render('create', array(
+		$this->render('create',array(
 			'model'=>$model,
 			'choiceModel'=>$choiceModel,
 			'choiceModels'=>$choiceModels,
@@ -138,11 +135,8 @@ class ElearningExamQuestionController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model = $this->loadModel($id);
-		$choiceModels = ElearningExamChoice::model()->findAll(array(
-			'condition'=>'questionId=:questionId',
-			'params'=>array(
-				':questionId'=>$id)));
+		$model=$this->loadModel($id);
+		$choiceModels = ElearningExamChoice::model()->findAll(array('condition'=>'questionId=:questionId', 'params'=>array(':questionId'=>$id)));
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -153,17 +147,17 @@ class ElearningExamQuestionController extends Controller
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
-				$model->attributes = $_POST['ElearningExamQuestion'];
+				$model->attributes=$_POST['ElearningExamQuestion'];
 
 				if($model->save())
 				{
 					$questionId = Yii::app()->db->getLastInsertId();
 					$i = 0;
-					foreach($_POST['ElearningExamChoice'] as $choiceId=> $value)
+					foreach ($_POST['ElearningExamChoice'] as $choiceId => $value) 
 					{
 						$choiceModel = ElearningExamChoice::model()->findByPk($choiceId);
 						$choiceModel->attributes = $value;
-						$choiceModel->isCorrect = ($choiceId == $_POST['isCorrect']) ? 1 : 0;
+						$choiceModel->isCorrect = ($choiceId == $_POST['isCorrect'])	? 1 : 0;
 
 						$choiceModels[$key] = $choiceModel;
 
@@ -173,25 +167,23 @@ class ElearningExamQuestionController extends Controller
 						}
 					}
 
-					if(!$i)
+					if (!$i) 
 					{
 						$flag = true;
 					}
 				}
-
+			
 				if($flag)
 				{
 					$transaction->commit();
-					$this->redirect(array(
-						'view',
-						'id'=>$model->questionId));
+					$this->redirect(array('view','id'=>$model->questionId));
 				}
 				else
 				{
 					$transaction->rollback();
 				}
 			}
-			catch(Exception $e)
+			catch (Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -202,7 +194,7 @@ class ElearningExamQuestionController extends Controller
 			// 	$this->redirect(array('view','id'=>$model->questionId));
 		}
 
-		$this->render('update', array(
+		$this->render('update',array(
 			'model'=>$model,
 			'choiceModels'=>$choiceModels
 		));
@@ -219,8 +211,7 @@ class ElearningExamQuestionController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
-					'admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
 	/**
@@ -228,12 +219,12 @@ class ElearningExamQuestionController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$model = new ElearningExamQuestion('search');
+		$model=new ElearningExamQuestion('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['ElearningExamQuestion']))
-			$model->attributes = $_GET['ElearningExamQuestion'];
+			$model->attributes=$_GET['ElearningExamQuestion'];
 
-		$this->render('index', array(
+		$this->render('index',array(
 			'model'=>$model,
 		));
 	}
@@ -247,9 +238,9 @@ class ElearningExamQuestionController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model = ElearningExamQuestion::model()->findByPk($id);
-		if($model === null)
-			throw new CHttpException(404, 'The requested page does not exist.');
+		$model=ElearningExamQuestion::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
 	}
 
@@ -259,7 +250,7 @@ class ElearningExamQuestionController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'elearning-exam-question-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='elearning-exam-question-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
@@ -275,16 +266,17 @@ class ElearningExamQuestionController extends Controller
 		 * c3 choice
 		 * c4 isCorrect
 		 */
+
 		$flag = false;
 		$transaction = Yii::app()->db->beginTransaction();
 		try
 		{
-			$filePath = Yii::app()->basePath . '/../assets/exam.csv';
+			$filePath = Yii::app()->basePath.'/../assets/exam.csv';
 			$lines = file($filePath);
 			$lines2 = file($filePath);
 			$i = 0;
 			$k = 0;
-			foreach($lines as $line)
+			foreach ($lines as $line) 
 			{
 				$items = explode('|', $line);
 				if(!empty($items[1]))
@@ -293,13 +285,13 @@ class ElearningExamQuestionController extends Controller
 					$questionModel->title = $items[2];
 					$questionModel->elearningId = $items[0];
 
-					echo $items[2] . '<br />';
+					echo $items[2].'<br />';
 
 					if($questionModel->save())
 					{
 						$questionId = Yii::app()->db->getLastInsertId();
 
-						for($j = $i; $j < $i + 4; $j++)
+						for($j=$i;$j<$i+4;$j++)
 						{
 							$items2 = explode('|', $lines2[$j]);
 							$choiceModel = new ElearningExamChoice;
@@ -313,7 +305,7 @@ class ElearningExamQuestionController extends Controller
 								$k++;
 								break;
 							}
-							echo $j . ' : ' . $items2[3] . '<br />';
+							echo $j.' : '.$items2[3].'<br />';
 						}
 						echo '<hr />';
 					}
@@ -326,9 +318,8 @@ class ElearningExamQuestionController extends Controller
 				$i++;
 			}
 
-			if(!$k)
-				$flag = true;
-
+			if(!$k) $flag = true;
+		
 			if($flag)
 			{
 				$transaction->commit();
@@ -338,11 +329,10 @@ class ElearningExamQuestionController extends Controller
 				$transaction->rollback();
 			}
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			throw new Exception($e->getMessage());
 			$transaction->rollback();
 		}
 	}
-
 }

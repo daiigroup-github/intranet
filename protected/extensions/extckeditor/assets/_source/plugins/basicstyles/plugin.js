@@ -4,41 +4,41 @@
  */
 
 		CKEDITOR.plugins.add('basicstyles',
+		{
+			requires: ['styles', 'button'],
+			init: function(editor)
+			{
+				// All buttons use the same code to register. So, to avoid
+				// duplications, let's use this tool function.
+				var addButtonCommand = function(buttonName, buttonLabel, commandName, styleDefiniton)
 				{
-					requires: ['styles', 'button'],
-					init: function(editor)
+					var style = new CKEDITOR.style(styleDefiniton);
+
+					editor.attachStyleStateChange(style, function(state)
 					{
-						// All buttons use the same code to register. So, to avoid
-						// duplications, let's use this tool function.
-						var addButtonCommand = function(buttonName, buttonLabel, commandName, styleDefiniton)
-						{
-							var style = new CKEDITOR.style(styleDefiniton);
+						!editor.readOnly && editor.getCommand(commandName).setState(state);
+					});
 
-							editor.attachStyleStateChange(style, function(state)
+					editor.addCommand(commandName, new CKEDITOR.styleCommand(style));
+
+					editor.ui.addButton(buttonName,
 							{
-								!editor.readOnly && editor.getCommand(commandName).setState(state);
+								label: buttonLabel,
+								command: commandName
 							});
+				};
 
-							editor.addCommand(commandName, new CKEDITOR.styleCommand(style));
+				var config = editor.config,
+						lang = editor.lang;
 
-							editor.ui.addButton(buttonName,
-									{
-										label: buttonLabel,
-										command: commandName
-									});
-						};
-
-						var config = editor.config,
-								lang = editor.lang;
-
-						addButtonCommand('Bold', lang.bold, 'bold', config.coreStyles_bold);
-						addButtonCommand('Italic', lang.italic, 'italic', config.coreStyles_italic);
-						addButtonCommand('Underline', lang.underline, 'underline', config.coreStyles_underline);
-						addButtonCommand('Strike', lang.strike, 'strike', config.coreStyles_strike);
-						addButtonCommand('Subscript', lang.subscript, 'subscript', config.coreStyles_subscript);
-						addButtonCommand('Superscript', lang.superscript, 'superscript', config.coreStyles_superscript);
-					}
-				});
+				addButtonCommand('Bold', lang.bold, 'bold', config.coreStyles_bold);
+				addButtonCommand('Italic', lang.italic, 'italic', config.coreStyles_italic);
+				addButtonCommand('Underline', lang.underline, 'underline', config.coreStyles_underline);
+				addButtonCommand('Strike', lang.strike, 'strike', config.coreStyles_strike);
+				addButtonCommand('Subscript', lang.subscript, 'subscript', config.coreStyles_subscript);
+				addButtonCommand('Superscript', lang.superscript, 'superscript', config.coreStyles_superscript);
+			}
+		});
 
 // Basic Inline Styles.
 

@@ -29,7 +29,7 @@ class RAuthItemDataProvider extends CDataProvider
 	{
 		$this->setId($id);
 
-		foreach($config as $key=> $value)
+		foreach ($config as $key => $value)
 			$this->$key = $value;
 	}
 
@@ -39,15 +39,15 @@ class RAuthItemDataProvider extends CDataProvider
 	 */
 	public function fetchData()
 	{
-		if($this->sortable !== null)
+		if ($this->sortable !== null)
 			$this->processSortable();
 
-		if($this->items === null)
+		if ($this->items === null)
 			$this->items = Rights::getAuthorizer()->getAuthItems($this->type, $this->userId, $this->parent, true, $this->exclude);
 
 		$data = array(
 			);
-		foreach($this->items as $name=> $item)
+		foreach ($this->items as $name => $item)
 			$data[] = $item;
 
 		return $data;
@@ -61,7 +61,7 @@ class RAuthItemDataProvider extends CDataProvider
 	{
 		$keys = array(
 			);
-		foreach($this->getData() as $name=> $item)
+		foreach ($this->getData() as $name => $item)
 			$keys[] = $name;
 
 		return $keys;
@@ -72,9 +72,9 @@ class RAuthItemDataProvider extends CDataProvider
 	 */
 	protected function processSortable()
 	{
-		if($this->sortable !== null)
+		if ($this->sortable !== null)
 		{
-			if(isset($this->sortable['id']) === true && isset($this->sortable['element']) === true && isset($this->sortable['url']) === true)
+			if (isset($this->sortable['id']) === true && isset($this->sortable['element']) === true && isset($this->sortable['url']) === true)
 			{
 				// Register the script to bind the sortable plugin to the role table
 				Yii::app()->getClientScript()->registerScript($this->sortable['id'], "jQuery('" . $this->sortable['element'] . "').rightsSortableTable({

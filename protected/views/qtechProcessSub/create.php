@@ -1,20 +1,20 @@
 <?php
 $this->breadcrumbs = array(
-	'Qtech Projects'=>array(
+	'Qtech Projects' => array(
 		'/qtechProject'),
-	$model->project->customer->customerName . ' : ' . $model->project->projectName=>array(
+	$model->project->customer->customerName . ' : ' . $model->project->projectName => array(
 		'/qtechProject/' . $model->qtechProjectId),
 	$model->process->processName,
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List QtechProcessSub',
-		'url'=>array(
+		'label' => 'List QtechProcessSub',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Manage QtechProcessSub',
-		'url'=>array(
+		'label' => 'Manage QtechProcessSub',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -23,5 +23,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

@@ -44,15 +44,15 @@ class ReqEqStock extends CActiveRecord
 			array(
 				'status, type, inStock',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'description',
 				'length',
-				'max'=>150),
+				'max' => 150),
 			array(
 				'unit',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'modTime',
 				'safe'),
@@ -61,7 +61,7 @@ class ReqEqStock extends CActiveRecord
 			array(
 				'reqStockId, modTime, status, description, unit, type, inStock',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -82,13 +82,13 @@ class ReqEqStock extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'reqStockId'=>'Req Stock',
-			'modTime'=>'Mod Time',
-			'status'=>'Status',
-			'description'=>'Description',
-			'unit'=>'Unit',
-			'type'=>'Type',
-			'inStock'=>'In Stock',
+			'reqStockId' => 'Req Stock',
+			'modTime' => 'Mod Time',
+			'status' => 'Status',
+			'description' => 'Description',
+			'unit' => 'Unit',
+			'type' => 'Type',
+			'inStock' => 'In Stock',
 		);
 	}
 
@@ -112,7 +112,7 @@ class ReqEqStock extends CActiveRecord
 		$criteria->compare('inStock', $this->inStock);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

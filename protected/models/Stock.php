@@ -51,19 +51,19 @@ class Stock extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'stockDetailId, companyId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'stockQuantity',
 				'length',
-				'max'=>11),
+				'max' => 11),
 			array(
 				'stockUnitPrice',
 				'length',
-				'max'=>15),
+				'max' => 15),
 			array(
 				'updateDateTime',
 				'safe'),
@@ -72,7 +72,7 @@ class Stock extends CActiveRecord
 			array(
 				'stockId, stockDetailId, companyId, stockQuantity, stockUnitPrice, createDateTime, updateDateTime, status',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -84,15 +84,15 @@ class Stock extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'company'=>array(
+			'company' => array(
 				self::BELONGS_TO,
 				'Company',
 				'companyId'),
-			'stockDetail'=>array(
+			'stockDetail' => array(
 				self::BELONGS_TO,
 				'StockDetail',
 				'stockDetailId'),
-			'stockTransactions'=>array(
+			'stockTransactions' => array(
 				self::HAS_MANY,
 				'StockTransaction',
 				'stockId'),
@@ -105,16 +105,16 @@ class Stock extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'stockId'=>'คลังสินค้า',
-			'stockDetailId'=>'รายการอุปกรณ์สำนักงาน',
-			'companyId'=>'บริษัท',
-			'stockQuantity'=>'จำนวน',
-			'stockUnitPrice'=>'ราคาต่อหน่วย',
-			'createDateTime'=>'วันที่สร้าง',
-			'updateDateTime'=>'วันที่ปรับปรุง',
-			'status'=>'สถานะ',
-			'stockDetailName'=>'ชื่อรายการของ',
-			'sumQuantity'=>'จำนวน'
+			'stockId' => 'คลังสินค้า',
+			'stockDetailId' => 'รายการอุปกรณ์สำนักงาน',
+			'companyId' => 'บริษัท',
+			'stockQuantity' => 'จำนวน',
+			'stockUnitPrice' => 'ราคาต่อหน่วย',
+			'createDateTime' => 'วันที่สร้าง',
+			'updateDateTime' => 'วันที่ปรับปรุง',
+			'status' => 'สถานะ',
+			'stockDetailName' => 'ชื่อรายการของ',
+			'sumQuantity' => 'จำนวน'
 		);
 	}
 
@@ -139,9 +139,9 @@ class Stock extends CActiveRecord
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'createDateTime DESC',
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 'createDateTime DESC',
 			),
 		));
 	}
@@ -154,9 +154,9 @@ class Stock extends CActiveRecord
 		$models = Stock::model()->findAll();
 
 		$w = array(
-			''=>'Choose..');
+			'' => 'Choose..');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->stockId] = $model->stockDetail->stockDetailName . "(" . $model->stockDetail->stockDetailUnit . ")";
 		}
@@ -175,7 +175,7 @@ class Stock extends CActiveRecord
 		//$criteria->params = array(":companyId"=>$compamyId);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

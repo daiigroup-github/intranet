@@ -10,7 +10,7 @@
 				var tab, name = ev.data.name,
 						definition = ev.data.definition;
 
-				if(name == 'link')
+				if (name == 'link')
 				{
 					definition.removeContents('target');
 					definition.removeContents('upload');
@@ -19,7 +19,7 @@
 					tab.remove('emailSubject');
 					tab.remove('emailBody');
 				}
-				else if(name == 'image')
+				else if (name == 'image')
 				{
 					definition.removeContents('advanced');
 					tab = definition.getContents('Link');
@@ -60,9 +60,9 @@
 				(styleText || '')
 						.replace(/&quot;/g, '"')
 						.replace(/\s*([^ :;]+)\s*:\s*([^;]+)\s*(?=;|$)/g, function(match, name, value)
-						{
-							retval[ name.toLowerCase() ] = value;
-						});
+				{
+					retval[ name.toLowerCase() ] = value;
+				});
 				return retval;
 			}
 
@@ -140,10 +140,10 @@
 									part,
 									lastIndex = 0;
 
-							while((parts = this._.bbcPartsRegex.exec(bbcode)))
+							while ((parts = this._.bbcPartsRegex.exec(bbcode)))
 							{
 								var tagIndex = parts.index;
-								if(tagIndex > lastIndex)
+								if (tagIndex > lastIndex)
 								{
 									var text = bbcode.substring(lastIndex, tagIndex);
 									this.onText(text, 1);
@@ -162,58 +162,58 @@
 
 								part = (parts[ 1 ] || parts[ 3 ] || '').toLowerCase();
 								// Unrecognized tags should be delivered as a simple text (#7860).
-								if(part && !bbcodeMap[ part ])
+								if (part && !bbcodeMap[ part ])
 								{
 									this.onText(parts[ 0 ]);
 									continue;
 								}
 
 								// Opening tag
-								if(parts[ 1 ])
+								if (parts[ 1 ])
 								{
 									var tagName = bbcodeMap[ part ],
 											attribs = {},
 											styles = {},
 											optionPart = parts[ 2 ];
 
-									if(optionPart)
+									if (optionPart)
 									{
-										if(part == 'list')
+										if (part == 'list')
 										{
-											if(!isNaN(optionPart))
+											if (!isNaN(optionPart))
 												optionPart = 'decimal';
-											else if(/^[a-z]+$/.test(optionPart))
+											else if (/^[a-z]+$/.test(optionPart))
 												optionPart = 'lower-alpha';
-											else if(/^[A-Z]+$/.test(optionPart))
+											else if (/^[A-Z]+$/.test(optionPart))
 												optionPart = 'upper-alpha';
 										}
 
-										if(stylesMap[ part ])
+										if (stylesMap[ part ])
 										{
 											// Font size represents percentage.
-											if(part == 'size')
+											if (part == 'size')
 												optionPart += '%';
 
 											styles[ stylesMap[ part ] ] = optionPart;
 											attribs.style = serializeStyleText(styles);
 										}
-										else if(attributesMap[ part ])
+										else if (attributesMap[ part ])
 											attribs[ attributesMap[ part ] ] = optionPart;
 									}
 
 									// Two special handling - image and email, protect them
 									// as "span" with an attribute marker.
-									if(part == 'email' || part == 'img')
+									if (part == 'email' || part == 'img')
 										attribs[ 'bbcode' ] = part;
 
 									this.onTagOpen(tagName, attribs, CKEDITOR.dtd.$empty[ tagName ]);
 								}
 								// Closing tag
-								else if(parts[ 3 ])
+								else if (parts[ 3 ])
 									this.onTagClose(bbcodeMap[ part ]);
 							}
 
-							if(bbcode.length > lastIndex)
+							if (bbcode.length > lastIndex)
 								this.onText(bbcode.substring(lastIndex, bbcode.length), 1);
 						}
 					};
@@ -239,7 +239,7 @@
 
 				function checkPending(newTagName)
 				{
-					if(pendingInline.length > 0)
+					if (pendingInline.length > 0)
 					{
 						for (var i = 0; i < pendingInline.length; i++)
 						{
@@ -248,7 +248,7 @@
 									pendingDtd = CKEDITOR.dtd[ pendingName ],
 									currentDtd = currentNode.name && CKEDITOR.dtd[ currentNode.name ];
 
-							if((!currentDtd || currentDtd[ pendingName ]) && (!newTagName || !pendingDtd || pendingDtd[ newTagName ] || !CKEDITOR.dtd[ newTagName ]))
+							if ((!currentDtd || currentDtd[ pendingName ]) && (!newTagName || !pendingDtd || pendingDtd[ newTagName ] || !CKEDITOR.dtd[ newTagName ]))
 							{
 								// Get a clone for the pending element.
 								pendingElement = pendingElement.clone();
@@ -275,17 +275,17 @@
 							lineBreakPrevious = previous && previous.type == CKEDITOR.NODE_ELEMENT && BBCodeWriter.getRule(tagnameMap[ previous.name ], 'breakAfterClose'),
 							lineBreakCurrent = tagName && BBCodeWriter.getRule(tagnameMap[ tagName ], closing ? 'breakBeforeClose' : 'breakBeforeOpen');
 
-					if(pendingBrs && (lineBreakParent || lineBreakPrevious || lineBreakCurrent))
+					if (pendingBrs && (lineBreakParent || lineBreakPrevious || lineBreakCurrent))
 						pendingBrs--;
 
 					// 1. Either we're at the end of block, where it requires us to compensate the br filler
 					// removing logic (from htmldataprocessor).
 					// 2. Or we're at the end of pseudo block, where it requires us to compensate
 					// the bogus br effect.
-					if(pendingBrs && tagName in blockLikeTags)
+					if (pendingBrs && tagName in blockLikeTags)
 						pendingBrs++;
 
-					while(pendingBrs && pendingBrs--)
+					while (pendingBrs && pendingBrs--)
 						currentNode.children.push(previous = new CKEDITOR.htmlParser.element('br'));
 				}
 
@@ -303,7 +303,7 @@
 
 					target.children.push(node);
 
-					if(node.returnPoint)
+					if (node.returnPoint)
 					{
 						currentNode = node.returnPoint;
 						delete node.returnPoint;
@@ -315,7 +315,7 @@
 					var element = new CKEDITOR.htmlParser.element(tagName, attributes);
 
 					// This is a tag to be removed if empty, so do not add it immediately.
-					if(CKEDITOR.dtd.$removeEmpty[ tagName ])
+					if (CKEDITOR.dtd.$removeEmpty[ tagName ])
 					{
 						pendingInline.push(element);
 						return;
@@ -325,10 +325,10 @@
 
 					var currentDtd = currentName
 							&& (CKEDITOR.dtd[ currentName ]
-									|| (currentNode._.isBlockLike ? CKEDITOR.dtd.div : CKEDITOR.dtd.span));
+							|| (currentNode._.isBlockLike ? CKEDITOR.dtd.div : CKEDITOR.dtd.span));
 
 					// If the element cannot be child of the current element.
-					if(currentDtd && !currentDtd[ tagName ])
+					if (currentDtd && !currentDtd[ tagName ])
 					{
 						var reApply = false,
 								addPoint;   // New position to start adding nodes.
@@ -337,9 +337,9 @@
 						// then just close the current one and append the new one to the
 						// parent. This situation usually happens with <p>, <li>, <dt> and
 						// <dd>, specially in IE. Do not enter in this if block in this case.
-						if(tagName == currentName)
+						if (tagName == currentName)
 							addElement(currentNode, currentNode.parent);
-						else if(tagName in CKEDITOR.dtd.$listItem)
+						else if (tagName in CKEDITOR.dtd.$listItem)
 						{
 							parser.onTagOpen('ul', {});
 							addPoint = currentNode;
@@ -356,13 +356,13 @@
 							reApply = true;
 						}
 
-						if(addPoint)
+						if (addPoint)
 							currentNode = addPoint;
 						// Try adding it to the return point, or the parent element.
 						else
 							currentNode = currentNode.returnPoint || currentNode.parent;
 
-						if(reApply)
+						if (reApply)
 						{
 							parser.onTagOpen.apply(this, arguments);
 							return;
@@ -376,7 +376,7 @@
 					element.returnPoint = returnPoint;
 					returnPoint = 0;
 
-					if(element.isEmpty)
+					if (element.isEmpty)
 						addElement(element);
 					else
 						currentNode = element;
@@ -388,7 +388,7 @@
 					for (var i = pendingInline.length - 1; i >= 0; i--)
 					{
 						// If found, just remove it from the list.
-						if(tagName == pendingInline[ i ].name)
+						if (tagName == pendingInline[ i ].name)
 						{
 							pendingInline.splice(i, 1);
 							return;
@@ -399,12 +399,12 @@
 							newPendingInline = [],
 							candidate = currentNode;
 
-					while(candidate.type && candidate.name != tagName)
+					while (candidate.type && candidate.name != tagName)
 					{
 						// If this is an inline element, add it to the pending list, if we're
 						// really closing one of the parents element later, they will continue
 						// after it.
-						if(!candidate._.isBlockLike)
+						if (!candidate._.isBlockLike)
 							newPendingInline.unshift(candidate);
 
 						// This node should be added to it's parent at this point. But,
@@ -415,7 +415,7 @@
 						candidate = candidate.parent;
 					}
 
-					if(candidate.type)
+					if (candidate.type)
 					{
 						// Add all elements that have been found in the above loop.
 						for (i = 0; i < pendingAdd.length; i++)
@@ -431,7 +431,7 @@
 
 						// The parent should start receiving new nodes now, except if
 						// addElement changed the currentNode.
-						if(candidate == currentNode)
+						if (candidate == currentNode)
 							currentNode = currentNode.parent;
 
 						pendingInline = pendingInline.concat(newPendingInline);
@@ -441,16 +441,16 @@
 				parser.onText = function(text)
 				{
 					var currentDtd = CKEDITOR.dtd[ currentNode.name ];
-					if(!currentDtd || currentDtd[ '#' ])
+					if (!currentDtd || currentDtd[ '#' ])
 					{
 						checkPendingBrs();
 						checkPending();
 
 						text.replace(/([\r\n])|[^\r\n]*/g, function(piece, lineBreak)
 						{
-							if(lineBreak !== undefined && lineBreak.length)
+							if (lineBreak !== undefined && lineBreak.length)
 								pendingBrs++;
-							else if(piece.length)
+							else if (piece.length)
 							{
 								var lastIndex = 0;
 
@@ -462,7 +462,7 @@
 									lastIndex = index + match.length;
 								});
 
-								if(lastIndex != piece.length)
+								if (lastIndex != piece.length)
 									addElement(new CKEDITOR.htmlParser.text(piece.substring(lastIndex, piece.length)), currentNode);
 							}
 						});
@@ -473,7 +473,7 @@
 				parser.parse(CKEDITOR.tools.htmlEncode(source));
 
 				// Close all hanging nodes.
-				while(currentNode.type)
+				while (currentNode.type)
 				{
 					var parent = currentNode.parent,
 							node = currentNode;
@@ -548,7 +548,7 @@
 									{
 										var currentRules = this._.rules[ tagName ];
 
-										if(currentRules)
+										if (currentRules)
 											CKEDITOR.tools.extend(currentRules, rules, true);
 										else
 											this._.rules[ tagName ] = rules;
@@ -559,9 +559,9 @@
 									},
 									openTag: function(tag, attributes)
 									{
-										if(tag in bbcodeMap)
+										if (tag in bbcodeMap)
 										{
-											if(this.getRule(tag, 'breakBeforeOpen'))
+											if (this.getRule(tag, 'breakBeforeOpen'))
 												this.lineBreak(1);
 
 											this.write('[', tag);
@@ -569,10 +569,10 @@
 											option && this.write('=', option);
 											this.write(']');
 
-											if(this.getRule(tag, 'breakAfterOpen'))
+											if (this.getRule(tag, 'breakAfterOpen'))
 												this.lineBreak(1);
 										}
-										else if(tag == 'br')
+										else if (tag == 'br')
 											this._.output.push('\n');
 									},
 									openTagClose: function() {
@@ -581,14 +581,14 @@
 									},
 									closeTag: function(tag)
 									{
-										if(tag in bbcodeMap)
+										if (tag in bbcodeMap)
 										{
-											if(this.getRule(tag, 'breakBeforeClose'))
+											if (this.getRule(tag, 'breakBeforeClose'))
 												this.lineBreak(1);
 
 											tag != '*' && this.write('[/', tag, ']');
 
-											if(this.getRule(tag, 'breakAfterClose'))
+											if (this.getRule(tag, 'breakAfterClose'))
 												this.lineBreak(1);
 										}
 									},
@@ -613,7 +613,7 @@
 										// Avoid line break when:
 										// 1) Previous tag already put one.
 										// 2) We're at output start.
-										if(!this._.hasLineBreak && this._.output.length)
+										if (!this._.hasLineBreak && this._.output.length)
 										{
 											this.write('\n');
 											this._.hasLineBreak = 1;
@@ -634,290 +634,290 @@
 									{
 										var bbcode = this._.output.join('');
 
-										if(reset)
+										if (reset)
 											this.reset();
 
 										return decodeHtml(bbcode);
 									}
 								}
-					});
-
-			var BBCodeWriter = new CKEDITOR.htmlParser.BBCodeWriter();
-
-			CKEDITOR.plugins.add('bbcode',
-					{
-						requires: ['htmldataprocessor', 'entities'],
-						beforeInit: function(editor)
-						{
-							// Adapt some critical editor configuration for better support
-							// of BBCode environment.
-							var config = editor.config;
-							CKEDITOR.tools.extend(config,
-									{
-										enterMode: CKEDITOR.ENTER_BR,
-										basicEntities: false,
-										entities: false,
-										fillEmptyBlocks: false
-									}, true);
-						},
-						init: function(editor)
-						{
-							var config = editor.config;
-
-							function BBCodeToHtml(code)
-							{
-								var fragment = CKEDITOR.htmlParser.fragment.fromBBCode(code),
-										writer = new CKEDITOR.htmlParser.basicWriter();
-
-								fragment.writeHtml(writer, dataFilter);
-								return writer.getHtml(true);
-							}
-
-							var dataFilter = new CKEDITOR.htmlParser.filter();
-							dataFilter.addRules(
-									{
-										elements:
-												{
-													'blockquote': function(element)
-													{
-														var quoted = new CKEDITOR.htmlParser.element('div');
-														quoted.children = element.children;
-														element.children = [quoted];
-														var citeText = element.attributes.cite;
-														if(citeText)
-														{
-															var cite = new CKEDITOR.htmlParser.element('cite');
-															cite.add(new CKEDITOR.htmlParser.text(citeText.replace(/^"|"$/g, '')));
-															delete element.attributes.cite;
-															element.children.unshift(cite);
-														}
-													},
-													'span': function(element)
-													{
-														var bbcode;
-														if((bbcode = element.attributes.bbcode))
-														{
-															if(bbcode == 'img')
-															{
-																element.name = 'img';
-																element.attributes.src = element.children[ 0 ].value;
-																element.children = [];
-															}
-															else if(bbcode == 'email')
-															{
-																element.name = 'a';
-																element.attributes.href = 'mailto:' + element.children[ 0 ].value;
-															}
-
-															delete element.attributes.bbcode;
-														}
-													},
-													'ol': function(element)
-													{
-														if(element.attributes.listType)
-														{
-															if(element.attributes.listType != 'decimal')
-																element.attributes.style = 'list-style-type:' + element.attributes.listType;
-														}
-														else
-															element.name = 'ul';
-
-														delete element.attributes.listType;
-													},
-													a: function(element)
-													{
-														if(!element.attributes.href)
-															element.attributes.href = element.children[ 0 ].value;
-													},
-													'smiley': function(element)
-													{
-														element.name = 'img';
-
-														var description = element.attributes.desc,
-																image = config.smiley_images[ CKEDITOR.tools.indexOf(config.smiley_descriptions, description) ],
-																src = CKEDITOR.tools.htmlEncode(config.smiley_path + image);
-
-														element.attributes =
-																{
-																	src: src,
-																	'data-cke-saved-src': src,
-																	title: description,
-																	alt: description
-																};
-													}
-												}
-									});
-
-							editor.dataProcessor.htmlFilter.addRules(
-									{
-										elements:
-												{
-													$: function(element)
-													{
-														var attributes = element.attributes,
-																style = parseStyleText(attributes.style),
-																value;
-
-														var tagName = element.name;
-														if(tagName in convertMap)
-															tagName = convertMap[ tagName ];
-														else if(tagName == 'span')
-														{
-															if((value = style.color))
-															{
-																tagName = 'color';
-																value = RGBToHex(value);
-															}
-															else if((value = style[ 'font-size' ]))
-															{
-																var percentValue = value.match(/(\d+)%$/);
-																if(percentValue)
-																{
-																	value = percentValue[ 1 ];
-																	tagName = 'size';
-																}
-															}
-														}
-														else if(tagName == 'ol' || tagName == 'ul')
-														{
-															if((value = style[ 'list-style-type']))
-															{
-																switch(value)
-																{
-																	case 'lower-alpha':
-																		value = 'a';
-																		break;
-																	case 'upper-alpha':
-																		value = 'A';
-																		break;
-																}
-															}
-															else if(tagName == 'ol')
-																value = 1;
-
-															tagName = 'list';
-														}
-														else if(tagName == 'blockquote')
-														{
-															try
-															{
-																var cite = element.children[ 0 ],
-																		quoted = element.children[ 1 ],
-																		citeText = cite.name == 'cite' && cite.children[ 0 ].value;
-
-																if(citeText)
-																{
-																	value = '"' + citeText + '"';
-																	element.children = quoted.children;
-																}
-
-															}
-															catch(er)
-															{
-															}
-
-															tagName = 'quote';
-														}
-														else if(tagName == 'a')
-														{
-															if((value = attributes.href))
-															{
-																if(value.indexOf('mailto:') !== -1)
-																{
-																	tagName = 'email';
-																	// [email] should have a single text child with email address.
-																	element.children = [new CKEDITOR.htmlParser.text(value.replace('mailto:', ''))];
-																	value = '';
-																}
-																else
-																{
-																	var singleton = element.children.length == 1 && element.children[ 0 ];
-																	if(singleton
-																			&& singleton.type == CKEDITOR.NODE_TEXT
-																			&& singleton.value == value)
-																		value = '';
-
-																	tagName = 'url';
-																}
-															}
-														}
-														else if(tagName == 'img')
-														{
-															element.isEmpty = 0;
-
-															// Translate smiley (image) to text emotion.
-															var src = attributes[ 'data-cke-saved-src' ];
-															if(src && src.indexOf(editor.config.smiley_path) != -1)
-																return new CKEDITOR.htmlParser.text(smileyMap[ attributes.alt ]);
-															else
-																element.children = [new CKEDITOR.htmlParser.text(src)];
-														}
-
-														element.name = tagName;
-														value && (element.attributes.option = value);
-
-														return null;
-													},
-													// Remove any bogus br from the end of a pseudo block,
-													// e.g. <div>some text<br /><p>paragraph</p></div>
-													br: function(element)
-													{
-														var next = element.next;
-														if(next && next.name in blockLikeTags)
-															return false;
-													}
-												}
-									}, 1);
-
-							editor.dataProcessor.writer = BBCodeWriter;
-
-							editor.on('beforeSetMode', function(evt)
-							{
-								evt.removeListener();
-								var wysiwyg = editor._.modes[ 'wysiwyg' ];
-								wysiwyg.loadData = CKEDITOR.tools.override(wysiwyg.loadData, function(org)
-								{
-									return function(data)
-									{
-										return (org.call(this, BBCodeToHtml(data)));
-									};
-								});
 							});
-						},
-						afterInit: function(editor)
-						{
-							var filters;
-							if(editor._.elementsPath)
-							{
-								// Eliminate irrelevant elements from displaying, e.g body and p.
-								if((filters = editor._.elementsPath.filters))
-									filters.push(function(element)
+
+							var BBCodeWriter = new CKEDITOR.htmlParser.BBCodeWriter();
+
+							CKEDITOR.plugins.add('bbcode',
 									{
-										var htmlName = element.getName(),
-												name = tagnameMap[ htmlName ] || false;
-
-										// Specialized anchor presents as email.
-										if(name == 'link' && element.getAttribute('href').indexOf('mailto:') === 0)
-											name = 'email';
-										// Styled span could be either size or color.
-										else if(htmlName == 'span')
+										requires: ['htmldataprocessor', 'entities'],
+										beforeInit: function(editor)
 										{
-											if(element.getStyle('font-size'))
-												name = 'size';
-											else if(element.getStyle('color'))
-												name = 'color';
-										}
-										else if(name == 'img')
+											// Adapt some critical editor configuration for better support
+											// of BBCode environment.
+											var config = editor.config;
+											CKEDITOR.tools.extend(config,
+													{
+														enterMode: CKEDITOR.ENTER_BR,
+														basicEntities: false,
+														entities: false,
+														fillEmptyBlocks: false
+													}, true);
+										},
+										init: function(editor)
 										{
-											var src = element.data('cke-saved-src');
-											if(src && src.indexOf(editor.config.smiley_path) === 0)
-												name = 'smiley';
-										}
+											var config = editor.config;
 
-										return name;
+											function BBCodeToHtml(code)
+											{
+												var fragment = CKEDITOR.htmlParser.fragment.fromBBCode(code),
+														writer = new CKEDITOR.htmlParser.basicWriter();
+
+												fragment.writeHtml(writer, dataFilter);
+												return writer.getHtml(true);
+											}
+
+											var dataFilter = new CKEDITOR.htmlParser.filter();
+											dataFilter.addRules(
+													{
+														elements:
+																{
+																	'blockquote': function(element)
+																	{
+																		var quoted = new CKEDITOR.htmlParser.element('div');
+																		quoted.children = element.children;
+																		element.children = [quoted];
+																		var citeText = element.attributes.cite;
+																		if (citeText)
+																		{
+																			var cite = new CKEDITOR.htmlParser.element('cite');
+																			cite.add(new CKEDITOR.htmlParser.text(citeText.replace(/^"|"$/g, '')));
+																			delete element.attributes.cite;
+																			element.children.unshift(cite);
+																		}
+																	},
+																	'span': function(element)
+																	{
+																		var bbcode;
+																		if ((bbcode = element.attributes.bbcode))
+																		{
+																			if (bbcode == 'img')
+																			{
+																				element.name = 'img';
+																				element.attributes.src = element.children[ 0 ].value;
+																				element.children = [];
+																			}
+																			else if (bbcode == 'email')
+																			{
+																				element.name = 'a';
+																				element.attributes.href = 'mailto:' + element.children[ 0 ].value;
+																			}
+
+																			delete element.attributes.bbcode;
+																		}
+																	},
+																	'ol': function(element)
+																	{
+																		if (element.attributes.listType)
+																		{
+																			if (element.attributes.listType != 'decimal')
+																				element.attributes.style = 'list-style-type:' + element.attributes.listType;
+																		}
+																		else
+																			element.name = 'ul';
+
+																		delete element.attributes.listType;
+																	},
+																	a: function(element)
+																	{
+																		if (!element.attributes.href)
+																			element.attributes.href = element.children[ 0 ].value;
+																	},
+																	'smiley': function(element)
+																	{
+																		element.name = 'img';
+
+																		var description = element.attributes.desc,
+																				image = config.smiley_images[ CKEDITOR.tools.indexOf(config.smiley_descriptions, description) ],
+																				src = CKEDITOR.tools.htmlEncode(config.smiley_path + image);
+
+																		element.attributes =
+																				{
+																					src: src,
+																					'data-cke-saved-src': src,
+																					title: description,
+																					alt: description
+																				};
+																	}
+																}
+													});
+
+											editor.dataProcessor.htmlFilter.addRules(
+													{
+														elements:
+																{
+																	$: function(element)
+																	{
+																		var attributes = element.attributes,
+																				style = parseStyleText(attributes.style),
+																				value;
+
+																		var tagName = element.name;
+																		if (tagName in convertMap)
+																			tagName = convertMap[ tagName ];
+																		else if (tagName == 'span')
+																		{
+																			if ((value = style.color))
+																			{
+																				tagName = 'color';
+																				value = RGBToHex(value);
+																			}
+																			else if ((value = style[ 'font-size' ]))
+																			{
+																				var percentValue = value.match(/(\d+)%$/);
+																				if (percentValue)
+																				{
+																					value = percentValue[ 1 ];
+																					tagName = 'size';
+																				}
+																			}
+																		}
+																		else if (tagName == 'ol' || tagName == 'ul')
+																		{
+																			if ((value = style[ 'list-style-type']))
+																			{
+																				switch (value)
+																				{
+																					case 'lower-alpha':
+																						value = 'a';
+																						break;
+																					case 'upper-alpha':
+																						value = 'A';
+																						break;
+																				}
+																			}
+																			else if (tagName == 'ol')
+																				value = 1;
+
+																			tagName = 'list';
+																		}
+																		else if (tagName == 'blockquote')
+																		{
+																			try
+																			{
+																				var cite = element.children[ 0 ],
+																						quoted = element.children[ 1 ],
+																						citeText = cite.name == 'cite' && cite.children[ 0 ].value;
+
+																				if (citeText)
+																				{
+																					value = '"' + citeText + '"';
+																					element.children = quoted.children;
+																				}
+
+																			}
+																			catch (er)
+																			{
+																			}
+
+																			tagName = 'quote';
+																		}
+																		else if (tagName == 'a')
+																		{
+																			if ((value = attributes.href))
+																			{
+																				if (value.indexOf('mailto:') !== -1)
+																				{
+																					tagName = 'email';
+																					// [email] should have a single text child with email address.
+																					element.children = [new CKEDITOR.htmlParser.text(value.replace('mailto:', ''))];
+																					value = '';
+																				}
+																				else
+																				{
+																					var singleton = element.children.length == 1 && element.children[ 0 ];
+																					if (singleton
+																							&& singleton.type == CKEDITOR.NODE_TEXT
+																							&& singleton.value == value)
+																						value = '';
+
+																					tagName = 'url';
+																				}
+																			}
+																		}
+																		else if (tagName == 'img')
+																		{
+																			element.isEmpty = 0;
+
+																			// Translate smiley (image) to text emotion.
+																			var src = attributes[ 'data-cke-saved-src' ];
+																			if (src && src.indexOf(editor.config.smiley_path) != -1)
+																				return new CKEDITOR.htmlParser.text(smileyMap[ attributes.alt ]);
+																			else
+																				element.children = [new CKEDITOR.htmlParser.text(src)];
+																		}
+
+																		element.name = tagName;
+																		value && (element.attributes.option = value);
+
+																		return null;
+																	},
+																	// Remove any bogus br from the end of a pseudo block,
+																	// e.g. <div>some text<br /><p>paragraph</p></div>
+																	br: function(element)
+																	{
+																		var next = element.next;
+																		if (next && next.name in blockLikeTags)
+																			return false;
+																	}
+																}
+													}, 1);
+
+											editor.dataProcessor.writer = BBCodeWriter;
+
+											editor.on('beforeSetMode', function(evt)
+											{
+												evt.removeListener();
+												var wysiwyg = editor._.modes[ 'wysiwyg' ];
+												wysiwyg.loadData = CKEDITOR.tools.override(wysiwyg.loadData, function(org)
+												{
+													return function(data)
+													{
+														return (org.call(this, BBCodeToHtml(data)));
+													};
+												});
+											});
+										},
+										afterInit: function(editor)
+										{
+											var filters;
+											if (editor._.elementsPath)
+											{
+												// Eliminate irrelevant elements from displaying, e.g body and p.
+												if ((filters = editor._.elementsPath.filters))
+													filters.push(function(element)
+													{
+														var htmlName = element.getName(),
+																name = tagnameMap[ htmlName ] || false;
+
+														// Specialized anchor presents as email.
+														if (name == 'link' && element.getAttribute('href').indexOf('mailto:') === 0)
+															name = 'email';
+														// Styled span could be either size or color.
+														else if (htmlName == 'span')
+														{
+															if (element.getStyle('font-size'))
+																name = 'size';
+															else if (element.getStyle('color'))
+																name = 'color';
+														}
+														else if (name == 'img')
+														{
+															var src = element.data('cke-saved-src');
+															if (src && src.indexOf(editor.config.smiley_path) === 0)
+																name = 'smiley';
+														}
+
+														return name;
+													});
+											}
+										}
 									});
-							}
-						}
-					});
 
-		})();
+						})();

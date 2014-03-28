@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
 	));
 	?>
 
@@ -11,8 +11,8 @@
 		<?php echo $form->label($model, 'id'); ?>
 		<?php
 		echo $form->textField($model, 'id', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -20,8 +20,8 @@
 		<?php echo $form->label($model, 'customerId'); ?>
 		<?php
 		echo $form->textField($model, 'customerId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -29,8 +29,8 @@
 		<?php echo $form->label($model, 'saleId'); ?>
 		<?php
 		echo $form->textField($model, 'saleId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -38,8 +38,8 @@
 		<?php echo $form->label($model, 'companyValue'); ?>
 		<?php
 		echo $form->textField($model, 'companyValue', array(
-			'size'=>10,
-			'maxlength'=>10));
+			'size' => 10,
+			'maxlength' => 10));
 		?>
 	</div>
 

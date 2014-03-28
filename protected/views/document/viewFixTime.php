@@ -15,12 +15,12 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 ?>
 <?php
 $this->renderPartial('_searchFormFixTime', array(
-	'documentItem'=>$documentItem));
+	'documentItem' => $documentItem));
 ?>
 <?php
-if(count($employeeModels) > 0)
+if (count($employeeModels) > 0)
 {
-	foreach($employeeModels as $employee):
+	foreach ($employeeModels as $employee):
 		?>
 		<div class="alert alert-info">
 			<h3><?php echo $employee->fnTh . ' ' . $employee->lnTh; ?></h3>
@@ -36,18 +36,18 @@ if(count($employeeModels) > 0)
 					<td>เหตุผล</td>
 					<td>Action</td>
 				</tr>
-				<?php foreach(DocumentItem::model()->getWaitApprovedFixTimeItemByEmployeeId($employee->employeeId, $documentItem->startDate, $documentItem->endDate) as $documentItemModel): ?>
+				<?php foreach (DocumentItem::model()->getWaitApprovedFixTimeItemByEmployeeId($employee->employeeId, $documentItem->startDate, $documentItem->endDate) as $documentItemModel): ?>
 
 					<?php
-					if($documentItemModel->status == 2)
+					if ($documentItemModel->status == 2)
 					{
 						$tableClass = "warning";
 					}
-					else if($documentItemModel->status == 3)
+					else if ($documentItemModel->status == 3)
 					{
 						$tableClass = "error";
 					}
-					else if($documentItemModel->status == 4)
+					else if ($documentItemModel->status == 4)
 					{
 						$tableClass = "success";
 					}
@@ -61,7 +61,7 @@ if(count($employeeModels) > 0)
 						<td><?php
 							$date = explode(' ', $documentItemModel->document->createDateTime);
 							echo $this->dateThai($date[0], 3);
-							?>
+							?>			
 						</td>
 						<td><?php echo $this->dateThai($documentItemModel->documentItemName, 3); ?></td>
 						<td><?php echo $documentItemModel->description; ?></td>
@@ -70,22 +70,22 @@ if(count($employeeModels) > 0)
 						<td><?php echo $documentItemModel->value; ?></td>
 						<td>
 							<?php
-							if($documentItemModel->status == 1)
+							if ($documentItemModel->status == 1)
 							{
-								if($documentItemModel->document->documentWorkflow->employeeId == Yii::app()->user->id)
+								if ($documentItemModel->document->documentWorkflow->employeeId == Yii::app()->user->id)
 								{
 									echo CHtml::ajaxLink('<i class="icon-ok icon-white"></i>', CController::createUrl("Document/approveFixTimeItemStatus/$documentItemModel->documentItemId"), array(
-										'update'=>'',
-										'dataType'=>'json',
-										'success'=>'function(data){
+										'update' => '',
+										'dataType' => 'json',
+										'success' => 'function(data){
 								if(data.status)
-								{
+								{	
 									$("#updateApprove' . $documentItemModel->documentItemId . '").hide();
 									$("#updateReject' . $documentItemModel->documentItemId . '").hide();
 									$("#updateApprove' . $documentItemModel->documentItemId . '").parent().parent().addClass("alert");
 								}
 								else if(data.status == 2)
-								{
+								{	
 									alert("ท่านดำเนินการกับรายการนี้ไปแล้ว!!");
 									window.location.reload();
 								}
@@ -95,15 +95,15 @@ if(count($employeeModels) > 0)
 								}
 							}',
 										), array(
-										'class'=>'btn btn-success btn-small',
-										'id'=>'updateApprove' . $documentItemModel->documentItemId,
-										'confirm'=>'คุณต้องการ อนุมัติ รายการแก้ไขเวลา ?',
+										'class' => 'btn btn-success btn-small',
+										'id' => 'updateApprove' . $documentItemModel->documentItemId,
+										'confirm' => 'คุณต้องการ อนุมัติ รายการแก้ไขเวลา ?',
 									));
 
 									echo CHtml::ajaxLink('<i class="icon-remove icon-white"></i>', CController::createUrl("Document/rejectFixTimeItemStatus/$documentItemModel->documentItemId"), array(
-										'update'=>'',
-										'dataType'=>'json',
-										'success'=>'function(data){
+										'update' => '',
+										'dataType' => 'json',
+										'success' => 'function(data){
 								if(data.status)
 								{
 									$("#updateApprove' . $documentItemModel->documentItemId . '").hide();
@@ -111,7 +111,7 @@ if(count($employeeModels) > 0)
 									$("#updateApprove' . $documentItemModel->documentItemId . '").parent().parent().addClass("alert");
 								}
 								else if(data.status == 2)
-								{
+								{	
 									alert("ท่านดำเนินการกับรายการนี้ไปแล้ว!!");
 									window.location.reload();
 								}
@@ -121,9 +121,9 @@ if(count($employeeModels) > 0)
 								}
 							}',
 										), array(
-										'class'=>'btn btn-danger btn-small',
-										'id'=>'updateReject' . $documentItemModel->documentItemId,
-										'confirm'=>'คุณต้องการ ไม่อนุมัติ รายการแก้ไขเวลา ?',
+										'class' => 'btn btn-danger btn-small',
+										'id' => 'updateReject' . $documentItemModel->documentItemId,
+										'confirm' => 'คุณต้องการ ไม่อนุมัติ รายการแก้ไขเวลา ?',
 									));
 								}
 								else
@@ -131,11 +131,11 @@ if(count($employeeModels) > 0)
 									echo "รออนุมัติ";
 								}
 							}
-							else if($documentItemModel->status == 2)
+							else if ($documentItemModel->status == 2)
 								echo "อนุมัติ";
-							else if($documentItemModel->status == 3)
+							else if ($documentItemModel->status == 3)
 								echo "ไม่อนุมัติ";
-							else if($documentItemModel->status == 4)
+							else if ($documentItemModel->status == 4)
 								echo "ฝ่ายบุคคลรับทร้าบแล้ว";
 							?>
 						</td>

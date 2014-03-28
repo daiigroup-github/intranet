@@ -43,8 +43,7 @@
  * @property integer $leaveQuota
  * @property integer $leaveRemain
  */
-class Employee extends CActiveRecord
-{
+class Employee extends CActiveRecord {
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -78,24 +77,21 @@ class Employee extends CActiveRecord
 	public $leaveOrdinate;
 	public $leaveOther;
 
-	public static function model($className = __CLASS__)
-	{
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
+	public function tableName() {
 		return 'employee';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
+	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -105,39 +101,39 @@ class Employee extends CActiveRecord
 			array(
 				'status, prefix, gender, employeeLevelId, companyId, branchId, companyDivisionId, isSale, isEngineer, isFirstLogin',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'employeeId, username, branchValue, managerId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'password, prefixOther',
 				'length',
-				'max'=>40),
+				'max' => 40),
 			array(
 				'email, fnTh, fnEn',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			array(
 				'nickName',
 				'length',
-				'max'=>45),
+				'max' => 45),
 			array(
 				'citizenId, accountNo',
 				'length',
-				'max'=>50),
+				'max' => 50),
 			array(
 				'lnTh, lnEn, position',
 				'length',
-				'max'=>120),
+				'max' => 120),
 			array(
 				'companyValue, mobile',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'ext',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'employeeCode, transferDate, endDate, proDate, ext, mobile, leaveRemain',
 				'safe'),
@@ -146,119 +142,103 @@ class Employee extends CActiveRecord
 			array(
 				'employeeId, status, createDateTime, updateDateTime , username, password, email, prefix, prefixOther, fnTh, lnTh, nickName, fnEn, lnEn, gender, citizenId, accountNo, employeeLevelId, position, companyId, companyValue, branchId, branchValue, companyDivisionId, managerId, startDate, proDate, transferDate, endDate, birthDate, isSale, isEngineer, searchText, leaveRemain',
 				'safe',
-				'on'=>'search'),);
+				'on' => 'search'),);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'level'=>array(
+			'level' => array(
 				self::HAS_ONE,
 				'EmployeeLevel',
 				array(
-					'level'=>'employeeLevelId')),
-			'company'=>array(
+					'level' => 'employeeLevelId')),
+			'company' => array(
 				self::BELONGS_TO,
 				'Company',
 				'companyId'),
-			'branch'=>array(
+			'branch' => array(
 				self::BELONGS_TO,
 				'Branch',
 				'branchId'),
-			'division'=>array(
+			'division' => array(
 				self::BELONGS_TO,
 				'CompanyDivision',
 				'companyDivisionId'),
-			'manager'=>array(
+			'manager' => array(
 				self::HAS_ONE,
 				'Employee',
 				array(
-					'employeeId'=>'managerId')),
-			'mileage'=>array(
+					'employeeId' => 'managerId')),
+			'mileage' => array(
 				self::HAS_MANY,
 				'Mileage',
 				array(
-					'employeeId'=>'employeeId'),
-				'condition'=>'mileage.status=1',
-				'order'=>'mileage.createDateTime DESC'),
-			'mobileAppPriv'=>array(
+					'employeeId' => 'employeeId'),
+				'condition' => 'mileage.status=1',
+				'order' => 'mileage.createDateTime DESC'),
+			'mobileAppPriv' => array(
 				self::HAS_MANY,
 				'MobileAppPriv',
 				array(
-					'employeeId'=>'employeeId')),
-			'company'=>array(
-				self::BELONGS_TO,
-				'Company',
-				'employeeId'
-			),
-			'companyDivision'=>array(
-				self::BELONGS_TO,
-				'CompanyDivision',
-				'companyDivisionId'
-			),
-			'fitAndFast'=>array(
-				self::HAS_MANY,
-				'FitAndFast',
-				'employeeId'),);
+					'employeeId' => 'employeeId')),);
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
-			'employeeId'=>'Employee',
-			'employeeCode'=>'รหัสพนักงาน',
-			'status'=>'Status',
-			'createDateTime'=>'Create Date Time',
-			'updateDateTime'=>'Update Date Time',
-			'username'=>'Username',
-			'password'=>'Password',
-			'email'=>'Email',
-			'prefix'=>'คำนำหน้า',
-			'prefixOther'=>'Prefix Other',
-			'fnTh'=>'ชื่อ (ไทย)',
-			'lnTh'=>'นามสกุล (ไทย)',
-			'nickName'=>'ชื่อเล่น (ไทย)',
-			'fnEn'=>'ชื่อ (อังกฤษ)',
-			'lnEn'=>'นามสกุล (อังกฤษ)',
-			'gender'=>'เพศ',
-			'citizenId'=>'รหัสประจำตัวประชาชน',
-			'accountNo'=>'เลขที่บัญชี',
-			'ext'=>'เบอร์ต่อภายใน',
-			'mobile'=>'เบอร์มือถือ',
-			'employeeLevelId'=>'ระดับตำแหน่ง',
-			'position'=>'ตำแหน่ง',
-			'companyId'=>'บริษัท',
-			'companyValue'=>'Company Value',
-			'branchId'=>'สาขา',
-			'branchValue'=>'Branch Value',
-			'companyDivisionId'=>'ฝ่าย',
-			'managerId'=>'ผู้บังคับบัญชา',
-			'startDate'=>'วันเริ่มงาน',
-			'proDate'=>'Pro Date',
-			'transferDate'=>'วันที่โอนย้ายงาน',
-			'endDate'=>'วันที่ทำงานวันสุดท้าย',
-			'birthDate'=>'วันเกิด',
-			'isSale'=>'พนักงานขาย',
-			'isEngineer'=>'วิศวกร',
-			'searchText'=>'ค้นหา',
-			'fullNameTh'=>'ชื่อ (ไทย)',
-			'fullNameEn'=>'ชื่อ (อังกฤษ)',
-			'leaveQuota'=>'จำนวนวันลาพักร้อน',
-			'leaveRemain'=>'จำนวนวันลาพักร้อนคงเหลือ',
-			'leaveSick'=>'ลาป่วย',
-			'leavePersonal'=>'ลากิจ',
-			'leaveVocation'=>'ลาพักร้อน',
-			'leavePregnancy'=>'ลาคลอด',
-			'leaveOrdinate'=>'ลาบวช',
-			'leaveOther'=>'ลาอื่นๆ'
+			'employeeId' => 'Employee',
+			'employeeCode' => 'รหัสพนักงาน',
+			'status' => 'Status',
+			'createDateTime' => 'Create Date Time',
+			'updateDateTime' => 'Update Date Time',
+			'username' => 'Username',
+			'password' => 'Password',
+			'email' => 'Email',
+			'prefix' => 'คำนำหน้า',
+			'prefixOther' => 'Prefix Other',
+			'fnTh' => 'ชื่อ (ไทย)',
+			'lnTh' => 'นามสกุล (ไทย)',
+			'nickName' => 'ชื่อเล่น (ไทย)',
+			'fnEn' => 'ชื่อ (อังกฤษ)',
+			'lnEn' => 'นามสกุล (อังกฤษ)',
+			'gender' => 'เพศ',
+			'citizenId' => 'รหัสประจำตัวประชาชน',
+			'accountNo' => 'เลขที่บัญชี',
+			'ext' => 'เบอร์ต่อภายใน',
+			'mobile' => 'เบอร์มือถือ',
+			'employeeLevelId' => 'ระดับตำแหน่ง',
+			'position' => 'ตำแหน่ง',
+			'companyId' => 'บริษัท',
+			'companyValue' => 'Company Value',
+			'branchId' => 'สาขา',
+			'branchValue' => 'Branch Value',
+			'companyDivisionId' => 'ฝ่าย',
+			'managerId' => 'ผู้บังคับบัญชา',
+			'startDate' => 'วันเริ่มงาน',
+			'proDate' => 'Pro Date',
+			'transferDate' => 'วันที่โอนย้ายงาน',
+			'endDate' => 'วันที่ทำงานวันสุดท้าย',
+			'birthDate' => 'วันเกิด',
+			'isSale' => 'พนักงานขาย',
+			'isEngineer' => 'วิศวกร',
+			'searchText' => 'ค้นหา',
+			'fullNameTh' => 'ชื่อ (ไทย)',
+			'fullNameEn' => 'ชื่อ (อังกฤษ)',
+			'leaveQuota' => 'จำนวนวันลาพักร้อน',
+			'leaveRemain' => 'จำนวนวันลาพักร้อนคงเหลือ',
+			'leaveSick' => 'ลาป่วย',
+			'leavePersonal' => 'ลากิจ',
+			'leaveVocation' => 'ลาพักร้อน',
+			'leavePregnancy' => 'ลาคลอด',
+			'leaveOrdinate' => 'ลาบวช',
+			'leaveOther' => 'ลาอื่นๆ'
 		);
 	}
 
@@ -266,8 +246,7 @@ class Employee extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -288,53 +267,47 @@ class Employee extends CActiveRecord
 		$criteria->compare('status', !isset($this->status) ? 1 : $this->status);
 		$criteria->compare('managerId', $this->managerId);
 
-		if(Yii::app()->user->name != 'tm')
-		{
+		if (Yii::app()->user->name != 'tm') {
 			$criteria->addCondition('username!="tm"');
 		}
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'employeeCode ASC , companyId ASC , companyDivisionId ASC',),
-			'pagination'=>array(
-				'pageSize'=>50),));
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 'employeeCode ASC , companyId ASC , companyDivisionId ASC',),
+			'pagination' => array(
+				'pageSize' => 50),));
 	}
 
 	//Custom
 
-	public function getEmployeeStatus()
-	{
+	public function getEmployeeStatus() {
 		return array(
-			''=>'---',
-			self::STATUS_ACTIVE=>'ยังทำงานอยู่',
-			self::STATUS_RESIGN=>'ลาออกแล้ว',
-			self::STATUS_LOCK=>'Lock',);
+			'' => '---',
+			self::STATUS_ACTIVE => 'ยังทำงานอยู่',
+			self::STATUS_RESIGN => 'ลาออกแล้ว',
+			self::STATUS_LOCK => 'Lock',);
 	}
 
-	public function employeeStatusText()
-	{
+	public function employeeStatusText() {
 		$employeeStatus = $this->EmployeeStatus;
 		return isset($employeeStatus[$this->status]) ? $employeeStatus[$this->status] : '-';
 	}
 
-	public function getEmployeePrefix()
-	{
+	public function getEmployeePrefix() {
 		return array(
-			''=>'---',
-			self::PREFIX_MR=>'นาย MR.',
-			self::PREFIX_MS=>'นางสาว MS.',
-			self::PREFIX_MRS=>'นาง MRS.',);
+			'' => '---',
+			self::PREFIX_MR => 'นาย MR.',
+			self::PREFIX_MS => 'นางสาว MS.',
+			self::PREFIX_MRS => 'นาง MRS.',);
 	}
 
-	public function employeePrefixTh($prefix = null)
-	{
+	public function employeePrefixTh($prefix = null) {
 		$employeePrefix = $this->employeePrefix;
 
 		$p = (!$prefix) ? $this->prefix : $prefix;
 
-		if(isset($employeePrefix[$p]))
-		{
+		if (isset($employeePrefix[$p])) {
 			$p = explode(' ', $employeePrefix[$p]);
 			return $p[0];
 		}
@@ -342,14 +315,12 @@ class Employee extends CActiveRecord
 		return '-';
 	}
 
-	public function employeePrefixEn($prefix = null)
-	{
+	public function employeePrefixEn($prefix = null) {
 		$employeePrefix = $this->employeePrefix;
 
 		$p = (!$prefix) ? $this->prefix : $prefix;
 
-		if(isset($employeePrefix[$p]))
-		{
+		if (isset($employeePrefix[$p])) {
 			$p = explode(' ', $employeePrefix[$p]);
 			return $p[1];
 		}
@@ -357,62 +328,54 @@ class Employee extends CActiveRecord
 		return '-';
 	}
 
-	public function getEmployeeGender()
-	{
+	public function getEmployeeGender() {
 		return array(
-			''=>'---',
-			self::GENDER_MALE=>'ชาย',
-			self::GENDER_FEMALE=>'หญิง',);
+			'' => '---',
+			self::GENDER_MALE => 'ชาย',
+			self::GENDER_FEMALE => 'หญิง',);
 	}
 
-	public function employeeGenderText()
-	{
+	public function employeeGenderText() {
 		$employeeGender = $this->employeeGender;
 		return isset($employeeGender[$this->gender]) ? $employeeGender[$this->gender] : '-';
 	}
 
-	public function getAllManager()
-	{
+	public function getAllManager() {
 		$models = $this->findAll(array(
-			'condition'=>'employeeLevelId>=7 AND status = 1',
-			'order'=>'username',));
+			'condition' => 'employeeLevelId>=7 AND status = 1',
+			'order' => 'username',));
 
 		$manager = array(
-			''=>'---');
+			'' => '---');
 
-		foreach($models as $model)
-		{
+		foreach ($models as $model) {
 			$manager[$model->employeeId] = strtoupper($model->username);
 		}
 
 		return $manager;
 	}
 
-	public function genUsername()
-	{
+	public function genUsername() {
 		$u = substr($this->fnEn, 0, 1) . substr($this->lnEn, 0, 1);
 
-		for($i = 1; $i <= strlen($this->lnEn) - 1; $i++)
-		{
+		for ($i = 1; $i <= strlen($this->lnEn) - 1; $i++) {
 			$username = $u . substr($this->lnEn, $i, 1);
 
-			if(!$this->exists('username="' . $username . '"'))
+			if (!$this->exists('username="' . $username . '"'))
 				break;
 		}
 
 		return strtolower($username);
 	}
 
-	public function genEmail()
-	{
+	public function genEmail() {
 		$e = strtolower($this->fnEn);
 		$ln = strtolower($this->lnEn);
 
-		for($i = 0; $i < strlen($this->lnEn); $i++)
-		{
+		for ($i = 0; $i < strlen($this->lnEn); $i++) {
 			$email = $e . '.' . substr($ln, $i, 1);
 
-			if(!$this->exists('email="' . $email . '"'))
+			if (!$this->exists('email="' . $email . '"'))
 				;
 			break;
 		}
@@ -420,14 +383,13 @@ class Employee extends CActiveRecord
 		return $email;
 	}
 
-	public function genEmployeeCode()
-	{
+	public function genEmployeeCode() {
 		$criteria = new CDbCriteria;
 		$criteria->select = 'SUBSTRING(employeeCode,1,2) as preEmpCode';
 		$criteria->condition = 'companyDivisionId=:companyDivisionId AND companyId =:companyId';
 		$criteria->params = array(
-			':companyDivisionId'=>$this->companyDivisionId,
-			':companyId'=>$this->companyId);
+			':companyDivisionId' => $this->companyDivisionId,
+			':companyId' => $this->companyId);
 		//$criteria->order = 'employeeCode DESC';
 		$employee = $this->find($criteria);
 
@@ -440,70 +402,55 @@ class Employee extends CActiveRecord
 		return ($employee2->maxEmpCode + 1);
 	}
 
-	public function genProDate($date, $isSale = null)
-	{
+	public function genProDate($date, $isSale = null) {
 		$d = explode('-', $date);
 
-		if($isSale)
-		{
+		if ($isSale) {
 			$proDate = 119;
 			$date = date('Y-m-d', mktime(0, 0, 0, $d[1], $d[2] + $proDate, $d[0]));
-		}
-		else
-		{
+		} else {
 			$proMonth = 3;
 			$date = date('Y-m-d', mktime(0, 0, 0, $d[1] + $proMonth, $d[2], $d[0]));
 		}
 		return $date;
 	}
 
-	public function getAllEngineer()
-	{
+	public function getAllEngineer() {
 		$models = $this->findAll(array(
-			'condition'=>'isEngineer=1 AND status=1',
-			'order'=>'fnTh',));
+			'condition' => 'isEngineer=1 AND status=1',
+			'order' => 'fnTh',));
 
-		foreach($models as $model)
-		{
+		foreach ($models as $model) {
 			$engineer[$model->employeeId] = $model->fnTh . ' ' . $model->lnTh;
 		}
 
 		return $engineer;
 	}
 
-	public function validatePassword($password)
-	{
+	public function validatePassword($password) {
 		return $this->hashPassword($this->username, $password) === $this->password;
 	}
 
-	public function hashPassword($username, $password)
-	{
+	public function hashPassword($username, $password) {
 		return md5($username . $password);
 	}
 
-	public function checkMatchEmployeeIdAndPassword($employeeId, $inputPassword)
-	{
+	public function checkMatchEmployeeIdAndPassword($employeeId, $inputPassword) {
 		$employee = $this->findByPk($employeeId);
-		if($employee->status == 1)
-		{
+		if ($employee->status == 1) {
 			return $this->hashPassword($employee->username, $inputPassword) === $employee->password;
-		}
-		else
-		{   //case employee ลาออกแล้ว
+		} else {   //case employee ลาออกแล้ว
 			return true;
 		}
 	}
 
-	public function genEmployeeUsernameArray($models, $text)
-	{
+	public function genEmployeeUsernameArray($models, $text) {
 		$e = array(
-			''=>isset($text) ? '- ' . $text . ' -' : '---',
-			"-1"=>"ผู้สร้างเอกสาร");
-		foreach($models as $model)
-		{
+			'' => isset($text) ? '- ' . $text . ' -' : '---',
+			"-1" => "ผู้สร้างเอกสาร");
+		foreach ($models as $model) {
 			$e[$model->employeeId] = $model->username . ' : ' . $model->fnTh . ' ' . $model->lnTh;
-			if(isset($model->nickName))
-			{
+			if (isset($model->nickName)) {
 				$e[$model->employeeId] .= '(' . $model->nickName . ')';
 			}
 		}
@@ -511,101 +458,94 @@ class Employee extends CActiveRecord
 		return $e;
 	}
 
-	public function getAllEmployeeByCompanyId($companyId)
-	{
+	public function getAllEmployeeByCompanyId($companyId) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND companyId=:companyId';
 		$criteria->params = array(
-			':companyId'=>$companyId);
+			':companyId' => $companyId);
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested companyDivisionId(' . $companyDivisionId . ') does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, NULL);
 	}
 
-	public function getAllEmployeeBycompanyDivisionId($companyDivisionId)
-	{
+	public function getAllEmployeeBycompanyDivisionId($companyDivisionId) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND companyDivisionId=:companyDivisionId';
 		$criteria->params = array(
-			':companyDivisionId'=>$companyDivisionId);
+			':companyDivisionId' => $companyDivisionId);
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested companyDivisionId(' . $companyDivisionId . ') does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, NULL);
 	}
 
-	public function getAllEmployeeByCompanyIdAndCompanyDivisionId($companyId, $companyDivisionId)
-	{
+	public function getAllEmployeeByCompanyIdAndCompanyDivisionId($companyId, $companyDivisionId) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND companyDivisionId=:companyDivisionId AND companyId=:companyId';
 		$criteria->params = array(
-			':companyDivisionId'=>$companyDivisionId,
-			':companyId'=>$companyId);
+			':companyDivisionId' => $companyDivisionId,
+			':companyId' => $companyId);
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested companyDivisionId(' . $companyDivisionId . ') does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, NULL);
 	}
 
-	public function getAllEmployeeByDivisionValue($divisionValue)
-	{
+	public function getAllEmployeeByDivisionValue($divisionValue) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND companyDivisionId|:divisionValue>0';
 		$criteria->params = array(
-			':divisionValue'=>$divisionValue);
+			':divisionValue' => $divisionValue);
 		$criteria->order = 'username';
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested divisionValue(' . $divisionValue . ') does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, NULL);
 	}
 
-	public function getManagerBycompanyDivisionId($companyDivisionId)
-	{
+	public function getManagerBycompanyDivisionId($companyDivisionId) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND companyDivisionId=:companyDivisionId';
 		$criteria->params = array(
-			':companyDivisionId'=>$companyDivisionId);
+			':companyDivisionId' => $companyDivisionId);
 
 		$model = $this->find($criteria);
 
-		if($model === NULL)
+		if ($model === NULL)
 			throw new Exception('Requested companyDivisionId(' . $companyDivisionId . ') does not exist.');
 
 		return array(
-			$model->employeeId=>$model->username);
+			$model->employeeId => $model->username);
 	}
 
-	public function getManagerByDivisionValue($divisionValue)
-	{
+	public function getManagerByDivisionValue($divisionValue) {
 		$criteria = new CDbCriteria;
 		$criteria->condition = 'status=1 AND employeeLevelId>=7 AND divisionValue &:divisionValue>0';
 		$criteria->params = array(
-			':divisionValue'=>$divisionValue);
+			':divisionValue' => $divisionValue);
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, NULL);
 	}
 
-	public function getAllSale()
-	{
+	public function getAllSale() {
 		$model = $this->findByPk(Yii::app()->user->id);
 
 		$criteria = new CDbCriteria();
@@ -614,14 +554,13 @@ class Employee extends CActiveRecord
 
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, 'Sale');
 	}
 
-	public function getAllSaleByCompanyId()
-	{
+	public function getAllSaleByCompanyId() {
 		$model = $this->findByPk(Yii::app()->user->id);
 
 		$criteria = new CDbCriteria();
@@ -630,7 +569,7 @@ class Employee extends CActiveRecord
 		$criteria->compare('companyId', $model->companyId);
 		$models = $this->findAll($criteria);
 
-		if($models === NULL)
+		if ($models === NULL)
 			throw new Exception('Requested does not exist.');
 
 		return $this->genEmployeeUsernameArray($models, 'Sale');
@@ -638,91 +577,80 @@ class Employee extends CActiveRecord
 
 	//Save
 
-	public function beforeSave()
-	{
-		if($this->isNewRecord)
-		{
+	public function beforeSave() {
+		if ($this->isNewRecord) {
 			$this->createDateTime = date('Y-m-d H:i:s');
 		}
 
 		return parent::beforeSave();
 	}
 
-	public function getAllEmployee($status = 1)
-	{
+	public function getAllEmployee($status = 1) {
 		$models = Employee::model()->findAll(array(
-			'condition'=>'status&:status>0',
-			'params'=>array(
-				':status'=>$status),
-			'order'=>'fnTh'));
+			'condition' => 'status&:status>0',
+			'params' => array(
+				':status' => $status),
+			'order' => 'fnTh'));
 
 		$w = array(
-			''=>'Choose..');
+			'' => 'Choose..');
 
-		foreach($models as $model)
-		{
+		foreach ($models as $model) {
 			$w[$model->employeeId] = $model->fnTh . " " . $model->lnTh;
 		}
 
 		return $w;
 	}
 
-	public function getAllStatus()
-	{
+	public function getAllStatus() {
 		$w = array(
-			''=>'สถานะ..');
+			'' => 'สถานะ..');
 		$w[1] = "ยังทำงานอยู่";
 		$w[2] = "ลาออกแล้ว";
 		$w[3] = "Lock";
 		return $w;
 	}
 
-	public function UpdateResignEmployee()
-	{
+	public function UpdateResignEmployee() {
 //		$empResign = Employee::model()->updateAll(array(
 //			"status" => 2), "endDate < :endDate AND endDate <> '0000-00-00'", array(
 //			":endDate" => date("Y-m-d")));
 		$employeeModels = Employee::model()->findAll("endDate < :endDate AND endDate <> '0000-00-00' AND status = 1", array(
-			":endDate"=>date("Y-m-d")));
+			":endDate" => date("Y-m-d")));
 
-		foreach($employeeModels as $employeeModel)
-		{
+		foreach ($employeeModels as $employeeModel) {
 			$employeeModel->status = 2;
-			if($employeeModel->save())
-			{
+			if ($employeeModel->save()) {
 				$emailController = new EmailSend();
 				$website = "http://" . Yii::app()->request->getServerName() . Yii::app()->baseUrl . "/index.php/Employee/View/" . $employeeModel->employeeId;
 				$toEmails = array(
-					"kamon.p@daiigroup.com"=>1,
-					"daii-its@daiigroup.com"=>1,
-					"daiichi-hr@daiigroup.com"=>1,
-					"daiichi-administration@daiigroup.com"=>0
+					"kamon.p@daiigroup.com" => 1,
+					"daii-its@daiigroup.com" => 1,
+					"daiichi-hr@daiigroup.com" => 1,
+					"daiichi-administration@daiigroup.com" => 0
 				);
 
 				$nameThai = "คุณ" . $employeeModel->fnTh . "  " . $employeeModel->lnTh;
 				$nameEng = $employeeModel->fnEn . "  " . $employeeModel->lnEn;
-				foreach($toEmails as $toEmail=> $canView)
-				{
+				foreach ($toEmails as $toEmail => $canView) {
 					$emailController->mailResignEmployee($employeeModel->employeeCode, $nameThai, $nameEng, $employeeModel->position, $employeeModel->company->companyNameTh, $website, $canView, $toEmail, $employeeModel->endDate);
 				}
 			}
 		}
 	}
 
-	public function behaviors()
-	{
+	public function behaviors() {
 		return array(
-			'ERememberFiltersBehavior'=>array(
-				'class'=>'application.components.ERememberFiltersBehavior',
-				'defaults'=>array(
+			'ERememberFiltersBehavior' => array(
+				'class' => 'application.components.ERememberFiltersBehavior',
+				'defaults' => array(
 				),
 				/* optional line */
-				'defaultStickOnClear'=>false /* optional line */
+				'defaultStickOnClear' => false /* optional line */
 			),);
 	}
 
-	public function getAllLeaveEmployee($startDate, $endDate, $companyId = NULL, $employeeId = NULL)
-	{
+	public function getAllLeaveEmployee($startDate, $endDate, $companyId = NULL, $employeeId = NULL) {
 		$criteria = new CDbCriteria();
 		//$criteria->distinct = true;
 		//$criteria->select = 't.employeeId';
@@ -733,16 +661,14 @@ class Employee extends CActiveRecord
 		$criteria->join .= ' LEFT JOIN leave_item li ON l.leaveId=li.leaveId';
 		$criteria->condition = '(li.leaveDate BETWEEN :startDate AND :endDate ) AND dt.documentCodePrefix IN ("RLE","RLO") AND l.status=1  ';
 		$criteria->params = array(
-			':startDate'=>$startDate,
-			':endDate'=>$endDate,);
-		if(isset($companyId) && !empty($companyId))
-		{
+			':startDate' => $startDate,
+			':endDate' => $endDate,);
+		if (isset($companyId) && !empty($companyId)) {
 			$criteria->condition .= " AND t.companyId =:companyId";
 			$criteria->params[':companyId'] = $companyId;
 		}
 
-		if(isset($employeeId) && !empty($employeeId))
-		{
+		if (isset($employeeId) && !empty($employeeId)) {
 			$criteria->condition .= " AND t.employeeId =:employeeId";
 			$criteria->params[':employeeId'] = $employeeId;
 		}
@@ -751,8 +677,7 @@ class Employee extends CActiveRecord
 		return $this->findAll($criteria);
 	}
 
-	public function getAllSummaryLeaveEmployee($startDate, $endDate, $companyId = NULL, $employeeId = NULL)
-	{
+	public function getAllSummaryLeaveEmployee($startDate, $endDate, $companyId = NULL, $employeeId = NULL) {
 		$criteria = new CDbCriteria();
 		//$criteria->distinct = true;
 		$criteria->select = 't.employeeCode , t.fnTh , t.lnTh , sum(CASE WHEN l.leaveType = 1 THEN  li.leaveTime ELSE 0 END) as leaveSick  ';
@@ -767,16 +692,14 @@ class Employee extends CActiveRecord
 		$criteria->join .= ' LEFT JOIN leave_item li ON l.leaveId=li.leaveId';
 		$criteria->condition = '(li.leaveDate BETWEEN :startDate AND :endDate ) AND dt.documentCodePrefix IN ("RLE","RLO") AND l.status=1 AND t.status = 1 AND d.status = 1  ';
 		$criteria->params = array(
-			':startDate'=>$startDate,
-			':endDate'=>$endDate,);
-		if(isset($companyId) && !empty($companyId))
-		{
+			':startDate' => $startDate,
+			':endDate' => $endDate,);
+		if (isset($companyId) && !empty($companyId)) {
 			$criteria->condition .= " AND t.companyId =:companyId";
 			$criteria->params[':companyId'] = $companyId;
 		}
 
-		if(isset($employeeId) && !empty($employeeId))
-		{
+		if (isset($employeeId) && !empty($employeeId)) {
 			$criteria->condition .= " AND t.employeeId =:employeeId";
 			$criteria->params[':employeeId'] = $employeeId;
 		}
@@ -784,15 +707,14 @@ class Employee extends CActiveRecord
 		$criteria->order = "t.employeeCode ASC";
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'sort'=>array(
-				'defaultOrder'=>'employeeCode ASC ',),
-			'pagination'=>array(
-				'pageSize'=>100),));
+			'criteria' => $criteria,
+			'sort' => array(
+				'defaultOrder' => 'employeeCode ASC ',),
+			'pagination' => array(
+				'pageSize' => 100),));
 	}
 
-	public function updateLeaveRemainByLeaveId($leaveId, $creatorId)
-	{
+	public function updateLeaveRemainByLeaveId($leaveId, $creatorId) {
 		$model = $this->find('employeeId=' . $creatorId);
 		$sumLeaveTime = LeaveItem::model()->sumLeaveTimeByLeaveId($leaveId);
 		$model->leaveRemain = $model->leaveRemain - $sumLeaveTime;
@@ -800,8 +722,7 @@ class Employee extends CActiveRecord
 		return $model->save();
 	}
 
-	public function getAllFixTimeEmployee($startDate, $endDate, $companyId)
-	{
+	public function getAllFixTimeEmployee($startDate, $endDate, $companyId) {
 		$criteria = new CDbCriteria();
 		//$criteria->distinct = true;
 		//$criteria->select = 't.employeeId';
@@ -811,11 +732,10 @@ class Employee extends CActiveRecord
 		$criteria->join .= ' LEFT JOIN document_item di ON d.documentId=di.documentId';
 		$criteria->condition = '(di.documentItemName BETWEEN :startDate AND :endDate ) AND dt.documentCodePrefix=:documentCodePrefix AND di.status in (2,4)  ';
 		$criteria->params = array(
-			':startDate'=>$startDate,
-			':endDate'=>$endDate,
-			'documentCodePrefix'=>'ETI',);
-		if(!empty($companyId))
-		{
+			':startDate' => $startDate,
+			':endDate' => $endDate,
+			'documentCodePrefix' => 'ETI',);
+		if (!empty($companyId)) {
 			$criteria->condition .= " AND t.companyId =:companyId";
 			$criteria->params[':companyId'] = $companyId;
 		}
@@ -823,8 +743,7 @@ class Employee extends CActiveRecord
 		return $this->findAll($criteria);
 	}
 
-	public function getDocumentFixTimeItem($startDate, $endDate)
-	{
+	public function getDocumentFixTimeItem($startDate, $endDate) {
 		$criteria = new CDbCriteria();
 		//$criteria->distinct = true;
 		//$criteria->select = 't.employeeId';
@@ -836,21 +755,16 @@ class Employee extends CActiveRecord
 		$criteria->condition = ' dt.documentCodePrefix=:documentCodePrefix AND di.status in (1,2,3,4)  ';
 		$criteria->condition .= " AND dw.employeeId = :employeeId  OR d.employeeId = :employeeId2 ";
 		$criteria->params = array(
-			'documentCodePrefix'=>'ETI',
-			':employeeId'=>Yii::app()->user->id,
-			':employeeId2'=>Yii::app()->user->id,);
-		if(!empty($startDate) AND empty($endDate))
-		{
+			'documentCodePrefix' => 'ETI',
+			':employeeId' => Yii::app()->user->id,
+			':employeeId2' => Yii::app()->user->id,);
+		if (!empty($startDate) AND empty($endDate)) {
 			$criteria->condition .= " AND (di.documentItemName >= :startDate) ";
 			$criteria->params[':startDate'] = $startDate;
-		}
-		else if(empty($startDate) AND !empty($endDate))
-		{
+		} else if (empty($startDate) AND !empty($endDate)) {
 			$criteria->condition .= " AND (di.documentItemName <= :endDate ) ";
 			$criteria->params[':endDate'] = $endDate;
-		}
-		else
-		{
+		} else {
 //                    $criteria->condition .= " AND (di.documentItemName BETWEEN :startDate AND :endDate ) ";
 //                    $criteria->params[':startDate'] = $startDate;
 //                    $criteria->params[':endDate'] = $endDate;

@@ -18,12 +18,12 @@
 							{
 								init: function(editor)
 								{
-									if(!editor.config.editingBlock)
+									if (!editor.config.editingBlock)
 										return;
 
 									editor.on('themeSpace', function(event)
 									{
-										if(event.data.space == 'contents')
+										if (event.data.space == 'contents')
 											event.data.html += '<br>';
 									});
 
@@ -39,7 +39,7 @@
 
 									editor.on('afterSetData', function()
 									{
-										if(!isHandlingData)
+										if (!isHandlingData)
 										{
 											function setData()
 											{
@@ -48,13 +48,13 @@
 												isHandlingData = false;
 											}
 
-											if(editor.mode)
+											if (editor.mode)
 												setData();
 											else
 											{
 												editor.on('mode', function()
 												{
-													if(editor.mode)
+													if (editor.mode)
 													{
 														setData();
 														editor.removeListener('mode', arguments.callee);
@@ -66,7 +66,7 @@
 
 									editor.on('beforeGetData', function()
 									{
-										if(!isHandlingData && editor.mode)
+										if (!isHandlingData && editor.mode)
 										{
 											isHandlingData = true;
 											editor.setData(editor.getMode().getData(), null, 1);
@@ -76,13 +76,13 @@
 
 									editor.on('getSnapshot', function(event)
 									{
-										if(editor.mode)
+										if (editor.mode)
 											event.data = editor.getMode().getSnapshotData();
 									});
 
 									editor.on('loadSnapshot', function(event)
 									{
-										if(editor.mode)
+										if (editor.mode)
 											editor.getMode().loadSnapshotData(event.data);
 									});
 
@@ -99,7 +99,7 @@
 											editor.focus();
 										});
 
-										if(editor.config.startupFocus)
+										if (editor.config.startupFocus)
 											editor.focus();
 
 										// Fire instanceReady for both the editor and CKEDITOR, but
@@ -114,7 +114,7 @@
 									editor.on('destroy', function()
 									{
 										// ->		currentMode.unload( holderElement );
-										if(this.mode)
+										if (this.mode)
 											this._.modes[ this.mode ].unload(this.getThemeSpace('contents'));
 									});
 								}
@@ -158,9 +158,9 @@
 								isDirty = this.checkDirty();
 
 						// Unload the previous mode.
-						if(this.mode)
+						if (this.mode)
 						{
-							if(mode == this.mode)
+							if (mode == this.mode)
 								return;
 
 							this._.previousMode = this.mode;
@@ -177,10 +177,10 @@
 
 						// Load required mode.
 						var modeEditor = this.getMode(mode);
-						if(!modeEditor)
+						if (!modeEditor)
 							throw '[CKEDITOR.editor.setMode] Unknown mode "' + mode + '".';
 
-						if(!isDirty)
+						if (!isDirty)
 						{
 							this.on('mode', function()
 							{
@@ -210,7 +210,7 @@
 					{
 						this.forceNextSelectionCheck();
 						var mode = this.getMode();
-						if(mode)
+						if (mode)
 							mode.focus();
 					};
 				})();

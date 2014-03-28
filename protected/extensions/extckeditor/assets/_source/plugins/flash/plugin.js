@@ -44,7 +44,7 @@
 									);
 
 							// If the "menu" plugin is loaded, register the menu items.
-							if(editor.addMenuItems)
+							if (editor.addMenuItems)
 							{
 								editor.addMenuItems(
 										{
@@ -61,16 +61,16 @@
 							{
 								var element = evt.data.element;
 
-								if(element.is('img') && element.data('cke-real-element-type') == 'flash')
+								if (element.is('img') && element.data('cke-real-element-type') == 'flash')
 									evt.data.dialog = 'flash';
 							});
 
 							// If the "contextmenu" plugin is loaded, register the listeners.
-							if(editor.contextMenu)
+							if (editor.contextMenu)
 							{
 								editor.contextMenu.addListener(function(element, selection)
 								{
-									if(element && element.is('img') && !element.isReadOnly()
+									if (element && element.is('img') && !element.isReadOnly()
 											&& element.data('cke-real-element-type') == 'flash')
 										return {flash: CKEDITOR.TRISTATE_OFF};
 								});
@@ -81,7 +81,7 @@
 							var dataProcessor = editor.dataProcessor,
 									dataFilter = dataProcessor && dataProcessor.dataFilter;
 
-							if(dataFilter)
+							if (dataFilter)
 							{
 								dataFilter.addRules(
 										{
@@ -92,14 +92,14 @@
 															var attributes = element.attributes,
 																	classId = attributes.classid && String(attributes.classid).toLowerCase();
 
-															if(!classId && !isFlashEmbed(element))
+															if (!classId && !isFlashEmbed(element))
 															{
 																// Look for the inner <embed>
 																for (var i = 0; i < element.children.length; i++)
 																{
-																	if(element.children[ i ].name == 'cke:embed')
+																	if (element.children[ i ].name == 'cke:embed')
 																	{
-																		if(!isFlashEmbed(element.children[ i ]))
+																		if (!isFlashEmbed(element.children[ i ]))
 																			return null;
 
 																		return createFakeElement(editor, element);
@@ -112,7 +112,7 @@
 														},
 														'cke:embed': function(element)
 														{
-															if(!isFlashEmbed(element))
+															if (!isFlashEmbed(element))
 																return null;
 
 															return createFakeElement(editor, element);

@@ -48,25 +48,25 @@ class EmployeeLevel extends CActiveRecord
 			array(
 				'status, level, divisionId, isManager',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'description',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			array(
 				'code',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'companyId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'employeeLevelId, status, level, description, code, companyId, divisionId, isManager',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -87,14 +87,14 @@ class EmployeeLevel extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'employeeLevelId'=>'employeeLevelId',
-			'status'=>'Status',
-			'level'=>'ระดับพนักงาน',
-			'description'=>'รายละเอียด',
-			'code'=>'รหัสระดับพนักงาน',
-			'companyId'=>'บริษัท',
-			'divisionId'=>'แผนก',
-			'isManager'=>'ระดับผู้จัดการ',
+			'employeeLevelId' => 'employeeLevelId',
+			'status' => 'Status',
+			'level' => 'ระดับพนักงาน',
+			'description' => 'รายละเอียด',
+			'code' => 'รหัสระดับพนักงาน',
+			'companyId' => 'บริษัท',
+			'divisionId' => 'แผนก',
+			'isManager' => 'ระดับผู้จัดการ',
 		);
 	}
 
@@ -119,9 +119,9 @@ class EmployeeLevel extends CActiveRecord
 		$criteria->compare('isManager', $this->isManager, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-				'pageSize'=>30
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 30
 			),
 		));
 	}
@@ -132,14 +132,14 @@ class EmployeeLevel extends CActiveRecord
 		$e = new EmployeeLevel;
 
 		$models = $e->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'level',
+			'condition' => 'status=1',
+			'order' => 'level',
 		));
 
 		$employeeLevel = array(
-			''=>'---');
+			'' => '---');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$employeeLevel[$model->level] = $model->description;
 		}

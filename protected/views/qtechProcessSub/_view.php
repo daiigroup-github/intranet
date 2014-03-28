@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->processSubId), array(
 		'view',
-		'id'=>$data->processSubId));
+		'id' => $data->processSubId));
 	?>
 	<br />
 

@@ -1,4 +1,12 @@
-assets
-protected/runtime
-protected/config/params.php
-images/fitfast/*
+index.php
+protected/config/main.php
+protected/config/console.php
+protected/config/test.php
+protected/config/test.php
+assets/
+images/document/
+images/notice/
+protected/runtime/
+nbproject/private/private.xml
+images/glyphicons
+

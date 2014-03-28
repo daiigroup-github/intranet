@@ -9,16 +9,16 @@ $this->pageHeader = 'Create Docuemnt : ' . $model->documentTypeName;
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'id'=>'document-form',
-		'enableAjaxValidation'=>false,
+		'id' => 'document-form',
+		'enableAjaxValidation' => false,
 	));
 	?>
 
 	<?php
-	foreach($model->documentTemplate as $dt)
+	foreach ($model->documentTemplate as $dt)
 	{
 		echo '<label>' . $dt->documentTemplateField->documentTemplateFieldName . '</label>';
-		switch($dt->documentControlType->documentControlTypeName)
+		switch ($dt->documentControlType->documentControlTypeName)
 		{
 			case 'textField':
 				echo $form->textField($model, 'input[]');
@@ -35,7 +35,7 @@ $this->pageHeader = 'Create Docuemnt : ' . $model->documentTypeName;
 						});
 					");
 				echo $form->textField($model, 'input[]', array(
-					'id'=>'datepicker' . $dt->id
+					'id' => 'datepicker' . $dt->id
 				));
 				break;
 		}
@@ -44,8 +44,8 @@ $this->pageHeader = 'Create Docuemnt : ' . $model->documentTypeName;
 
 	<?php
 	$this->renderPartial('_form_item', array(
-		'documentItemModel'=>$documentItemModel,
-		'form'=>$form,
+		'documentItemModel' => $documentItemModel,
+		'form' => $form,
 	));
 	?>
 

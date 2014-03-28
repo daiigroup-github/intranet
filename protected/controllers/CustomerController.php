@@ -24,7 +24,7 @@ class CustomerController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -40,35 +40,35 @@ class CustomerController extends Controller
 		// $this->performAjaxValidation($model);
 
 		$dateNow = new CDbExpression('NOW()');
-		if(isset($_POST['Customer']))
+		if (isset($_POST['Customer']))
 		{
 			$model->attributes = $_POST['Customer'];
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
 				$flag = true;
-				if($model->save())
+				if ($model->save())
 				{
 					$customerId = Yii::app()->db->lastInsertID;
-					if(isset($_POST["CustomerSale"]["sales"]))
+					if (isset($_POST["CustomerSale"]["sales"]))
 					{
 						$saleExistingList = " ";
-						foreach($_POST["CustomerSale"]["sales"] as $sale)
+						foreach ($_POST["CustomerSale"]["sales"] as $sale)
 						{
 							$customerSale = new CustomerSale();
 							$customerSale->customerId = $customerId;
 							$customerSale->saleId = $sale;
 							$saleModel = Employee::model()->findByPk($sale);
 							$checkExistingSaleCompany = CustomerSale::model()->find("customerId = :customerId AND companyValue =:companyValue", array(
-								":customerId"=>$customerId,
-								":companyValue"=>$saleModel->company->companyValue));
+								":customerId" => $customerId,
+								":companyValue" => $saleModel->company->companyValue));
 							$customerSale->companyValue = $saleModel->company->companyValue;
 							$customerSale->createDateTime = $dateNow;
-							if(!$customerSale->save())
+							if (!$customerSale->save())
 							{
 								$flag = false;
 							}
-							if($checkExistingSaleCompany)
+							if ($checkExistingSaleCompany)
 							{
 								$saleExistingList .= " " . $saleModel->username . " ";
 								$flag = false;
@@ -81,12 +81,12 @@ class CustomerController extends Controller
 				{
 					$flag = false;
 				}
-				if($flag)
+				if ($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
 						'view',
-						'id'=>$model->customerId));
+						'id' => $model->customerId));
 				}
 				else
 				{
@@ -94,7 +94,7 @@ class CustomerController extends Controller
 					$transaction->rollback();
 				}
 			}
-			catch(Exception $ex)
+			catch (Exception $ex)
 			{
 				$transaction->rollback();
 				throw new Exception($ex->getMessage());
@@ -102,8 +102,8 @@ class CustomerController extends Controller
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
-			'customerSale'=>$customerSale,
+			'model' => $model,
+			'customerSale' => $customerSale,
 		));
 	}
 
@@ -117,7 +117,7 @@ class CustomerController extends Controller
 		$customerId = null;
 		$errorMsg = "";
 
-		if(isset($_POST["Customer"]))
+		if (isset($_POST["Customer"]))
 		{
 
 			/* send from IPHONE
@@ -135,7 +135,7 @@ class CustomerController extends Controller
 				$customer->createDateTime = $dateNow;
 				$customer->attributes = $_POST["Customer"];
 
-				if(!$customer->save())
+				if (!$customer->save())
 				{
 					$flag = false;
 					$errorMsg = "ไม่สามารถ บันทึก Customer ได้";
@@ -149,28 +149,28 @@ class CustomerController extends Controller
 					$customerSale->saleId = Yii::app()->user->id;
 					$saleModel = Employee::model()->findByPk(Yii::app()->user->id);
 					$checkExistingSaleCompany = CustomerSale::model()->find("customerId = :customerId AND companyValue =:companyValue", array(
-						":customerId"=>$customerId,
-						":companyValue"=>$saleModel->company->companyValue));
+						":customerId" => $customerId,
+						":companyValue" => $saleModel->company->companyValue));
 					$customerSale->companyValue = $saleModel->company->companyValue;
 					$customerSale->createDateTime = $dateNow;
-					if($checkExistingSaleCompany)
+					if ($checkExistingSaleCompany)
 					{
 						$saleExistingList .= " " . $saleModel->username . " ";
 						$flag = false;
 						$errorMsg = "ผู้แทนขาย ซ้ำในบริษัทเดียวกัน";
 					}
-					if(!$customerSale->save())
+					if (!$customerSale->save())
 					{
 						$flag = false;
 						$errorMsg = "ไม่สามารถบันทึก Customer Sale ได้";
 					}
 				}
 
-				if($flag)
+				if ($flag)
 				{
 					$transaction->commit();
 					$res["result"] = true;
-					if(isset($customerId))
+					if (isset($customerId))
 					{
 						$res["customerId"] = $customerId;
 					}
@@ -181,7 +181,7 @@ class CustomerController extends Controller
 					$res["error"] = $errorMsg;
 				}
 			}
-			catch(Exception $ex)
+			catch (Exception $ex)
 			{
 				$transaction->rollback();
 				$res["result"] = false;
@@ -209,18 +209,18 @@ class CustomerController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Customer']))
+		if (isset($_POST['Customer']))
 		{
 			$model->attributes = $_POST['Customer'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->customerId));
+					'id' => $model->customerId));
 		}
 		$customerSale = new CustomerSale();
 		$this->render('update', array(
-			'model'=>$model,
-			'customerSale'=>$customerSale,
+			'model' => $model,
+			'customerSale' => $customerSale,
 		));
 	}
 
@@ -231,13 +231,13 @@ class CustomerController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -258,11 +258,11 @@ class CustomerController extends Controller
 		$model = new Customer('search');
 		$model->unsetAttributes();  // clear any default values
 
-		if(isset($_GET['Customer']))
+		if (isset($_GET['Customer']))
 			$model->attributes = $_GET['Customer'];
 
 		$this->render('index', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -273,11 +273,11 @@ class CustomerController extends Controller
 	{
 		$model = new Customer('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Customer']))
+		if (isset($_GET['Customer']))
 			$model->attributes = $_GET['Customer'];
 
 		$this->render('admin', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -289,7 +289,7 @@ class CustomerController extends Controller
 	public function loadModel($id)
 	{
 		$model = Customer::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -300,7 +300,7 @@ class CustomerController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'customer-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'customer-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -45,21 +45,21 @@ class ProductCategory extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'productCatValue, companyId',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'productCatName',
 				'length',
-				'max'=>120),
+				'max' => 120),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'productCatId, status, productCatValue, productCatName, companyId',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -80,11 +80,11 @@ class ProductCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'productCatId'=>'Product Cat',
-			'status'=>'Status',
-			'productCatValue'=>'Product Cat Value',
-			'productCatName'=>'Product Cat Name',
-			'companyId'=>'Company',
+			'productCatId' => 'Product Cat',
+			'status' => 'Status',
+			'productCatValue' => 'Product Cat Value',
+			'productCatName' => 'Product Cat Name',
+			'companyId' => 'Company',
 		);
 	}
 
@@ -106,7 +106,7 @@ class ProductCategory extends CActiveRecord
 		$criteria->compare('companyId', $this->companyId, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -116,14 +116,14 @@ class ProductCategory extends CActiveRecord
 		$p = new ProductCategory;
 
 		$models = $p->findAll(array(
-			'condition'=>'status=1',
-			'order'=>'productCatName'
+			'condition' => 'status=1',
+			'order' => 'productCatName'
 		));
 
 		$productCat = array(
-			''=>'---');
+			'' => '---');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$productCat[$model->productCatId] = $model->productCatName;
 		}

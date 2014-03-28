@@ -53,7 +53,7 @@ dark:	rgb(0,66,174);
 	color:				rgb(0,66,174);
 	text-decoration:	none;
 	cursor:			hand;
-	cursor:			pointer;
+	cursor:			pointer;	
 }
 
 .dynamic-tab-pane-control .tab-row .hover a {

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * YiiMail class file.
  *
@@ -31,7 +32,7 @@
  * 	)
  * );
  * </pre>
- *
+ * 
  * Example usage:
  * <pre>
  * $message = new YiiMailMessage;
@@ -58,7 +59,7 @@ class YiiMail extends CApplicationComponent
 	public $dryRun = false;
 
 	/**
-	 * @var string the delivery type.  Can be either 'php' or 'smtp'.  When
+	 * @var string the delivery type.  Can be either 'php' or 'smtp'.  When 
 	 * using 'php', PHP's {@link mail()} function will be used.
 	 * Defaults to 'php'.
 	 */
@@ -72,7 +73,7 @@ class YiiMail extends CApplicationComponent
 
 	/**
 	 * @var string options specific to the transport type being used.
-	 * To set options for STMP, set this attribute to an array where the keys
+	 * To set options for STMP, set this attribute to an array where the keys 
 	 * are the option names and the values are their values.
 	 * Possible options for SMTP are:
 	 * <ul>
@@ -110,19 +111,19 @@ class YiiMail extends CApplicationComponent
 
 	/**
 	 * Send a {@link YiiMailMessage} as it would be sent in a mail client.
-	 *
+	 * 
 	 * All recipients (with the exception of Bcc) will be able to see the other
 	 * recipients this message was sent to.
-	 *
+	 * 
 	 * If you need to send to each recipient without disclosing details about the
 	 * other recipients see {@link batchSend()}.
-	 *
-	 * Recipient/sender data will be retreived from the {@link YiiMailMessage}
+	 * 
+	 * Recipient/sender data will be retreived from the {@link YiiMailMessage} 
 	 * object.
-	 *
+	 * 
 	 * The return value is the number of recipients who were accepted for
 	 * delivery.
-	 *
+	 * 
 	 * @param YiiMailMessage $message
 	 * @param array &$failedRecipients, optional
 	 * @return int
@@ -130,9 +131,9 @@ class YiiMail extends CApplicationComponent
 	 */
 	public function send(YiiMailMessage $message, &$failedRecipients = null)
 	{
-		if($this->logging === true)
+		if ($this->logging === true)
 			self::log($message);
-		if($this->dryRun === true)
+		if ($this->dryRun === true)
 			return count($message->to);
 		else
 			return $this->getMailer()->send($message->message, $failedRecipients);
@@ -140,20 +141,20 @@ class YiiMail extends CApplicationComponent
 
 	/**
 	 * Send the given {@link YiiMailMessage} to all recipients individually.
-	 *
-	 * This differs from {@link send()} in the way headers are presented to the
-	 * recipient.  The only recipient in the "To:" field will be the individual
+	 * 
+	 * This differs from {@link send()} in the way headers are presented to the 
+	 * recipient.  The only recipient in the "To:" field will be the individual 
 	 * recipient it was sent to.
-	 *
-	 * If an iterator is provided, recipients will be read from the iterator
-	 * one-by-one, otherwise recipient data will be retreived from the
+	 * 
+	 * If an iterator is provided, recipients will be read from the iterator 
+	 * one-by-one, otherwise recipient data will be retreived from the 
 	 * {@link YiiMailMessage} object.
-	 *
+	 * 
 	 * Sender information is always read from the {@link YiiMailMessage} object.
-	 *
-	 * The return value is the number of recipients who were accepted for
+	 * 
+	 * The return value is the number of recipients who were accepted for 
 	 * delivery.
-	 *
+	 * 
 	 * @param YiiMailMessage $message
 	 * @param array &$failedRecipients, optional
 	 * @param Swift_Mailer_RecipientIterator $it, optional
@@ -162,9 +163,9 @@ class YiiMail extends CApplicationComponent
 	 */
 	public function batchSend(YiiMailMessage $message, &$failedRecipients = null, Swift_Mailer_RecipientIterator $it = null)
 	{
-		if($this->logging === true)
+		if ($this->logging === true)
 			self::log($message);
-		if($this->dryRun === true)
+		if ($this->dryRun === true)
 			return count($message->to);
 		else
 			return $this->getMailer()->batchSend($message->message, $failedRecipients, $it);
@@ -172,7 +173,7 @@ class YiiMail extends CApplicationComponent
 
 	/**
 	 * Sends a message in an extremly simple but less extensive way.
-	 *
+	 * 
 	 * @param mixed from address, string or array of the form $address => $name
 	 * @param mixed to address, string or array of the form $address => $name
 	 * @param string subject
@@ -186,9 +187,9 @@ class YiiMail extends CApplicationComponent
 			->setTo($to)
 			->setBody($body, 'text/html');
 
-		if($this->logging === true)
+		if ($this->logging === true)
 			self::log($message);
-		if($this->dryRun === true)
+		if ($this->dryRun === true)
 			return count($message->to);
 		else
 			return $this->getMailer()->send($message);
@@ -209,24 +210,24 @@ class YiiMail extends CApplicationComponent
 	}
 
 	/**
-	 * Gets the SwiftMailer transport class instance, initializing it if it has
+	 * Gets the SwiftMailer transport class instance, initializing it if it has 
 	 * not been created yet
 	 * @return mixed {@link Swift_MailTransport} or {@link Swift_SmtpTransport}
 	 */
 	public function getTransport()
 	{
-		if($this->transport === null)
+		if ($this->transport === null)
 		{
-			switch($this->transportType)
+			switch ($this->transportType)
 			{
 				case 'php':
 					$this->transport = Swift_MailTransport::newInstance();
-					if($this->transportOptions !== null)
+					if ($this->transportOptions !== null)
 						$this->transport->setExtraParams($this->transportOptions);
 					break;
 				case 'smtp':
 					$this->transport = Swift_SmtpTransport::newInstance();
-					foreach($this->transportOptions as $option=> $value)
+					foreach ($this->transportOptions as $option => $value)
 						$this->transport->{'set' . ucfirst($option)}($value); // sets option with the setter method
 					break;
 			}
@@ -241,7 +242,7 @@ class YiiMail extends CApplicationComponent
 	 */
 	public function getMailer()
 	{
-		if($this->mailer === null)
+		if ($this->mailer === null)
 			$this->mailer = Swift_Mailer::newInstance($this->getTransport());
 
 		return $this->mailer;
@@ -252,7 +253,7 @@ class YiiMail extends CApplicationComponent
 	 */
 	public function registerScripts()
 	{
-		if(self::$registeredScripts)
+		if (self::$registeredScripts)
 			return;
 		self::$registeredScripts = true;
 		require dirname(__FILE__) . '/vendors/swiftMailer/classes/Swift.php';

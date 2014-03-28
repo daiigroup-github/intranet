@@ -5,9 +5,9 @@
 		<?php echo $form->labelEx($documentItem, 'documentItemName'); ?>
 		<?php
 		echo $form->textField($documentItem, 'documentItemName[]', array(
-			'size'=>50,
-			'maxlength'=>1000,
-			'class'=>'input-medium'));
+			'size' => 50,
+			'maxlength' => 1000,
+			'class' => 'input-medium'));
 		?>
 	</div>
 
@@ -20,9 +20,9 @@
 		<?php echo $form->labelEx($documentItem, 'description2'); ?>
 		<?php
 		echo $form->textField($documentItem, 'description2[]', array(
-			'size'=>50,
-			'maxlength'=>1000,
-			'class'=>'input-medium'));
+			'size' => 50,
+			'maxlength' => 1000,
+			'class' => 'input-medium'));
 		?>
 	</div>
 
@@ -30,9 +30,9 @@
 		<?php echo $form->labelEx($documentItem, 'description3'); ?>
 		<?php
 		echo $form->textField($documentItem, 'description3[]', array(
-			'size'=>50,
-			'maxlength'=>1000,
-			'class'=>'input-medium'));
+			'size' => 50,
+			'maxlength' => 1000,
+			'class' => 'input-medium'));
 		?>
 	</div>
 

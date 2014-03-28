@@ -16,7 +16,7 @@
 			{
 				var lastIndex = block.children.length,
 						last = block.children[ lastIndex - 1 ];
-				while(last && last.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.trim(last.value))
+				while (last && last.type == CKEDITOR.NODE_TEXT && !CKEDITOR.tools.trim(last.value))
 					last = block.children[ --lastIndex ];
 				return last;
 			}
@@ -29,25 +29,25 @@
 				// Also, any &nbsp; at the end of blocks are fillers, remove them as well.
 				// (#2886)
 				var children = block.children, lastChild = lastNoneSpaceChild(block);
-				if(lastChild)
+				if (lastChild)
 				{
-					if((fromSource || !CKEDITOR.env.ie) && lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br')
+					if ((fromSource || !CKEDITOR.env.ie) && lastChild.type == CKEDITOR.NODE_ELEMENT && lastChild.name == 'br')
 						children.pop();
-					if(lastChild.type == CKEDITOR.NODE_TEXT && tailNbspRegex.test(lastChild.value))
+					if (lastChild.type == CKEDITOR.NODE_TEXT && tailNbspRegex.test(lastChild.value))
 						children.pop();
 				}
 			}
 
 			function blockNeedsExtension(block, fromSource, extendEmptyBlock)
 			{
-				if(!fromSource && (!extendEmptyBlock ||
+				if (!fromSource && (!extendEmptyBlock ||
 						typeof extendEmptyBlock == 'function' && (extendEmptyBlock(block) === false)))
 					return false;
 
 				// 1. For IE version >=8,  empty blocks are displayed correctly themself in wysiwiyg;
 				// 2. For the rest, at least table cell and list item need no filler space.
 				// (#6248)
-				if(fromSource && CKEDITOR.env.ie &&
+				if (fromSource && CKEDITOR.env.ie &&
 						(document.documentMode > 7
 								|| block.name in CKEDITOR.dtd.tr
 								|| block.name in CKEDITOR.dtd.$listItem))
@@ -68,9 +68,9 @@
 				{
 					trimFillers(node, !isOutput);
 
-					if(blockNeedsExtension(node, !isOutput, emptyBlockFiller))
+					if (blockNeedsExtension(node, !isOutput, emptyBlockFiller))
 					{
-						if(isOutput || CKEDITOR.env.ie)
+						if (isOutput || CKEDITOR.env.ie)
 							node.add(new CKEDITOR.htmlParser.text('\xa0'));
 						else
 							node.add(new CKEDITOR.htmlParser.element('br', {}));
@@ -87,7 +87,7 @@
 			var blockLikeTags = CKEDITOR.tools.extend({}, dtd.$block, dtd.$listItem, dtd.$tableContent);
 			for (var i in blockLikeTags)
 			{
-				if(!('br' in dtd[i]))
+				if (!('br' in dtd[i]))
 					delete blockLikeTags[i];
 			}
 			// We just avoid filler in <pre> right now.
@@ -132,10 +132,10 @@
 									{
 										var attribs = element.attributes;
 
-										if(attribs)
+										if (attribs)
 										{
 											// Elements marked as temporary are to be ignored.
-											if(attribs[ 'data-cke-temp' ])
+											if (attribs[ 'data-cke-temp' ])
 												return false;
 
 											// Remove duplicated attributes - #3789.
@@ -166,7 +166,7 @@
 
 										// If the <embed> is child of a <object>, copy the width
 										// and height attributes from it.
-										if(parent && parent.name == 'object')
+										if (parent && parent.name == 'object')
 										{
 											var parentWidth = parent.attributes.width,
 													parentHeight = parent.attributes.height;
@@ -184,7 +184,7 @@
 									// Remove empty link but not empty anchor.(#3829)
 									a: function(element)
 									{
-										if(!(element.children.length ||
+										if (!(element.children.length ||
 												element.attributes.name ||
 												element.attributes[ 'data-cke-saved-name' ]))
 										{
@@ -194,7 +194,7 @@
 									// Remove dummy span in webkit.
 									span: function(element)
 									{
-										if(element.attributes[ 'class' ] == 'Apple-style-span')
+										if (element.attributes[ 'class' ] == 'Apple-style-span')
 											delete element.name;
 									},
 									// Empty <pre> in IE is reported with filler node (&nbsp;).
@@ -216,7 +216,7 @@
 										var child = element.children[ 0 ];
 										child && child.value && (child.value = CKEDITOR.tools.trim(child.value));
 
-										if(!element.attributes.type)
+										if (!element.attributes.type)
 											element.attributes.type = 'text/css';
 									},
 									title: function(element)
@@ -235,7 +235,7 @@
 								}
 					};
 
-			if(CKEDITOR.env.ie)
+			if (CKEDITOR.env.ie)
 			{
 				// IE outputs style attribute in capital letters. We should convert
 				// them back to lower case, while not hurting the values (#5930)
@@ -254,7 +254,7 @@
 
 				// We should flag that the element was locked by our code so
 				// it'll be editable by the editor functions (#6046).
-				if(attrs.contenteditable != "false")
+				if (attrs.contenteditable != "false")
 					attrs[ 'data-cke-editable' ] = attrs.contenteditable ? 'true' : 1;
 
 				attrs.contenteditable = "false";
@@ -262,7 +262,7 @@
 			function unprotectReadyOnly(element)
 			{
 				var attrs = element.attributes;
-				switch(attrs[ 'data-cke-editable' ])
+				switch (attrs[ 'data-cke-editable' ])
 				{
 					case 'true':
 						attrs.contenteditable = 'true';
@@ -298,7 +298,7 @@
 					{
 						// Avoid corrupting the inline event attributes (#7243).
 						// We should not rewrite the existed protected attributes, e.g. clipboard content from editor. (#5218)
-						if(!(/^on/).test(attrName) && attributes.indexOf('data-cke-saved-' + attrName) == -1)
+						if (!(/^on/).test(attrName) && attributes.indexOf('data-cke-saved-' + attrName) == -1)
 							return ' data-cke-saved-' + fullAttr + ' data-cke-' + CKEDITOR.rnd + '-' + fullAttr;
 
 						return fullAttr;

@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
 	));
 	?>
 
@@ -12,8 +12,8 @@
 		<?php echo $form->label($model, 'subject'); ?>
 		<?php
 		echo $form->textField($model, 'subject', array(
-			'size'=>60,
-			'maxlength'=>1000));
+			'size' => 60,
+			'maxlength' => 1000));
 		?>
 	</p>
 
@@ -21,8 +21,8 @@
 		<?php echo $form->label($model, 'detail'); ?>
 		<?php
 		echo $form->textField($model, 'detail', array(
-			'size'=>60,
-			'maxlength'=>3000));
+			'size' => 60,
+			'maxlength' => 3000));
 		?>
 	</p>
 

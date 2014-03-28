@@ -19,29 +19,29 @@
 		 * focusManager.focus();
 		 */
 		CKEDITOR.focusManager = function(editor)
-		{
-			if(editor.focusManager)
-				return editor.focusManager;
+{
+	if (editor.focusManager)
+		return editor.focusManager;
 
-			/**
-			 * Indicates that the editor instance has focus.
-			 * @type Boolean
-			 * @example
-			 * alert( CKEDITOR.instances.editor1.focusManager.hasFocus );  // e.g "true"
-			 */
-			this.hasFocus = false;
+	/**
+	 * Indicates that the editor instance has focus.
+	 * @type Boolean
+	 * @example
+	 * alert( CKEDITOR.instances.editor1.focusManager.hasFocus );  // e.g "true"
+	 */
+	this.hasFocus = false;
 
-			/**
-			 * Object used to hold private stuff.
-			 * @private
-			 */
-			this._ =
-					{
-						editor: editor
-					};
+	/**
+	 * Object used to hold private stuff.
+	 * @private
+	 */
+	this._ =
+			{
+				editor: editor
+			};
 
-			return this;
-		};
+	return this;
+};
 
 CKEDITOR.focusManager.prototype =
 		{
@@ -57,17 +57,17 @@ CKEDITOR.focusManager.prototype =
 			 */
 			focus: function()
 			{
-				if(this._.timer)
+				if (this._.timer)
 					clearTimeout(this._.timer);
 
-				if(!this.hasFocus)
+				if (!this.hasFocus)
 				{
 					// If another editor has the current focus, we first "blur" it. In
 					// this way the events happen in a more logical sequence, like:
 					//		"focus 1" > "blur 1" > "focus 2"
 					// ... instead of:
 					//		"focus 1" > "focus 2" > "blur 1"
-					if(CKEDITOR.currentInstance)
+					if (CKEDITOR.currentInstance)
 						CKEDITOR.currentInstance.focusManager.forceBlur();
 
 					var editor = this._.editor;
@@ -92,7 +92,7 @@ CKEDITOR.focusManager.prototype =
 			{
 				var focusManager = this;
 
-				if(focusManager._.timer)
+				if (focusManager._.timer)
 					clearTimeout(focusManager._.timer);
 
 				focusManager._.timer = setTimeout(
@@ -113,7 +113,7 @@ CKEDITOR.focusManager.prototype =
 			 */
 			forceBlur: function()
 			{
-				if(this.hasFocus)
+				if (this.hasFocus)
 				{
 					var editor = this._.editor;
 

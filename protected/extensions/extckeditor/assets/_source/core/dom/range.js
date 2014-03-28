@@ -24,69 +24,69 @@
 		 * range.deleteContents();
 		 */
 		CKEDITOR.dom.range = function(document)
-		{
-			/**
-			 * Node within which the range begins.
-			 * @type {CKEDITOR.NODE_ELEMENT|CKEDITOR.NODE_TEXT}
-			 * @example
-			 * var range = new CKEDITOR.dom.range( editor.document );
-			 * range.selectNodeContents( editor.document.getBody() );
-			 * alert( range.startContainer.getName() );  // "body"
-			 */
-			this.startContainer = null;
+{
+	/**
+	 * Node within which the range begins.
+	 * @type {CKEDITOR.NODE_ELEMENT|CKEDITOR.NODE_TEXT}
+	 * @example
+	 * var range = new CKEDITOR.dom.range( editor.document );
+	 * range.selectNodeContents( editor.document.getBody() );
+	 * alert( range.startContainer.getName() );  // "body"
+	 */
+	this.startContainer = null;
 
-			/**
-			 * Offset within the starting node of the range.
-			 * @type {Number}
-			 * @example
-			 * var range = new CKEDITOR.dom.range( editor.document );
-			 * range.selectNodeContents( editor.document.getBody() );
-			 * alert( range.startOffset );  // "0"
-			 */
-			this.startOffset = null;
+	/**
+	 * Offset within the starting node of the range.
+	 * @type {Number}
+	 * @example
+	 * var range = new CKEDITOR.dom.range( editor.document );
+	 * range.selectNodeContents( editor.document.getBody() );
+	 * alert( range.startOffset );  // "0"
+	 */
+	this.startOffset = null;
 
-			/**
-			 * Node within which the range ends.
-			 * @type {CKEDITOR.NODE_ELEMENT|CKEDITOR.NODE_TEXT}
-			 * @example
-			 * var range = new CKEDITOR.dom.range( editor.document );
-			 * range.selectNodeContents( editor.document.getBody() );
-			 * alert( range.endContainer.getName() );  // "body"
-			 */
-			this.endContainer = null;
+	/**
+	 * Node within which the range ends.
+	 * @type {CKEDITOR.NODE_ELEMENT|CKEDITOR.NODE_TEXT}
+	 * @example
+	 * var range = new CKEDITOR.dom.range( editor.document );
+	 * range.selectNodeContents( editor.document.getBody() );
+	 * alert( range.endContainer.getName() );  // "body"
+	 */
+	this.endContainer = null;
 
-			/**
-			 * Offset within the ending node of the range.
-			 * @type {Number}
-			 * @example
-			 * var range = new CKEDITOR.dom.range( editor.document );
-			 * range.selectNodeContents( editor.document.getBody() );
-			 * alert( range.endOffset );  // == editor.document.getBody().getChildCount()
-			 */
-			this.endOffset = null;
+	/**
+	 * Offset within the ending node of the range.
+	 * @type {Number}
+	 * @example
+	 * var range = new CKEDITOR.dom.range( editor.document );
+	 * range.selectNodeContents( editor.document.getBody() );
+	 * alert( range.endOffset );  // == editor.document.getBody().getChildCount()
+	 */
+	this.endOffset = null;
 
-			/**
-			 * Indicates that this is a collapsed range. A collapsed range has it's
-			 * start and end boudaries at the very same point so nothing is contained
-			 * in it.
-			 * @example
-			 * var range = new CKEDITOR.dom.range( editor.document );
-			 * range.selectNodeContents( editor.document.getBody() );
-			 * alert( range.collapsed );  // "false"
-			 * range.collapse();
-			 * alert( range.collapsed );  // "true"
-			 */
-			this.collapsed = true;
+	/**
+	 * Indicates that this is a collapsed range. A collapsed range has it's
+	 * start and end boudaries at the very same point so nothing is contained
+	 * in it.
+	 * @example
+	 * var range = new CKEDITOR.dom.range( editor.document );
+	 * range.selectNodeContents( editor.document.getBody() );
+	 * alert( range.collapsed );  // "false"
+	 * range.collapse();
+	 * alert( range.collapsed );  // "true"
+	 */
+	this.collapsed = true;
 
-			/**
-			 * The document within which the range can be used.
-			 * @type {CKEDITOR.dom.document}
-			 * @example
-			 * // Selects the body contents of the range document.
-			 * range.selectNodeContents( range.document.getBody() );
-			 */
-			this.document = document;
-		};
+	/**
+	 * The document within which the range can be used.
+	 * @type {CKEDITOR.dom.document}
+	 * @example
+	 * // Selects the body contents of the range document.
+	 * range.selectNodeContents( range.document.getBody() );
+	 */
+	this.document = document;
+};
 
 (function()
 {
@@ -118,16 +118,16 @@
 
 		// For text containers, we must simply split the node and point to the
 		// second part. The removal will be handled by the rest of the code .
-		if(endNode.type == CKEDITOR.NODE_TEXT)
+		if (endNode.type == CKEDITOR.NODE_TEXT)
 			endNode = endNode.split(endOffset);
 		else
 		{
 			// If the end container has children and the offset is pointing
 			// to a child, then we should start from it.
-			if(endNode.getChildCount() > 0)
+			if (endNode.getChildCount() > 0)
 			{
 				// If the offset points after the last node.
-				if(endOffset >= endNode.getChildCount())
+				if (endOffset >= endNode.getChildCount())
 				{
 					// Let's create a temporary node and mark it for removal.
 					endNode = endNode.append(range.document.createText(''));
@@ -140,14 +140,14 @@
 
 		// For text containers, we must simply split the node. The removal will
 		// be handled by the rest of the code .
-		if(startNode.type == CKEDITOR.NODE_TEXT)
+		if (startNode.type == CKEDITOR.NODE_TEXT)
 		{
 			startNode.split(startOffset);
 
 			// In cases the end node is the same as the start node, the above
 			// splitting will also split the end, so me must move the end to
 			// the second part of the split.
-			if(startNode.equals(endNode))
+			if (startNode.equals(endNode))
 				endNode = startNode.getNext();
 		}
 		else
@@ -157,13 +157,13 @@
 
 			// If the offset points to the first node, we don't have a
 			// sibling, so let's use the first one, but mark it for removal.
-			if(!startOffset)
+			if (!startOffset)
 			{
 				// Let's create a temporary node and mark it for removal.
 				startNode = startNode.getFirst().insertBeforeMe(range.document.createText(''));
 				removeStartNode = true;
 			}
-			else if(startOffset >= startNode.getChildCount())
+			else if (startOffset >= startNode.getChildCount())
 			{
 				// Let's create a temporary node and mark it for removal.
 				startNode = startNode.append(range.document.createText(''));
@@ -189,7 +189,7 @@
 			// siblings (different nodes that have the same parent).
 			// "i" will hold the index in the parents array for the top
 			// most element.
-			if(!topStart.equals(topEnd))
+			if (!topStart.equals(topEnd))
 				break;
 		}
 
@@ -202,23 +202,23 @@
 			levelStartNode = startParents[j];
 
 			// For Extract and Clone, we must clone this level.
-			if(clone && !levelStartNode.equals(startNode))		// action = 0 = Delete
+			if (clone && !levelStartNode.equals(startNode))		// action = 0 = Delete
 				levelClone = clone.append(levelStartNode.clone());
 
 			currentNode = levelStartNode.getNext();
 
-			while(currentNode)
+			while (currentNode)
 			{
 				// Stop processing when the current node matches a node in the
 				// endParents tree or if it is the endNode.
-				if(currentNode.equals(endParents[ j ]) || currentNode.equals(endNode))
+				if (currentNode.equals(endParents[ j ]) || currentNode.equals(endNode))
 					break;
 
 				// Cache the next sibling.
 				currentSibling = currentNode.getNext();
 
 				// If cloning, just clone it.
-				if(action == 2)	// 2 = Clone
+				if (action == 2)	// 2 = Clone
 					clone.append(currentNode.clone(true));
 				else
 				{
@@ -226,14 +226,14 @@
 					currentNode.remove();
 
 					// When Extracting, move the removed node to the docFrag.
-					if(action == 1)	// 1 = Extract
+					if (action == 1)	// 1 = Extract
 						clone.append(currentNode);
 				}
 
 				currentNode = currentSibling;
 			}
 
-			if(clone)
+			if (clone)
 				clone = levelClone;
 		}
 
@@ -246,26 +246,26 @@
 			levelStartNode = endParents[ k ];
 
 			// For Extract and Clone, we must clone this level.
-			if(action > 0 && !levelStartNode.equals(endNode))		// action = 0 = Delete
+			if (action > 0 && !levelStartNode.equals(endNode))		// action = 0 = Delete
 				levelClone = clone.append(levelStartNode.clone());
 
 			// The processing of siblings may have already been done by the parent.
-			if(!startParents[ k ] || levelStartNode.$.parentNode != startParents[ k ].$.parentNode)
+			if (!startParents[ k ] || levelStartNode.$.parentNode != startParents[ k ].$.parentNode)
 			{
 				currentNode = levelStartNode.getPrevious();
 
-				while(currentNode)
+				while (currentNode)
 				{
 					// Stop processing when the current node matches a node in the
 					// startParents tree or if it is the startNode.
-					if(currentNode.equals(startParents[ k ]) || currentNode.equals(startNode))
+					if (currentNode.equals(startParents[ k ]) || currentNode.equals(startNode))
 						break;
 
 					// Cache the next sibling.
 					currentSibling = currentNode.getPrevious();
 
 					// If cloning, just clone it.
-					if(action == 2)	// 2 = Clone
+					if (action == 2)	// 2 = Clone
 						clone.$.insertBefore(currentNode.$.cloneNode(true), clone.$.firstChild);
 					else
 					{
@@ -273,7 +273,7 @@
 						currentNode.remove();
 
 						// When Extracting, mode the removed node to the docFrag.
-						if(action == 1)	// 1 = Extract
+						if (action == 1)	// 1 = Extract
 							clone.$.insertBefore(currentNode.$, clone.$.firstChild);
 					}
 
@@ -281,23 +281,23 @@
 				}
 			}
 
-			if(clone)
+			if (clone)
 				clone = levelClone;
 		}
 
-		if(action == 2)		// 2 = Clone.
+		if (action == 2)		// 2 = Clone.
 		{
 			// No changes in the DOM should be done, so fix the split text (if any).
 
 			var startTextNode = range.startContainer;
-			if(startTextNode.type == CKEDITOR.NODE_TEXT)
+			if (startTextNode.type == CKEDITOR.NODE_TEXT)
 			{
 				startTextNode.$.data += startTextNode.$.nextSibling.data;
 				startTextNode.$.parentNode.removeChild(startTextNode.$.nextSibling);
 			}
 
 			var endTextNode = range.endContainer;
-			if(endTextNode.type == CKEDITOR.NODE_TEXT && endTextNode.$.nextSibling)
+			if (endTextNode.type == CKEDITOR.NODE_TEXT && endTextNode.$.nextSibling)
 			{
 				endTextNode.$.data += endTextNode.$.nextSibling.data;
 				endTextNode.$.parentNode.removeChild(endTextNode.$.nextSibling);
@@ -309,17 +309,17 @@
 
 			// If a node has been partially selected, collapse the range between
 			// topStart and topEnd. Otherwise, simply collapse it to the start. (W3C specs).
-			if(topStart && topEnd && (startNode.$.parentNode != topStart.$.parentNode || endNode.$.parentNode != topEnd.$.parentNode))
+			if (topStart && topEnd && (startNode.$.parentNode != topStart.$.parentNode || endNode.$.parentNode != topEnd.$.parentNode))
 			{
 				var endIndex = topEnd.getIndex();
 
 				// If the start node is to be removed, we must correct the
 				// index to reflect the removal.
-				if(removeStartNode && topEnd.$.parentNode == startNode.$.parentNode)
+				if (removeStartNode && topEnd.$.parentNode == startNode.$.parentNode)
 					endIndex--;
 
 				// Merge splitted parents.
-				if(mergeThen && topStart.type == CKEDITOR.NODE_ELEMENT)
+				if (mergeThen && topStart.type == CKEDITOR.NODE_ELEMENT)
 				{
 					var span = CKEDITOR.dom.element.createFromHtml('<span ' +
 							'data-cke-bookmark="1" style="display:none">&nbsp;</span>', range.document);
@@ -336,10 +336,10 @@
 		}
 
 		// Cleanup any marked node.
-		if(removeStartNode)
+		if (removeStartNode)
 			startNode.remove();
 
-		if(removeEndNode && endNode.$.parentNode)
+		if (removeEndNode && endNode.$.parentNode)
 			endNode.remove();
 	};
 
@@ -353,24 +353,24 @@
 		return function(node)
 		{
 			// First ignore bookmark nodes.
-			if(bookmarkEvaluator(node))
+			if (bookmarkEvaluator(node))
 				return true;
 
-			if(node.type == CKEDITOR.NODE_TEXT)
+			if (node.type == CKEDITOR.NODE_TEXT)
 			{
 				// If there's any visible text, then we're not at the start.
-				if(node.hasAscendant('pre') || CKEDITOR.tools.trim(node.getText()).length)
+				if (node.hasAscendant('pre') || CKEDITOR.tools.trim(node.getText()).length)
 					return false;
 			}
-			else if(node.type == CKEDITOR.NODE_ELEMENT)
+			else if (node.type == CKEDITOR.NODE_ELEMENT)
 			{
 				// If there are non-empty inline elements (e.g. <img />), then we're not
 				// at the start.
-				if(!inlineChildReqElements[ node.getName() ])
+				if (!inlineChildReqElements[ node.getName() ])
 				{
 					// If we're working at the end-of-block, forgive the first <br /> in non-IE
 					// browsers.
-					if(!isStart && !CKEDITOR.env.ie && node.getName() == 'br' && !hadBr)
+					if (!isStart && !CKEDITOR.env.ie && node.getName() == 'br' && !hadBr)
 						hadBr = true;
 					else
 						return false;
@@ -424,7 +424,7 @@
 				},
 				collapse: function(toStart)
 				{
-					if(toStart)
+					if (toStart)
 					{
 						this.endContainer = this.startContainer;
 						this.endOffset = this.startOffset;
@@ -445,7 +445,7 @@
 				{
 					var docFrag = new CKEDITOR.dom.documentFragment(this.document);
 
-					if(!this.collapsed)
+					if (!this.collapsed)
 						execContentsAction(this, 2, docFrag);
 
 					return docFrag;
@@ -456,7 +456,7 @@
 				 */
 				deleteContents: function(mergeThen)
 				{
-					if(this.collapsed)
+					if (this.collapsed)
 						return;
 
 					execContentsAction(this, 0, null, mergeThen);
@@ -470,7 +470,7 @@
 				{
 					var docFrag = new CKEDITOR.dom.documentFragment(this.document);
 
-					if(!this.collapsed)
+					if (!this.collapsed)
 						execContentsAction(this, 1, docFrag, mergeThen);
 
 					return docFrag;
@@ -505,19 +505,19 @@
 					// removed during DOM operations.
 					startNode.setHtml('&nbsp;');
 
-					if(serializable)
+					if (serializable)
 					{
 						baseId = 'cke_bm_' + CKEDITOR.tools.getNextNumber();
 						startNode.setAttribute('id', baseId + 'S');
 					}
 
 					// If collapsed, the endNode will not be created.
-					if(!collapsed)
+					if (!collapsed)
 					{
 						endNode = startNode.clone();
 						endNode.setHtml('&nbsp;');
 
-						if(serializable)
+						if (serializable)
 							endNode.setAttribute('id', baseId + 'E');
 
 						clone = this.clone();
@@ -530,7 +530,7 @@
 					clone.insertNode(startNode);
 
 					// Update the range position.
-					if(endNode)
+					if (endNode)
 					{
 						this.setStartAfter(startNode);
 						this.setEndBefore(endNode);
@@ -571,20 +571,20 @@
 					// If there is no range then get out of here.
 					// It happens on initial load in Safari #962 and if the editor it's
 					// hidden also in Firefox
-					if(!startContainer || !endContainer)
+					if (!startContainer || !endContainer)
 						return {start: 0, end: 0};
 
-					if(normalized)
+					if (normalized)
 					{
 						// Find out if the start is pointing to a text node that will
 						// be normalized.
-						if(startContainer.type == CKEDITOR.NODE_ELEMENT)
+						if (startContainer.type == CKEDITOR.NODE_ELEMENT)
 						{
 							child = startContainer.getChild(startOffset);
 
 							// In this case, move the start information to that text
 							// node.
-							if(child && child.type == CKEDITOR.NODE_TEXT
+							if (child && child.type == CKEDITOR.NODE_TEXT
 									&& startOffset > 0 && child.getPrevious().type == CKEDITOR.NODE_TEXT)
 							{
 								startContainer = child;
@@ -592,12 +592,12 @@
 							}
 
 							// Get the normalized offset.
-							if(child && child.type == CKEDITOR.NODE_ELEMENT)
+							if (child && child.type == CKEDITOR.NODE_ELEMENT)
 								startOffset = child.getIndex(1);
 						}
 
 						// Normalize the start.
-						while(startContainer.type == CKEDITOR.NODE_TEXT
+						while (startContainer.type == CKEDITOR.NODE_TEXT
 								&& (previous = startContainer.getPrevious())
 								&& previous.type == CKEDITOR.NODE_TEXT)
 						{
@@ -606,17 +606,17 @@
 						}
 
 						// Process the end only if not normalized.
-						if(!collapsed)
+						if (!collapsed)
 						{
 							// Find out if the start is pointing to a text node that
 							// will be normalized.
-							if(endContainer.type == CKEDITOR.NODE_ELEMENT)
+							if (endContainer.type == CKEDITOR.NODE_ELEMENT)
 							{
 								child = endContainer.getChild(endOffset);
 
 								// In this case, move the start information to that
 								// text node.
-								if(child && child.type == CKEDITOR.NODE_TEXT
+								if (child && child.type == CKEDITOR.NODE_TEXT
 										&& endOffset > 0 && child.getPrevious().type == CKEDITOR.NODE_TEXT)
 								{
 									endContainer = child;
@@ -624,12 +624,12 @@
 								}
 
 								// Get the normalized offset.
-								if(child && child.type == CKEDITOR.NODE_ELEMENT)
+								if (child && child.type == CKEDITOR.NODE_ELEMENT)
 									endOffset = child.getIndex(1);
 							}
 
 							// Normalize the end.
-							while(endContainer.type == CKEDITOR.NODE_TEXT
+							while (endContainer.type == CKEDITOR.NODE_TEXT
 									&& (previous = endContainer.getPrevious())
 									&& previous.type == CKEDITOR.NODE_TEXT)
 							{
@@ -651,7 +651,7 @@
 				},
 				moveToBookmark: function(bookmark)
 				{
-					if(bookmark.is2)		// Created with createBookmark2().
+					if (bookmark.is2)		// Created with createBookmark2().
 					{
 						// Get the start information.
 						var startContainer = this.document.getByAddress(bookmark.start, bookmark.normalized),
@@ -665,7 +665,7 @@
 						this.setStart(startContainer, startOffset);
 
 						// Set the end boundary. If not available, collapse it.
-						if(endContainer)
+						if (endContainer)
 							this.setEnd(endContainer, endOffset);
 						else
 							this.collapse(true);
@@ -684,7 +684,7 @@
 
 						// Set the range end at the bookmark end node position, or simply
 						// collapse it if it is not available.
-						if(endNode)
+						if (endNode)
 						{
 							this.setEndBefore(endNode);
 							endNode.remove();
@@ -701,18 +701,18 @@
 							endOffset = this.endOffset,
 							childCount;
 
-					if(startNode.type == CKEDITOR.NODE_ELEMENT)
+					if (startNode.type == CKEDITOR.NODE_ELEMENT)
 					{
 						childCount = startNode.getChildCount();
-						if(childCount > startOffset)
+						if (childCount > startOffset)
 							startNode = startNode.getChild(startOffset);
-						else if(childCount < 1)
+						else if (childCount < 1)
 							startNode = startNode.getPreviousSourceNode();
 						else		// startOffset > childCount but childCount is not 0
 						{
 							// Try to take the node just after the current position.
 							startNode = startNode.$;
-							while(startNode.lastChild)
+							while (startNode.lastChild)
 								startNode = startNode.lastChild;
 							startNode = new CKEDITOR.dom.node(startNode);
 
@@ -722,18 +722,18 @@
 							startNode = startNode.getNextSourceNode() || startNode;
 						}
 					}
-					if(endNode.type == CKEDITOR.NODE_ELEMENT)
+					if (endNode.type == CKEDITOR.NODE_ELEMENT)
 					{
 						childCount = endNode.getChildCount();
-						if(childCount > endOffset)
+						if (childCount > endOffset)
 							endNode = endNode.getChild(endOffset).getPreviousSourceNode(true);
-						else if(childCount < 1)
+						else if (childCount < 1)
 							endNode = endNode.getPreviousSourceNode();
 						else		// endOffset > childCount but childCount is not 0
 						{
 							// Try to take the node just before the current position.
 							endNode = endNode.$;
-							while(endNode.lastChild)
+							while (endNode.lastChild)
 								endNode = endNode.lastChild;
 							endNode = new CKEDITOR.dom.node(endNode);
 						}
@@ -741,7 +741,7 @@
 
 					// Sometimes the endNode will come right before startNode for collapsed
 					// ranges. Fix it. (#3780)
-					if(startNode.getPosition(endNode) & CKEDITOR.POSITION_FOLLOWING)
+					if (startNode.getPosition(endNode) & CKEDITOR.POSITION_FOLLOWING)
 						startNode = endNode;
 
 					return {startNode: startNode, endNode: endNode};
@@ -757,9 +757,9 @@
 							end = this.endContainer,
 							ancestor;
 
-					if(start.equals(end))
+					if (start.equals(end))
 					{
-						if(includeSelf
+						if (includeSelf
 								&& start.type == CKEDITOR.NODE_ELEMENT
 								&& this.startOffset == this.endOffset - 1)
 							ancestor = start.getChild(this.startOffset);
@@ -782,22 +782,22 @@
 					var container = this.startContainer;
 					var offset = this.startOffset;
 
-					if(container.type != CKEDITOR.NODE_ELEMENT)
+					if (container.type != CKEDITOR.NODE_ELEMENT)
 					{
-						if(!offset)
+						if (!offset)
 							this.setStartBefore(container);
-						else if(offset >= container.getLength())
+						else if (offset >= container.getLength())
 							this.setStartAfter(container);
 					}
 
 					container = this.endContainer;
 					offset = this.endOffset;
 
-					if(container.type != CKEDITOR.NODE_ELEMENT)
+					if (container.type != CKEDITOR.NODE_ELEMENT)
 					{
-						if(!offset)
+						if (!offset)
 							this.setEndBefore(container);
-						else if(offset >= container.getLength())
+						else if (offset >= container.getLength())
 							this.setEndAfter(container);
 					}
 				},
@@ -809,10 +809,10 @@
 					var startNode = this.startContainer,
 							endNode = this.endContainer;
 
-					if(startNode.is && startNode.is('span')
+					if (startNode.is && startNode.is('span')
 							&& startNode.data('cke-bookmark'))
 						this.setStartAt(startNode, CKEDITOR.POSITION_BEFORE_START);
-					if(endNode && endNode.is && endNode.is('span')
+					if (endNode && endNode.is && endNode.is('span')
 							&& endNode.data('cke-bookmark'))
 						this.setEndAt(endNode, CKEDITOR.POSITION_AFTER_END);
 				},
@@ -821,19 +821,19 @@
 					var startContainer = this.startContainer,
 							startOffset = this.startOffset,
 							collapsed = this.collapsed;
-					if((!ignoreStart || collapsed)
+					if ((!ignoreStart || collapsed)
 							&& startContainer && startContainer.type == CKEDITOR.NODE_TEXT)
 					{
 						// If the offset is zero, we just insert the new node before
 						// the start.
-						if(!startOffset)
+						if (!startOffset)
 						{
 							startOffset = startContainer.getIndex();
 							startContainer = startContainer.getParent();
 						}
 						// If the offset is at the end, we'll insert it after the text
 						// node.
-						else if(startOffset >= startContainer.getLength())
+						else if (startOffset >= startContainer.getLength())
 						{
 							startOffset = startContainer.getIndex() + 1;
 							startContainer = startContainer.getParent();
@@ -848,15 +848,15 @@
 							startContainer = startContainer.getParent();
 
 							// Check all necessity of updating the end boundary.
-							if(this.startContainer.equals(this.endContainer))
+							if (this.startContainer.equals(this.endContainer))
 								this.setEnd(nextText, this.endOffset - this.startOffset);
-							else if(startContainer.equals(this.endContainer))
+							else if (startContainer.equals(this.endContainer))
 								this.endOffset += 1;
 						}
 
 						this.setStart(startContainer, startOffset);
 
-						if(collapsed)
+						if (collapsed)
 						{
 							this.collapse(true);
 							return;
@@ -866,19 +866,19 @@
 					var endContainer = this.endContainer;
 					var endOffset = this.endOffset;
 
-					if(!(ignoreEnd || collapsed)
+					if (!(ignoreEnd || collapsed)
 							&& endContainer && endContainer.type == CKEDITOR.NODE_TEXT)
 					{
 						// If the offset is zero, we just insert the new node before
 						// the start.
-						if(!endOffset)
+						if (!endOffset)
 						{
 							endOffset = endContainer.getIndex();
 							endContainer = endContainer.getParent();
 						}
 						// If the offset is at the end, we'll insert it after the text
 						// node.
-						else if(endOffset >= endContainer.getLength())
+						else if (endOffset >= endContainer.getLength())
 						{
 							endOffset = endContainer.getIndex() + 1;
 							endContainer = endContainer.getParent();
@@ -903,11 +903,11 @@
 				 */
 				enlarge: function(unit, excludeBrs)
 				{
-					switch(unit)
+					switch (unit)
 					{
 						case CKEDITOR.ENLARGE_ELEMENT :
 
-							if(this.collapsed)
+							if (this.collapsed)
 								return;
 
 							// Get the common ancestor.
@@ -934,9 +934,9 @@
 							var container = this.startContainer;
 							var offset = this.startOffset;
 
-							if(container.type == CKEDITOR.NODE_TEXT)
+							if (container.type == CKEDITOR.NODE_TEXT)
 							{
-								if(offset)
+								if (offset)
 								{
 									// Check if there is any non-space text before the
 									// offset. Otherwise, container is null.
@@ -949,9 +949,9 @@
 									needsWhiteSpace = !!container;
 								}
 
-								if(container)
+								if (container)
 								{
-									if(!(sibling = container.getPrevious()))
+									if (!(sibling = container.getPrevious()))
 										enlargeable = container.getParent();
 								}
 							}
@@ -959,30 +959,30 @@
 							{
 								// If we have offset, get the node preceeding it as the
 								// first sibling to be checked.
-								if(offset)
+								if (offset)
 									sibling = container.getChild(offset - 1) || container.getLast();
 
 								// If there is no sibling, mark the container to be
 								// enlarged.
-								if(!sibling)
+								if (!sibling)
 									enlargeable = container;
 							}
 
-							while(enlargeable || sibling)
+							while (enlargeable || sibling)
 							{
-								if(enlargeable && !sibling)
+								if (enlargeable && !sibling)
 								{
 									// If we reached the common ancestor, mark the flag
 									// for it.
-									if(!commonReached && enlargeable.equals(commonAncestor))
+									if (!commonReached && enlargeable.equals(commonAncestor))
 										commonReached = true;
 
-									if(!body.contains(enlargeable))
+									if (!body.contains(enlargeable))
 										break;
 
 									// If we don't need space or this element breaks
 									// the line, then enlarge it.
-									if(!needsWhiteSpace || enlargeable.getComputedStyle('display') != 'inline')
+									if (!needsWhiteSpace || enlargeable.getComputedStyle('display') != 'inline')
 									{
 										needsWhiteSpace = false;
 
@@ -990,7 +990,7 @@
 										// we'll not enlarge it immediately, but just
 										// mark it to be enlarged later if the end
 										// boundary also enlarges it.
-										if(commonReached)
+										if (commonReached)
 											startTop = enlargeable;
 										else
 											this.setStartBefore(enlargeable);
@@ -1002,22 +1002,22 @@
 								// Check all sibling nodes preceeding the enlargeable
 								// node. The node wil lbe enlarged only if none of them
 								// blocks it.
-								while(sibling)
+								while (sibling)
 								{
 									// This flag indicates that this node has
 									// whitespaces at the end.
 									isWhiteSpace = false;
 
-									if(sibling.type == CKEDITOR.NODE_COMMENT)
+									if (sibling.type == CKEDITOR.NODE_COMMENT)
 									{
 										sibling = sibling.getPrevious();
 										continue;
 									}
-									else if(sibling.type == CKEDITOR.NODE_TEXT)
+									else if (sibling.type == CKEDITOR.NODE_TEXT)
 									{
 										siblingText = sibling.getText();
 
-										if(/[^\s\ufeff]/.test(siblingText))
+										if (/[^\s\ufeff]/.test(siblingText))
 											sibling = null;
 
 										isWhiteSpace = /[\s\ufeff]$/.test(siblingText);
@@ -1028,25 +1028,25 @@
 										// We need to check for the bookmark attribute because IE insists on
 										// rendering the display:none nodes we use for bookmarks. (#3363)
 										// Line-breaks (br) are rendered with zero width, which we don't want to include. (#7041)
-										if((sibling.$.offsetWidth > 0 || excludeBrs && sibling.is('br')) && !sibling.data('cke-bookmark'))
+										if ((sibling.$.offsetWidth > 0 || excludeBrs && sibling.is('br')) && !sibling.data('cke-bookmark'))
 										{
 											// We'll accept it only if we need
 											// whitespace, and this is an inline
 											// element with whitespace only.
-											if(needsWhiteSpace && CKEDITOR.dtd.$removeEmpty[ sibling.getName() ])
+											if (needsWhiteSpace && CKEDITOR.dtd.$removeEmpty[ sibling.getName() ])
 											{
 												// It must contains spaces and inline elements only.
 
 												siblingText = sibling.getText();
 
-												if((/[^\s\ufeff]/).test(siblingText))	// Spaces + Zero Width No-Break Space (U+FEFF)
+												if ((/[^\s\ufeff]/).test(siblingText))	// Spaces + Zero Width No-Break Space (U+FEFF)
 													sibling = null;
 												else
 												{
 													var allChildren = sibling.$.getElementsByTagName('*');
 													for (var i = 0, child; child = allChildren[ i++ ]; )
 													{
-														if(!CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ])
+														if (!CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ])
 														{
 															sibling = null;
 															break;
@@ -1054,7 +1054,7 @@
 													}
 												}
 
-												if(sibling)
+												if (sibling)
 													isWhiteSpace = !!siblingText.length;
 											}
 											else
@@ -1063,26 +1063,26 @@
 									}
 
 									// A node with whitespaces has been found.
-									if(isWhiteSpace)
+									if (isWhiteSpace)
 									{
 										// Enlarge the last enlargeable node, if we
 										// were waiting for spaces.
-										if(needsWhiteSpace)
+										if (needsWhiteSpace)
 										{
-											if(commonReached)
+											if (commonReached)
 												startTop = enlargeable;
-											else if(enlargeable)
+											else if (enlargeable)
 												this.setStartBefore(enlargeable);
 										}
 										else
 											needsWhiteSpace = true;
 									}
 
-									if(sibling)
+									if (sibling)
 									{
 										var next = sibling.getPrevious();
 
-										if(!enlargeable && !next)
+										if (!enlargeable && !next)
 										{
 											// Set the sibling as enlargeable, so it's
 											// parent will be get later outside this while.
@@ -1101,7 +1101,7 @@
 									}
 								}
 
-								if(enlargeable)
+								if (enlargeable)
 									enlargeable = enlargeable.getParent();
 							}
 
@@ -1118,7 +1118,7 @@
 							enlargeable = sibling = null;
 							commonReached = needsWhiteSpace = false;
 
-							if(container.type == CKEDITOR.NODE_TEXT)
+							if (container.type == CKEDITOR.NODE_TEXT)
 							{
 								// Check if there is any non-space text after the
 								// offset. Otherwise, container is null.
@@ -1130,9 +1130,9 @@
 								// "A <i> [B]</i>", but not in "A<i> [B]</i>".
 								needsWhiteSpace = !(container && container.getLength());
 
-								if(container)
+								if (container)
 								{
-									if(!(sibling = container.getNext()))
+									if (!(sibling = container.getNext()))
 										enlargeable = container.getParent();
 								}
 							}
@@ -1142,71 +1142,71 @@
 								// first.
 								sibling = container.getChild(offset);
 
-								if(!sibling)
+								if (!sibling)
 									enlargeable = container;
 							}
 
-							while(enlargeable || sibling)
+							while (enlargeable || sibling)
 							{
-								if(enlargeable && !sibling)
+								if (enlargeable && !sibling)
 								{
-									if(!commonReached && enlargeable.equals(commonAncestor))
+									if (!commonReached && enlargeable.equals(commonAncestor))
 										commonReached = true;
 
-									if(!body.contains(enlargeable))
+									if (!body.contains(enlargeable))
 										break;
 
-									if(!needsWhiteSpace || enlargeable.getComputedStyle('display') != 'inline')
+									if (!needsWhiteSpace || enlargeable.getComputedStyle('display') != 'inline')
 									{
 										needsWhiteSpace = false;
 
-										if(commonReached)
+										if (commonReached)
 											endTop = enlargeable;
-										else if(enlargeable)
+										else if (enlargeable)
 											this.setEndAfter(enlargeable);
 									}
 
 									sibling = enlargeable.getNext();
 								}
 
-								while(sibling)
+								while (sibling)
 								{
 									isWhiteSpace = false;
 
-									if(sibling.type == CKEDITOR.NODE_TEXT)
+									if (sibling.type == CKEDITOR.NODE_TEXT)
 									{
 										siblingText = sibling.getText();
 
-										if(/[^\s\ufeff]/.test(siblingText))
+										if (/[^\s\ufeff]/.test(siblingText))
 											sibling = null;
 
 										isWhiteSpace = /^[\s\ufeff]/.test(siblingText);
 									}
-									else if(sibling.type == CKEDITOR.NODE_ELEMENT)
+									else if (sibling.type == CKEDITOR.NODE_ELEMENT)
 									{
 										// If this is a visible element.
 										// We need to check for the bookmark attribute because IE insists on
 										// rendering the display:none nodes we use for bookmarks. (#3363)
 										// Line-breaks (br) are rendered with zero width, which we don't want to include. (#7041)
-										if((sibling.$.offsetWidth > 0 || excludeBrs && sibling.is('br')) && !sibling.data('cke-bookmark'))
+										if ((sibling.$.offsetWidth > 0 || excludeBrs && sibling.is('br')) && !sibling.data('cke-bookmark'))
 										{
 											// We'll accept it only if we need
 											// whitespace, and this is an inline
 											// element with whitespace only.
-											if(needsWhiteSpace && CKEDITOR.dtd.$removeEmpty[ sibling.getName() ])
+											if (needsWhiteSpace && CKEDITOR.dtd.$removeEmpty[ sibling.getName() ])
 											{
 												// It must contains spaces and inline elements only.
 
 												siblingText = sibling.getText();
 
-												if((/[^\s\ufeff]/).test(siblingText))
+												if ((/[^\s\ufeff]/).test(siblingText))
 													sibling = null;
 												else
 												{
 													allChildren = sibling.$.getElementsByTagName('*');
 													for (i = 0; child = allChildren[ i++ ]; )
 													{
-														if(!CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ])
+														if (!CKEDITOR.dtd.$removeEmpty[ child.nodeName.toLowerCase() ])
 														{
 															sibling = null;
 															break;
@@ -1214,7 +1214,7 @@
 													}
 												}
 
-												if(sibling)
+												if (sibling)
 													isWhiteSpace = !!siblingText.length;
 											}
 											else
@@ -1224,22 +1224,22 @@
 									else
 										isWhiteSpace = 1;
 
-									if(isWhiteSpace)
+									if (isWhiteSpace)
 									{
-										if(needsWhiteSpace)
+										if (needsWhiteSpace)
 										{
-											if(commonReached)
+											if (commonReached)
 												endTop = enlargeable;
 											else
 												this.setEndAfter(enlargeable);
 										}
 									}
 
-									if(sibling)
+									if (sibling)
 									{
 										next = sibling.getNext();
 
-										if(!enlargeable && !next)
+										if (!enlargeable && !next)
 										{
 											enlargeable = sibling;
 											sibling = null;
@@ -1256,12 +1256,12 @@
 									}
 								}
 
-								if(enlargeable)
+								if (enlargeable)
 									enlargeable = enlargeable.getParent();
 							}
 
 							// If the common ancestor can be enlarged by both boundaries, then include it also.
-							if(startTop && endTop)
+							if (startTop && endTop)
 							{
 								commonAncestor = startTop.contains(endTop) ? endTop : startTop;
 
@@ -1285,23 +1285,23 @@
 									blockBoundary, // The node on which the enlarging should stop.
 									tailBr, // In case BR as block boundary.
 									notBlockBoundary = CKEDITOR.dom.walker.blockBoundary(
-											(unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS) ? {br: 1} : null),
+									(unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS) ? {br: 1} : null),
 									// Record the encountered 'blockBoundary' for later use.
 									boundaryGuard = function(node)
-									{
-										var retval = notBlockBoundary(node);
-										if(!retval)
-											blockBoundary = node;
-										return retval;
-									},
+							{
+								var retval = notBlockBoundary(node);
+								if (!retval)
+									blockBoundary = node;
+								return retval;
+							},
 									// Record the encounted 'tailBr' for later use.
 									tailBrGuard = function(node)
-									{
-										var retval = boundaryGuard(node);
-										if(!retval && node.is && node.is('br'))
-											tailBr = node;
-										return retval;
-									};
+							{
+								var retval = boundaryGuard(node);
+								if (!retval && node.is && node.is('br'))
+									tailBr = node;
+								return retval;
+							};
 
 							walker.guard = boundaryGuard;
 
@@ -1322,7 +1322,7 @@
 									CKEDITOR.POSITION_AFTER_END);
 
 							// Avoid enlarging the range further when end boundary spans right after the BR. (#7490)
-							if(unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS)
+							if (unit == CKEDITOR.ENLARGE_LIST_ITEM_CONTENTS)
 							{
 								var theRange = this.clone();
 								walker = new CKEDITOR.dom.walker(theRange);
@@ -1334,7 +1334,7 @@
 									return !whitespaces(node) && !bookmark(node);
 								};
 								var previous = walker.previous();
-								if(previous && previous.type == CKEDITOR.NODE_ELEMENT && previous.is('br'))
+								if (previous && previous.type == CKEDITOR.NODE_ELEMENT && previous.is('br'))
 									return;
 							}
 
@@ -1366,7 +1366,7 @@
 									CKEDITOR.POSITION_BEFORE_START);
 							// We must include the <br> at the end of range if there's
 							// one and we're expanding list item contents
-							if(tailBr)
+							if (tailBr)
 								this.setEndAfter(tailBr);
 					}
 				},
@@ -1385,7 +1385,7 @@
 				shrink: function(mode, selectContents)
 				{
 					// Unable to shrink a collapsed range.
-					if(!this.collapsed)
+					if (!this.collapsed)
 					{
 						mode = mode || CKEDITOR.SHRINK_TEXT;
 
@@ -1401,11 +1401,11 @@
 						var moveStart = 1,
 								moveEnd = 1;
 
-						if(startContainer && startContainer.type == CKEDITOR.NODE_TEXT)
+						if (startContainer && startContainer.type == CKEDITOR.NODE_TEXT)
 						{
-							if(!startOffset)
+							if (!startOffset)
 								walkerRange.setStartBefore(startContainer);
-							else if(startOffset >= startContainer.getLength( ))
+							else if (startOffset >= startContainer.getLength( ))
 								walkerRange.setStartAfter(startContainer);
 							else
 							{
@@ -1416,11 +1416,11 @@
 							}
 						}
 
-						if(endContainer && endContainer.type == CKEDITOR.NODE_TEXT)
+						if (endContainer && endContainer.type == CKEDITOR.NODE_TEXT)
 						{
-							if(!endOffset)
+							if (!endOffset)
 								walkerRange.setEndBefore(endContainer);
-							else if(endOffset >= endContainer.getLength( ))
+							else if (endOffset >= endContainer.getLength( ))
 								walkerRange.setEndAfter(endContainer);
 							else
 							{
@@ -1441,30 +1441,30 @@
 						var currentElement;
 						walker.guard = function(node, movingOut)
 						{
-							if(isBookmark(node))
+							if (isBookmark(node))
 								return true;
 
 							// Stop when we're shrink in element mode while encountering a text node.
-							if(mode == CKEDITOR.SHRINK_ELEMENT && node.type == CKEDITOR.NODE_TEXT)
+							if (mode == CKEDITOR.SHRINK_ELEMENT && node.type == CKEDITOR.NODE_TEXT)
 								return false;
 
 							// Stop when we've already walked "through" an element.
-							if(movingOut && node.equals(currentElement))
+							if (movingOut && node.equals(currentElement))
 								return false;
 
-							if(!movingOut && node.type == CKEDITOR.NODE_ELEMENT)
+							if (!movingOut && node.type == CKEDITOR.NODE_ELEMENT)
 								currentElement = node;
 
 							return true;
 						};
 
-						if(moveStart)
+						if (moveStart)
 						{
 							var textStart = walker[ mode == CKEDITOR.SHRINK_ELEMENT ? 'lastForward' : 'next']();
 							textStart && this.setStartAt(textStart, selectContents ? CKEDITOR.POSITION_AFTER_START : CKEDITOR.POSITION_BEFORE_START);
 						}
 
-						if(moveEnd)
+						if (moveEnd)
 						{
 							walker.reset();
 							var textEnd = walker[ mode == CKEDITOR.SHRINK_ELEMENT ? 'lastBackward' : 'previous']();
@@ -1488,13 +1488,13 @@
 
 					var nextNode = startContainer.getChild(startOffset);
 
-					if(nextNode)
+					if (nextNode)
 						node.insertBefore(nextNode);
 					else
 						startContainer.append(node);
 
 					// Check if we need to update the end boundary.
-					if(node.getParent().equals(this.endContainer))
+					if (node.getParent().equals(this.endContainer))
 						this.endOffset++;
 
 					// Expand the range to embrace the new node.
@@ -1525,14 +1525,14 @@
 					// ignore it for now.
 
 					// Fixing invalid range start inside dtd empty elements.
-					if(startNode.type == CKEDITOR.NODE_ELEMENT
+					if (startNode.type == CKEDITOR.NODE_ELEMENT
 							&& CKEDITOR.dtd.$empty[ startNode.getName() ])
 						startOffset = startNode.getIndex(), startNode = startNode.getParent();
 
 					this.startContainer = startNode;
 					this.startOffset = startOffset;
 
-					if(!this.endContainer)
+					if (!this.endContainer)
 					{
 						this.endContainer = startNode;
 						this.endOffset = startOffset;
@@ -1555,14 +1555,14 @@
 					// it for now.
 
 					// Fixing invalid range end inside dtd empty elements.
-					if(endNode.type == CKEDITOR.NODE_ELEMENT
+					if (endNode.type == CKEDITOR.NODE_ELEMENT
 							&& CKEDITOR.dtd.$empty[ endNode.getName() ])
 						endOffset = endNode.getIndex() + 1, endNode = endNode.getParent();
 
 					this.endContainer = endNode;
 					this.endOffset = endOffset;
 
-					if(!this.startContainer)
+					if (!this.startContainer)
 					{
 						this.startContainer = endNode;
 						this.startOffset = endOffset;
@@ -1588,14 +1588,14 @@
 				},
 				setStartAt: function(node, position)
 				{
-					switch(position)
+					switch (position)
 					{
 						case CKEDITOR.POSITION_AFTER_START :
 							this.setStart(node, 0);
 							break;
 
 						case CKEDITOR.POSITION_BEFORE_END :
-							if(node.type == CKEDITOR.NODE_TEXT)
+							if (node.type == CKEDITOR.NODE_TEXT)
 								this.setStart(node, node.getLength());
 							else
 								this.setStart(node, node.getChildCount());
@@ -1613,14 +1613,14 @@
 				},
 				setEndAt: function(node, position)
 				{
-					switch(position)
+					switch (position)
 					{
 						case CKEDITOR.POSITION_AFTER_START :
 							this.setEnd(node, 0);
 							break;
 
 						case CKEDITOR.POSITION_BEFORE_END :
-							if(node.type == CKEDITOR.NODE_TEXT)
+							if (node.type == CKEDITOR.NODE_TEXT)
 								this.setEnd(node, node.getLength());
 							else
 								this.setEnd(node, node.getChildCount());
@@ -1648,7 +1648,7 @@
 					this.extractContents().appendTo(fixedBlock);
 					fixedBlock.trim();
 
-					if(!CKEDITOR.env.ie)
+					if (!CKEDITOR.env.ie)
 						fixedBlock.appendBogus();
 
 					this.insertNode(fixedBlock);
@@ -1670,19 +1670,19 @@
 
 					var elementPath = null;
 					// Do nothing if the boundaries are in different block limits.
-					if(!startBlockLimit.equals(endBlockLimit))
+					if (!startBlockLimit.equals(endBlockLimit))
 						return null;
 
 					// Get or fix current blocks.
-					if(blockTag != 'br')
+					if (blockTag != 'br')
 					{
-						if(!startBlock)
+						if (!startBlock)
 						{
 							startBlock = this.fixBlock(true, blockTag);
 							endBlock = new CKEDITOR.dom.elementPath(this.endContainer).block;
 						}
 
-						if(!endBlock)
+						if (!endBlock)
 							endBlock = this.fixBlock(false, blockTag);
 					}
 
@@ -1694,15 +1694,15 @@
 					// TODO: Why is 2.x doing CheckIsEmpty()?
 					this.deleteContents();
 
-					if(startBlock && startBlock.equals(endBlock))
+					if (startBlock && startBlock.equals(endBlock))
 					{
-						if(isEndOfBlock)
+						if (isEndOfBlock)
 						{
 							elementPath = new CKEDITOR.dom.elementPath(this.startContainer);
 							this.moveToPosition(endBlock, CKEDITOR.POSITION_AFTER_END);
 							endBlock = null;
 						}
-						else if(isStartOfBlock)
+						else if (isStartOfBlock)
 						{
 							elementPath = new CKEDITOR.dom.elementPath(this.startContainer);
 							this.moveToPosition(startBlock, CKEDITOR.POSITION_BEFORE_START);
@@ -1715,7 +1715,7 @@
 							// In Gecko, the last child node must be a bogus <br>.
 							// Note: bogus <br> added under <ul> or <ol> would cause
 							// lists to be incorrectly rendered.
-							if(!CKEDITOR.env.ie && !startBlock.is('ul', 'ol'))
+							if (!CKEDITOR.env.ie && !startBlock.is('ul', 'ol'))
 								startBlock.appendBogus();
 						}
 					}
@@ -1737,7 +1737,7 @@
 				 */
 				splitElement: function(toSplit)
 				{
-					if(!this.collapsed)
+					if (!this.collapsed)
 						return null;
 
 					// Extract the contents of the block from the selection point to the end
@@ -1793,10 +1793,10 @@
 
 					// If the starting node is a text node, and non-empty before the offset,
 					// then we're surely not at the start of block.
-					if(startOffset && startContainer.type == CKEDITOR.NODE_TEXT)
+					if (startOffset && startContainer.type == CKEDITOR.NODE_TEXT)
 					{
 						var textBefore = CKEDITOR.tools.ltrim(startContainer.substring(0, startOffset));
-						if(textBefore.length)
+						if (textBefore.length)
 							return false;
 					}
 
@@ -1826,10 +1826,10 @@
 
 					// If the ending node is a text node, and non-empty after the offset,
 					// then we're surely not at the end of block.
-					if(endContainer.type == CKEDITOR.NODE_TEXT)
+					if (endContainer.type == CKEDITOR.NODE_TEXT)
 					{
 						var textAfter = CKEDITOR.tools.rtrim(endContainer.substring(endOffset));
-						if(textAfter.length)
+						if (textAfter.length)
 							return false;
 					}
 
@@ -1860,17 +1860,17 @@
 				{
 					function checkNodesEditable(node, anotherEnd)
 					{
-						while(node)
+						while (node)
 						{
-							if(node.type == CKEDITOR.NODE_ELEMENT)
+							if (node.type == CKEDITOR.NODE_ELEMENT)
 							{
-								if(node.getAttribute('contentEditable') == 'false'
+								if (node.getAttribute('contentEditable') == 'false'
 										&& !node.data('cke-editable'))
 								{
 									return 0;
 								}
 								// Range enclosed entirely in an editable element.
-								else if(node.is('html')
+								else if (node.is('html')
 										|| node.getAttribute('contentEditable') == 'true'
 										&& (node.contains(anotherEnd) || node.equals(anotherEnd)))
 								{
@@ -1907,14 +1907,14 @@
 					{
 						var next;
 
-						if(node.type == CKEDITOR.NODE_ELEMENT
+						if (node.type == CKEDITOR.NODE_ELEMENT
 								&& node.isEditable(false)
 								&& !CKEDITOR.dtd.$nonEditable[ node.getName() ])
 						{
 							next = node[ isMoveToEnd ? 'getLast' : 'getFirst' ](nonWhitespaceOrBookmarkEval);
 						}
 
-						if(!childOnly && !next)
+						if (!childOnly && !next)
 							next = node[ isMoveToEnd ? 'getPrevious' : 'getNext' ](nonWhitespaceOrBookmarkEval);
 
 						return next;
@@ -1922,10 +1922,10 @@
 
 					var found = 0;
 
-					while(el)
+					while (el)
 					{
 						// Stop immediately if we've found a text node.
-						if(el.type == CKEDITOR.NODE_TEXT)
+						if (el.type == CKEDITOR.NODE_TEXT)
 						{
 							this.moveToPosition(el, isMoveToEnd ?
 									CKEDITOR.POSITION_AFTER_END :
@@ -1935,9 +1935,9 @@
 						}
 
 						// If an editable element is found, move inside it, but not stop the searching.
-						if(el.type == CKEDITOR.NODE_ELEMENT)
+						if (el.type == CKEDITOR.NODE_ELEMENT)
 						{
-							if(el.isEditable())
+							if (el.isEditable())
 							{
 								this.moveToPosition(el, isMoveToEnd ?
 										CKEDITOR.POSITION_BEFORE_END :
@@ -1974,7 +1974,7 @@
 
 					// Optimize and analyze the range to avoid DOM destructive nature of walker. (#5780)
 					walkerRange.optimize();
-					if(walkerRange.startContainer.type != CKEDITOR.NODE_ELEMENT
+					if (walkerRange.startContainer.type != CKEDITOR.NODE_ELEMENT
 							|| walkerRange.endContainer.type != CKEDITOR.NODE_ELEMENT)
 						return null;
 
@@ -1982,9 +1982,9 @@
 							isNotBookmarks = CKEDITOR.dom.walker.bookmark(true),
 							isNotWhitespaces = CKEDITOR.dom.walker.whitespaces(true),
 							evaluator = function(node)
-							{
-								return isNotWhitespaces(node) && isNotBookmarks(node);
-							};
+					{
+						return isNotWhitespaces(node) && isNotBookmarks(node);
+					};
 					walkerRange.evaluator = evaluator;
 					var node = walker.next();
 					walker.reset();
@@ -1994,7 +1994,7 @@
 				{
 					var container = this.startContainer;
 
-					if(this.collapsed || container.type != CKEDITOR.NODE_ELEMENT)
+					if (this.collapsed || container.type != CKEDITOR.NODE_ELEMENT)
 						return container;
 
 					return container.getChild(this.startOffset) || container;
@@ -2003,7 +2003,7 @@
 				{
 					var container = this.endContainer;
 
-					if(this.collapsed || container.type != CKEDITOR.NODE_ELEMENT)
+					if (this.collapsed || container.type != CKEDITOR.NODE_ELEMENT)
 						return container;
 
 					return container.getChild(this.endOffset - 1) || container;

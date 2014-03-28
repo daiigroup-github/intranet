@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Projects'=>array(
+	'Projects' => array(
 		'index'),
 	'Manage',
 );
@@ -28,26 +28,26 @@ $('.search-form form').submit(function(){
 		<a class="btn" href="<?php echo Yii::app()->createUrl('/project/create'); ?>"><i class="icon-plus"></i><i class="icon-user"></i></a>
 		<!--<a class="btn" href="<?php echo Yii::app()->createUrl('/project/ExportExcel/'); ?>"></i>Export Excel</a> -->
 	</div>
-</div>
+</div>	
 <div class="search-form" style="display:inline">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'project-grid',
-	'dataProvider'=>$model->search(),
+	'id' => 'project-grid',
+	'dataProvider' => $model->search(),
 	//'filter'=>$model,
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-	'columns'=>array(
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+	'columns' => array(
 		'projectName',
 		array(
-			'name'=>'customerId',
-			'value'=>'isset($data->customer)?CHtml::encode($data->customer->customerFnTh." ".$data->customer->customerLnTh):"-"',
+			'name' => 'customerId',
+			'value' => 'isset($data->customer)?CHtml::encode($data->customer->customerFnTh." ".$data->customer->customerLnTh):"-"',
 		),
 		'status',
 		//'createDateTime',
@@ -69,9 +69,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		  'branchValue',
 		 */
 		array(
-			'header'=>'',
-			'class'=>'CButtonColumn',
-			'template'=>'{view}',
+			'header' => '',
+			'class' => 'CButtonColumn',
+			'template' => '{view}',
 		/* 'buttons'=>array(
 		  'สร้าง' => array(
 		  'title'=>'Field',

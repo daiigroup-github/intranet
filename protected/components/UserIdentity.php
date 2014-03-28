@@ -44,15 +44,15 @@ class UserIdentity extends CUserIdentity
 		$employee = Employee::model()->find('username=?', array(
 			$username));
 
-		if($employee === NULL)
+		if ($employee === NULL)
 		{
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		}
-		else if(!$employee->validatePassword($this->password))
+		else if (!$employee->validatePassword($this->password))
 		{
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		}
-		else if($employee->status == 2 || $employee->status == 3)
+		else if ($employee->status == 2 || $employee->status == 3)
 		{
 			$this->errorCode = self::ERROR_STATUS_WRONG;
 		}
@@ -71,3 +71,4 @@ class UserIdentity extends CUserIdentity
 	}
 
 }
+

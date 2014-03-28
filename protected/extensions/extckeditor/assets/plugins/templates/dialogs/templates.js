@@ -21,10 +21,10 @@
 				;
 				function d(k, l) {
 					var m = CKEDITOR.dom.element.createFromHtml('<a href="javascript:void(0)" tabIndex="-1" role="option" ><div class="cke_tpl_item"></div></a>'), n = '<table style="width:350px;" class="cke_tpl_preview" role="presentation"><tr>';
-					if(k.image && l)
+					if (k.image && l)
 						n += '<td class="cke_tpl_preview_img"><img src="' + CKEDITOR.getUrl(l + k.image) + '"' + (CKEDITOR.env.ie6Compat ? ' onload="this.width=this.width"' : '') + ' alt="" title=""></td>';
 					n += '<td style="white-space:normal;"><span class="cke_tpl_title">' + k.title + '</span><br/>';
-					if(k.description)
+					if (k.description)
 						n += '<span>' + k.description + '</span>';
 					n += '</td></tr></table>';
 					m.getFirst().setHtml(n);
@@ -36,7 +36,7 @@
 				;
 				function e(k) {
 					var l = CKEDITOR.dialog.getCurrent(), m = l.getValueOf('selectTpl', 'chkInsertOpt');
-					if(m) {
+					if (m) {
 						b.on('contentDom', function(n) {
 							n.removeListener();
 							l.hide();
@@ -57,13 +57,13 @@
 				;
 				function f(k) {
 					var l = k.data.getTarget(), m = g.equals(l);
-					if(m || g.contains(l)) {
+					if (m || g.contains(l)) {
 						var n = k.data.getKeystroke(), o = g.getElementsByTag('a'), p;
-						if(o) {
-							if(m)
+						if (o) {
+							if (m)
 								p = o.getItem(0);
 							else
-								switch(n) {
+								switch (n) {
 									case 40:
 										p = l.getNext();
 										break;
@@ -74,7 +74,7 @@
 									case 32:
 										l.fire('click');
 								}
-							if(p) {
+							if (p) {
 								p.focus();
 								k.data.preventDefault();
 							}
@@ -89,7 +89,7 @@
 						g = k.getElement();
 						CKEDITOR.loadTemplates(j.templates_files, function() {
 							var l = (j.templates || 'default').split(',');
-							if(l.length) {
+							if (l.length) {
 								c(g, l);
 								k.focus();
 							} else

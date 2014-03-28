@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
 	));
 	?>
 
@@ -11,8 +11,8 @@
 		<?php echo $form->label($model, 'workflowLogId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowLogId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -20,8 +20,8 @@
 		<?php echo $form->label($model, 'documentId'); ?>
 		<?php
 		echo $form->textField($model, 'documentId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -29,8 +29,8 @@
 		<?php echo $form->label($model, 'workflowStateId'); ?>
 		<?php
 		echo $form->textField($model, 'workflowStateId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -38,8 +38,8 @@
 		<?php echo $form->label($model, 'employeeId'); ?>
 		<?php
 		echo $form->textField($model, 'employeeId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 

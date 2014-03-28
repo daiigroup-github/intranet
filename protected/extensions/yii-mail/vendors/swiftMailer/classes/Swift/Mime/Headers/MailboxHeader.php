@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -188,7 +189,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
 	public function removeAddresses($addresses)
 	{
 		$this->setCachedValue(null);
-		foreach((array) $addresses as $address)
+		foreach ((array) $addresses as $address)
 		{
 			unset($this->_mailboxes[$address]);
 		}
@@ -205,7 +206,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
 	public function getFieldBody()
 	{
 		//Compute the string value of the header only if needed
-		if(is_null($this->getCachedValue()))
+		if (is_null($this->getCachedValue()))
 		{
 			$this->setCachedValue($this->createMailboxListString($this->_mailboxes));
 		}
@@ -225,9 +226,9 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
 		$actualMailboxes = array(
 			);
 
-		foreach($mailboxes as $key=> $value)
+		foreach ($mailboxes as $key => $value)
 		{
-			if(is_string($key)) //key is email addr
+			if (is_string($key)) //key is email addr
 			{
 				$address = $key;
 				$name = $value;
@@ -282,10 +283,10 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
 		$strings = array(
 			);
 
-		foreach($mailboxes as $email=> $name)
+		foreach ($mailboxes as $email => $name)
 		{
 			$mailboxStr = $email;
-			if(!is_null($name))
+			if (!is_null($name))
 			{
 				$nameStr = $this->createDisplayNameString($name, empty($strings));
 				$mailboxStr = $nameStr . ' <' . $mailboxStr . '>';
@@ -304,7 +305,7 @@ class Swift_Mime_Headers_MailboxHeader extends Swift_Mime_Headers_AbstractHeader
 	 */
 	private function _assertValidAddress($address)
 	{
-		if(!preg_match('/^' . $this->getGrammar('addr-spec') . '$/D', $address))
+		if (!preg_match('/^' . $this->getGrammar('addr-spec') . '$/D', $address))
 		{
 			throw new Swift_RfcComplianceException(
 			'Address in mailbox given [' . $address .

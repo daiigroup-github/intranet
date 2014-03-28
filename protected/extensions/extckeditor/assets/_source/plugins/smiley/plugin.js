@@ -4,20 +4,20 @@
  */
 
 		CKEDITOR.plugins.add('smiley',
-				{
-					requires: ['dialog'],
-					init: function(editor)
-					{
-						editor.config.smiley_path = editor.config.smiley_path || (this.path + 'images/');
-						editor.addCommand('smiley', new CKEDITOR.dialogCommand('smiley'));
-						editor.ui.addButton('Smiley',
-								{
-									label: editor.lang.smiley.toolbar,
-									command: 'smiley'
-								});
-						CKEDITOR.dialog.add('smiley', this.path + 'dialogs/smiley.js');
-					}
-				});
+		{
+			requires: ['dialog'],
+			init: function(editor)
+			{
+				editor.config.smiley_path = editor.config.smiley_path || (this.path + 'images/');
+				editor.addCommand('smiley', new CKEDITOR.dialogCommand('smiley'));
+				editor.ui.addButton('Smiley',
+						{
+							label: editor.lang.smiley.toolbar,
+							command: 'smiley'
+						});
+				CKEDITOR.dialog.add('smiley', this.path + 'dialogs/smiley.js');
+			}
+		});
 
 /**
  * The base path used to build the URL for the smiley images. It must end with

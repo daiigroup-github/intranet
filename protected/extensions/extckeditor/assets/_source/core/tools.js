@@ -42,15 +42,15 @@
 								 */
 								arrayCompare: function(arrayA, arrayB)
 								{
-									if(!arrayA && !arrayB)
+									if (!arrayA && !arrayB)
 										return true;
 
-									if(!arrayA || !arrayB || arrayA.length != arrayB.length)
+									if (!arrayA || !arrayB || arrayA.length != arrayB.length)
 										return false;
 
 									for (var i = 0; i < arrayA.length; i++)
 									{
-										if(arrayA[ i ] != arrayB[ i ])
+										if (arrayA[ i ] != arrayB[ i ])
 											return false;
 									}
 
@@ -84,7 +84,7 @@
 									var clone;
 
 									// Array.
-									if(obj && (obj instanceof Array))
+									if (obj && (obj instanceof Array))
 									{
 										clone = [];
 
@@ -95,8 +95,8 @@
 									}
 
 									// "Static" types.
-									if(obj === null
-											|| (typeof (obj) != 'object')
+									if (obj === null
+											|| (typeof(obj) != 'object')
 											|| (obj instanceof String)
 											|| (obj instanceof Number)
 											|| (obj instanceof Boolean)
@@ -160,9 +160,9 @@
 									var argsLength = arguments.length,
 											overwrite, propertiesList;
 
-									if(typeof (overwrite = arguments[ argsLength - 1 ]) == 'boolean')
+									if (typeof (overwrite = arguments[ argsLength - 1 ]) == 'boolean')
 										argsLength--;
-									else if(typeof (overwrite = arguments[ argsLength - 2 ]) == 'boolean')
+									else if (typeof (overwrite = arguments[ argsLength - 2 ]) == 'boolean')
 									{
 										propertiesList = arguments [ argsLength - 1 ];
 										argsLength -= 2;
@@ -173,10 +173,10 @@
 										for (var propertyName in source)
 										{
 											// Only copy existed fields if in overwrite mode.
-											if(overwrite === true || target[ propertyName ] == undefined)
+											if (overwrite === true || target[ propertyName ] == undefined)
 											{
 												// Only copy  specified fields if list is provided.
-												if(!propertiesList || (propertyName in propertiesList))
+												if (!propertiesList || (propertyName in propertiesList))
 													target[ propertyName ] = source[ propertyName ];
 
 											}
@@ -223,7 +223,7 @@
 								{
 									for (var i in object)
 									{
-										if(object.hasOwnProperty(i))
+										if (object.hasOwnProperty(i))
 											return false;
 									}
 									return true;
@@ -246,7 +246,7 @@
 
 									return function(cssName)
 									{
-										if(cssName == 'float')
+										if (cssName == 'float')
 											return cssFloat;
 										else
 										{
@@ -270,7 +270,7 @@
 									{
 										item = css[ i ];
 										// Is CSS style text ?
-										if(/@import|[{}]/.test(item))
+										if (/@import|[{}]/.test(item))
 											retval.push('<style>' + item + '</style>');
 										else
 											retval.push('<link type="text/css" rel=stylesheet href="' + item + '">');
@@ -416,16 +416,16 @@
 								 */
 								setTimeout: function(func, milliseconds, scope, args, ownerWindow)
 								{
-									if(!ownerWindow)
+									if (!ownerWindow)
 										ownerWindow = window;
 
-									if(!scope)
+									if (!scope)
 										scope = ownerWindow;
 
 									return ownerWindow.setTimeout(
 											function()
 											{
-												if(args)
+												if (args)
 													func.apply(scope, [].concat(args));
 												else
 													func.apply(scope);
@@ -509,7 +509,7 @@
 												{
 													for (var i = 0, len = array.length; i < len; i++)
 													{
-														if(array[ i ] === entry)
+														if (array[ i ] === entry)
 															return i;
 													}
 													return -1;
@@ -558,7 +558,7 @@
 													proto = definition.proto,
 													statics = definition.statics;
 
-											if(privates)
+											if (privates)
 											{
 												var originalConstructor = $;
 												$ = function()
@@ -580,7 +580,7 @@
 												};
 											}
 
-											if(baseClass)
+											if (baseClass)
 											{
 												$.prototype = this.prototypedCopy(baseClass.prototype);
 												$.prototype.constructor = $;
@@ -592,10 +592,10 @@
 												};
 											}
 
-											if(proto)
+											if (proto)
 												this.extend($.prototype, proto, true);
 
-											if(statics)
+											if (statics)
 												this.extend($, statics, true);
 
 											return $;
@@ -675,7 +675,7 @@
 
 											return function(cssLength)
 											{
-												if(!calculator)
+												if (!calculator)
 												{
 													calculator = CKEDITOR.dom.element.createFromHtml(
 															'<div style="position:absolute;left:-9999px;' +
@@ -684,7 +684,7 @@
 													CKEDITOR.document.getBody().append(calculator);
 												}
 
-												if(!(/%$/).test(cssLength))
+												if (!(/%$/).test(cssLength))
 												{
 													calculator.setStyle('width', cssLength);
 													return calculator.$.clientWidth;
@@ -717,7 +717,7 @@
 													returnValue = lambda();
 													break;
 												}
-												catch(e) {
+												catch (e) {
 												}
 											}
 											return returnValue;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -46,12 +47,12 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 	 * @access protected
 	 */
 	private $_params = array(
-		'protocol'=>'tcp',
-		'host'=>'localhost',
-		'port'=>25,
-		'timeout'=>30,
-		'blocking'=>1,
-		'type'=>Swift_Transport_IoBuffer::TYPE_SOCKET
+		'protocol' => 'tcp',
+		'host' => 'localhost',
+		'port' => 25,
+		'timeout' => 30,
+		'blocking' => 1,
+		'type' => Swift_Transport_IoBuffer::TYPE_SOCKET
 	);
 
 	/**
@@ -150,7 +151,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 	{
 		$assoc = array(
 			);
-		foreach($handlers as $handler)
+		foreach ($handlers as $handler)
 		{
 			$assoc[$handler->getHandledKeyword()] = $handler;
 		}
@@ -186,12 +187,12 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 		$failures = (array) $failures;
 		$stopSignal = false;
 		$response = null;
-		foreach($this->_getActiveHandlers() as $handler)
+		foreach ($this->_getActiveHandlers() as $handler)
 		{
 			$response = $handler->onCommand(
 				$this, $command, $codes, $failures, $stopSignal
 			);
-			if($stopSignal)
+			if ($stopSignal)
 			{
 				return $response;
 			}
@@ -204,16 +205,16 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 	/** Mixin handling method for ESMTP handlers */
 	public function __call($method, $args)
 	{
-		foreach($this->_handlers as $handler)
+		foreach ($this->_handlers as $handler)
 		{
-			if(in_array(strtolower($method), array_map('strtolower', (array) $handler->exposeMixinMethods())
+			if (in_array(strtolower($method), array_map('strtolower', (array) $handler->exposeMixinMethods())
 				))
 			{
 				$return = call_user_func_array(array(
 					$handler,
 					$method), $args);
 				//Allow fluid method calls
-				if(is_null($return) && substr($method, 0, 3) == 'set')
+				if (is_null($return) && substr($method, 0, 3) == 'set')
 				{
 					return $this;
 				}
@@ -244,14 +245,14 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 				250)
 			);
 		}
-		catch(Swift_TransportException $e)
+		catch (Swift_TransportException $e)
 		{
 			return parent::_doHeloCommand();
 		}
 
 		$this->_capabilities = $this->_getCapabilities($response);
 		$this->_setHandlerParams();
-		foreach($this->_getActiveHandlers() as $handler)
+		foreach ($this->_getActiveHandlers() as $handler)
 		{
 			$handler->afterEhlo($this);
 		}
@@ -263,7 +264,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 		$handlers = $this->_getActiveHandlers();
 		$params = array(
 			);
-		foreach($handlers as $handler)
+		foreach ($handlers as $handler)
 		{
 			$params = array_merge($params, (array) $handler->getMailParams());
 		}
@@ -280,7 +281,7 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 		$handlers = $this->_getActiveHandlers();
 		$params = array(
 			);
-		foreach($handlers as $handler)
+		foreach ($handlers as $handler)
 		{
 			$params = array_merge($params, (array) $handler->getRcptParams());
 		}
@@ -303,9 +304,9 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 		$ehloResponse = trim($ehloResponse);
 		$lines = explode("\r\n", $ehloResponse);
 		array_shift($lines);
-		foreach($lines as $line)
+		foreach ($lines as $line)
 		{
-			if(preg_match('/^[0-9]{3}[ -]([A-Z0-9-]+)((?:[ =].*)?)$/Di', $line, $matches))
+			if (preg_match('/^[0-9]{3}[ -]([A-Z0-9-]+)((?:[ =].*)?)$/Di', $line, $matches))
 			{
 				$keyword = strtoupper($matches[1]);
 				$paramStr = strtoupper(ltrim($matches[2], ' ='));
@@ -320,9 +321,9 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 	/** Set parameters which are used by each extension handler */
 	private function _setHandlerParams()
 	{
-		foreach($this->_handlers as $keyword=> $handler)
+		foreach ($this->_handlers as $keyword => $handler)
 		{
-			if(array_key_exists($keyword, $this->_capabilities))
+			if (array_key_exists($keyword, $this->_capabilities))
 			{
 				$handler->setKeywordParams($this->_capabilities[$keyword]);
 			}
@@ -334,9 +335,9 @@ class Swift_Transport_EsmtpTransport extends Swift_Transport_AbstractSmtpTranspo
 	{
 		$handlers = array(
 			);
-		foreach($this->_handlers as $keyword=> $handler)
+		foreach ($this->_handlers as $keyword => $handler)
 		{
-			if(array_key_exists($keyword, $this->_capabilities))
+			if (array_key_exists($keyword, $this->_capabilities))
 			{
 				$handlers[] = $handler;
 			}

@@ -45,7 +45,7 @@ class RDbAuthManager extends CDbAuthManager
 	public function addItemChild($itemName, $childName)
 	{
 		// Make sure that the item doesn't already have this child.
-		if($this->hasItemChild($itemName, $childName) === false)
+		if ($this->hasItemChild($itemName, $childName) === false)
 			return parent::addItemChild($itemName, $childName);
 	}
 
@@ -65,7 +65,7 @@ class RDbAuthManager extends CDbAuthManager
 	public function assign($itemName, $userId, $bizRule = null, $data = null)
 	{
 		// Make sure that this user doesn't already have this assignment.
-		if($this->getAuthAssignment($itemName, $userId) === null)
+		if ($this->getAuthAssignment($itemName, $userId) === null)
 			return parent::assign($itemName, $userId, $bizRule, $data);
 	}
 
@@ -79,17 +79,17 @@ class RDbAuthManager extends CDbAuthManager
 	public function getAuthItem($name, $allowCaching = true)
 	{
 		// Get all items if necessary and cache them.
-		if($allowCaching && $this->_items === array(
+		if ($allowCaching && $this->_items === array(
 			))
 			$this->_items = $this->getAuthItems();
 
 		// Get the items from cache if possible.
-		if($allowCaching && isset($this->_items[$name]))
+		if ($allowCaching && isset($this->_items[$name]))
 		{
 			return $this->_items[$name];
 		}
 		// Attempt to get the item.
-		else if(($item = parent::getAuthItem($name)) !== null)
+		else if (($item = parent::getAuthItem($name)) !== null)
 		{
 			return $item;
 		}
@@ -107,18 +107,18 @@ class RDbAuthManager extends CDbAuthManager
 	public function getAuthItemsByNames($names, $nested = false)
 	{
 		// Get all items if necessary and cache them.
-		if($this->_items === array(
+		if ($this->_items === array(
 			))
 			$this->_items = $this->getAuthItems();
 
 		// Collect the items we want.
 		$items = array(
 			);
-		foreach($this->_items as $name=> $item)
+		foreach ($this->_items as $name => $item)
 		{
-			if(in_array($name, $names))
+			if (in_array($name, $names))
 			{
-				if($nested === true)
+				if ($nested === true)
 					$items[$item->getType()][$name] = $item;
 				else
 					$items[$name] = $item;
@@ -141,9 +141,9 @@ class RDbAuthManager extends CDbAuthManager
 	public function getAuthItems($type = null, $userId = null, $sort = true)
 	{
 		// We need to sort the items.
-		if($sort === true)
+		if ($sort === true)
 		{
-			if($type === null && $userId === null)
+			if ($type === null && $userId === null)
 			{
 				$sql = "SELECT name,t1.type,description,t1.bizrule,t1.data,weight
 					FROM {$this->itemTable} t1
@@ -151,7 +151,7 @@ class RDbAuthManager extends CDbAuthManager
 					ORDER BY t1.type DESC, weight ASC";
 				$command = $this->db->createCommand($sql);
 			}
-			else if($userId === null)
+			else if ($userId === null)
 			{
 				$sql = "SELECT name,t1.type,description,t1.bizrule,t1.data,weight
 					FROM {$this->itemTable} t1
@@ -161,7 +161,7 @@ class RDbAuthManager extends CDbAuthManager
 				$command = $this->db->createCommand($sql);
 				$command->bindValue(':type', $type);
 			}
-			else if($type === null)
+			else if ($type === null)
 			{
 				$sql = "SELECT name,t1.type,description,t1.bizrule,t1.data,weight
 					FROM {$this->itemTable} t1
@@ -187,7 +187,7 @@ class RDbAuthManager extends CDbAuthManager
 
 			$items = array(
 				);
-			foreach($command->queryAll() as $row)
+			foreach ($command->queryAll() as $row)
 				$items[$row['name']] = new CAuthItem($this, $row['name'], $row['type'], $row['description'], $row['bizrule'], unserialize($row['data']));
 		}
 		// No sorting required.
@@ -213,7 +213,7 @@ class RDbAuthManager extends CDbAuthManager
 		$key = $names === (array) $names ? implode('|', $names) : $names;
 
 		// Get the children from cache if possible.
-		if($allowCaching && isset($this->_itemChildren[$key]) === true)
+		if ($allowCaching && isset($this->_itemChildren[$key]) === true)
 		{
 			return $this->_itemChildren[$key];
 		}
@@ -221,15 +221,15 @@ class RDbAuthManager extends CDbAuthManager
 		else
 		{
 			// We only have one name.
-			if(is_string($names))
+			if (is_string($names))
 			{
 				$condition = 'parent=' . $this->db->quoteValue($names);
 			}
 			// We have multiple names.
-			else if($names === (array) $names && $names !== array(
+			else if ($names === (array) $names && $names !== array(
 				))
 			{
-				foreach($names as &$name)
+				foreach ($names as &$name)
 					$name = $this->db->quoteValue($name);
 
 				$condition = 'parent IN (' . implode(', ', $names) . ')';
@@ -244,9 +244,9 @@ class RDbAuthManager extends CDbAuthManager
 				WHERE {$condition} AND name=child";
 			$children = array(
 				);
-			foreach($this->db->createCommand($sql)->queryAll() as $row)
+			foreach ($this->db->createCommand($sql)->queryAll() as $row)
 			{
-				if(($data = @unserialize($row['data'])) === false)
+				if (($data = @unserialize($row['data'])) === false)
 					$data = null;
 
 				$children[$row['name']] = new CAuthItem($this, $row['name'], $row['type'], $row['description'], $row['bizrule'], $data);
@@ -268,9 +268,9 @@ class RDbAuthManager extends CDbAuthManager
 
 		$assignments = array(
 			);
-		foreach($command->queryAll($sql) as $row)
+		foreach ($command->queryAll($sql) as $row)
 		{
-			if(($data = @unserialize($row['data'])) === false)
+			if (($data = @unserialize($row['data'])) === false)
 				$data = null;
 
 			$assignments[$row['userid']] = new CAuthAssignment($this, $row['itemname'], $row['userid'], $row['bizrule'], $data);
@@ -285,7 +285,7 @@ class RDbAuthManager extends CDbAuthManager
 	 */
 	public function updateItemWeight($result)
 	{
-		foreach($result as $weight=> $itemname)
+		foreach ($result as $weight => $itemname)
 		{
 			$sql = "SELECT COUNT(*) FROM {$this->rightsTable}
 				WHERE itemname=:itemname";
@@ -293,7 +293,7 @@ class RDbAuthManager extends CDbAuthManager
 			$command->bindValue(':itemname', $itemname);
 
 			// Check if the item already has a weight.
-			if($command->queryScalar() > 0)
+			if ($command->queryScalar() > 0)
 			{
 				$sql = "UPDATE {$this->rightsTable}
 					SET weight=:weight
@@ -306,7 +306,7 @@ class RDbAuthManager extends CDbAuthManager
 			// Item does not have a weight, insert it.
 			else
 			{
-				if(($item = $this->getAuthItem($itemname)) !== null)
+				if (($item = $this->getAuthItem($itemname)) !== null)
 				{
 					$sql = "INSERT INTO {$this->rightsTable} (itemname, type, weight)
 						VALUES (:itemname, :type, :weight)";

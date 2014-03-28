@@ -43,12 +43,12 @@
 					// Build the inner HTML of our new item DIV.
 					var html = '<table style="width:350px;" class="cke_tpl_preview" role="presentation"><tr>';
 
-					if(template.image && imagesPath)
+					if (template.image && imagesPath)
 						html += '<td class="cke_tpl_preview_img"><img src="' + CKEDITOR.getUrl(imagesPath + template.image) + '"' + (CKEDITOR.env.ie6Compat ? ' onload="this.width=this.width"' : '') + ' alt="" title=""></td>';
 
 					html += '<td style="white-space:normal;"><span class="cke_tpl_title">' + template.title + '</span><br/>';
 
-					if(template.description)
+					if (template.description)
 						html += '<span>' + template.description + '</span>';
 
 					html += '</td></tr></table>';
@@ -71,7 +71,7 @@
 					var dialog = CKEDITOR.dialog.getCurrent(),
 							isInsert = dialog.getValueOf('selectTpl', 'chkInsertOpt');
 
-					if(isInsert)
+					if (isInsert)
 					{
 						// Everything should happen after the document is loaded (#4073).
 						editor.on('contentDom', function(evt)
@@ -105,20 +105,20 @@
 							onList = listContainer.equals(target);
 
 					// Keyboard navigation for template list.
-					if(onList || listContainer.contains(target))
+					if (onList || listContainer.contains(target))
 					{
 						var keystroke = evt.data.getKeystroke(),
 								items = listContainer.getElementsByTag('a'),
 								focusItem;
 
-						if(items)
+						if (items)
 						{
 							// Focus not yet onto list items?
-							if(onList)
+							if (onList)
 								focusItem = items.getItem(0);
 							else
 							{
-								switch(keystroke)
+								switch (keystroke)
 								{
 									case 40 :					// ARROW-DOWN
 										focusItem = target.getNext();
@@ -134,7 +134,7 @@
 								}
 							}
 
-							if(focusItem)
+							if (focusItem)
 							{
 								focusItem.focus();
 								evt.data.preventDefault();
@@ -206,7 +206,7 @@
 						{
 							var templates = (config.templates || 'default').split(',');
 
-							if(templates.length)
+							if (templates.length)
 							{
 								renderTemplatesList(listContainer, templates);
 								templatesListField.focus();

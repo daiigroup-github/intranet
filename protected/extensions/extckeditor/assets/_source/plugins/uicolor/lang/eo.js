@@ -4,12 +4,12 @@
  */
 
 		CKEDITOR.plugins.setLang('uicolor', 'eo',
-				{
-					uicolor:
-							{
-								title: 'UI Kolorselektilo',
-								preview: 'Vidigi la aspekton',
-								config: 'Gluu tiun signoĉenon en vian dosieron config.js',
-								predefined: 'Antaŭdifinita koloraro'
-							}
-				});
+		{
+			uicolor:
+					{
+						title: 'UI Kolorselektilo',
+						preview: 'Vidigi la aspekton',
+						config: 'Gluu tiun signoĉenon en vian dosieron config.js',
+						predefined: 'Antaŭdifinita koloraro'
+					}
+		});

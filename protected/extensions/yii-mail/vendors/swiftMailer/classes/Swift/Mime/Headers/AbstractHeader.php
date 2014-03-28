@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -85,7 +86,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	{
 		$this->clearCachedValueIf($charset != $this->_charset);
 		$this->_charset = $charset;
-		if(isset($this->_encoder))
+		if (isset($this->_encoder))
 		{
 			$this->_encoder->charsetChanged($charset);
 		}
@@ -294,7 +295,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	 */
 	protected function getGrammar($name)
 	{
-		if(array_key_exists($name, $this->_grammar))
+		if (array_key_exists($name, $this->_grammar))
 		{
 			return $this->_grammar[$name];
 		}
@@ -317,7 +318,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	), $exclude = array(
 	))
 	{
-		foreach(
+		foreach (
 		array_merge(array(
 			'\\'), array_diff($this->_specials, $exclude), $include) as $char)
 		{
@@ -340,11 +341,11 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 		//Treat token as exactly what was given
 		$phraseStr = $string;
 		//If it's not valid
-		if(!preg_match('/^' . $this->_grammar['phrase'] . '$/D', $phraseStr))
+		if (!preg_match('/^' . $this->_grammar['phrase'] . '$/D', $phraseStr))
 		{
 			// .. but it is just ascii text, try escaping some characters
 			// and make it a quoted-string
-			if(preg_match('/^' . $this->_grammar['text'] . '*$/D', $phraseStr))
+			if (preg_match('/^' . $this->_grammar['text'] . '*$/D', $phraseStr))
 			{
 				$phraseStr = $this->escapeSpecials(
 					$phraseStr, array(
@@ -355,7 +356,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 			else // ... otherwise it needs encoding
 			{
 				//Determine space remaining on line if first line
-				if($shorten)
+				if ($shorten)
 				{
 					$usedLength = strlen($header->getFieldName() . ': ');
 				}
@@ -382,14 +383,14 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 
 		$tokens = $this->getEncodableWordTokens($input);
 
-		foreach($tokens as $token)
+		foreach ($tokens as $token)
 		{
 			//See RFC 2822, Sect 2.2 (really 2.2 ??)
-			if($this->tokenNeedsEncoding($token))
+			if ($this->tokenNeedsEncoding($token))
 			{
 				//Don't encode starting WSP
 				$firstChar = substr($token, 0, 1);
-				switch($firstChar)
+				switch ($firstChar)
 				{
 					case ' ':
 					case "\t":
@@ -397,7 +398,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 						$token = substr($token, 1);
 				}
 
-				if(-1 == $usedLength)
+				if (-1 == $usedLength)
 				{
 					$usedLength = strlen($header->getFieldName() . ': ') + strlen($value);
 				}
@@ -436,15 +437,15 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 
 		$encodedToken = '';
 		//Split at all whitespace boundaries
-		foreach(preg_split('~(?=[\t ])~', $string) as $token)
+		foreach (preg_split('~(?=[\t ])~', $string) as $token)
 		{
-			if($this->tokenNeedsEncoding($token))
+			if ($this->tokenNeedsEncoding($token))
 			{
 				$encodedToken .= $token;
 			}
 			else
 			{
-				if(strlen($encodedToken) > 0)
+				if (strlen($encodedToken) > 0)
 				{
 					$tokens[] = $encodedToken;
 					$encodedToken = '';
@@ -452,7 +453,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 				$tokens[] = $token;
 			}
 		}
-		if(strlen($encodedToken))
+		if (strlen($encodedToken))
 		{
 			$tokens[] = $encodedToken;
 		}
@@ -470,7 +471,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	{
 		//Adjust $firstLineOffset to account for space needed for syntax
 		$charsetDecl = $this->_charset;
-		if(isset($this->_lang))
+		if (isset($this->_lang))
 		{
 			$charsetDecl .= '*' . $this->_lang;
 		}
@@ -478,7 +479,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 			'=?' . $charsetDecl . '?' . $this->_encoder->getName() . '??='
 		);
 
-		if($firstLineOffset >= 75) //Does this logic need to be here?
+		if ($firstLineOffset >= 75) //Does this logic need to be here?
 		{
 			$firstLineOffset = 0;
 		}
@@ -488,7 +489,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 			)
 		);
 
-		foreach($encodedTextLines as $lineNum=> $line)
+		foreach ($encodedTextLines as $lineNum => $line)
 		{
 			$encodedTextLines[$lineNum] = '=?' . $charsetDecl .
 				'?' . $this->_encoder->getName() .
@@ -536,7 +537,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	 */
 	protected function clearCachedValueIf($condition)
 	{
-		if($condition)
+		if ($condition)
 		{
 			$this->setCachedValue(null);
 		}
@@ -552,7 +553,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 	 */
 	protected function toTokens($string = null)
 	{
-		if(is_null($string))
+		if (is_null($string))
 		{
 			$string = $this->getFieldBody();
 		}
@@ -561,7 +562,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 			);
 
 		//Generate atoms; split at all invisible boundaries followed by WSP
-		foreach(preg_split('~(?=[ \t])~', $string) as $token)
+		foreach (preg_split('~(?=[ \t])~', $string) as $token)
 		{
 			$tokens = array_merge($tokens, $this->generateTokenLines($token));
 		}
@@ -585,10 +586,10 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 		$currentLine = & $headerLines[$lineCount++];
 
 		//Build all tokens back into compliant header
-		foreach($tokens as $i=> $token)
+		foreach ($tokens as $i => $token)
 		{
 			//Line longer than specified maximum or token was just a new line
-			if(("\r\n" == $token) ||
+			if (("\r\n" == $token) ||
 				($i > 0 && strlen($currentLine . $token) > $this->_lineLength) && 0 < strlen($currentLine))
 			{
 				$headerLines[] = '';
@@ -596,7 +597,7 @@ abstract class Swift_Mime_Headers_AbstractHeader implements Swift_Mime_Header
 			}
 
 			//Append token to the line
-			if("\r\n" != $token)
+			if ("\r\n" != $token)
 			{
 				$currentLine .= $token;
 			}

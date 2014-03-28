@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -9,7 +10,7 @@
 
 /**
  * The minimum interface for an Event.
- *
+ * 
  * @package Swift
  * @subpackage Events
  * @author Chris Corbyn

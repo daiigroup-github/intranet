@@ -15,20 +15,20 @@
 					var whitespaces = CKEDITOR.dom.walker.whitespaces(),
 							bookmarks = CKEDITOR.dom.walker.bookmark(),
 							nonEmpty = function(node) {
-								return !(whitespaces(node) || bookmarks(node));
-							},
+						return !(whitespaces(node) || bookmarks(node));
+					},
 							blockBogus = CKEDITOR.dom.walker.bogus();
 
 					function cleanUpDirection(element)
 					{
 						var dir, parent, parentDir;
-						if((dir = element.getDirection()))
+						if ((dir = element.getDirection()))
 						{
 							parent = element.getParent();
-							while(parent && !(parentDir = parent.getDirection()))
+							while (parent && !(parentDir = parent.getDirection()))
 								parent = parent.getParent();
 
-							if(dir == parentDir)
+							if (dir == parentDir)
 								element.removeAttribute('dir');
 						}
 					}
@@ -42,12 +42,12 @@
 						 */
 						listToArray: function(listNode, database, baseArray, baseIndentLevel, grandparentNode)
 						{
-							if(!listNodeNames[ listNode.getName() ])
+							if (!listNodeNames[ listNode.getName() ])
 								return [];
 
-							if(!baseIndentLevel)
+							if (!baseIndentLevel)
 								baseIndentLevel = 0;
-							if(!baseArray)
+							if (!baseArray)
 								baseArray = [];
 
 							// Iterate over all list items to and look for inner lists.
@@ -56,31 +56,31 @@
 								var listItem = listNode.getChild(i);
 
 								// Fixing malformed nested lists by moving it into a previous list item. (#6236)
-								if(listItem.type == CKEDITOR.NODE_ELEMENT && listItem.getName() in CKEDITOR.dtd.$list)
+								if (listItem.type == CKEDITOR.NODE_ELEMENT && listItem.getName() in CKEDITOR.dtd.$list)
 									CKEDITOR.plugins.list.listToArray(listItem, database, baseArray, baseIndentLevel + 1);
 
 								// It may be a text node or some funny stuff.
-								if(listItem.$.nodeName.toLowerCase() != 'li')
+								if (listItem.$.nodeName.toLowerCase() != 'li')
 									continue;
 
 								var itemObj = {'parent': listNode, indent: baseIndentLevel, element: listItem, contents: []};
-								if(!grandparentNode)
+								if (!grandparentNode)
 								{
 									itemObj.grandparent = listNode.getParent();
-									if(itemObj.grandparent && itemObj.grandparent.$.nodeName.toLowerCase() == 'li')
+									if (itemObj.grandparent && itemObj.grandparent.$.nodeName.toLowerCase() == 'li')
 										itemObj.grandparent = itemObj.grandparent.getParent();
 								}
 								else
 									itemObj.grandparent = grandparentNode;
 
-								if(database)
+								if (database)
 									CKEDITOR.dom.element.setMarker(database, listItem, 'listarray_index', baseArray.length);
 								baseArray.push(itemObj);
 
 								for (var j = 0, itemChildCount = listItem.getChildCount(), child; j < itemChildCount; j++)
 								{
 									child = listItem.getChild(j);
-									if(child.type == CKEDITOR.NODE_ELEMENT && listNodeNames[ child.getName() ])
+									if (child.type == CKEDITOR.NODE_ELEMENT && listNodeNames[ child.getName() ])
 										// Note the recursion here, it pushes inner list items with
 										// +1 indentation in the correct order.
 										CKEDITOR.plugins.list.listToArray(child, database, baseArray, baseIndentLevel + 1, itemObj.grandparent);
@@ -93,9 +93,9 @@
 						// Convert our internal representation of a list back to a DOM forest.
 						arrayToList: function(listArray, database, baseIndex, paragraphMode, dir)
 						{
-							if(!baseIndex)
+							if (!baseIndex)
 								baseIndex = 0;
-							if(!listArray || listArray.length < baseIndex + 1)
+							if (!listArray || listArray.length < baseIndex + 1)
 								return null;
 							var i,
 									doc = listArray[ baseIndex ].parent.getDocument(),
@@ -107,15 +107,15 @@
 									orgDir,
 									block,
 									paragraphName = (paragraphMode == CKEDITOR.ENTER_P ? 'p' : 'div');
-							while(1)
+							while (1)
 							{
 								var item = listArray[ currentIndex ];
 
 								orgDir = item.element.getDirection(1);
 
-								if(item.indent == indentLevel)
+								if (item.indent == indentLevel)
 								{
-									if(!rootNode || listArray[ currentIndex ].parent.getName() != rootNode.getName())
+									if (!rootNode || listArray[ currentIndex ].parent.getName() != rootNode.getName())
 									{
 										rootNode = listArray[ currentIndex ].parent.clone(false, 1);
 										dir && rootNode.setAttribute('dir', dir);
@@ -123,31 +123,31 @@
 									}
 									currentListItem = rootNode.append(item.element.clone(0, 1));
 
-									if(orgDir != rootNode.getDirection(1))
+									if (orgDir != rootNode.getDirection(1))
 										currentListItem.setAttribute('dir', orgDir);
 
 									for (i = 0; i < item.contents.length; i++)
 										currentListItem.append(item.contents[i].clone(1, 1));
 									currentIndex++;
 								}
-								else if(item.indent == Math.max(indentLevel, 0) + 1)
+								else if (item.indent == Math.max(indentLevel, 0) + 1)
 								{
 									// Maintain original direction (#6861).
 									var currDir = listArray[ currentIndex - 1 ].element.getDirection(1),
 											listData = CKEDITOR.plugins.list.arrayToList(listArray, null, currentIndex, paragraphMode,
-													currDir != orgDir ? orgDir : null);
+											currDir != orgDir ? orgDir : null);
 
 									// If the next block is an <li> with another list tree as the first
 									// child, we'll need to append a filler (<br>/NBSP) or the list item
 									// wouldn't be editable. (#6724)
-									if(!currentListItem.getChildCount() && CKEDITOR.env.ie && !(doc.$.documentMode > 7))
+									if (!currentListItem.getChildCount() && CKEDITOR.env.ie && !(doc.$.documentMode > 7))
 										currentListItem.append(doc.createText('\xa0'));
 									currentListItem.append(listData.listNode);
 									currentIndex = listData.nextIndex;
 								}
-								else if(item.indent == -1 && !baseIndex && item.grandparent)
+								else if (item.indent == -1 && !baseIndex && item.grandparent)
 								{
-									if(listNodeNames[ item.grandparent.getName() ])
+									if (listNodeNames[ item.grandparent.getName() ])
 										currentListItem = item.element.clone(false, true);
 									else
 										currentListItem = new CKEDITOR.dom.documentFragment(doc);
@@ -166,10 +166,10 @@
 									{
 										child = item.contents[ i ];
 
-										if(child.type == CKEDITOR.NODE_ELEMENT && child.isBlockBoundary())
+										if (child.type == CKEDITOR.NODE_ELEMENT && child.isBlockBoundary())
 										{
 											// Apply direction on content blocks.
-											if(dirLoose && !child.getDirection())
+											if (dirLoose && !child.getDirection())
 												child.setAttribute('dir', orgDir);
 
 											// Merge into child styles.
@@ -179,10 +179,10 @@
 
 											className && child.addClass(className);
 										}
-										else if(dirLoose || needsBlock || style || className)
+										else if (dirLoose || needsBlock || style || className)
 										{
 											// Establish new block to hold text direction and styles.
-											if(!block)
+											if (!block)
 											{
 												block = doc.createElement(paragraphName);
 												dirLoose && block.setAttribute('dir', orgDir);
@@ -198,17 +198,17 @@
 										currentListItem.append(block || child.clone(1, 1));
 									}
 
-									if(currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT
+									if (currentListItem.type == CKEDITOR.NODE_DOCUMENT_FRAGMENT
 											&& currentIndex != listArray.length - 1)
 									{
 										var last = currentListItem.getLast();
-										if(last && last.type == CKEDITOR.NODE_ELEMENT
+										if (last && last.type == CKEDITOR.NODE_ELEMENT
 												&& last.getAttribute('type') == '_moz')
 										{
 											last.remove();
 										}
 
-										if(!(last = currentListItem.getLast(nonEmpty)
+										if (!(last = currentListItem.getLast(nonEmpty)
 												&& last.type == CKEDITOR.NODE_ELEMENT
 												&& last.getName() in CKEDITOR.dtd.$block))
 										{
@@ -217,7 +217,7 @@
 									}
 
 									var currentListItemName = currentListItem.$.nodeName.toLowerCase();
-									if(!CKEDITOR.env.ie && (currentListItemName == 'div' || currentListItemName == 'p'))
+									if (!CKEDITOR.env.ie && (currentListItemName == 'div' || currentListItemName == 'p'))
 										currentListItem.appendBogus();
 									retval.append(currentListItem);
 									rootNode = null;
@@ -228,24 +228,24 @@
 
 								block = null;
 
-								if(listArray.length <= currentIndex || Math.max(listArray[ currentIndex ].indent, 0) < indentLevel)
+								if (listArray.length <= currentIndex || Math.max(listArray[ currentIndex ].indent, 0) < indentLevel)
 									break;
 							}
 
-							if(database)
+							if (database)
 							{
 								var currentNode = retval.getFirst(),
 										listRoot = listArray[ 0 ].parent;
 
-								while(currentNode)
+								while (currentNode)
 								{
-									if(currentNode.type == CKEDITOR.NODE_ELEMENT)
+									if (currentNode.type == CKEDITOR.NODE_ELEMENT)
 									{
 										// Clear marker attributes for the new list tree made of cloned nodes, if any.
 										CKEDITOR.dom.element.clearMarkers(database, currentNode);
 
 										// Clear redundant direction attribute specified on list items.
-										if(currentNode.getName() in CKEDITOR.dtd.$listItem)
+										if (currentNode.getName() in CKEDITOR.dtd.$listItem)
 											cleanUpDirection(currentNode);
 									}
 
@@ -259,7 +259,7 @@
 
 					function onSelectionChange(evt)
 					{
-						if(evt.editor.readOnly)
+						if (evt.editor.readOnly)
 							return null;
 
 						var path = evt.data.path,
@@ -272,7 +272,7 @@
 						for (i = 0; i < elements.length && (element = elements[ i ])
 								&& !element.equals(blockLimit); i++)
 						{
-							if(listNodeNames[ elements[ i ].getName() ])
+							if (listNodeNames[ elements[ i ].getName() ])
 								return this.setState(this.type == elements[ i ].getName() ? CKEDITOR.TRISTATE_ON : CKEDITOR.TRISTATE_OFF);
 						}
 
@@ -293,7 +293,7 @@
 						{
 							var itemNode = groupObj.contents[i];
 							itemNode = itemNode.getAscendant('li', true);
-							if(!itemNode || itemNode.getCustomData('list_item_processed'))
+							if (!itemNode || itemNode.getCustomData('list_item_processed'))
 								continue;
 							selectedListItems.push(itemNode);
 							CKEDITOR.dom.element.setMarker(database, itemNode, 'list_item_processed', true);
@@ -315,7 +315,7 @@
 						var child, length = newList.listNode.getChildCount();
 						for (i = 0; i < length && (child = newList.listNode.getChild(i)); i++)
 						{
-							if(child.getName() == this.type)
+							if (child.getName() == this.type)
 								listsCreated.push(child);
 						}
 						newList.listNode.replace(groupObj.root);
@@ -332,7 +332,7 @@
 						// It is possible to have the contents returned by DomRangeIterator to be the same as the root.
 						// e.g. when we're running into table cells.
 						// In such a case, enclose the childNodes of contents[0] into a <div>.
-						if(contents.length == 1 && contents[0].equals(groupObj.root))
+						if (contents.length == 1 && contents[0].equals(groupObj.root))
 						{
 							var divBlock = doc.createElement('div');
 							contents[0].moveChildren && contents[0].moveChildren(divBlock);
@@ -356,22 +356,22 @@
 						{
 							var contentNode = contents[i],
 									parentNode;
-							while((parentNode = contentNode.getParent()))
+							while ((parentNode = contentNode.getParent()))
 							{
-								if(parentNode.equals(commonParent))
+								if (parentNode.equals(commonParent))
 								{
 									listContents.push(contentNode);
 
 									// Determine the lists's direction.
-									if(!explicitDirection && contentNode.getDirection())
+									if (!explicitDirection && contentNode.getDirection())
 										explicitDirection = 1;
 
 									var itemDir = contentNode.getDirection(useComputedState);
 
-									if(listDir !== null)
+									if (listDir !== null)
 									{
 										// If at least one LI have a different direction than current listDir, we can't have listDir.
-										if(listDir && listDir != itemDir)
+										if (listDir && listDir != itemDir)
 											listDir = null;
 										else
 											listDir = itemDir;
@@ -383,7 +383,7 @@
 							}
 						}
 
-						if(listContents.length < 1)
+						if (listContents.length < 1)
 							return;
 
 						// Insert the list to the DOM tree.
@@ -394,19 +394,19 @@
 
 						var contentBlock, listItem;
 
-						while(listContents.length)
+						while (listContents.length)
 						{
 							contentBlock = listContents.shift();
 							listItem = doc.createElement('li');
 
 							// Preserve preformat block and heading structure when converting to list item. (#5335) (#5271)
-							if(contentBlock.is('pre') || headerTagRegex.test(contentBlock.getName()))
+							if (contentBlock.is('pre') || headerTagRegex.test(contentBlock.getName()))
 								contentBlock.appendTo(listItem);
 							else
 							{
 								contentBlock.copyAttributes(listItem);
 								// Remove direction attribute after it was merged into list root. (#7657)
-								if(listDir && contentBlock.getDirection())
+								if (listDir && contentBlock.getDirection())
 								{
 									listItem.removeStyle('direction');
 									listItem.removeAttribute('dir');
@@ -419,10 +419,10 @@
 						}
 
 						// Apply list root dir only if it has been explicitly declared.
-						if(listDir && explicitDirection)
+						if (listDir && explicitDirection)
 							listNode.setAttribute('dir', listDir);
 
-						if(insertAnchor)
+						if (insertAnchor)
 							listNode.insertBefore(insertAnchor);
 						else
 							listNode.appendTo(commonParent);
@@ -439,7 +439,7 @@
 						{
 							var itemNode = groupObj.contents[i];
 							itemNode = itemNode.getAscendant('li', true);
-							if(!itemNode || itemNode.getCustomData('list_item_processed'))
+							if (!itemNode || itemNode.getCustomData('list_item_processed'))
 								continue;
 							selectedListItems.push(itemNode);
 							CKEDITOR.dom.element.setMarker(database, itemNode, 'list_item_processed', true);
@@ -458,11 +458,11 @@
 						// list cannot be converted back to a real DOM list.
 						for (i = lastListIndex + 1; i < listArray.length; i++)
 						{
-							if(listArray[i].indent > listArray[i - 1].indent + 1)
+							if (listArray[i].indent > listArray[i - 1].indent + 1)
 							{
 								var indentOffset = listArray[i - 1].indent + 1 - listArray[i].indent;
 								var oldIndent = listArray[i].indent;
-								while(listArray[i] && listArray[i].indent >= oldIndent)
+								while (listArray[i] && listArray[i].indent >= oldIndent)
 								{
 									listArray[i].indent += indentOffset;
 									i++;
@@ -478,10 +478,10 @@
 						var docFragment = newList.listNode, boundaryNode, siblingNode;
 						function compensateBrs(isStart)
 						{
-							if((boundaryNode = docFragment[ isStart ? 'getFirst' : 'getLast' ]())
+							if ((boundaryNode = docFragment[ isStart ? 'getFirst' : 'getLast' ]())
 									&& !(boundaryNode.is && boundaryNode.isBlockBoundary())
 									&& (siblingNode = groupObj.root[ isStart ? 'getPrevious' : 'getNext' ]
-											(CKEDITOR.dom.walker.whitespaces(true)))
+									(CKEDITOR.dom.walker.whitespaces(true)))
 									&& !(siblingNode.is && siblingNode.isBlockBoundary({br: 1})))
 								editor.document.createElement('br')[ isStart ? 'insertBefore' : 'insertAfter' ](boundaryNode);
 						}
@@ -502,9 +502,9 @@
 					function mergeListItems(from, into, refNode, toHead)
 					{
 						var child, itemDir;
-						while((child = from.getFirst(elementType)))
+						while ((child = from.getFirst(elementType)))
 						{
-							if((itemDir = child.getDirection(1)) !== into.getDirection(1))
+							if ((itemDir = child.getDirection(1)) !== into.getDirection(1))
 								child.setAttribute('dir', itemDir);
 
 							child.remove();
@@ -524,16 +524,16 @@
 									ranges = selection && selection.getRanges(true);
 
 							// There should be at least one selected range.
-							if(!ranges || ranges.length < 1)
+							if (!ranges || ranges.length < 1)
 								return;
 
 							// Midas lists rule #1 says we can create a list even in an empty document.
 							// But DOM iterator wouldn't run if the document is really empty.
 							// So create a paragraph if the document is empty and we're going to create a list.
-							if(this.state == CKEDITOR.TRISTATE_OFF)
+							if (this.state == CKEDITOR.TRISTATE_OFF)
 							{
 								var body = doc.getBody();
-								if(!body.getFirst(nonEmpty))
+								if (!body.getFirst(nonEmpty))
 								{
 									config.enterMode == CKEDITOR.ENTER_BR ?
 											body.appendBogus() :
@@ -547,7 +547,7 @@
 								{
 									var range = ranges.length == 1 && ranges[ 0 ],
 											enclosedNode = range && range.getEnclosedNode();
-									if(enclosedNode && enclosedNode.is
+									if (enclosedNode && enclosedNode.is
 											&& this.type == enclosedNode.getName())
 										this.setState(CKEDITOR.TRISTATE_ON);
 								}
@@ -562,16 +562,16 @@
 									rangeIterator = ranges.createIterator(),
 									index = 0;
 
-							while((range = rangeIterator.getNextRange()) && ++index)
+							while ((range = rangeIterator.getNextRange()) && ++index)
 							{
 								var boundaryNodes = range.getBoundaryNodes(),
 										startNode = boundaryNodes.startNode,
 										endNode = boundaryNodes.endNode;
 
-								if(startNode.type == CKEDITOR.NODE_ELEMENT && startNode.getName() == 'td')
+								if (startNode.type == CKEDITOR.NODE_ELEMENT && startNode.getName() == 'td')
 									range.setStartAt(boundaryNodes.startNode, CKEDITOR.POSITION_AFTER_START);
 
-								if(endNode.type == CKEDITOR.NODE_ELEMENT && endNode.getName() == 'td')
+								if (endNode.type == CKEDITOR.NODE_ELEMENT && endNode.getName() == 'td')
 									range.setEndAt(boundaryNodes.endNode, CKEDITOR.POSITION_BEFORE_END);
 
 								var iterator = range.createIterator(),
@@ -579,10 +579,10 @@
 
 								iterator.forceBrBreak = (this.state == CKEDITOR.TRISTATE_OFF);
 
-								while((block = iterator.getNextParagraph()))
+								while ((block = iterator.getNextParagraph()))
 								{
 									// Avoid duplicate blocks get processed across ranges.
-									if(block.getCustomData('list_block'))
+									if (block.getCustomData('list_block'))
 										continue;
 									else
 										CKEDITOR.dom.element.setMarker(database, block, 'list_block', 1);
@@ -598,7 +598,7 @@
 									// First, try to group by a list ancestor.
 									for (var i = pathElementsCount - 1; i >= 0 && (element = pathElements[ i ]); i--)
 									{
-										if(listNodeNames[ element.getName() ]
+										if (listNodeNames[ element.getName() ]
 												&& blockLimit.contains(element))     // Don't leak outside block limit (#3940).
 										{
 											// If we've encountered a list inside a block limit
@@ -609,7 +609,7 @@
 											blockLimit.removeCustomData('list_group_object_' + index);
 
 											var groupObj = element.getCustomData('list_group_object');
-											if(groupObj)
+											if (groupObj)
 												groupObj.contents.push(block);
 											else
 											{
@@ -622,12 +622,12 @@
 										}
 									}
 
-									if(processedFlag)
+									if (processedFlag)
 										continue;
 
 									// No list ancestor? Group by block limit, but don't mix contents from different ranges.
 									var root = blockLimit;
-									if(root.getCustomData('list_group_object_' + index))
+									if (root.getCustomData('list_group_object_' + index))
 										root.getCustomData('list_group_object_' + index).contents.push(block);
 									else
 									{
@@ -642,17 +642,17 @@
 							// We either have to build lists or remove lists, for removing a list does not makes sense when we are looking
 							// at the group that's not rooted at lists. So we have three cases to handle.
 							var listsCreated = [];
-							while(listGroups.length > 0)
+							while (listGroups.length > 0)
 							{
 								groupObj = listGroups.shift();
-								if(this.state == CKEDITOR.TRISTATE_OFF)
+								if (this.state == CKEDITOR.TRISTATE_OFF)
 								{
-									if(listNodeNames[ groupObj.root.getName() ])
+									if (listNodeNames[ groupObj.root.getName() ])
 										changeListType.call(this, editor, groupObj, database, listsCreated);
 									else
 										createList.call(this, editor, groupObj, listsCreated);
 								}
-								else if(this.state == CKEDITOR.TRISTATE_ON && listNodeNames[ groupObj.root.getName() ])
+								else if (this.state == CKEDITOR.TRISTATE_ON && listNodeNames[ groupObj.root.getName() ])
 									removeList.call(this, editor, groupObj, database);
 							}
 
@@ -666,7 +666,7 @@
 
 									var sibling = listNode[ rtl ?
 											'getPrevious' : 'getNext' ](CKEDITOR.dom.walker.whitespaces(true));
-									if(sibling && sibling.getName &&
+									if (sibling && sibling.getName &&
 											sibling.getName() == listCommand.type)
 									{
 										// Move children order by merge direction.(#3820)
@@ -698,7 +698,7 @@
 						for (var i = 0; i < length; i++)
 						{
 							child = children[ i ];
-							if(child.name && (child.name in tagNameList))
+							if (child.name && (child.name in tagNameList))
 								return i;
 						}
 
@@ -717,21 +717,21 @@
 									nodeBefore = firstNestedList && firstNestedList.previous,
 									tailNbspmatch;
 
-							if(nodeBefore
+							if (nodeBefore
 									&& (nodeBefore.name && nodeBefore.name == 'br'
-											|| nodeBefore.value && (tailNbspmatch = nodeBefore.value.match(tailNbspRegex))))
+									|| nodeBefore.value && (tailNbspmatch = nodeBefore.value.match(tailNbspRegex))))
 							{
 								var fillerNode = nodeBefore;
 
 								// Always use 'nbsp' as filler node if we found a nested list appear
 								// in front of a list item.
-								if(!(tailNbspmatch && tailNbspmatch.index) && fillerNode == children[ 0 ])
+								if (!(tailNbspmatch && tailNbspmatch.index) && fillerNode == children[ 0 ])
 									children[ 0 ] = (isHtmlFilter || CKEDITOR.env.ie) ?
 											new CKEDITOR.htmlParser.text('\xa0') :
 											new CKEDITOR.htmlParser.element('br', {});
 
 								// Otherwise the filler is not needed anymore.
-								else if(fillerNode.name == 'br')
+								else if (fillerNode.name == 'br')
 									children.splice(firstNestedListIndex - 1, 1);
 								else
 									fillerNode.value = fillerNode.value.replace(tailNbspRegex, '');
@@ -777,12 +777,12 @@
 
 						// Kill the tail br in extracted.
 						var last = frag.getLast();
-						if(last && last.type == CKEDITOR.NODE_ELEMENT && last.is('br'))
+						if (last && last.type == CKEDITOR.NODE_ELEMENT && last.is('br'))
 							last.remove();
 
 						// Insert fragment at the range position.
 						var nextNode = cursor.startContainer.getChild(cursor.startOffset);
-						if(nextNode)
+						if (nextNode)
 							frag.insertBefore(nextNode);
 						else
 							cursor.startContainer.append(frag);
@@ -791,13 +791,13 @@
 						var nextLi = nextCursor.startContainer.getAscendant('li', 1);
 
 						// Move the sub list nested in the next list item.
-						if(nextLi)
+						if (nextLi)
 						{
 							var sublist = getSubList(nextLi);
-							if(sublist)
+							if (sublist)
 							{
 								// If next line is in the sub list of the current list item.
-								if(currentLi.contains(nextLi))
+								if (currentLi.contains(nextLi))
 								{
 									mergeListItems(sublist, nextLi.getParent(), nextLi);
 									sublist.remove();
@@ -809,7 +809,7 @@
 						}
 
 
-						if(nextCursor.checkStartOfBlock() &&
+						if (nextCursor.checkStartOfBlock() &&
 								nextCursor.checkEndOfBlock())
 						{
 							var nextBlock = nextPath.block,
@@ -818,7 +818,7 @@
 							nextBlock.remove();
 
 							// Remove if the path block container is now empty, e.g. li.
-							if(parentBlock &&
+							if (parentBlock &&
 									!parentBlock.getFirst(nonEmpty) &&
 									!parentBlock.equals(nextPath.blockLimit))
 							{
@@ -863,19 +863,19 @@
 									editor.on('selectionChange', CKEDITOR.tools.bind(onSelectionChange, bulletedListCommand));
 
 									// [IE8] Fix "backspace" after list and "del" at the end of list item. (#8248)
-									if(CKEDITOR.env.ie8Compat)
+									if (CKEDITOR.env.ie8Compat)
 									{
 										editor.on('key', function(evt)
 										{
 											var key = evt.data.keyCode;
 
 											// DEl/BACKSPACE
-											if(editor.mode == 'wysiwyg' && key in {8: 1, 46: 1})
+											if (editor.mode == 'wysiwyg' && key in {8: 1, 46: 1})
 											{
 												var sel = editor.getSelection(),
 														range = sel.getRanges()[ 0 ];
 
-												if(!range.collapsed)
+												if (!range.collapsed)
 													return;
 
 												var isBackspace = key == 8;
@@ -887,7 +887,7 @@
 
 												var cursor = range.clone();
 
-												if(isBackspace)
+												if (isBackspace)
 												{
 													walker.range.setStartAt(body, CKEDITOR.POSITION_AFTER_START);
 													walker.range.setEnd(range.startContainer, range.startOffset);
@@ -895,7 +895,7 @@
 													var previous = walker.previous();
 
 													// Check if cursor collapsed right behind of a list.
-													if(previous &&
+													if (previous &&
 															previous.type == CKEDITOR.NODE_ELEMENT &&
 															previous.getName() in listNodeNames)
 													{
@@ -912,7 +912,7 @@
 												else
 												{
 													var li = range.startContainer.getAscendant('li', 1);
-													if(li)
+													if (li)
 													{
 														walker.range.setEndAt(body, CKEDITOR.POSITION_BEFORE_END);
 
@@ -925,7 +925,7 @@
 														var next = walker.next();
 
 														// When list item contains a sub list.
-														if(next && next.type == CKEDITOR.NODE_ELEMENT &&
+														if (next && next.type == CKEDITOR.NODE_ELEMENT &&
 																next.getName() in listNodeNames
 																&& next.equals(last))
 														{
@@ -935,11 +935,11 @@
 															next = walker.next();
 														}
 														// Right at the end of list item.
-														else if(range.checkBoundaryOfElement(block, CKEDITOR.END))
+														else if (range.checkBoundaryOfElement(block, CKEDITOR.END))
 															isAtEnd = 1;
 
 
-														if(isAtEnd && next)
+														if (isAtEnd && next)
 														{
 															// Put cursor range there.
 															var nextLine = range.clone();
@@ -957,7 +957,7 @@
 								afterInit: function(editor)
 								{
 									var dataProcessor = editor.dataProcessor;
-									if(dataProcessor)
+									if (dataProcessor)
 									{
 										dataProcessor.dataFilter.addRules(defaultListDataFilterRules);
 										dataProcessor.htmlFilter.addRules(defaultListHtmlFilterRules);

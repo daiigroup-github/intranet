@@ -106,15 +106,16 @@
  */
 class EmployeeInfo extends CActiveRecord
 {
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return EmployeeInfo the static model class
 	 */
+
 	const LANG_LEVEL_GOOD = 1;
 	const LANG_LEVEL_FAIR = 2;
 	const LANG_LEVEL_POOR = 3;
+
 	// Typeing Status
 	const STATUS_YES = 1;
 	const STATUS_NO = 2;
@@ -175,53 +176,53 @@ class EmployeeInfo extends CActiveRecord
 			array(
 				'livingWith, militaryStatus, maritalStatus, noOfChildren, typing, driving, canWorkUpCountry, hasBeenSeriouslyOrContractedSick, everAppliedBefore, langThSpeaking, langThWriting, langThReading, langEnSpeaking, langEnWriting, langEnReading',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'employeeId, postcode, personAtEmergencyTel, nickName',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			array(
 				'appliedPosition, otherEmail, dadName, dadOccupation, momName, momOccupation, husbandName, husbandWork, husbandPosition, EducationHighest, EducationHighestInstitution, EducationHighestMajor, EducationHighSchool, EducationVocational, EducationDiploma, EducationBechelorDegree, EducationOther, WorkExp1StartEnd, WorkExp1At, WorkExp1Position, WorkExp1SalaryStartEnd, WorkExp2StartEnd, WorkExp2At, WorkExp2Position, WorkExp2SalaryStartEnd, WorkExp3StartEnd, WorkExp3At, WorkExp3Position, WorkExp3SalaryStartEnd, WorkExp4StartEnd, WorkExp4At, WorkExp4Position, WorkExp4SalaryStartEnd, WorkExp5StartEnd, WorkExp5At, WorkExp5Position, WorkExp5SalaryStartEnd, personAtEmergencyName, sourceOfJobInfo, uKnowEmployeeInOffice',
 				'length',
-				'max'=>200),
+				'max' => 200),
 			array(
 				'appliedSalary',
 				'length',
-				'max'=>16),
+				'max' => 16),
 			array(
 				'address, personAtEmergencyAddress',
 				'length',
-				'max'=>1000),
+				'max' => 1000),
 			array(
 				'tumbol, aumper, province, race, nationality, religion, personAtEmergencyRelated',
 				'length',
-				'max'=>100),
+				'max' => 100),
 			array(
 				'birthDate, height, weight, dadAge, momAge, noOfMemberFamily, noOfMaleMemberFamily, noOfFemaleMemberFamily, youAreTheChildOfTheFamily',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'EducationHighestYearEnd, speedTypingTh, speedTypingEn, computerSkill, drivingLicenseNo, appliedWhen',
 				'length',
-				'max'=>45),
+				'max' => 45),
 			array(
 				'WorkExp1ReasonLeaving, WorkExp2ReasonLeaving, WorkExp3ReasonLeaving, WorkExp4ReasonLeaving, WorkExp5ReasonLeaving, langOther',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			array(
 				'hobbies, favouriteSport, spacialKnowledge, other, whatSick',
 				'length',
-				'max'=>300),
+				'max' => 300),
 			array(
 				'NameAddressOfRelatedPeople1, NameAddressOfRelatedPeople2, introductionOfU',
 				'length',
-				'max'=>2000),
+				'max' => 2000),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'id, employeeId, appliedPosition, appliedSalary, address, tumbol, aumper, province, postcode, otherEmail, livingWith, birthDate, race, nationality, religion, height, weight, militaryStatus, maritalStatus, dadName, dadAge, dadOccupation, momName, momAge, momOccupation, husbandName, husbandWork, husbandPosition, noOfChildren, noOfMemberFamily, noOfMaleMemberFamily, noOfFemaleMemberFamily, youAreTheChildOfTheFamily, EducationHighest, EducationHighestInstitution, EducationHighestMajor, EducationHighestYearEnd, EducationHighSchool, EducationVocational, EducationDiploma, EducationBechelorDegree, EducationOther, WorkExp1StartEnd, WorkExp1At, WorkExp1Position, WorkExp1ReasonLeaving, WorkExp1SalaryStartEnd, WorkExp2StartEnd, WorkExp2At, WorkExp2Position, WorkExp2ReasonLeaving, WorkExp2SalaryStartEnd, WorkExp3StartEnd, WorkExp3At, WorkExp3Position, WorkExp3ReasonLeaving, WorkExp3SalaryStartEnd, WorkExp4StartEnd, WorkExp4At, WorkExp4Position, WorkExp4ReasonLeaving, WorkExp4SalaryStartEnd, WorkExp5StartEnd, WorkExp5At, WorkExp5Position, WorkExp5ReasonLeaving, WorkExp5SalaryStartEnd, typing, speedTypingTh, speedTypingEn, computerSkill, driving, drivingLicenseNo, officeMachine, hobbies, favouriteSport, spacialKnowledge, other, canWorkUpCountry, personAtEmergencyName, personAtEmergencyRelated, personAtEmergencyAddress, personAtEmergencyTel, sourceOfJobInfo, hasBeenSeriouslyOrContractedSick, whatSick, everAppliedBefore, appliedWhen, langThSpeaking, langThWriting, langThReading, langEnSpeaking, langEnWriting, langEnReading, langOther, uKnowEmployeeInOffice, NameAddressOfRelatedPeople1, NameAddressOfRelatedPeople2, introductionOfU',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -233,11 +234,11 @@ class EmployeeInfo extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'applicationInterview'=>array(
+			'applicationInterview' => array(
 				self::BELONGS_TO,
 				'ApplicationInterview',
 				array(
-					'id'=>'applicationId')),
+					'id' => 'applicationId')),
 		);
 	}
 
@@ -247,115 +248,115 @@ class EmployeeInfo extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'accept'=>'ข้าพเจ้าขอรับรองว่า ข้อความดังกล่าวทั้งหมดในใบสมัครนี้เป็นความจริงทุกประการ หลังจากบริษัทจ้างเข้ามาทำงานแล้วปรากฎว่าข้อความในใบสมัครงาน เอกสารที่นำมาแสดง หรือรายละเอียดที่ให้ไว้ไม่เป็นความจริง บริษัทฯ มีสิทธิ์ที่จะเลิกจ้างข้าพเจ้าได้โดยไม่ต้องจ่ายเงินชดเชยหรือค่าเสียหายใดๆ ทั้งสิ้น',
-			'prefix'=>'คำนำหน้า',
-			'gender'=>'เพศ',
-			'fnTh'=>'ชื่อ (ไทย)',
-			'lnTh'=>'นามสกุล (ไทย)',
-			'fnEn'=>'First Name',
-			'lnEn'=>'Last Name',
-			'nickName'=>'ชื่อเล่น',
-			'citizenId'=>'เลขที่บัตรประจำตัวประชาชน',
-			'mobile'=>'โทรศัพท์มือถือ',
-			'appliedPosition'=>'ตำแหน่งที่ต้องการ',
-			'appliedSalary'=>'เงินเดือนที่ต้องการ',
-			'address'=>'ที่อยู่',
-			'tumbol'=>'แขวง/ตำบล',
-			'aumper'=>'เขต/อำเภอ',
-			'province'=>'จังหวัด',
-			'postcode'=>'รหัสไปรษณีย์',
-			'otherEmail'=>'Email',
-			'livingWith'=>'อาศัยอยู่กับ',
-			'birthDate'=>'วัน เดือน ปีเกิด',
-			'race'=>'เชื้อชาติ',
-			'nationality'=>'สัญชาติ',
-			'religion'=>'ศาสนา',
-			'height'=>'ความสูง (ซ.ม.)',
-			'weight'=>'น้ำหนัก (ก.ก.)',
-			'militaryStatus'=>'สถานะทางทหาร',
-			'maritalStatus'=>'สถานภาพ',
-			'dadName'=>'ชื่อบิดา',
-			'dadAge'=>'อายุบิดา',
-			'dadOccupation'=>'อาชีพบิดา',
-			'momName'=>'ชื่อมารดา',
-			'momAge'=>'อายุมารดา',
-			'momOccupation'=>'อาชีพมารดา',
-			'husbandName'=>'ชื่อสามี / ภรรยา',
-			'husbandWork'=>'สถานที่ทำงานสามี / ภรรยา',
-			'husbandPosition'=>'ตำแหน่งสามี / ภรรยา',
-			'noOfChildren'=>'จำนวนบุตร',
-			'noOfMemberFamily'=>'จำนวนพี่น้อง',
-			'noOfMaleMemberFamily'=>'จำนวนพี่น้องผู้ชาย',
-			'noOfFemaleMemberFamily'=>'จำนวนพี่น้องผู้หญิง',
-			'youAreTheChildOfTheFamily'=>'เป็นบุตรคนที่',
-			'EducationHighest'=>'ระดับการศึกษาสูงสุด',
-			'EducationHighestInstitution'=>'สถาบัน',
-			'EducationHighestMajor'=>'สาขาวิชา',
-			'EducationHighestYearEnd'=>'จบปีการศึกษา',
-			'EducationHighSchool'=>'มัธยมศึกษาตอนปลาย',
-			'EducationVocational'=>'ปวช.',
-			'EducationDiploma'=>'ปวท./ปวส.',
-			'EducationBechelorDegree'=>'ปริญญาตรี',
-			'EducationOther'=>'อื่นๆ ระบุ',
-			'WorkExp1StartEnd'=>'ระยะเวลา เริ่ม-ถึง',
-			'WorkExp1At'=>'สถานที่ทำงาน',
-			'WorkExp1Position'=>'ตำแหน่ง-แผนก',
-			'WorkExp1ReasonLeaving'=>'เหตุที่ออก',
-			'WorkExp1SalaryStartEnd'=>'เงินเดือนเริ่มต้น-สุดท้าย',
-			'WorkExp2StartEnd'=>'Work Exp2 Start End',
-			'WorkExp2At'=>'Work Exp2 At',
-			'WorkExp2Position'=>'Work Exp2 Position',
-			'WorkExp2ReasonLeaving'=>'Work Exp2 Reason Leaving',
-			'WorkExp2SalaryStartEnd'=>'Work Exp2 Salary Start End',
-			'WorkExp3StartEnd'=>'Work Exp3 Start End',
-			'WorkExp3At'=>'Work Exp3 At',
-			'WorkExp3Position'=>'Work Exp3 Position',
-			'WorkExp3ReasonLeaving'=>'Work Exp3 Reason Leaving',
-			'WorkExp3SalaryStartEnd'=>'Work Exp3 Salary Start End',
-			'WorkExp4StartEnd'=>'Work Exp4 Start End',
-			'WorkExp4At'=>'Work Exp4 At',
-			'WorkExp4Position'=>'Work Exp4 Position',
-			'WorkExp4ReasonLeaving'=>'Work Exp4 Reason Leaving',
-			'WorkExp4SalaryStartEnd'=>'Work Exp4 Salary Start End',
-			'WorkExp5StartEnd'=>'Work Exp5 Start End',
-			'WorkExp5At'=>'Work Exp5 At',
-			'WorkExp5Position'=>'Work Exp5 Position',
-			'WorkExp5ReasonLeaving'=>'Work Exp5 Reason Leaving',
-			'WorkExp5SalaryStartEnd'=>'Work Exp5 Salary Start End',
-			'typing'=>'พิมพ์ดีด',
-			'speedTypingTh'=>'พิมพ์ดีดภาษาไทย (คำ/นาที)',
-			'speedTypingEn'=>'พิมพ์ดีดภาษาอังกฤษ (คำ/นาที)',
-			'computerSkill'=>'ทักษะทางคอมพิวเตอร์',
-			'driving'=>'สามารถขับรถ',
-			'drivingLicenseNo'=>'เลขที่ใบขับขี่',
-			'officeMachine'=>'ความสามารถในการใช้อุปกรณ์สำนักงาน',
-			'hobbies'=>'งานอดิเรก',
-			'favouriteSport'=>'กีฬาที่ชอบ',
-			'spacialKnowledge'=>'ความสามารถพิเศษ',
-			'other'=>'อื่นๆ',
-			'canWorkUpCountry'=>'สามารถทำงานต่างจังหวัด',
-			'personAtEmergencyName'=>'ชื่อผู้ติดต่อฉุกเฉิน',
-			'personAtEmergencyRelated'=>'ความสัมพันธ์',
-			'personAtEmergencyAddress'=>'ที่อยู่',
-			'personAtEmergencyTel'=>'เบอร์โทรศัพท์',
-			'sourceOfJobInfo'=>'ทราบข่าวการรับสมัครจาก',
-			'hasBeenSeriouslyOrContractedSick'=>'ท่านเคยป่วยหนักและเป็นโรคติดต่อร้ายแรงมาก่อนหรือไม่',
-			'whatSick'=>'ถ้าเคยโปรดระบุ',
-			'everAppliedBefore'=>'ท่านเคยสมัครงานกับบริษัทฯ นี้มาก่อนหรือไม่',
-			'appliedWhen'=>'ถ้าเคย เมื่อไร',
-			'langThSpeaking'=>'Lang Th Speaking',
-			'langThWriting'=>'Lang Th Writing',
-			'langThReading'=>'Lang Th Reading',
-			'langEnSpeaking'=>'Lang En Speaking',
-			'langEnWriting'=>'Lang En Writing',
-			'langEnReading'=>'Lang En Reading',
-			'langTh'=>'ภาษาไทย',
-			'langEn'=>'ภาษาอังกฤษ',
-			'langOther'=>'ภาษาอื่นๆ',
-			'uKnowEmployeeInOffice'=>'ชื่อญาติ / เพื่อน',
-			'NameAddressOfRelatedPeople1'=>'ชื่อ ที่อยู่ โทรศัพท์ และอาชีพ',
-			'NameAddressOfRelatedPeople2'=>'ชื่อ ที่อยู่ โทรศัพท์ และอาชีพ',
-			'introductionOfU'=>'Introduction Of U',
+			'accept' => 'ข้าพเจ้าขอรับรองว่า ข้อความดังกล่าวทั้งหมดในใบสมัครนี้เป็นความจริงทุกประการ หลังจากบริษัทจ้างเข้ามาทำงานแล้วปรากฎว่าข้อความในใบสมัครงาน เอกสารที่นำมาแสดง หรือรายละเอียดที่ให้ไว้ไม่เป็นความจริง บริษัทฯ มีสิทธิ์ที่จะเลิกจ้างข้าพเจ้าได้โดยไม่ต้องจ่ายเงินชดเชยหรือค่าเสียหายใดๆ ทั้งสิ้น',
+			'prefix' => 'คำนำหน้า',
+			'gender' => 'เพศ',
+			'fnTh' => 'ชื่อ (ไทย)',
+			'lnTh' => 'นามสกุล (ไทย)',
+			'fnEn' => 'First Name',
+			'lnEn' => 'Last Name',
+			'nickName' => 'ชื่อเล่น',
+			'citizenId' => 'เลขที่บัตรประจำตัวประชาชน',
+			'mobile' => 'โทรศัพท์มือถือ',
+			'appliedPosition' => 'ตำแหน่งที่ต้องการ',
+			'appliedSalary' => 'เงินเดือนที่ต้องการ',
+			'address' => 'ที่อยู่',
+			'tumbol' => 'แขวง/ตำบล',
+			'aumper' => 'เขต/อำเภอ',
+			'province' => 'จังหวัด',
+			'postcode' => 'รหัสไปรษณีย์',
+			'otherEmail' => 'Email',
+			'livingWith' => 'อาศัยอยู่กับ',
+			'birthDate' => 'วัน เดือน ปีเกิด',
+			'race' => 'เชื้อชาติ',
+			'nationality' => 'สัญชาติ',
+			'religion' => 'ศาสนา',
+			'height' => 'ความสูง (ซ.ม.)',
+			'weight' => 'น้ำหนัก (ก.ก.)',
+			'militaryStatus' => 'สถานะทางทหาร',
+			'maritalStatus' => 'สถานภาพ',
+			'dadName' => 'ชื่อบิดา',
+			'dadAge' => 'อายุบิดา',
+			'dadOccupation' => 'อาชีพบิดา',
+			'momName' => 'ชื่อมารดา',
+			'momAge' => 'อายุมารดา',
+			'momOccupation' => 'อาชีพมารดา',
+			'husbandName' => 'ชื่อสามี / ภรรยา',
+			'husbandWork' => 'สถานที่ทำงานสามี / ภรรยา',
+			'husbandPosition' => 'ตำแหน่งสามี / ภรรยา',
+			'noOfChildren' => 'จำนวนบุตร',
+			'noOfMemberFamily' => 'จำนวนพี่น้อง',
+			'noOfMaleMemberFamily' => 'จำนวนพี่น้องผู้ชาย',
+			'noOfFemaleMemberFamily' => 'จำนวนพี่น้องผู้หญิง',
+			'youAreTheChildOfTheFamily' => 'เป็นบุตรคนที่',
+			'EducationHighest' => 'ระดับการศึกษาสูงสุด',
+			'EducationHighestInstitution' => 'สถาบัน',
+			'EducationHighestMajor' => 'สาขาวิชา',
+			'EducationHighestYearEnd' => 'จบปีการศึกษา',
+			'EducationHighSchool' => 'มัธยมศึกษาตอนปลาย',
+			'EducationVocational' => 'ปวช.',
+			'EducationDiploma' => 'ปวท./ปวส.',
+			'EducationBechelorDegree' => 'ปริญญาตรี',
+			'EducationOther' => 'อื่นๆ ระบุ',
+			'WorkExp1StartEnd' => 'ระยะเวลา เริ่ม-ถึง',
+			'WorkExp1At' => 'สถานที่ทำงาน',
+			'WorkExp1Position' => 'ตำแหน่ง-แผนก',
+			'WorkExp1ReasonLeaving' => 'เหตุที่ออก',
+			'WorkExp1SalaryStartEnd' => 'เงินเดือนเริ่มต้น-สุดท้าย',
+			'WorkExp2StartEnd' => 'Work Exp2 Start End',
+			'WorkExp2At' => 'Work Exp2 At',
+			'WorkExp2Position' => 'Work Exp2 Position',
+			'WorkExp2ReasonLeaving' => 'Work Exp2 Reason Leaving',
+			'WorkExp2SalaryStartEnd' => 'Work Exp2 Salary Start End',
+			'WorkExp3StartEnd' => 'Work Exp3 Start End',
+			'WorkExp3At' => 'Work Exp3 At',
+			'WorkExp3Position' => 'Work Exp3 Position',
+			'WorkExp3ReasonLeaving' => 'Work Exp3 Reason Leaving',
+			'WorkExp3SalaryStartEnd' => 'Work Exp3 Salary Start End',
+			'WorkExp4StartEnd' => 'Work Exp4 Start End',
+			'WorkExp4At' => 'Work Exp4 At',
+			'WorkExp4Position' => 'Work Exp4 Position',
+			'WorkExp4ReasonLeaving' => 'Work Exp4 Reason Leaving',
+			'WorkExp4SalaryStartEnd' => 'Work Exp4 Salary Start End',
+			'WorkExp5StartEnd' => 'Work Exp5 Start End',
+			'WorkExp5At' => 'Work Exp5 At',
+			'WorkExp5Position' => 'Work Exp5 Position',
+			'WorkExp5ReasonLeaving' => 'Work Exp5 Reason Leaving',
+			'WorkExp5SalaryStartEnd' => 'Work Exp5 Salary Start End',
+			'typing' => 'พิมพ์ดีด',
+			'speedTypingTh' => 'พิมพ์ดีดภาษาไทย (คำ/นาที)',
+			'speedTypingEn' => 'พิมพ์ดีดภาษาอังกฤษ (คำ/นาที)',
+			'computerSkill' => 'ทักษะทางคอมพิวเตอร์',
+			'driving' => 'สามารถขับรถ',
+			'drivingLicenseNo' => 'เลขที่ใบขับขี่',
+			'officeMachine' => 'ความสามารถในการใช้อุปกรณ์สำนักงาน',
+			'hobbies' => 'งานอดิเรก',
+			'favouriteSport' => 'กีฬาที่ชอบ',
+			'spacialKnowledge' => 'ความสามารถพิเศษ',
+			'other' => 'อื่นๆ',
+			'canWorkUpCountry' => 'สามารถทำงานต่างจังหวัด',
+			'personAtEmergencyName' => 'ชื่อผู้ติดต่อฉุกเฉิน',
+			'personAtEmergencyRelated' => 'ความสัมพันธ์',
+			'personAtEmergencyAddress' => 'ที่อยู่',
+			'personAtEmergencyTel' => 'เบอร์โทรศัพท์',
+			'sourceOfJobInfo' => 'ทราบข่าวการรับสมัครจาก',
+			'hasBeenSeriouslyOrContractedSick' => 'ท่านเคยป่วยหนักและเป็นโรคติดต่อร้ายแรงมาก่อนหรือไม่',
+			'whatSick' => 'ถ้าเคยโปรดระบุ',
+			'everAppliedBefore' => 'ท่านเคยสมัครงานกับบริษัทฯ นี้มาก่อนหรือไม่',
+			'appliedWhen' => 'ถ้าเคย เมื่อไร',
+			'langThSpeaking' => 'Lang Th Speaking',
+			'langThWriting' => 'Lang Th Writing',
+			'langThReading' => 'Lang Th Reading',
+			'langEnSpeaking' => 'Lang En Speaking',
+			'langEnWriting' => 'Lang En Writing',
+			'langEnReading' => 'Lang En Reading',
+			'langTh' => 'ภาษาไทย',
+			'langEn' => 'ภาษาอังกฤษ',
+			'langOther' => 'ภาษาอื่นๆ',
+			'uKnowEmployeeInOffice' => 'ชื่อญาติ / เพื่อน',
+			'NameAddressOfRelatedPeople1' => 'ชื่อ ที่อยู่ โทรศัพท์ และอาชีพ',
+			'NameAddressOfRelatedPeople2' => 'ชื่อ ที่อยู่ โทรศัพท์ และอาชีพ',
+			'introductionOfU' => 'Introduction Of U',
 		);
 	}
 
@@ -471,7 +472,7 @@ class EmployeeInfo extends CActiveRecord
 		$criteria->compare('introductionOfU', $this->introductionOfU, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -479,9 +480,9 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoLangLevel()
 	{
 		return array(
-			self::LANG_LEVEL_GOOD=>'ดี',
-			self::LANG_LEVEL_FAIR=>'ปานกลาง',
-			self::LANG_LEVEL_POOR=>'พอใช้',
+			self::LANG_LEVEL_GOOD => 'ดี',
+			self::LANG_LEVEL_FAIR => 'ปานกลาง',
+			self::LANG_LEVEL_POOR => 'พอใช้',
 		);
 	}
 
@@ -495,8 +496,8 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoStatus()
 	{
 		return array(
-			self::STATUS_YES=>'ได้',
-			self::STATUS_NO=>'ไม่ได้',
+			self::STATUS_YES => 'ได้',
+			self::STATUS_NO => 'ไม่ได้',
 		);
 	}
 
@@ -509,8 +510,8 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoUsedTo()
 	{
 		return array(
-			self::USED_TO_YES=>'เคย',
-			self::USED_TO_NO=>'ไม่เคย',
+			self::USED_TO_YES => 'เคย',
+			self::USED_TO_NO => 'ไม่เคย',
 		);
 	}
 
@@ -523,10 +524,10 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoLivingWith()
 	{
 		return array(
-			self::LIVING_WITH_PARENT=>'ครอบครัว',
-			self::LIVING_WITH_OWN_HOME=>'บ้านตัวเอง',
-			self::LIVING_WITH_HIRED_HOUSE=>'บ้านเช่า',
-			self::LIVING_WITH_HOSTEL=>'หอพัก',
+			self::LIVING_WITH_PARENT => 'ครอบครัว',
+			self::LIVING_WITH_OWN_HOME => 'บ้านตัวเอง',
+			self::LIVING_WITH_HIRED_HOUSE => 'บ้านเช่า',
+			self::LIVING_WITH_HOSTEL => 'หอพัก',
 		);
 	}
 
@@ -539,9 +540,9 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoMilitaryStatus()
 	{
 		return array(
-			self::MILITARY_STATUS_EXEMPTED=>'ได้รับการยกเว้น',
-			self::MILITARY_STATUS_SERVED=>'ปลดเป็นทหารกองหนุน',
-			self::MILITARY_STATUS_NOT_YET_SERVED=>'ยังไม่ได้รับการเกณฑ์',
+			self::MILITARY_STATUS_EXEMPTED => 'ได้รับการยกเว้น',
+			self::MILITARY_STATUS_SERVED => 'ปลดเป็นทหารกองหนุน',
+			self::MILITARY_STATUS_NOT_YET_SERVED => 'ยังไม่ได้รับการเกณฑ์',
 		);
 	}
 
@@ -554,10 +555,10 @@ class EmployeeInfo extends CActiveRecord
 	public function getEmployeeInfoMaritalStatus()
 	{
 		return array(
-			self::MARITAL_STATUS_SINGLE=>'โสด',
-			self::MARITAL_STATUS_MARRIED=>'แต่งงาน',
-			self::MARITAL_STATUS_WIDOWED=>'หย่า',
-			self::MARITAL_STATUS_SEPARATED=>'แยกกัน',
+			self::MARITAL_STATUS_SINGLE => 'โสด',
+			self::MARITAL_STATUS_MARRIED => 'แต่งงาน',
+			self::MARITAL_STATUS_WIDOWED => 'หย่า',
+			self::MARITAL_STATUS_SEPARATED => 'แยกกัน',
 		);
 	}
 
@@ -570,8 +571,8 @@ class EmployeeInfo extends CActiveRecord
 	public function checkIsExistingCitizenId($citizenId)
 	{
 		$existing = $this->find("citizenId =:citizenId", array(
-			":citizenId"=>$citizenId));
-		if(count($existing) > 0)
+			":citizenId" => $citizenId));
+		if (count($existing) > 0)
 		{
 			return true;
 		}
@@ -588,7 +589,7 @@ class EmployeeInfo extends CActiveRecord
 		$criteria->compare("t.status", 0);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 

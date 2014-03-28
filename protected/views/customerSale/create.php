@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Customer Sales'=>array(
+	'Customer Sales' => array(
 		'index'),
 	'Create',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List CustomerSale',
-		'url'=>array(
+		'label' => 'List CustomerSale',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Manage CustomerSale',
-		'url'=>array(
+		'label' => 'Manage CustomerSale',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -21,5 +21,5 @@ $this->menu = array(
 
 <?php
 echo $this->renderPartial('_form', array(
-	'model'=>$model));
+	'model' => $model));
 ?>

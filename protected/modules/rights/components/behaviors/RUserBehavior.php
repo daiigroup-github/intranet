@@ -28,7 +28,7 @@ class RUserBehavior extends CModelBehavior
 	 */
 	public function getId()
 	{
-		if($this->idColumn === null)
+		if ($this->idColumn === null)
 			$this->idColumn = Rights::module()->userIdColumn;
 
 		return $this->owner->{$this->idColumn};
@@ -41,7 +41,7 @@ class RUserBehavior extends CModelBehavior
 	 */
 	public function getName()
 	{
-		if($this->nameColumn === null)
+		if ($this->nameColumn === null)
 			$this->nameColumn = Rights::module()->userNameColumn;
 
 		return $this->owner->{$this->nameColumn};
@@ -55,25 +55,25 @@ class RUserBehavior extends CModelBehavior
 	{
 		return CHtml::link($this->getName(), array(
 				'assignment/user',
-				'id'=>$this->getId()));
+				'id' => $this->getId()));
 	}
 
 	/**
 	 * Returns a string with names of the authorization items
 	 * of the given type that are assigned to this user.
 	 * @param integer $type the item type (0: operation, 1: task, 2: role).
-	 * @return mixed the assigned items.
+	 * @return mixed the assigned items. 
 	 */
 	public function getAssignmentsText($type)
 	{
 		$assignedItems = $this->getAssignments();
 
-		if(isset($assignedItems[$type]) === true)
+		if (isset($assignedItems[$type]) === true)
 		{
 			$items = $assignedItems[$type];
 			$names = array(
 				);
-			foreach($items as $itemname=> $item)
+			foreach ($items as $itemname => $item)
 				$names[] = $item->getNameText();
 
 			return implode('<br />', $names);
@@ -86,7 +86,7 @@ class RUserBehavior extends CModelBehavior
 	 */
 	public function getAssignments()
 	{
-		if($this->_assignments !== null)
+		if ($this->_assignments !== null)
 		{
 			return $this->_assignments;
 		}
@@ -98,12 +98,12 @@ class RUserBehavior extends CModelBehavior
 
 			$assignments = array(
 				);
-			foreach($nestedItems as $type=> $items)
+			foreach ($nestedItems as $type => $items)
 			{
 				$items = $authorizer->attachAuthItemBehavior($items);
 				$assignments[$type] = array(
 					);
-				foreach($items as $itemName=> $item)
+				foreach ($items as $itemName => $item)
 					$assignments[$type][$itemName] = $item;
 			}
 

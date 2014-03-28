@@ -13,8 +13,20 @@
  * @property string $startTime
  * @property string $endTime
  */
-class Calendar extends CActiveRecord
-{
+class Calendar extends CActiveRecord {
+
+	public $searchText;
+
+	const STATUS_ACTIVE = 0x1;
+	const STATUS_INACTIVE = 0x2;
+
+	public $statusArray = array(self::STATUS_ACTIVE => 'Active',
+		self::STATUS_INACTIVE => 'N/A',
+	);
+
+	public function getStatusText($status) {
+		return $this->statusArray[$status];
+	}
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -23,24 +35,21 @@ class Calendar extends CActiveRecord
 	 */
 	public $saralyDay;
 
-	public static function model($className = __CLASS__)
-	{
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
+	public function tableName() {
 		return 'calendar';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
+	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -50,15 +59,15 @@ class Calendar extends CActiveRecord
 			array(
 				'status, type',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'title',
 				'length',
-				'max'=>80),
+				'max' => 80),
 			array(
 				'date',
 				'length',
-				'max'=>45),
+				'max' => 45),
 			array(
 				'description, startTime, endTime',
 				'safe'),
@@ -67,35 +76,33 @@ class Calendar extends CActiveRecord
 			array(
 				'calendarId, status, title, description, type, date, startTime, endTime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			);
+		);
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
-			'calendarId'=>'Calendar',
-			'status'=>'Status',
-			'title'=>'Title',
-			'description'=>'Description',
-			'type'=>'Type',
-			'date'=>'Date',
-			'startTime'=>'Start Time',
-			'endTime'=>'End Time',
+			'calendarId' => 'Calendar',
+			'status' => 'Status',
+			'title' => 'Title',
+			'description' => 'Description',
+			'type' => 'Type',
+			'date' => 'Date',
+			'startTime' => 'Start Time',
+			'endTime' => 'End Time',
 		);
 	}
 
@@ -103,8 +110,7 @@ class Calendar extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -118,39 +124,36 @@ class Calendar extends CActiveRecord
 		$criteria->compare('date', $this->date, true);
 		$criteria->compare('startTime', $this->startTime, true);
 		$criteria->compare('endTime', $this->endTime, true);
-
+		$criteria->order = "calendarId DESC";
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
-	public function findLastSalaryDate()
-	{
+	public function findLastSalaryDate() {
 		$date = date('Y-m-d');
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'date < :date AND type=5';
 		$criteria->params = array(
-			':date'=>$date);
+			':date' => $date);
 		$criteria->limit = 1;
 		$criteria->order = 'date DESC';
 
 		return $this->find($criteria);
 	}
 
-	public function findNextSalaryDate()
-	{
+	public function findNextSalaryDate() {
 		$date = date('Y-m-d');
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'date > :date AND type=5';
 		$criteria->params = array(
-			':date'=>$date);
+			':date' => $date);
 		$criteria->limit = 1;
 
 		return $this->find($criteria);
 	}
 
-	public function getSalaryDateOfNow()
-	{
+	public function getSalaryDateOfNow() {
 		$criteria = new CDbCriteria();
 		$criteria->select = "*, DAY(t.date) as saralyDay ";
 		$criteria->condition = "MONTH(NOW()) = MONTH(t.date)";

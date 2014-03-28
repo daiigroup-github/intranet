@@ -12,53 +12,53 @@
 		 * @example
 		 */
 		CKEDITOR.htmlParser.element = function(name, attributes)
-		{
-			/**
-			 * The element name.
-			 * @type String
-			 * @example
-			 */
-			this.name = name;
+{
+	/**
+	 * The element name.
+	 * @type String
+	 * @example
+	 */
+	this.name = name;
 
-			/**
-			 * Holds the attributes defined for this element.
-			 * @type Object
-			 * @example
-			 */
-			this.attributes = attributes || (attributes = {});
+	/**
+	 * Holds the attributes defined for this element.
+	 * @type Object
+	 * @example
+	 */
+	this.attributes = attributes || (attributes = {});
 
-			/**
-			 * The nodes that are direct children of this element.
-			 * @type Array
-			 * @example
-			 */
-			this.children = [];
+	/**
+	 * The nodes that are direct children of this element.
+	 * @type Array
+	 * @example
+	 */
+	this.children = [];
 
-			var tagName = attributes[ 'data-cke-real-element-type' ] || name || '';
+	var tagName = attributes[ 'data-cke-real-element-type' ] || name || '';
 
-			// Reveal the real semantic of our internal custom tag name (#6639).
-			var internalTag = tagName.match(/^cke:(.*)/);
-			internalTag && (tagName = internalTag[ 1 ]);
+	// Reveal the real semantic of our internal custom tag name (#6639).
+	var internalTag = tagName.match(/^cke:(.*)/);
+	internalTag && (tagName = internalTag[ 1 ]);
 
-			var dtd = CKEDITOR.dtd,
-					isBlockLike = !!(dtd.$nonBodyContent[ tagName ]
-							|| dtd.$block[ tagName ]
-							|| dtd.$listItem[ tagName ]
-							|| dtd.$tableContent[ tagName ]
-							|| dtd.$nonEditable[ tagName ]
-							|| tagName == 'br'),
-					isEmpty = !!dtd.$empty[ name ];
+	var dtd = CKEDITOR.dtd,
+			isBlockLike = !!(dtd.$nonBodyContent[ tagName ]
+			|| dtd.$block[ tagName ]
+			|| dtd.$listItem[ tagName ]
+			|| dtd.$tableContent[ tagName ]
+			|| dtd.$nonEditable[ tagName ]
+			|| tagName == 'br'),
+			isEmpty = !!dtd.$empty[ name ];
 
-			this.isEmpty = isEmpty;
-			this.isUnknown = !dtd[ name ];
+	this.isEmpty = isEmpty;
+	this.isUnknown = !dtd[ name ];
 
-			/** @private */
-			this._ =
-					{
-						isBlockLike: isBlockLike,
-						hasInlineStarted: isEmpty || !isBlockLike
-					};
-		};
+	/** @private */
+	this._ =
+			{
+				isBlockLike: isBlockLike,
+				hasInlineStarted: isEmpty || !isBlockLike
+			};
+};
 
 /**
  *  Object presentation of  CSS style declaration text.
@@ -78,11 +78,11 @@ CKEDITOR.htmlParser.cssStyle = function()
 	(styleText || '')
 			.replace(/&quot;/g, '"')
 			.replace(/\s*([^ :;]+)\s*:\s*([^;]+)\s*(?=;|$)/g,
-					function(match, name, value)
-					{
-						name == 'font-family' && (value = value.replace(/["']/g, ''));
-						rules[ name.toLowerCase() ] = value;
-					});
+			function(match, name, value)
+			{
+				name == 'font-family' && (value = value.replace(/["']/g, ''));
+				rules[ name.toLowerCase() ] = value;
+			});
 
 	return {
 		rules: rules,
@@ -93,7 +93,7 @@ CKEDITOR.htmlParser.cssStyle = function()
 		populate: function(obj)
 		{
 			var style = this.toString();
-			if(style)
+			if (style)
 			{
 				obj instanceof CKEDITOR.dom.element ?
 						obj.setAttribute('style', style) :
@@ -172,7 +172,7 @@ CKEDITOR.htmlParser.cssStyle = function()
 					 */
 					element.filterChildren = function()
 					{
-						if(!isChildrenFiltered)
+						if (!isChildrenFiltered)
 						{
 							var writer = new CKEDITOR.htmlParser.basicWriter();
 							CKEDITOR.htmlParser.fragment.prototype.writeChildrenHtml.call(element, writer, filter);
@@ -181,26 +181,26 @@ CKEDITOR.htmlParser.cssStyle = function()
 						}
 					};
 
-					if(filter)
+					if (filter)
 					{
-						while(true)
+						while (true)
 						{
-							if(!(writeName = filter.onElementName(writeName)))
+							if (!(writeName = filter.onElementName(writeName)))
 								return;
 
 							element.name = writeName;
 
-							if(!(element = filter.onElement(element)))
+							if (!(element = filter.onElement(element)))
 								return;
 
 							element.parent = this.parent;
 
-							if(element.name == writeName)
+							if (element.name == writeName)
 								break;
 
 							// If the element has been replaced with something of a
 							// different type, then make the replacement write itself.
-							if(element.type != CKEDITOR.NODE_ELEMENT)
+							if (element.type != CKEDITOR.NODE_ELEMENT)
 							{
 								element.writeHtml(writer, filter);
 								return;
@@ -210,7 +210,7 @@ CKEDITOR.htmlParser.cssStyle = function()
 
 							// This indicate that the element has been dropped by
 							// filter but not the children.
-							if(!writeName)
+							if (!writeName)
 							{
 								// Fix broken parent refs.
 								for (var c = 0, length = this.children.length; c < length; c++)
@@ -239,18 +239,18 @@ CKEDITOR.htmlParser.cssStyle = function()
 						{
 							newAttrName = a;
 							value = attributes[ a ];
-							if(i == 1)
+							if (i == 1)
 								attribsArray.push([a, value]);
-							else if(filter)
+							else if (filter)
 							{
-								while(true)
+								while (true)
 								{
-									if(!(newAttrName = filter.onAttributeName(a)))
+									if (!(newAttrName = filter.onAttributeName(a)))
 									{
 										delete attributes[ a ];
 										break;
 									}
-									else if(newAttrName != a)
+									else if (newAttrName != a)
 									{
 										delete attributes[ a ];
 										a = newAttrName;
@@ -259,9 +259,9 @@ CKEDITOR.htmlParser.cssStyle = function()
 									else
 										break;
 								}
-								if(newAttrName)
+								if (newAttrName)
 								{
-									if((value = filter.onAttribute(element, newAttrName, value)) === false)
+									if ((value = filter.onAttribute(element, newAttrName, value)) === false)
 										delete attributes[ newAttrName ];
 									else
 										attributes [ newAttrName ] = value;
@@ -270,7 +270,7 @@ CKEDITOR.htmlParser.cssStyle = function()
 						}
 					}
 					// Sort the attributes by name.
-					if(writer.sortAttributes)
+					if (writer.sortAttributes)
 						attribsArray.sort(sortAttribs);
 
 					// Send the attributes.
@@ -284,7 +284,7 @@ CKEDITOR.htmlParser.cssStyle = function()
 					// Close the tag.
 					writer.openTagClose(writeName, element.isEmpty);
 
-					if(!element.isEmpty)
+					if (!element.isEmpty)
 					{
 						this.writeChildrenHtml.call(element, writer, isChildrenFiltered ? null : filter);
 						// Close the element.

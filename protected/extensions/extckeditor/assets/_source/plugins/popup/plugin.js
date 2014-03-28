@@ -20,16 +20,16 @@ CKEDITOR.tools.extend(CKEDITOR.editor.prototype,
 				width = width || '80%';
 				height = height || '70%';
 
-				if(typeof width == 'string' && width.length > 1 && width.substr(width.length - 1, 1) == '%')
+				if (typeof width == 'string' && width.length > 1 && width.substr(width.length - 1, 1) == '%')
 					width = parseInt(window.screen.width * parseInt(width, 10) / 100, 10);
 
-				if(typeof height == 'string' && height.length > 1 && height.substr(height.length - 1, 1) == '%')
+				if (typeof height == 'string' && height.length > 1 && height.substr(height.length - 1, 1) == '%')
 					height = parseInt(window.screen.height * parseInt(height, 10) / 100, 10);
 
-				if(width < 640)
+				if (width < 640)
 					width = 640;
 
-				if(height < 420)
+				if (height < 420)
 					height = 420;
 
 				var top = parseInt((window.screen.height - height) / 2, 10),
@@ -44,14 +44,14 @@ CKEDITOR.tools.extend(CKEDITOR.editor.prototype,
 				var popupWindow = window.open('', null, options, true);
 
 				// Blocked by a popup blocker.
-				if(!popupWindow)
+				if (!popupWindow)
 					return false;
 
 				try
 				{
 					// Chrome 18 is problematic, but it's not really needed here (#8855).
 					var ua = navigator.userAgent.toLowerCase();
-					if(ua.indexOf(' chrome/18') == -1)
+					if (ua.indexOf(' chrome/18') == -1)
 					{
 						popupWindow.moveTo(left, top);
 						popupWindow.resizeTo(width, height);
@@ -59,7 +59,7 @@ CKEDITOR.tools.extend(CKEDITOR.editor.prototype,
 					popupWindow.focus();
 					popupWindow.location.href = url;
 				}
-				catch(e)
+				catch (e)
 				{
 					popupWindow = window.open(url, null, options, true);
 				}

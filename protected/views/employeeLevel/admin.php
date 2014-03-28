@@ -1,18 +1,18 @@
 <?php
 $this->breadcrumbs = array(
-	'Employee Levels'=>array(
+	'Employee Levels' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List EmployeeLevel',
-		'url'=>array(
+		'label' => 'List EmployeeLevel',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create EmployeeLevel',
-		'url'=>array(
+		'label' => 'Create EmployeeLevel',
+		'url' => array(
 			'create')),
 );
 
@@ -41,18 +41,18 @@ $('.search-form form').submit(function(){
 <div class="search-form" style="display:none">
 	<?php
 	$this->renderPartial('_search', array(
-		'model'=>$model,
+		'model' => $model,
 	));
 	?>
 </div><!-- search-form -->
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'employee-level-grid',
-	'dataProvider'=>$model->search(),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'id' => 'employee-level-grid',
+	'dataProvider' => $model->search(),
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		'level',
 		'code',
 		'description',
@@ -60,17 +60,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'divisionId',
 		//'isManager',
 		array(
-			'name'=>'isManager',
-			'type'=>'raw',
-			'value'=>'CHtml::encode(($data->isManager == "1")?"Yes":"No")',
+			'name' => 'isManager',
+			'type' => 'raw',
+			'value' => 'CHtml::encode(($data->isManager == "1")?"Yes":"No")',
 		),
 		array(
-			'name'=>'status',
-			'type'=>'raw',
-			'value'=>'CHtml::encode(($data->status == "1")?"ใช้งาน":"ไม่ใช้งาน")',
+			'name' => 'status',
+			'type' => 'raw',
+			'value' => 'CHtml::encode(($data->status == "1")?"ใช้งาน":"ไม่ใช้งาน")',
 		),
 		array(
-			'class'=>'CButtonColumn',
+			'class' => 'CButtonColumn',
 		),
 	),
 ));

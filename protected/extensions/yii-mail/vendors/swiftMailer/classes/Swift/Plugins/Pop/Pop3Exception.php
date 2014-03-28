@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file is part of SwiftMailer.
  * (c) 2004-2009 Chris Corbyn
@@ -11,10 +12,10 @@
 
 /**
  * Pop3Exception thrown when an error occurs connecting to a POP3 host.
- *
+ * 
  * @package Swift
  * @subpackage Transport
- *
+ * 
  * @author Chris Corbyn
  */
 class Swift_Plugins_Pop_Pop3Exception extends Swift_IoException
@@ -22,7 +23,7 @@ class Swift_Plugins_Pop_Pop3Exception extends Swift_IoException
 
 	/**
 	 * Create a new Pop3Exception with $message.
-	 *
+	 * 
 	 * @param string $message
 	 */
 	public function __construct($message)

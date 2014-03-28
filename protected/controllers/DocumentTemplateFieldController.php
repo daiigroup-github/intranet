@@ -24,7 +24,7 @@ class DocumentTemplateFieldController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view', array(
-			'model'=>$this->loadModel($id),
+			'model' => $this->loadModel($id),
 		));
 	}
 
@@ -39,18 +39,18 @@ class DocumentTemplateFieldController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['DocumentTemplateField']))
+		if (isset($_POST['DocumentTemplateField']))
 		{
 			$model->attributes = $_POST['DocumentTemplateField'];
 			$model->createDateTime = new CDbExpression('NOW()');
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'index',
-					'id'=>$model->documentTemplateFieldId));
+					'id' => $model->documentTemplateFieldId));
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -66,17 +66,17 @@ class DocumentTemplateFieldController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['DocumentTemplateField']))
+		if (isset($_POST['DocumentTemplateField']))
 		{
 			$model->attributes = $_POST['DocumentTemplateField'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'index',
-					'id'=>$model->documentTemplateFieldId));
+					'id' => $model->documentTemplateFieldId));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -87,13 +87,13 @@ class DocumentTemplateFieldController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -108,7 +108,7 @@ class DocumentTemplateFieldController extends Controller
 	{
 		$dataProvider = new CActiveDataProvider('DocumentTemplateField');
 		$this->render('index', array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider' => $dataProvider,
 		));
 	}
 
@@ -119,11 +119,11 @@ class DocumentTemplateFieldController extends Controller
 	{
 		$model = new DocumentTemplateField('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['DocumentTemplateField']))
+		if (isset($_GET['DocumentTemplateField']))
 			$model->attributes = $_GET['DocumentTemplateField'];
 
 		$this->render('index', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -135,7 +135,7 @@ class DocumentTemplateFieldController extends Controller
 	public function loadModel($id)
 	{
 		$model = DocumentTemplateField::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -146,7 +146,7 @@ class DocumentTemplateFieldController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'document-template-field-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'document-template-field-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

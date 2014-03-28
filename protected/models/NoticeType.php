@@ -44,17 +44,17 @@ class NoticeType extends CActiveRecord
 			array(
 				'noticeTypeCode',
 				'length',
-				'max'=>10),
+				'max' => 10),
 			array(
 				'noticeTypeName',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'noticeTypeId, noticeTypeCode, noticeTypeName, createDateTime',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -75,10 +75,10 @@ class NoticeType extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'noticeTypeId'=>'Notice Type',
-			'noticeTypeCode'=>'Notice Type Code',
-			'noticeTypeName'=>'Notice Type Name',
-			'createDateTime'=>'Create Date Time',
+			'noticeTypeId' => 'Notice Type',
+			'noticeTypeCode' => 'Notice Type Code',
+			'noticeTypeName' => 'Notice Type Name',
+			'createDateTime' => 'Create Date Time',
 		);
 	}
 
@@ -99,7 +99,7 @@ class NoticeType extends CActiveRecord
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -108,9 +108,9 @@ class NoticeType extends CActiveRecord
 		$models = NoticeType::model()->findAll();
 
 		$w = array(
-			''=>'Choose..');
+			'' => 'Choose..');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->noticeTypeId] = $model->noticeTypeName;
 		}

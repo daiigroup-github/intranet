@@ -6,21 +6,21 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-	'id'=>'search-form',
-	'htmlOptions'=>array(
-		'class'=>'well form-search'),
+	'action' => Yii::app()->createUrl($this->route),
+	'method' => 'get',
+	'id' => 'search-form',
+	'htmlOptions' => array(
+		'class' => 'well form-search'),
 	));
 ?>
 
 <?php
 echo $form->textField($model, 'title', array(
-	'class'=>'input-medium search-query'));
+	'class' => 'input-medium search-query'));
 ?>
 <?php
 echo CHtml::submitButton('Search', array(
-	'class'=>'btn'));
+	'class' => 'btn'));
 ?>
 
 <?php $this->endWidget(); ?>

@@ -1,19 +1,19 @@
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'exam-title-form',
+	'id' => 'exam-title-form',
 	//'enableAjaxValidation' => true,
-	'enableClientValidation'=>true,
-	'clientOptions'=>array(
-		'validateOnSubmit'=>true,),
-	'htmlOptions'=>array(
-		'class'=>'form-horizontal'),
+	'enableClientValidation' => true,
+	'clientOptions' => array(
+		'validateOnSubmit' => true,),
+	'htmlOptions' => array(
+		'class' => 'form-horizontal'),
 	));
 ?>
 
 <p class="note">
 	Fields with <span class="required">*</span> are required.
 	<?php //echo $form->errorSummary($model, '', '', array('class' => 'alert alert-error'));  ?>
-</p>
+</p>	
 
 <fieldset>
 	<div class="control-group">
@@ -21,8 +21,8 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'title', array(
-				'size'=>60,
-				'maxlength'=>200
+				'size' => 60,
+				'maxlength' => 200
 			));
 			?>
 			<?php echo $form->error($model, 'title'); ?>
@@ -45,7 +45,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 	<?php
 	echo CHtml::link('เพิ่มคำถาม', '#', array(
-		'onclick'=>'showQuestionDialog();',));
+		'onclick' => 'showQuestionDialog();',));
 	?>
 	<input type="hidden" value="1" id="firstShow" />
 	<input type="hidden" value="1" id="qId" />
@@ -55,7 +55,7 @@ $form = $this->beginWidget('CActiveForm', array(
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class'=>'btn btn-primary'));
+		'class' => 'btn btn-primary'));
 	?>
 </div>
 <input type="hidden" name="questionOrder" value="1" />
@@ -63,32 +63,32 @@ $form = $this->beginWidget('CActiveForm', array(
 <!-- form -->
 <?php
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-	'id'=>'addQuestionDialog',
+	'id' => 'addQuestionDialog',
 	// additional javascript options for the dialog plugin
-	'options'=>array(
-		'title'=>'Dialog box 1',
-		'autoOpen'=>false,
-		'modal'=>false,
-		'height'=>550,
-		'width'=>400,
-		'buttons'=>array(
-			'Add Question'=>'js:addQuestion',
-			'Cancel'=>'js:function(){ $(this).dialog("close");}',
+	'options' => array(
+		'title' => 'Dialog box 1',
+		'autoOpen' => false,
+		'modal' => false,
+		'height' => 550,
+		'width' => 400,
+		'buttons' => array(
+			'Add Question' => 'js:addQuestion',
+			'Cancel' => 'js:function(){ $(this).dialog("close");}',
 		),
 	),
 ));
 
 $this->widget('ext.jqrelcopy.JQRelcopy', array(
-	'id'=>'copylink',
-	'removeText'=>'<i class="icon-minus icon-white"></i>',
-	'removeHtmlOptions'=>array(
-		'style'=>'color:red',
-		'class'=>'btn btn-danger'
+	'id' => 'copylink',
+	'removeText' => '<i class="icon-minus icon-white"></i>',
+	'removeHtmlOptions' => array(
+		'style' => 'color:red',
+		'class' => 'btn btn-danger'
 	),
-	'options'=>array(
-		'copyClass'=>'newcopy',
-		'clearInputs'=>true,
-		'excludeSelector'=>'.skipcopy',
+	'options' => array(
+		'copyClass' => 'newcopy',
+		'clearInputs' => true,
+		'excludeSelector' => '.skipcopy',
 	)
 ));
 
@@ -104,12 +104,12 @@ $this->endWidget('zii.widgets.jui.CJuiDialog');
 		$("#addQuestionForm").html('');
 <?php
 echo CHtml::ajax(array(
-	'url'=>array(
+	'url' => array(
 		'exam/addQuestion'),
-	'data'=>'js:{firstShow:$("#firstShow").val(), qId:$("#qId").val()}',
-	'dataType'=>'json',
-	'type'=>'POST',
-	'success'=>'function(data){
+	'data' => 'js:{firstShow:$("#firstShow").val(), qId:$("#qId").val()}',
+	'dataType' => 'json',
+	'type' => 'POST',
+	'success' => 'function(data){
 			$("#addQuestionForm").html(data.div);
 			$("#addQuestionDialog").dialog("open");
 		}',
@@ -125,16 +125,16 @@ echo CHtml::ajax(array(
 	{
 <?php
 echo CHtml::ajax(array(
-	'url'=>array(
+	'url' => array(
 		'exam/addQuestion'),
-	'data'=>'js:$("#exam-question-form").serialize()',
-	'dataType'=>'json',
-	'type'=>'POST',
-	'success'=>'function(data){
+	'data' => 'js:$("#exam-question-form").serialize()',
+	'dataType' => 'json',
+	'type' => 'POST',
+	'success' => 'function(data){
 			finishedAddQuestion(data);
 			return false;
 		}',
-	'error'=>'js:function(){alert("error");}',
+	'error' => 'js:function(){alert("error");}',
 ));
 ?>
 	}
@@ -142,7 +142,7 @@ echo CHtml::ajax(array(
 	function finishedAddQuestion(data)
 	{
 		//alert(data.result);
-		if(data.result == true)
+		if (data.result == true)
 		{
 			$("#qId").val(parseInt($("#qId").val()) + 1);
 			$("#question").append(data.div);

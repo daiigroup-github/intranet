@@ -48,7 +48,7 @@
 												},
 												refresh: function(editor)
 												{
-													if(editor.document)
+													if (editor.document)
 													{
 														var funcName = (this.state == CKEDITOR.TRISTATE_ON) ? 'addClass' : 'removeClass';
 														editor.document.getBody()[ funcName ]('cke_show_borders');
@@ -66,7 +66,7 @@
 													var command = editor.addCommand('showborders', commandDefinition);
 													command.canUndo = false;
 
-													if(editor.config.startupShowBorders !== false)
+													if (editor.config.startupShowBorders !== false)
 														command.setState(CKEDITOR.TRISTATE_ON);
 
 													editor.addCss(cssStyleText);
@@ -74,21 +74,21 @@
 													// Refresh the command on setData.
 													editor.on('mode', function()
 													{
-														if(command.state != CKEDITOR.TRISTATE_DISABLED)
+														if (command.state != CKEDITOR.TRISTATE_DISABLED)
 															command.refresh(editor);
 													}, null, null, 100);
 
 													// Refresh the command on wysiwyg frame reloads.
 													editor.on('contentDom', function()
 													{
-														if(command.state != CKEDITOR.TRISTATE_DISABLED)
+														if (command.state != CKEDITOR.TRISTATE_DISABLED)
 															command.refresh(editor);
 													});
 
 													editor.on('removeFormatCleanup', function(evt)
 													{
 														var element = evt.data;
-														if(editor.getCommand('showborders').state == CKEDITOR.TRISTATE_ON &&
+														if (editor.getCommand('showborders').state == CKEDITOR.TRISTATE_ON &&
 																element.is('table') && (!element.hasAttribute('border') || parseInt(element.getAttribute('border'), 10) <= 0))
 															element.addClass(showBorderClassName);
 													});
@@ -99,7 +99,7 @@
 															dataFilter = dataProcessor && dataProcessor.dataFilter,
 															htmlFilter = dataProcessor && dataProcessor.htmlFilter;
 
-													if(dataFilter)
+													if (dataFilter)
 													{
 														dataFilter.addRules(
 																{
@@ -111,14 +111,14 @@
 																							cssClass = attributes[ 'class' ],
 																							border = parseInt(attributes.border, 10);
 
-																					if((!border || border <= 0) && (!cssClass || cssClass.indexOf(showBorderClassName) == -1))
+																					if ((!border || border <= 0) && (!cssClass || cssClass.indexOf(showBorderClassName) == -1))
 																						attributes[ 'class' ] = (cssClass || '') + ' ' + showBorderClassName;
 																				}
 																			}
 																});
 													}
 
-													if(htmlFilter)
+													if (htmlFilter)
 													{
 														htmlFilter.addRules(
 																{
@@ -145,7 +145,7 @@
 									{
 										var dialogName = ev.data.name;
 
-										if(dialogName == 'table' || dialogName == 'tableProperties')
+										if (dialogName == 'table' || dialogName == 'tableProperties')
 										{
 											var dialogDefinition = ev.data.definition,
 													infoTab = dialogDefinition.getContents('info'),
@@ -165,7 +165,7 @@
 											var advTab = dialogDefinition.getContents('advanced'),
 													classField = advTab && advTab.get('advCSSClasses');
 
-											if(classField)
+											if (classField)
 											{
 												classField.setup = CKEDITOR.tools.override(classField.setup, function(originalSetup)
 												{
@@ -182,7 +182,7 @@
 													{
 														originalCommit.apply(this, arguments);
 
-														if(!parseInt(element.getAttribute('border'), 10))
+														if (!parseInt(element.getAttribute('border'), 10))
 															element.addClass('cke_show_border');
 													};
 												});

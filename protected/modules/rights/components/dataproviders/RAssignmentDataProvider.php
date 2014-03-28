@@ -4,7 +4,7 @@ class RAssignmentDataProvider extends CActiveDataProvider
 {
 
 	/**
-	 * @property RAuthorizer
+	 * @property RAuthorizer 
 	 */
 	private $_authorizer;
 
@@ -31,7 +31,7 @@ class RAssignmentDataProvider extends CActiveDataProvider
 	{
 		$data = parent::fetchData();
 
-		foreach($data as $model)
+		foreach ($data as $model)
 			$this->_authorizer->attachUserBehavior($model);
 
 		return $data;

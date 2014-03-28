@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Projects'=>array(
+	'Projects' => array(
 		'index'),
 	$model->projectId,
 );
@@ -26,7 +26,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 </div>
 <h1>โครงการ :  <?php echo $model->projectName; ?></h1>
 <h3>ลูกค้า : <?php
-	if(isset($model->customer))
+	if (isset($model->customer))
 	{
 		echo $model->customer->customerFnTh . " " . $model->customer->customerLnTh;
 	}
@@ -37,8 +37,8 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 	?></h3>
 <?php
 $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
+	'data' => $model,
+	'attributes' => array(
 		'productCatId',
 		'productValue',
 		//'projectName',
@@ -56,23 +56,23 @@ $this->widget('zii.widgets.CDetailView', array(
 	),
 ));
 
-if(isset($process))
+if (isset($process))
 {
-	foreach($process as $item)
+	foreach ($process as $item)
 	{
 		echo "<h3>Process Name : $item->processName</h3>";
 		$sub = Process::model()->findAll("parentId =:parentId", array(
-			":parentId"=>$item->processId));
-		if(count($sub) == 0)
+			":parentId" => $item->processId));
+		if (count($sub) == 0)
 		{
 			//Use by table processImage
 			$processImage = ProcessImage::model()->findAll("processId = :processId", array(
-				":processId"=>$item->processId));
+				":processId" => $item->processId));
 			//Use By table DocumentItem field documentItemName = processId by documentType = Engineer Report(ERE)
 			// $processImage = DocumentItem::model()->xxxxxx ---> result item of document of process in project create by IPHONE from p'TUMM
-			if(isset($processImage))
+			if (isset($processImage))
 			{
-				foreach($processImage as $image)
+				foreach ($processImage as $image)
 				{
 					$imageName = $image->processImageName;
 					echo "<div class='row-fluid alert alert-info'><div class='span12' style='text-align:center'>";
@@ -96,14 +96,14 @@ if(isset($process))
 		{
 			$subprocess = Process::model()->getAllSubProcessByProjectIdAndProcessId($item->projectId, $item->processId);
 			$this->widget('zii.widgets.grid.CGridView', array(
-				'id'=>'process-grid',
-				'dataProvider'=>$subprocess,
+				'id' => 'process-grid',
+				'dataProvider' => $subprocess,
 				//'filter'=>$model,
-				'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-				'columns'=>array(
+				'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+				'columns' => array(
 					array(
-						'name'=>'processName',
-						'value'=>'isset($data->processName)?CHtml::encode($data->processName):"-"',
+						'name' => 'processName',
+						'value' => 'isset($data->processName)?CHtml::encode($data->processName):"-"',
 					),
 					/* array(
 					  'name'=>'processName',
@@ -113,7 +113,7 @@ if(isset($process))
 					//'productCatId',
 					//'productValue',
 					array(
-						'class'=>'CButtonColumn',
+						'class' => 'CButtonColumn',
 					),
 				),
 			));

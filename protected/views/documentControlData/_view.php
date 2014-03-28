@@ -4,7 +4,7 @@
 	<?php
 	echo CHtml::link(CHtml::encode($data->documentControlDataId), array(
 		'view',
-		'id'=>$data->documentControlDataId));
+		'id' => $data->documentControlDataId));
 	?>
 	<br />
 

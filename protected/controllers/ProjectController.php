@@ -29,33 +29,33 @@ class ProjectController extends Controller
 		return array(
 			array(
 				'allow', // allow all users to perform 'index' and 'view' actions
-				'actions'=>array(
+				'actions' => array(
 					'index',
 					'view',
 					'ExportExcel'),
-				'users'=>array(
+				'users' => array(
 					'*'),
 			),
 			array(
 				'allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array(
+				'actions' => array(
 					'create',
 					'update'),
-				'users'=>array(
+				'users' => array(
 					'@'),
 			),
 			array(
 				'allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array(
+				'actions' => array(
 					'admin',
 					'delete',
 					'ExportExcel'),
-				'users'=>array(
+				'users' => array(
 					'admin'),
 			),
 			array(
 				'deny', // deny all users
-				'users'=>array(
+				'users' => array(
 					'*'),
 			),
 		);
@@ -69,10 +69,10 @@ class ProjectController extends Controller
 	{
 		$model = $this->loadModel($id);
 		$process = Process::model()->findAll('projectId=:projectId AND parentId is null', array(
-			':projectId'=>$id));
+			':projectId' => $id));
 		$this->render('view', array(
-			'model'=>$model,
-			'process'=>$process
+			'model' => $model,
+			'process' => $process
 		));
 	}
 
@@ -88,19 +88,19 @@ class ProjectController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if (isset($_POST['Project']))
 		{
 			$model->attributes = $_POST['Project'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->projectId));
+					'id' => $model->projectId));
 		}
 
 		$this->render('create', array(
-			'model'=>$model,
-			'process'=>$process,
-			'subProcess'=>$subProcess
+			'model' => $model,
+			'process' => $process,
+			'subProcess' => $subProcess
 		));
 	}
 
@@ -116,17 +116,17 @@ class ProjectController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Project']))
+		if (isset($_POST['Project']))
 		{
 			$model->attributes = $_POST['Project'];
-			if($model->save())
+			if ($model->save())
 				$this->redirect(array(
 					'view',
-					'id'=>$model->projectId));
+					'id' => $model->projectId));
 		}
 
 		$this->render('update', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
@@ -137,13 +137,13 @@ class ProjectController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if(Yii::app()->request->isPostRequest)
+		if (Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if(!isset($_GET['ajax']))
+			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -170,17 +170,17 @@ class ProjectController extends Controller
 	{
 		$model = new Project('search');
 		//$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Project']))
+		if (isset($_GET['Project']))
 			$model->attributes = $_GET['Project'];
 		$this->render('index', array(
-			'model'=>$model,
+			'model' => $model,
 		));
 	}
 
 	public function actionExportExcel()
 	{
 		$model = new Project('search');
-		if(isset($_POST['Project']))
+		if (isset($_POST['Project']))
 		{
 			throw new Exception(111);
 			$model->attributes = $_GET['Project'];
@@ -202,13 +202,13 @@ class ProjectController extends Controller
 		  Yii::app()->end(); */
 		$factory = new CWidgetFactory();
 		$widget = $factory->createWidget($this, 'application.extensions.EExcelView', array(
-			'dataProvider'=>new CActiveDataProvider($model, array(
-				'pagination'=>false)),
-			'grid_mode'=>'export',
-			'title'=>'Title',
-			'filename'=>'report.xlsx',
-			'stream'=>true,
-			'exportType'=>'Excel2007',
+			'dataProvider' => new CActiveDataProvider($model, array(
+				'pagination' => false)),
+			'grid_mode' => 'export',
+			'title' => 'Title',
+			'filename' => 'report.xlsx',
+			'stream' => true,
+			'exportType' => 'Excel2007',
 		));
 
 		$widget->init();
@@ -223,7 +223,7 @@ class ProjectController extends Controller
 	public function loadModel($id)
 	{
 		$model = Project::model()->findByPk($id);
-		if($model === null)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -234,7 +234,7 @@ class ProjectController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax'] === 'project-form')
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'project-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

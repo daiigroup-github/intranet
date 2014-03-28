@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs = array(
-	'Rights'=>Rights::getBaseUrl(),
+	'Rights' => Rights::getBaseUrl(),
 	Rights::t('core', 'Generate items'),
 );
 ?>
@@ -27,12 +27,12 @@ $this->breadcrumbs = array(
 
 					<?php
 					$this->renderPartial('_generateItems', array(
-						'model'=>$model,
-						'form'=>$form,
-						'items'=>$items,
-						'existingItems'=>$existingItems,
-						'displayModuleHeadingRow'=>true,
-						'basePathLength'=>strlen(Yii::app()->basePath),
+						'model' => $model,
+						'form' => $form,
+						'items' => $items,
+						'existingItems' => $existingItems,
+						'displayModuleHeadingRow' => true,
+						'basePathLength' => strlen(Yii::app()->basePath),
 					));
 					?>
 
@@ -46,14 +46,14 @@ $this->breadcrumbs = array(
 
 			<?php
 			echo CHtml::link(Rights::t('core', 'Select all'), '#', array(
-				'onclick'=>"jQuery('.generate-item-table').find(':checkbox').attr('checked', 'checked'); return false;",
-				'class'=>'selectAllLink'));
+				'onclick' => "jQuery('.generate-item-table').find(':checkbox').attr('checked', 'checked'); return false;",
+				'class' => 'selectAllLink'));
 			?>
 			/
 			<?php
 			echo CHtml::link(Rights::t('core', 'Select none'), '#', array(
-				'onclick'=>"jQuery('.generate-item-table').find(':checkbox').removeAttr('checked'); return false;",
-				'class'=>'selectNoneLink'));
+				'onclick' => "jQuery('.generate-item-table').find(':checkbox').removeAttr('checked'); return false;",
+				'class' => 'selectNoneLink'));
 			?>
 
 		</div>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Array helper class.
  *
@@ -10,8 +9,7 @@
  * @copyright  (c) 2007-2008 Kohana Team
  * @license    http://kohanaphp.com/license.html
  */
-class CArray
-{
+class CArray {
 
 	/**
 	 * Return a callback array from a string, eg: limit[10,20] would become
@@ -23,7 +21,7 @@ class CArray
 	public static function callback_string($str)
 	{
 		// command[param,param]
-		if(preg_match('/([^\[]*+)\[(.+)\]/', (string) $str, $match))
+		if (preg_match('/([^\[]*+)\[(.+)\]/', (string) $str, $match))
 		{
 			// command
 			$command = $match[1];
@@ -41,9 +39,7 @@ class CArray
 			$params = NULL;
 		}
 
-		return array(
-			$command,
-			$params);
+		return array($command, $params);
 	}
 
 	/**
@@ -58,10 +54,10 @@ class CArray
 	public static function rotate($source_array, $keep_keys = TRUE)
 	{
 		$new_array = array();
-		foreach($source_array as $key=> $value)
+		foreach ($source_array as $key => $value)
 		{
 			$value = ($keep_keys === TRUE) ? $value : array_values($value);
-			foreach($value as $k=> $v)
+			foreach ($value as $k => $v)
 			{
 				$new_array[$k][$key] = $v;
 			}
@@ -79,7 +75,7 @@ class CArray
 	 */
 	public static function remove($key, & $array)
 	{
-		if(!array_key_exists($key, $array))
+		if ( ! array_key_exists($key, $array))
 			return NULL;
 
 		$val = $array[$key];
@@ -88,6 +84,7 @@ class CArray
 		return $val;
 	}
 
+	
 	/**
 	 * Extract one or more keys from an array. Each key given after the first
 	 * argument (the array) will be extracted. Keys that do not exist in the
@@ -103,9 +100,9 @@ class CArray
 		$keys = array_slice(func_get_args(), 1);
 
 		$found = array();
-		foreach($keys as $key)
+		foreach ($keys as $key)
 		{
-			if(isset($search[$key]))
+			if (isset($search[$key]))
 			{
 				$found[$key] = $search[$key];
 			}
@@ -126,7 +123,7 @@ class CArray
 	 * @param   mixed   value to unshift
 	 * @return  array
 	 */
-	public static function unshift_assoc(array & $array, $key, $val)
+	public static function unshift_assoc( array & $array, $key, $val)
 	{
 		$array = array_reverse($array, TRUE);
 		$array[$key] = $val;
@@ -145,7 +142,7 @@ class CArray
 	 */
 	public static function map_recursive($callback, array $array)
 	{
-		foreach($array as $key=> $val)
+		foreach ($array as $key => $val)
 		{
 			// Map the callback to the key
 			$array[$key] = is_array($val) ? arr::map_recursive($callback, $val) : call_user_func($callback, $val);
@@ -165,7 +162,7 @@ class CArray
 	 */
 	public static function binary_search($needle, $haystack, $nearest = FALSE, $sort = FALSE)
 	{
-		if($sort === TRUE)
+		if ($sort === TRUE)
 		{
 			sort($haystack);
 		}
@@ -173,10 +170,10 @@ class CArray
 		$high = count($haystack);
 		$low = 0;
 
-		while($high - $low > 1)
+		while ($high - $low > 1)
 		{
 			$probe = ($high + $low) / 2;
-			if($haystack[$probe] < $needle)
+			if ($haystack[$probe] < $needle)
 			{
 				$low = $probe;
 			}
@@ -186,9 +183,9 @@ class CArray
 			}
 		}
 
-		if($high == count($haystack) OR $haystack[$high] != $needle)
+		if ($high == count($haystack) OR $haystack[$high] != $needle)
 		{
-			if($nearest === FALSE)
+			if ($nearest === FALSE)
 				return FALSE;
 
 			// return the nearest value
@@ -213,18 +210,18 @@ class CArray
 		$total = func_num_args();
 
 		$result = array();
-		for($i = 0; $i < $total; $i++)
+		for ($i = 0; $i < $total; $i++)
 		{
-			foreach(func_get_arg($i) as $key=> $val)
+			foreach (func_get_arg($i) as $key => $val)
 			{
-				if(isset($result[$key]))
+				if (isset($result[$key]))
 				{
-					if(is_array($val))
+					if (is_array($val))
 					{
 						// Arrays are merged recursively
 						$result[$key] = arr::merge($result[$key], $val);
 					}
-					elseif(is_int($key))
+					elseif (is_int($key))
 					{
 						// Indexed arrays are appended
 						array_push($result, $val);
@@ -256,11 +253,11 @@ class CArray
 	 */
 	public static function overwrite($array1)
 	{
-		foreach(array_slice(func_get_args(), 1) as $array2)
+		foreach (array_slice(func_get_args(), 1) as $array2)
 		{
-			foreach($array2 as $key=> $value)
+			foreach ($array2 as $key => $value)
 			{
-				if(array_key_exists($key, $array1))
+				if (array_key_exists($key, $array1))
 				{
 					$array1[$key] = $value;
 				}
@@ -279,11 +276,11 @@ class CArray
 	 */
 	public static function range($step = 10, $max = 100)
 	{
-		if($step < 1)
+		if ($step < 1)
 			return array();
 
 		$array = array();
-		for($i = $step; $i <= $max; $i += $step)
+		for ($i = $step; $i <= $max; $i += $step)
 		{
 			$array[$i] = $i;
 		}
@@ -301,9 +298,9 @@ class CArray
 	{
 		$object = new $class;
 
-		foreach($array as $key=> $value)
+		foreach ($array as $key => $value)
 		{
-			if(is_array($value))
+			if (is_array($value))
 			{
 				// Convert the array to an object
 				$value = arr::to_object($value, $class);
@@ -316,6 +313,4 @@ class CArray
 		return $object;
 	}
 
-}
-
-// End arr
+} // End arr

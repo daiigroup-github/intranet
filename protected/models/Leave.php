@@ -11,8 +11,7 @@
  * @property integer $isLate
  * @property string $filePath
  */
-class Leave extends CActiveRecord
-{
+class Leave extends CActiveRecord {
 
 	const LEAVE_SICK_QUOTA = 30;
 	const LEAVE_PERSONAL_QUOTA = 6;
@@ -48,24 +47,21 @@ class Leave extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Leave the static model class
 	 */
-	public static function model($className = __CLASS__)
-	{
+	public static function model($className = __CLASS__) {
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName()
-	{
+	public function tableName() {
 		return 'leave';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
+	public function rules() {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -75,33 +71,32 @@ class Leave extends CActiveRecord
 			array(
 				'status, leaveType',
 				'numerical',
-				'integerOnly'=>true),
+				'integerOnly' => true),
 			array(
 				'documentId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'leaveId, status, documentId, leaveType, isLate, filePath, companyId',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
+	public function relations() {
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'leaveItem'=>array(
+			'leaveItem' => array(
 				self::HAS_MANY,
 				'LeaveItem',
 				'leaveId'),
-			'document'=>array(
+			'document' => array(
 				self::BELONGS_TO,
 				'Document',
 				'documentId'),
@@ -111,14 +106,13 @@ class Leave extends CActiveRecord
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels()
-	{
+	public function attributeLabels() {
 		return array(
-			'leaveId'=>'Leave',
-			'status'=>'Status',
-			'documentId'=>'Document',
-			'leaveType'=>'Leave Type',
-			'isLate'=>'Late',
+			'leaveId' => 'Leave',
+			'status' => 'Status',
+			'documentId' => 'Document',
+			'leaveType' => 'Leave Type',
+			'isLate' => 'Late',
 		);
 	}
 
@@ -126,8 +120,7 @@ class Leave extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
+	public function search() {
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -141,64 +134,67 @@ class Leave extends CActiveRecord
 		$criteria->compare('filePath', $this->filePath);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 	// Custom
-	public function getLeaveTypeArray()
-	{
+	public function getLeaveTypeArray() {
 		return array(
-			self::LEAVE_TYPE_PREGNANCY=>'ลาคลอด',
-			self::LEAVE_TYPE_ORDINATE=>'ลาบวช',
+			self::LEAVE_TYPE_PREGNANCY => 'ลาคลอด',
+			self::LEAVE_TYPE_ORDINATE => 'ลาบวช',
 		);
 	}
 
-	public function getNormalLeaveTypeArray()
-	{
+	public function getNormalLeaveTypeArray() {
 		return array(
-			self::LEAVE_TYPE_SICK=>'ลาป่วย',
-			self::LEAVE_TYPE_PERSONAL=>'ลากิจ',
-			self::LEAVE_TYPE_VOCATION=>'ลาพักร้อน',
+			self::LEAVE_TYPE_SICK => 'ลาป่วย',
+			self::LEAVE_TYPE_PERSONAL => 'ลากิจ',
+			self::LEAVE_TYPE_VOCATION => 'ลาพักร้อน',
 		);
 	}
 
-	public function leaveTypeText($leaveType)
-	{
-		try
-		{
-			if($leaveType == 4 || $leaveType == 5)
-			{
+	public function leaveTypeText($leaveType) {
+		try {
+			if ($leaveType == 4 || $leaveType == 5) {
 				$lt = $this->leaveTypeArray;
-			}
-			else if($leaveType == 1 || $leaveType == 2 || $leaveType == 3)
-			{
+			} else if ($leaveType == 1 || $leaveType == 2 || $leaveType == 3) {
 				$lt = $this->normalLeaveTypeArray;
-			}
-			else
-			{
+			} else {
 				$lt = array(
-					);
+				);
 				$lt[$leaveType] = $leaveType;
 			}
 			return $lt[$leaveType];
-		}
-		catch(Exception $exc)
-		{
+		} catch (Exception $exc) {
 			return $leaveType;
 		}
 	}
 
-	public function sumLeaveDateByLeaveType($leaveType, $employeeId)
-	{
+	public function getLeaveYear($criteria) {
+		$nextSalaryDate = Calendar::model()->findNextSalaryDate();
+		$nextSalaryDateArray = explode("-", $nextSalaryDate->date);
+		$nextSalaryYear = $nextSalaryDateArray[0];
+		$currentYear = date("Y");
+
+		if ($nextSalaryYear > $currentYear) {
+			$criteria->condition .= " AND li.leaveDate BETWEEN '" . ($nextSalaryYear - 1) . "-12-23' AND '$nextSalaryYear-12-22' ";
+		} else {
+			$criteria->condition .= " AND li.leaveDate BETWEEN '" . ($currentYear - 1) . "-12-23' AND '$currentYear-12-22' ";
+		}
+		return $criteria;
+	}
+
+	public function sumLeaveDateByLeaveType($leaveType, $employeeId) {
 		$criteria = new CDbCriteria();
 		$criteria->select = 'SUM(li.leaveTime) AS sumLeaveTime';
 		$criteria->join = 'LEFT JOIN leave_item li ON t.leaveId=li.leaveId';
 		$criteria->join .= ' RIGHT JOIN document d ON t.documentId=d.documentId';
 		$criteria->condition = 't.leaveType=:leaveType AND d.employeeId=:employeeId AND t.status=1';
 		$criteria->params = array(
-			':leaveType'=>$leaveType,
-			':employeeId'=>$employeeId);
+			':leaveType' => $leaveType,
+			':employeeId' => $employeeId);
+		$this->getLeaveYear($criteria);
 
 		//Controller::writeTofile('/tmp/leave', print_r($criteria, true));
 
@@ -206,16 +202,16 @@ class Leave extends CActiveRecord
 		return $model->sumLeaveTime;
 	}
 
-	public function sumWaitApproveLeaveDateByLeaveType($leaveType, $employeeId)
-	{
+	public function sumWaitApproveLeaveDateByLeaveType($leaveType, $employeeId) {
 		$criteria = new CDbCriteria();
 		$criteria->select = 'SUM(li.leaveTime) AS sumLeaveTime';
 		$criteria->join = 'LEFT JOIN leave_item li ON t.leaveId=li.leaveId';
 		$criteria->join .= ' RIGHT JOIN document d ON t.documentId=d.documentId';
 		$criteria->condition = 't.leaveType=:leaveType AND d.employeeId=:employeeId AND t.status=0';
 		$criteria->params = array(
-			':leaveType'=>$leaveType,
-			':employeeId'=>$employeeId);
+			':leaveType' => $leaveType,
+			':employeeId' => $employeeId);
+		$criteria = $this->getLeaveYear($criteria);
 
 		//Controller::writeTofile('/tmp/leave', print_r($criteria, true));
 
@@ -223,13 +219,11 @@ class Leave extends CActiveRecord
 		return $model->sumLeaveTime;
 	}
 
-	public function remainLeaveDateByLeaveType($leaveType, $employeeId)
-	{
+	public function remainLeaveDateByLeaveType($leaveType, $employeeId) {
 		$sumLeaveDate = $this->sumLeaveDateByLeaveType($leaveType, $employeeId);
 		$employeeModel = Employee::model()->findByPk($employeeId);
 
-		switch($leaveType)
-		{
+		switch ($leaveType) {
 			case 1:
 				$quota = self::LEAVE_SICK_QUOTA;
 				break;
@@ -246,23 +240,20 @@ class Leave extends CActiveRecord
 		return $quota - $sumLeaveDate;
 	}
 
-	public function remainWaitApproveLeaveDateByLeaveType($leaveType, $employeeId)
-	{
+	public function remainWaitApproveLeaveDateByLeaveType($leaveType, $employeeId) {
 		$sumLeaveDate = $this->sumWaitApproveLeaveDateByLeaveType($leaveType, $employeeId);
 		$employeeModel = Employee::model()->findByPk($employeeId);
 
 		return $sumLeaveDate;
 	}
 
-	public function remainLeaveText($remainLeave)
-	{
+	public function remainLeaveText($remainLeave) {
 		$remainDate = floor($remainLeave);
 		$remainHour = $remainLeave - $remainDate;
 		return floor($remainDate) . ' วัน ' . ($remainHour / 0.125) . ' ชั่วโมง';
 	}
 
-	public function updateLeaveByDocumentIdAndWorkflowStatusId($documentId, $workflowStatusId)
-	{
+	public function updateLeaveByDocumentIdAndWorkflowStatusId($documentId, $workflowStatusId) {
 		$model = $this->find('documentId=' . $documentId);
 
 		$model->status = ($workflowStatusId == 4) ? 1 : 2;
@@ -270,11 +261,9 @@ class Leave extends CActiveRecord
 		return $model->save();
 	}
 
-	public function sumLeaveTimeByLeaveTimeTypeArray($leaveTimeTypeArray)
-	{
+	public function sumLeaveTimeByLeaveTimeTypeArray($leaveTimeTypeArray) {
 		$sumLeaveTime = 0;
-		foreach($leaveTimeTypeArray as $leaveTimeType)
-		{
+		foreach ($leaveTimeTypeArray as $leaveTimeType) {
 			$sumLeaveTime += LeaveItem::model()->genLeaveTime($leaveTimeType);
 		}
 		return $sumLeaveTime;

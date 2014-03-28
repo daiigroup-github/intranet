@@ -27,7 +27,7 @@
 			var $tooltip;
 
 			// Make sure the item has a title
-			if($this.attr('title').length > 0) {
+			if ($this.attr('title').length > 0) {
 
 				// Empty the title
 				this.title = '';
@@ -41,7 +41,7 @@
 							.hide();
 
 					// Check if we have a title
-					if(settings.title.length > 0) {
+					if (settings.title.length > 0) {
 						// If so, append it to the tooltip
 						$('<div class="heading" />')
 								.appendTo($tooltip)
@@ -170,14 +170,14 @@
 					.addClass('selected')
 					.end()
 					.click(function(e) {
-						if(e.target.type !== 'checkbox') {
-							$(':checkbox', this).trigger('click');
-						}
-					})
+				if (e.target.type !== 'checkbox') {
+					$(':checkbox', this).trigger('click');
+				}
+			})
 					.find(':checkbox')
 					.click(function(event) {
-						$(this).parents('tr:first').toggleClass('selected');
-					});
+				$(this).parents('tr:first').toggleClass('selected');
+			});
 
 			$this.disableSelection();
 		});

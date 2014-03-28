@@ -20,7 +20,7 @@
 							{
 								editor.getStylesSet(function(stylesDefinitions)
 								{
-									if(!stylesList.length)
+									if (!stylesList.length)
 									{
 										var style,
 												styleName;
@@ -79,7 +79,7 @@
 													styleName = style._name;
 													type = style.type;
 
-													if(type != lastType)
+													if (type != lastType)
 													{
 														combo.startGroup(lang[ 'panelTitle' + String(type) ]);
 														lastType = type;
@@ -125,9 +125,9 @@
 													// the styles.
 													for (var value in styles)
 													{
-														if(styles[ value ].checkElementRemovable(element, true))
+														if (styles[ value ].checkElementRemovable(element, true))
 														{
-															if(value != currentValue)
+															if (value != currentValue)
 																this.setValue(value);
 															return;
 														}
@@ -141,7 +141,7 @@
 										},
 										onOpen: function()
 										{
-											if(CKEDITOR.env.ie || CKEDITOR.env.webkit)
+											if (CKEDITOR.env.ie || CKEDITOR.env.webkit)
 												editor.focus();
 
 											var selection = editor.getSelection(),
@@ -156,9 +156,9 @@
 												var style = styles[ name ],
 														type = style.type;
 
-												if(style.checkActive(elementPath))
+												if (style.checkActive(elementPath))
 													this.mark(name);
-												else if(type == CKEDITOR.STYLE_OBJECT && !style.checkApplicable(elementPath))
+												else if (type == CKEDITOR.STYLE_OBJECT && !style.checkApplicable(elementPath))
 												{
 													this.hideItem(name);
 													counter[ type ]--;
@@ -167,19 +167,19 @@
 												counter[ type ]++;
 											}
 
-											if(!counter[ CKEDITOR.STYLE_BLOCK ])
+											if (!counter[ CKEDITOR.STYLE_BLOCK ])
 												this.hideGroup(lang[ 'panelTitle' + String(CKEDITOR.STYLE_BLOCK) ]);
 
-											if(!counter[ CKEDITOR.STYLE_INLINE ])
+											if (!counter[ CKEDITOR.STYLE_INLINE ])
 												this.hideGroup(lang[ 'panelTitle' + String(CKEDITOR.STYLE_INLINE) ]);
 
-											if(!counter[ CKEDITOR.STYLE_OBJECT ])
+											if (!counter[ CKEDITOR.STYLE_OBJECT ])
 												this.hideGroup(lang[ 'panelTitle' + String(CKEDITOR.STYLE_OBJECT) ]);
 										},
 										// Force a reload of the data
 										reset: function()
 										{
-											if(combo)
+											if (combo)
 											{
 												delete combo._.panel;
 												delete combo._.list;

@@ -3,19 +3,19 @@
 /* @var $model EmployeeInfo */
 
 $this->breadcrumbs = array(
-	'Employee Infos'=>array(
+	'Employee Infos' => array(
 		'index'),
 	'Manage',
 );
 
 $this->menu = array(
 	array(
-		'label'=>'List EmployeeInfo',
-		'url'=>array(
+		'label' => 'List EmployeeInfo',
+		'url' => array(
 			'index')),
 	array(
-		'label'=>'Create EmployeeInfo',
-		'url'=>array(
+		'label' => 'Create EmployeeInfo',
+		'url' => array(
 			'create')),
 );
 
@@ -39,7 +39,7 @@ $('.search-form form').submit(function(){
 	<div class="btn-group">
 		<a class="btn search-button"><i class="icon-search"></i></a>
 	</div>
-</div>
+</div>	
 <div class="search-form" style="display:none">
 	<?php /* $this->renderPartial('_search',array(
 	  'model'=>$model,
@@ -48,52 +48,52 @@ $('.search-form form').submit(function(){
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'employee-info-grid',
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
-	'dataProvider'=>ApplicationInterview::model()->switchAction(),
+	'id' => 'employee-info-grid',
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
+	'dataProvider' => ApplicationInterview::model()->switchAction(),
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		//'ID',
 		array(
-			'name'=>'fnTh',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:20%'),
-			'value'=>'CHtml::encode(isset($data->employeeInfo->fnTh) ? $data->employeeInfo->fnTh : "-")',
+			'name' => 'fnTh',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:20%'),
+			'value' => 'CHtml::encode(isset($data->employeeInfo->fnTh) ? $data->employeeInfo->fnTh : "-")',
 		),
 		array(
-			'name'=>'lnTh',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:20%'),
-			'value'=>'CHtml::encode(isset($data->employeeInfo->lnTh) ? $data->employeeInfo->lnTh : "-")',
+			'name' => 'lnTh',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:20%'),
+			'value' => 'CHtml::encode(isset($data->employeeInfo->lnTh) ? $data->employeeInfo->lnTh : "-")',
 		),
 		array(
-			'name'=>'appliedPosition',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:20%'),
-			'value'=>'CHtml::encode(isset($data->employeeInfo->appliedPosition) ? $data->employeeInfo->appliedPosition : "-")',
+			'name' => 'appliedPosition',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:20%'),
+			'value' => 'CHtml::encode(isset($data->employeeInfo->appliedPosition) ? $data->employeeInfo->appliedPosition : "-")',
 		),
 		array(
-			'name'=>'status',
-			'type'=>'raw',
+			'name' => 'status',
+			'type' => 'raw',
 			//'htmlOptions'=>array('style'=>'text-align:left;width:15%'),
-			'value'=>'showStatus($data->status)',
+			'value' => 'showStatus($data->status)',
 		),
 		array(
-			'class'=>'CButtonColumn',
-			'template'=>'{สัมภาษณ์} {ส่งให้นาย}',
-			'buttons'=>array(
-				'สัมภาษณ์'=>array(
-					'name'=>'xxxx',
-					'url'=>'$this->grid->controller->createUrl("view", array("id"=>$data->applicationId,"gridId"=>$this->grid->id,"appInterId"=>$data->primaryKey))',
+			'class' => 'CButtonColumn',
+			'template' => '{สัมภาษณ์} {ส่งให้นาย}',
+			'buttons' => array(
+				'สัมภาษณ์' => array(
+					'name' => 'xxxx',
+					'url' => '$this->grid->controller->createUrl("view", array("id"=>$data->applicationId,"gridId"=>$this->grid->id,"appInterId"=>$data->primaryKey))',
 				//'visible' => '!(ApplicationInterview::model()->Interviewed($data->applicationId))',
 				),
-				'ส่งให้นาย'=>array(
-					'url'=>'$this->grid->controller->createUrl("waitSendCeo", array("id"=>$data->applicationId,"gridId"=>$this->grid->id,"appInterId"=>$data->primaryKey))'
+				'ส่งให้นาย' => array(
+					'url' => '$this->grid->controller->createUrl("waitSendCeo", array("id"=>$data->applicationId,"gridId"=>$this->grid->id,"appInterId"=>$data->primaryKey))'
 					,
-					'visible'=>'ApplicationInterview::model()->InterviewedAll($data->applicationId)',
+					'visible' => 'ApplicationInterview::model()->InterviewedAll($data->applicationId)',
 				),
 			),
 		),
@@ -102,7 +102,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 function showStatus($status)
 {
-	switch($status)
+	switch ($status)
 	{
 		case EmployeeInfo::STATUS_APP_CREATE :
 			return "ส่งใบสมัคร";
@@ -118,13 +118,13 @@ function showStatus($status)
 //--------------------- begin new code --------------------------
 // add the (closed) dialog for the iframe
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
-	'id'=>'cru-dialog',
-	'options'=>array(
-		'title'=>'เลือกผู้สัมภาษณ์งาน',
-		'autoOpen'=>false,
-		'modal'=>true,
-		'width'=>750,
-		'height'=>500,
+	'id' => 'cru-dialog',
+	'options' => array(
+		'title' => 'เลือกผู้สัมภาษณ์งาน',
+		'autoOpen' => false,
+		'modal' => true,
+		'width' => 750,
+		'height' => 500,
 	//'buttons' => array('AA','')
 	),
 ));

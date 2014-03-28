@@ -14,18 +14,18 @@
 			}
 			;
 			var b = function(c) {
-				if(!c.window)
+				if (!c.window)
 					return;
 				var d = c.document, e = new CKEDITOR.dom.element(d.getWindow().$.frameElement), f = d.getBody(), g = d.getDocumentElement(), h = c.window.getViewPaneSize().height, i = d.$.compatMode == 'BackCompat' ? f : g, j = a(i);
 				j += c.config.autoGrow_bottomSpace || 0;
 				var k = c.config.autoGrow_minHeight != undefined ? c.config.autoGrow_minHeight : 200, l = c.config.autoGrow_maxHeight || Infinity;
 				j = Math.max(j, k);
 				j = Math.min(j, l);
-				if(j != h) {
+				if (j != h) {
 					j = c.fire('autoGrow', {currentHeight: h, newHeight: j}).newHeight;
 					c.resize(c.container.getStyle('width'), j, true);
 				}
-				if(i.$.scrollHeight > i.$.clientHeight && j < l)
+				if (i.$.scrollHeight > i.$.clientHeight && j < l)
 					i.setStyle('overflow-y', 'hidden');
 				else
 					i.removeStyle('overflow-y');
@@ -37,7 +37,7 @@
 					for (var e in d)
 						c.on(e, function(f) {
 							var g = c.getCommand('maximize');
-							if(f.editor.mode == 'wysiwyg' && (!g || g.state != CKEDITOR.TRISTATE_ON))
+							if (f.editor.mode == 'wysiwyg' && (!g || g.state != CKEDITOR.TRISTATE_ON))
 								setTimeout(function() {
 									b(f.editor);
 									b(f.editor);

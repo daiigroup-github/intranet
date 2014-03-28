@@ -48,17 +48,17 @@ class Workflow extends CActiveRecord
 			array(
 				'workflowName',
 				'length',
-				'max'=>500),
+				'max' => 500),
 			array(
 				'employeeId, groupId',
 				'length',
-				'max'=>20),
+				'max' => 20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'workflowId, workflowName, employeeId, groupId',
 				'safe',
-				'on'=>'search'),
+				'on' => 'search'),
 		);
 	}
 
@@ -70,19 +70,19 @@ class Workflow extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workflowStates'=>array(
+			'workflowStates' => array(
 				self::HAS_MANY,
 				'WorkflowState',
 				'nextState'),
-			'workflowStates1'=>array(
+			'workflowStates1' => array(
 				self::HAS_MANY,
 				'WorkflowState',
 				'currentState'),
-			'employee'=>array(
+			'employee' => array(
 				self::BELONGS_TO,
 				'Employee',
 				'employeeId'),
-			'group'=>array(
+			'group' => array(
 				self::BELONGS_TO,
 				'Group',
 				'groupId'),
@@ -95,10 +95,10 @@ class Workflow extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowId'=>'Workflow',
-			'workflowName'=>'Workflow Name',
-			'employeeId'=>'Employee',
-			'groupId'=>'Employee Group',
+			'workflowId' => 'Workflow',
+			'workflowName' => 'Workflow Name',
+			'employeeId' => 'Employee',
+			'groupId' => 'Employee Group',
 		);
 	}
 
@@ -119,7 +119,7 @@ class Workflow extends CActiveRecord
 		$criteria->compare('groupId', $this->groupId, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
@@ -129,9 +129,9 @@ class Workflow extends CActiveRecord
 		$models = Workflow::model()->findAll();
 
 		$w = array(
-			'0'=>'Workflow');
+			'0' => 'Workflow');
 
-		foreach($models as $model)
+		foreach ($models as $model)
 		{
 			$w[$model->workflowId] = $model->workflowName;
 		}
@@ -142,14 +142,14 @@ class Workflow extends CActiveRecord
 	public function getNameById($workflowId)
 	{
 		$workflow = Workflow::model()->find("workflowId =:workflowId", array(
-			':workflowId'=>$workflowId));
-		if(isset($workflow))
+			':workflowId' => $workflowId));
+		if (isset($workflow))
 		{
 			return $workflow->workflowName;
 		}
 		else
 		{
-			if($workflowId == -1)
+			if ($workflowId == -1)
 			{
 				return "ไม่แสดงตอนสร้าง";
 			}
@@ -163,7 +163,7 @@ class Workflow extends CActiveRecord
 	public function checkCanEditState($currentWorkflowId, $editStates, $documentId)
 	{
 		$flag = 0;
-		if(!empty($editStates))
+		if (!empty($editStates))
 		{
 			$employeeId = Yii::app()->user->id;
 
@@ -171,18 +171,18 @@ class Workflow extends CActiveRecord
 			$criteria->join = "LEFT JOIN group_member gm ON t.groupId = gm.groupId";
 			$criteria->condition = "t.workflowId =:workflowId AND (t.employeeId in(:employeeId) OR gm.employeeId in(:employeeId))";
 			$criteria->params = array(
-				":workflowId"=>$currentWorkflowId,
-				":employeeId"=>$employeeId,
-				":employeeId"=>$employeeId);
+				":workflowId" => $currentWorkflowId,
+				":employeeId" => $employeeId,
+				":employeeId" => $employeeId);
 			$result = Workflow::model()->find($criteria);
-			if(count($result) > 0)
+			if (count($result) > 0)
 			{
 				$states = explode(",", $editStates);
-				if(in_array($currentWorkflowId, $states))
+				if (in_array($currentWorkflowId, $states))
 				{
-					if($result->employeeId > 0)
+					if ($result->employeeId > 0)
 					{
-						if($result->employeeId == $employeeId)
+						if ($result->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -191,10 +191,10 @@ class Workflow extends CActiveRecord
 							$flag = 0;
 						}
 					}
-					else if($result->employeeId == -1)
+					else if ($result->employeeId == -1)
 					{
 						$document = Document::model()->findByPk($documentId);
-						if($document->employeeId == $employeeId)
+						if ($document->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -216,23 +216,23 @@ class Workflow extends CActiveRecord
 			else
 			{
 				$states = explode(",", $editStates);
-				if(in_array($currentWorkflowId, $states))
+				if (in_array($currentWorkflowId, $states))
 				{
 					$result = Workflow::model()->find("workflowId=:workflowId", array(
-						":workflowId"=>$currentWorkflowId));
-					if($result->employeeId == 0 && $result->groupId)
+						":workflowId" => $currentWorkflowId));
+					if ($result->employeeId == 0 && $result->groupId)
 					{
 						$document = Document::model()->find("documentId=:documentId", array(
-							":documentId"=>$documentId));
-						if($employeeId == $document->employeeId)
+							":documentId" => $documentId));
+						if ($employeeId == $document->employeeId)
 						{
 							$flag = 1;
 						}
 					}
-					else if($result->employeeId == -1)
+					else if ($result->employeeId == -1)
 					{
 						$document2 = Document::model()->findByPk($documentId);
-						if($document2->employeeId == $employeeId)
+						if ($document2->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -258,26 +258,26 @@ class Workflow extends CActiveRecord
 	public function checkCanAddState($currentWorkflowId, $addStates, $documentId)
 	{
 		$flag = 0;
-		if(!empty($addStates))
+		if (!empty($addStates))
 		{
 			$employeeId = Yii::app()->user->id;
 			$criteria = new CDbCriteria;
 			$criteria->join = "LEFT JOIN group_member gm ON t.groupId = gm.groupId";
 			$criteria->condition = "t.workflowId =:workflowId AND (t.employeeId in(:employeeId) OR gm.employeeId in(:employeeId))";
 			$criteria->params = array(
-				":workflowId"=>$currentWorkflowId,
-				":employeeId"=>$employeeId,
-				":employeeId"=>$employeeId);
+				":workflowId" => $currentWorkflowId,
+				":employeeId" => $employeeId,
+				":employeeId" => $employeeId);
 			$result = Workflow::model()->find($criteria);
-			if(count($result) > 0)
+			if (count($result) > 0)
 			{
 				$states = explode(",", $addStates);
-				if(in_array($currentWorkflowId, $states))
+				if (in_array($currentWorkflowId, $states))
 				{
 
-					if($result->employeeId > 0)
+					if ($result->employeeId > 0)
 					{
-						if($result->employeeId == $employeeId)
+						if ($result->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -286,10 +286,10 @@ class Workflow extends CActiveRecord
 							$flag = 0;
 						}
 					}
-					else if($result->employeeId == -1)
+					else if ($result->employeeId == -1)
 					{
 						$document = Document::model()->findByPk($documentId);
-						if($document->employeeId == $employeeId)
+						if ($document->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -311,23 +311,23 @@ class Workflow extends CActiveRecord
 			else
 			{
 				$states = explode(",", $addStates);
-				if(in_array($currentWorkflowId, $states))
+				if (in_array($currentWorkflowId, $states))
 				{
 					$result = Workflow::model()->find("workflowId=:workflowId", array(
-						":workflowId"=>$currentWorkflowId));
-					if($result->employeeId == 0 && $result->groupId)
+						":workflowId" => $currentWorkflowId));
+					if ($result->employeeId == 0 && $result->groupId)
 					{
 						$document = Document::model()->find("documentId=:documentId", array(
-							":documentId"=>$documentId));
-						if($employeeId == $document->employeeId)
+							":documentId" => $documentId));
+						if ($employeeId == $document->employeeId)
 						{
 							$flag = 1;
 						}
 					}
-					else if($result->employeeId == -1)
+					else if ($result->employeeId == -1)
 					{
 						$document2 = Document::model()->findByPk($documentId);
-						if($document2->employeeId == $employeeId)
+						if ($document2->employeeId == $employeeId)
 						{
 							$flag = 1;
 						}
@@ -352,9 +352,9 @@ class Workflow extends CActiveRecord
 		$criteria->join = "LEFT JOIN group_member gm ON t.groupId = gm.groupId";
 		$criteria->condition = "t.workflowId =:workflowId AND (t.employeeId in(:employeeId) OR gm.employeeId in(:employeeId))";
 		$criteria->params = array(
-			":workflowId"=>$currentWorkflowId,
-			":employeeId"=>$employeeId,
-			":employeeId"=>$employeeId);
+			":workflowId" => $currentWorkflowId,
+			":employeeId" => $employeeId,
+			":employeeId" => $employeeId);
 		$result = $this->findAll($criteria);
 		return $result;
 	}

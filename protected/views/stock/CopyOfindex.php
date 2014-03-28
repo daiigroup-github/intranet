@@ -5,12 +5,12 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	array(
-		'label'=>'Create Stock',
-		'url'=>array(
+		'label' => 'Create Stock',
+		'url' => array(
 			'create')),
 	array(
-		'label'=>'Manage Stock',
-		'url'=>array(
+		'label' => 'Manage Stock',
+		'url' => array(
 			'admin')),
 );
 ?>
@@ -19,7 +19,7 @@ $this->menu = array(
 
 <?php
 $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
+	'dataProvider' => $dataProvider,
+	'itemView' => '_view',
 ));
 ?>

@@ -1,13 +1,11 @@
 <?php
 
-class HomeController extends Controller
-{
+class HomeController extends Controller {
 
 	public $layout = '//layouts/cl2';
 
-	public function actionIndex()
-	{
-		if(Yii::app()->user->isGuest)
+	public function actionIndex() {
+		if (Yii::app()->user->isGuest)
 			$this->redirect(Yii::app()->createUrl('/'));
 
 		$model = new LoginForm();
@@ -15,9 +13,14 @@ class HomeController extends Controller
 		$summary = FitAndFast::model()->gradeByEmployeeId(Yii::app()->user->id);
 
 		$this->render('index', array(
+<<<<<<< HEAD
 			'model'=>$model,
 			'elearningExamModel'=>$elearningExamModel,
 			'summary'=>$summary,
+=======
+			'model' => $model,
+			'elearningExamModel' => $elearningExamModel,
+>>>>>>> FETCH_HEAD
 		));
 	}
 
@@ -48,8 +51,7 @@ class HomeController extends Controller
 	  }
 	 */
 
-	public function actionShowroom()
-	{
+	public function actionShowroom() {
 		$this->render('showroom');
 	}
 

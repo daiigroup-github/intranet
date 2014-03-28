@@ -19,23 +19,23 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id'=>'document-form',
-	'enableAjaxValidation'=>false,
-	'htmlOptions'=>array(
-		'enctype'=>'multipart/form-data',
-		'class'=>'form-horizontal',)));
+	'id' => 'document-form',
+	'enableAjaxValidation' => false,
+	'htmlOptions' => array(
+		'enctype' => 'multipart/form-data',
+		'class' => 'form-horizontal',)));
 ?>
 <?php
-if(isset($_GET["errorMsg"]))
+if (isset($_GET["errorMsg"]))
 	$errorMsg = $_GET["errorMsg"];
 
-if(isset($errorMsg) && !empty($errorMsg))
+if (isset($errorMsg) && !empty($errorMsg))
 {
-	if($errorMsg == "errorConfirm")
+	if ($errorMsg == "errorConfirm")
 	{
 		echo "<p style='color:red;font-size:16px'>รหัสยืนยันไม่ถูกต้อง</p>";
 	}
-	if($errorMsg == "errorWorkflowStatus")
+	if ($errorMsg == "errorWorkflowStatus")
 	{
 		echo "<p style='color:red;font-size:16px'>กรุณาระบุการดำเนินการ</p>";
 	}
@@ -43,7 +43,7 @@ if(isset($errorMsg) && !empty($errorMsg))
 ?>
 <?php
 echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-	'class'=>'alert alert-error'));
+	'class' => 'alert alert-error'));
 ?>
 
 <!-- Document Items -->
@@ -54,7 +54,7 @@ echo $form->errorSummary($model, 'Please fix the following input errors', '', ar
 </h3>
 <?php
 echo $form->hiddenField($documentWorkflowModel, "currentState", array(
-	'name'=>'previousState'));
+	'name' => 'previousState'));
 
 //Leave
 ?>
@@ -71,7 +71,7 @@ echo $form->hiddenField($documentWorkflowModel, "currentState", array(
 		<label class="control-label">เอกสารประกอบการลา</label>
 		<div class="controls">
 			<?php
-			if(strpos($leaveModel->filePath, ".pdf")) //ถ้าเป็น pdf ให้ fancy box โหลด class pdf แทน
+			if (strpos($leaveModel->filePath, ".pdf")) //ถ้าเป็น pdf ให้ fancy box โหลด class pdf แทน
 			{
 				echo "<a class='pdf' Title='$leaveModel->filePath' href='$leaveModel->filePath'>ดูไฟล์แนบ</a> ";
 			}
@@ -81,7 +81,7 @@ echo $form->hiddenField($documentWorkflowModel, "currentState", array(
 			}
 			?>
 			<?php
-			if($leaveModel->document->employeeId == Yii::app()->user->id)
+			if ($leaveModel->document->employeeId == Yii::app()->user->id)
 			{
 				echo $form->fileField($leaveModel, 'filePath');
 			}
@@ -97,19 +97,19 @@ echo $form->hiddenField($documentWorkflowModel, "currentState", array(
 <?php
 echo "<h3>รายการของเอกสาร</h3>"; //.LeaveItem::model()->sumLeaveTimeByLeaveId($leaveModel->leaveId);
 //LeaveItem
-foreach($leaveModel->leaveItem as $leaveItem):
+foreach ($leaveModel->leaveItem as $leaveItem):
 	?>
 	<div class="well">
 		<div class="control-group">
 			<label class="control-label">วันที่ต้องการลา</label>
 			<div class="controls">
-				<?php echo $this->dateThai($leaveItem->leaveDate, 3); ?>
+	<?php echo $this->dateThai($leaveItem->leaveDate, 3); ?>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">เวลาที่ต้องการลา</label>
 			<div class="controls">
-				<?php echo $leaveItem->leaveItemTimeTypeText($leaveItem->leaveTimeType); ?>
+	<?php echo $leaveItem->leaveItemTimeTypeText($leaveItem->leaveTimeType); ?>
 			</div>
 		</div>
 	</div>
@@ -120,38 +120,38 @@ foreach($leaveModel->leaveItem as $leaveItem):
 <h3>Document History</h3>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'history-grid',
-	'dataProvider'=>$workflowLogModel->findAllByDocumentId($model->documentId),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'id' => 'history-grid',
+	'dataProvider' => $workflowLogModel->findAllByDocumentId($model->documentId),
+	'itemsCssClass' => 'table table-striped table-bordered table-condensed',
 	//'filter'=>$model,
-	'columns'=>array(
+	'columns' => array(
 		array(
-			'name'=>'employeeId',
-			'type'=>'raw',
-			'value'=>'CHtml::encode($data->employee->fnTh." ".$data->employee->lnTh)',),
+			'name' => 'employeeId',
+			'type' => 'raw',
+			'value' => 'CHtml::encode($data->employee->fnTh." ".$data->employee->lnTh)',),
 		array(
-			'name'=>'workflowStateId',
-			'type'=>'raw',
+			'name' => 'workflowStateId',
+			'type' => 'raw',
 			//'value' => 'CHtml::encode((isset($data->workflowState->workflowCurrent)) ? $data->workflowState->workflowCurrent->workflowName." (".$data->workflowState->workflowStatus->workflowStatusName.") "  : "แบบร่างเอกสาร")',
-			'value'=>'showWorkflowState($data->workflowState)',),
+			'value' => 'showWorkflowState($data->workflowState)',),
 		'remarks',
 		array(
-			'name'=>'createDateTime',
-			'type'=>'raw',
-			'htmlOptions'=>array(
-				'style'=>'text-align:left;width:17%'),
-			'value'=>'CHtml::encode(isset($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
+			'name' => 'createDateTime',
+			'type' => 'raw',
+			'htmlOptions' => array(
+				'style' => 'text-align:left;width:17%'),
+			'value' => 'CHtml::encode(isset($data->createDateTime) ? Controller::dateThai($data->createDateTime,3) : "-")',
 		)
 	,),));
 ?>
 <?php
-if($this->getWaitProcess($model) != " ")
+if ($this->getWaitProcess($model) != " ")
 {
 	echo "<p style='color:red;font-size:16px'><b>รอดำเนินการจาก </b>" . $this->getWaitProcess($model) . "</p>";
 }
-if(isset($model->documentWorkflow))
+if (isset($model->documentWorkflow))
 {
-	if($model->documentWorkflow->isFinished)
+	if ($model->documentWorkflow->isFinished)
 		echo "<p style='color:green;font-size:16px'><b>เอกสารฉบับนี้ได้สิ้นสุดการดำเนินการแล้ว </b></p>";
 }
 ?>
@@ -162,12 +162,12 @@ if(isset($model->documentWorkflow))
 	{
 <?php
 echo CHtml::ajax(array(
-	'url'=>array(
+	'url' => array(
 		'Document/cancelLeaveDocument/' . $model->documentId),
-	'data'=>"js:$(this).serialize()",
-	'type'=>'post',
-	'dataType'=>'json',
-	'success'=>"function(data){
+	'data' => "js:$(this).serialize()",
+	'type' => 'post',
+	'dataType' => 'json',
+	'success' => "function(data){
 			if (data.status == 'failed')
 			{
 				$('#dialogCancelDocument div.divForForm').html(data.div);
@@ -180,7 +180,7 @@ echo CHtml::ajax(array(
 				setTimeout(\"$('#dialogCancelDocument').dialog('close') \",2500);
 			}
 			else
-			{
+			{	
 				$('#dialogCancelDocument div.divForForm').html(data.div);
 				setTimeout(\"$('#dialogCancelDocument').dialog('close') \",3000);
 				location.href='../outbox';
@@ -193,49 +193,49 @@ echo CHtml::ajax(array(
 </script>
 <?php
 $wfLog = WorkflowLog::model()->findAll("documentId =:documentId AND employeeId NOT IN(:employeeId)", array(
-	"documentId"=>$model->documentId,
-	":employeeId"=>$model->employeeId));
+	"documentId" => $model->documentId,
+	":employeeId" => $model->employeeId));
 $wfLog2 = WorkflowLog::model()->CanDeleteDocFromWorkflowLog($model->documentId);
-if(!isset($_REQUEST["device"]))
+if (!isset($_REQUEST["device"]))
 {
-	if(count($wfLog) == 0 && $model->status == 1 && (Yii::app()->user->Id == $model->employeeId) && $wfLog2)
+	if (count($wfLog) == 0 && $model->status == 1 && (Yii::app()->user->Id == $model->employeeId) && $wfLog2)
 	{
 		echo CHtml::link(($leaveModel->status == 0) ? "ลบเอกสาร" : 'ยกเลิกเอกสาร', "", array(
-			'type'=>'POST',
+			'type' => 'POST',
 			//request type
-			'onclick'=>"{cancelDocument(); $('#dialogCancelDocument').dialog('open');}",
-			'class'=>'input-large btn btn-danger',
-			'id'=>'deleteDocument'));
+			'onclick' => "{cancelDocument(); $('#dialogCancelDocument').dialog('open');}",
+			'class' => 'input-large btn btn-danger',
+			'id' => 'deleteDocument'));
 	}
 }
 ?>
 <?php
 $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 	// the dialog
-	'id'=>'dialogCancelDocument',
-	'options'=>array(
-		'title'=>'ลบเอกสาร',
-		'autoOpen'=>false,
-		'modal'=>true,
-		'width'=>550,
-		'height'=>200,),));
+	'id' => 'dialogCancelDocument',
+	'options' => array(
+		'title' => 'ลบเอกสาร',
+		'autoOpen' => false,
+		'modal' => true,
+		'width' => 550,
+		'height' => 200,),));
 ?>
 <div class="divForForm"></div>
 <?php $this->endWidget(); ?>
 
 <!-- Action -->
 <?php
-if(!isset($_REQUEST["device"]))
+if (!isset($_REQUEST["device"]))
 {
-	if(count($workflowStatus) > 0 && $model->status == 1)
+	if (count($workflowStatus) > 0 && $model->status == 1)
 	{
 		$this->renderPartial('actionView', array(
-			'form'=>$form,
-			'workflowStateModel'=>$workflowStateModel,
-			'workflowStatus'=>$workflowStatus,
-			'workflowLogModel'=>$workflowLogModel,
-			'currentWorkflowState'=>$currentWorkflowState,
-			'documentWorkflowModel'=>$documentWorkflowModel,));
+			'form' => $form,
+			'workflowStateModel' => $workflowStateModel,
+			'workflowStatus' => $workflowStatus,
+			'workflowLogModel' => $workflowLogModel,
+			'currentWorkflowState' => $currentWorkflowState,
+			'documentWorkflowModel' => $documentWorkflowModel,));
 	}
 }
 ?>
@@ -246,15 +246,15 @@ if(!isset($_REQUEST["device"]))
 
 function showWorkflowState($workflowState)
 {
-	if(isset($workflowState))
+	if (isset($workflowState))
 	{
 		$workflowName = "";
 		$workflowStatusName = "";
-		if(isset($workflowState->workflowCurrent))
+		if (isset($workflowState->workflowCurrent))
 		{
 			$workflowName .= $workflowState->workflowCurrent->workflowName;
 		}
-		if(isset($workflowState->workflowStatus))
+		if (isset($workflowState->workflowStatus))
 		{
 			$workflowStatusName .= "( " . $workflowState->workflowStatus->workflowStatusName . " )";
 		}

@@ -2,8 +2,8 @@
 
 	<?php
 	$form = $this->beginWidget('CActiveForm', array(
-		'action'=>Yii::app()->createUrl($this->route),
-		'method'=>'get',
+		'action' => Yii::app()->createUrl($this->route),
+		'method' => 'get',
 	));
 	?>
 
@@ -11,8 +11,8 @@
 		<?php echo $form->label($model, 'noticeTypeId'); ?>
 		<?php
 		echo $form->textField($model, 'noticeTypeId', array(
-			'size'=>20,
-			'maxlength'=>20));
+			'size' => 20,
+			'maxlength' => 20));
 		?>
 	</div>
 
@@ -20,8 +20,8 @@
 		<?php echo $form->label($model, 'noticeTypeName'); ?>
 		<?php
 		echo $form->textField($model, 'noticeTypeName', array(
-			'size'=>60,
-			'maxlength'=>500));
+			'size' => 60,
+			'maxlength' => 500));
 		?>
 	</div>
 

@@ -56,7 +56,7 @@
 
 					var jQuery = window.jQuery;
 
-					if(typeof jQuery == 'undefined')
+					if (typeof jQuery == 'undefined')
 						return;
 
 					// jQuery object methods.
@@ -76,7 +76,7 @@
 										ckeditorGet: function()
 										{
 											var instance = this.eq(0).data('ckeditorInstance');
-											if(!instance)
+											if (!instance)
 												throw "CKEditor not yet initialized, use ckeditor() with callback.";
 											return instance;
 										},
@@ -103,10 +103,10 @@
 										 */
 										ckeditor: function(callback, config)
 										{
-											if(!CKEDITOR.env.isCompatible)
+											if (!CKEDITOR.env.isCompatible)
 												return this;
 
-											if(!jQuery.isFunction(callback))
+											if (!jQuery.isFunction(callback))
 											{
 												var tmp = config;
 												config = callback;
@@ -121,17 +121,17 @@
 														instanceLock = $element.data('_ckeditorInstanceLock'),
 														element = this;
 
-												if(editor && !instanceLock)
+												if (editor && !instanceLock)
 												{
-													if(callback)
+													if (callback)
 														callback.apply(editor, [this]);
 												}
-												else if(!instanceLock)
+												else if (!instanceLock)
 												{
 													// CREATE NEW INSTANCE
 
 													// Handle config.autoUpdateElement inside this plugin if desired.
-													if(config.autoUpdateElement
+													if (config.autoUpdateElement
 															|| (typeof config.autoUpdateElement == 'undefined' && CKEDITOR.config.autoUpdateElement))
 													{
 														config.autoUpdateElementJquery = true;
@@ -152,7 +152,7 @@
 														setTimeout(function()
 														{
 															// Delay bit more if editor is still not ready.
-															if(!editor.element)
+															if (!editor.element)
 															{
 																setTimeout(arguments.callee, 100);
 																return;
@@ -179,7 +179,7 @@
 															});
 
 															// Integrate with form submit.
-															if(editor.config.autoUpdateElementJquery && $element.is('textarea') && $element.parents('form').length)
+															if (editor.config.autoUpdateElementJquery && $element.is('textarea') && $element.parents('form').length)
 															{
 																var onSubmit = function()
 																{
@@ -216,7 +216,7 @@
 															$element.trigger('instanceReady.ckeditor', [editor]);
 
 															// Run given (first) code.
-															if(callback)
+															if (callback)
 																callback.apply(editor, [element]);
 														}, 0);
 													}, null, null, 9999);
@@ -230,16 +230,16 @@
 														setTimeout(function()
 														{
 															// Delay bit more if editor is still not ready.
-															if(!editor.element)
+															if (!editor.element)
 															{
 																setTimeout(arguments.callee, 100);
 																return;
 															}
 
-															if(editor.element.$ == element)
+															if (editor.element.$ == element)
 															{
 																// Run given code.
-																if(callback)
+																if (callback)
 																	callback.apply(editor, [element]);
 															}
 														}, 0);
@@ -251,7 +251,7 @@
 									});
 
 							// New val() method for objects.
-							if(CKEDITOR.config.jqueryOverrideVal)
+							if (CKEDITOR.config.jqueryOverrideVal)
 							{
 								jQuery.fn.val = CKEDITOR.tools.override(jQuery.fn.val, function(oldValMethod)
 								{
@@ -274,9 +274,9 @@
 											var $this = jQuery(this),
 													editor = $this.data('ckeditorInstance');
 
-											if(!forceNative && $this.is('textarea') && editor)
+											if (!forceNative && $this.is('textarea') && editor)
 											{
-												if(isSetter)
+												if (isSetter)
 													editor.setData(newValue);
 												else
 												{
@@ -287,7 +287,7 @@
 											}
 											else
 											{
-												if(isSetter)
+												if (isSetter)
 													oldValMethod.call($this, newValue);
 												else
 												{
