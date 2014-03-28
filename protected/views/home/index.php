@@ -29,46 +29,59 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 	}
 
 </style>
-<div class="hero-unit" style="text-align: center">
-	<h1><image  style="margin-top:-70px;"  height="150px" src="<?php echo Yii::app()->baseUrl . "/images/logo/daii-logo.png" ?>"/> Intranet</h1>
-	<p style="margin-bottom: -50px">ระบบเอกสารภายในสำนักงาน</p>
-</div>
 <?php
-// $basePath = Yii::getPathOfAlias("images");
-//$path =$basePath.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.'activities';
-//throw new Exception($basePath);
-//if( file_exists($path)===true )
-//{
-//	$controllerDirectory = scandir($path);
-//	foreach( $controllerDirectory as $entry )
-//	{
-/* if( $entry{0} =='s' && $entry{1} =='u' && $entry{2} =='b')
-  { */
-
-//			$entryPath = $path.DIRECTORY_SEPARATOR.$entry;
-//			if( strpos(strtolower($entry), 'sub')!==false )
-//			{
-//				$name = substr($entry, 3 , -4);
-/* $subViews[ strtolower($name) ] = array(
-  'name'=>$name,
-  'file'=>$entry,
-  'path'=>$entryPath,
-  ); */
-//$subViews[ strtolower($name) ] = $name;
-//				$subViews[ "sub".$name ] = $name;
-//			}
-
-/* if( is_dir($entryPath)===true )
-  foreach( $this->getAllSubViewInPath($entryPath) as $subViewName=>$subview )
-  $subViews[ $subViewName ] = $subview; */
-/* } */
-//	}
-//}
-//else
-//{
-//	throw new Exception("File exist..");
-//}
+/*
+  <div class="hero-unit" style="text-align: center">
+  <h1><image  style="margin-top:-70px;"  height="150px" src="<?php echo Yii::app()->baseUrl . "/images/logo/daii-logo.png" ?>"/> Intranet</h1>
+  <p style="margin-bottom: -50px">ระบบเอกสารภายในสำนักงาน</p>
+  </div>
+ */
 ?>
+
+<?php
+//Fit And Fast
+?>
+<div class="page-header">
+	<h3>Fit And Fast</h3>
+</div>
+<div class="row">
+	<div class="span3">
+		<h4>ภาพรวมองค์กร</h4>
+		<?php
+		$this->renderPartial('fitfast.views.default._chart', array(
+			'summary'=>$summary));
+		?>
+	</div>
+
+	<div class="span3">
+		<h4>Fit And Fast</h4>
+		<?php
+		$this->renderPartial('fitfast.views.default._chart', array(
+			'summary'=>$summary));
+		?>
+	</div>
+
+	<div class = "span3">
+		<h4>รายการรอส่ง</h4>
+		<?php
+		////show รายการที่รอ upload ของเดือน ปัจจุบัน ย้อนหลังกลับไป
+		foreach(FitAndFast::model()->findAllWaitingForUpload() as $fitAndFastId=> $fitAndFast):
+			?>
+			<div class="alert">
+				<strong><?php echo $fitAndFast['title']; ?></strong>
+				<ul>
+					<?php foreach($fitAndFast['data'] as $month=> $target): ?>
+						<li>
+							<?php echo $target . ' ' . CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl('fitfast/default/upload/' . $fitAndFastId . '/' . $month)); ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		endforeach;
+		?>
+	</div>
+</div>
 
 <?php
 /**
@@ -90,7 +103,7 @@ if($elearningExamModel):
 <div class="row-fluid">
 
 	<div class="span4">
-		<h2>ข่าวสาร & กิจกรรม</h2>
+		<h3>ข่าวสาร & กิจกรรม</h3>
 		<?php
 		$notices = Notice::model()->findNoticeByNoticeTypeCode("A");
 		$i = 0;
@@ -123,7 +136,6 @@ if($elearningExamModel):
 					}
 				}
 				?>
-																																																				<!--  <p><a class="btn btn-info" target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>">รายละเอียด »</a></p>-->
 
 				<?php
 			}
@@ -132,7 +144,7 @@ if($elearningExamModel):
 		?>
 	</div>
 	<div class="span4">
-		<h2>นโยบาย</h2>
+		<h3>นโยบาย</h3>
 		<?php
 		$notices = Notice::model()->findNoticeByNoticeTypeCode("B");
 		$i = 0;
@@ -173,7 +185,7 @@ if($elearningExamModel):
 	</div>
 
 	<div class="span4">
-		<h2>ช่วยเหลือ & สนับสนุน</h2>
+		<h3>ช่วยเหลือ & สนับสนุน</h3>
 		<?php
 		$notices = Notice::model()->findNoticeByNoticeTypeCode("C");
 		$i = 0;

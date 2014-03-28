@@ -118,11 +118,13 @@ class DefaultController extends Controller
 
 	public function actionIndex($id = Null)
 	{
+		$isUpload = true;
 		//check access
 		if(isset($id) && $id != Yii::app()->user->id)
 		{
 			$employee = Employee::model()->findByPk($id);
 			$managerId = $employee->managerId;
+			$isUpload = false;
 
 			if(!in_array(Yii::app()->user->name, array(
 					'kbw')) && Yii::app()->user->id != $managerId)
@@ -170,6 +172,7 @@ class DefaultController extends Controller
 			'companyDivisionId'=>$employeeModel->companyDivisionId,
 			'employeeName'=>$employeeModel->fnTh . ' ' . $employeeModel->lnTh,
 			'summary'=>$summary,
+			'isUpload'=>$isUpload,
 		));
 	}
 
@@ -190,8 +193,8 @@ class DefaultController extends Controller
 				$fileUrl = 'images/fitfast/' . $fileName;
 				$model->{$id2} = $fileUrl;
 
-				$k = array_search($id2, $this->fileArray);
-				$model->{$this->statusFitAndFastArray[$k]} = FitAndFast::STATUS_UPLOADED;
+				$k = array_search($id2, FitAndFast::model()->fileArray);
+				$model->{FitAndFast::model()->statusFitAndFastArray[$k]} = FitAndFast::STATUS_UPLOADED;
 				$model->{$id2 . 'DateTime'} = new CDbExpression('NOW()');
 
 				if($model->save(false))
@@ -235,8 +238,6 @@ class DefaultController extends Controller
 			$k = array_search($_POST['field'], FitAndFast::model()->gradeArray);
 			$sumGrade = array();
 
-			$this->writeToFile('/tmp/sumGrade', print_r($_POST, true));
-
 			if($fitAndFastModel->sumGrade == NULL)
 			{
 				$sumGrade = array(
@@ -248,11 +249,12 @@ class DefaultController extends Controller
 			else
 				$sumGrade = unserialize($fitAndFastModel->sumGrade);
 
+			$this->writeToFile('/tmp/updateGrade', print_r($_POST, true));
+			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true));
+
 			//restore when edit
 			if($fitAndFastModel->{$_POST['field']} != NULL)
-				$sumGrade[$_POST['grade']] -= 1;
-
-			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true), 'a+');
+				$sumGrade[$fitAndFastModel->{$_POST['field']}] -= 1;
 
 			if($fitAndFastModel->{$_POST['field']} != $_POST['grade'])
 			{
@@ -282,7 +284,6 @@ class DefaultController extends Controller
 			{
 				$fitAndFastModel->$_POST['field'] = NULL;
 			}
-
 			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true), 'a+');
 			$fitAndFastModel->sumGrade = serialize($sumGrade);
 

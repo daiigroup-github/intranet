@@ -12,10 +12,12 @@ class HomeController extends Controller
 
 		$model = new LoginForm();
 		$elearningExamModel = ElearningExam::model()->hasExamToday();
+		$summary = FitAndFast::model()->gradeByEmployeeId(Yii::app()->user->id);
 
 		$this->render('index', array(
 			'model'=>$model,
 			'elearningExamModel'=>$elearningExamModel,
+			'summary'=>$summary,
 		));
 	}
 

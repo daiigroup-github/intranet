@@ -153,6 +153,7 @@ class Notice extends CActiveRecord
 		$criteria->params = array(
 			":noticeTypeCode"=>$noticeTypeCode);
 		$criteria->order = "t.updateDateTime DESC, t.createDateTime DESC";
+		$criteria->limit = 3;
 		return Notice::model()->findAll($criteria);
 	}
 

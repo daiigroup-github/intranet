@@ -570,16 +570,17 @@ class FitAndFast extends FitAndFastMaster
 		else
 		{
 			$res = unserialize($model->sumGrade);
-			$res['percent'] = $this->calculatePercent($forYear);
+			$res['percent'] = $this->calculatePercent($forYear, $employeeId);
 		}
 
 		return $res;
 	}
 
-	public function calculatePercent($forYear)
+	public function calculatePercent($forYear, $employeeId = NULL)
 	{
+		$employeeId = (isset($employeeId)) ? $employeeId : Yii::app()->user->id;
 		$fitAndFastModels = FitAndFast::model()->findAll('employeeId=:employeeId AND forYear=:forYear AND sumGrade IS NOT NULL', array(
-			':employeeId'=>Yii::app()->user->id,
+			':employeeId'=>$employeeId,
 			':forYear'=>$forYear));
 
 		$s = 0;
@@ -587,12 +588,14 @@ class FitAndFast extends FitAndFastMaster
 		$SS = 0;
 		$f = 0;
 
+		$handle = fopen('/tmp/calculatePercent', 'a+');
+		if(file_exists('/tmp/calculatePercent'))
+			unlink('/tmp/calculatePercent');
+
 		foreach($fitAndFastModels as $fitAndFastModel)
 		{
 			$sumGrade = unserialize($fitAndFastModel->sumGrade);
-			$handle = fopen('/tmp/calculatePercent', 'w+');
 			fwrite($handle, print_r($sumGrade, true));
-			fclose($handle);
 			$s += $sumGrade['s'];
 			$S += $sumGrade['S'];
 			$SS += $sumGrade['SS'];
@@ -607,9 +610,11 @@ class FitAndFast extends FitAndFastMaster
 
 		if($sum > 0 && $sumPoint > 0)
 		{
+			fwrite($handle, 'sumPoint = ' . $sumPoint . ' sum = ' . $sum . ' devide = ' . $sumPoint / $sum);
 			return number_format(100 * ($sumPoint) / ($sum), 2);
 		}
 
+		fclose($handle);
 		return 0;
 	}
 
@@ -626,7 +631,7 @@ class FitAndFast extends FitAndFastMaster
 		 */
 		$today = strtotime(date('Y-m-d'));
 		$fitAndFastMonth = array_search($field, $this->gradeArray);
-		$next20th = strtotime(date('Y') . '-' . ($fitAndFastMonth + 1) . '-20' + ' +1 month');
+		$next20th = strtotime(date('Y' . '-' . ($fitAndFastMonth + 1) . '-20') . ' +1 month');
 		$grade = '';
 
 		if($today < $next20th)
@@ -676,6 +681,49 @@ class FitAndFast extends FitAndFastMaster
 				return 1;
 				break;
 		}
+	}
+
+	public function findAllWaitingForUpload($forYear = NULL, $employeeId = NULL)
+	{
+		$employeeId = (isset($employeeId)) ? $employeeId : Yii::app()->user->id;
+		$forYear = (isset($forYear)) ? $forYear : date('Y');
+		$res = array();
+
+		$models = $this->findAll('employeeId=:employeeId AND forYear=:forYear', array(
+			':employeeId'=>$employeeId,
+			':forYear'=>$forYear));
+
+		foreach($models as $model)
+		{
+			/**
+			 * หาย้อนหลังไป 1 เดือน
+			 */
+			for($i = date('m') - 2; $i <= date('m') - 1; $i++)
+			{
+				if($model->{$this->statusFitAndFastArray[$i]} == 1)
+				{
+					//echo $model->title . '(' . $model->{$this->targetArray[$i]} . ')' . '<br />';
+					$res[$model->fitAndFastId]['title'] = $model->title;
+					$res[$model->fitAndFastId]['data'][$this->fileArray[$i]] = $model->{$this->targetArray[$i]};
+				}
+			}
+		}
+
+		return $res;
+	}
+
+	public function divisionPercent($divisionId, $forYear = NULL)
+	{
+		$forYear = isset($forYear) ? $forYear : date('Y');
+
+		//find all employees in division
+		$employeeModels = Employee::model()->findAll('status=1 AND divisionId=:divisionId', array(
+			':divisionId'=>$divisionId));
+	}
+
+	public function companyPercent($forYear = NULL)
+	{
+
 	}
 
 }
