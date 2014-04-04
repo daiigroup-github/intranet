@@ -8,10 +8,10 @@
 	<div class="span112">
 		<?php
 		$form = $this->beginWidget('CActiveForm', array(
-		    'id'=>'fit-and-fast-form',
-		    'enableAjaxValidation'=>false,
-		    'htmlOptions'=>array(
-			'class'=>'well'),
+			'id'=>'fit-and-fast-form',
+			'enableAjaxValidation'=>false,
+			'htmlOptions'=>array(
+				'class'=>'well'),
 		));
 		?>
 
@@ -24,12 +24,12 @@
 				<?php echo $form->labelEx($model, 'employeeId'); ?>
 				<?php
 				echo $form->dropDownList($model, 'employeeId', CHtml::listData(Employee::model()->findAll(array(
-					    'condition'=>'status=1',
-					    'select'=>'employeeId, concat(fnTh, " ", lnTh) as fnTh',
-					    'order'=>'fnTh'
-					)), 'employeeId', 'fnTh'), array(
-				    'class'=>'input-block-level',
-				    'prompt'=>'เลือกพนักงาน'
+							'condition'=>'status=1',
+							'select'=>'employeeId, concat(fnTh, " ", lnTh) as fnTh',
+							'order'=>'fnTh'
+						)), 'employeeId', 'fnTh'), array(
+					'class'=>'input-block-level',
+					'prompt'=>'เลือกพนักงาน'
 				));
 				?>
 				<?php echo $form->error($model, 'employeeId'); ?>
@@ -38,17 +38,17 @@
 				<?php echo $form->labelEx($model, 'type'); ?>
 				<?php
 				echo $form->dropDownList($model, 'type', $model->typeArray(), array(
-				    'class'=>'input-block-level',
-				    'prompt'=>'Select Type'));
+					'class'=>'input-block-level',
+					'prompt'=>'Select Type'));
 				?>
 			</div>
 			<div class="span2">
 				<?php echo $form->labelEx($model, 'forYear'); ?>
 				<?php
 				echo $form->dropDownList($model, 'forYear', array(
-				    date('Y'),
-				    date("Y") + 1), array(
-				    'class'=>'input-block-level'));
+					date('Y'),
+					date("Y") + 1), array(
+					'class'=>'input-block-level'));
 				?>
 			</div>
 		</div>
@@ -56,14 +56,14 @@
 		<?php echo $form->labelEx($model, 'title'); ?>
 		<?php
 		echo $form->textField($model, 'title', array(
-		    'class'=>'input-block-level'));
+			'class'=>'input-block-level'));
 		?>
 		<?php echo $form->error($model, 'title'); ?>
 
 		<?php echo $form->labelEx($model, 'description'); ?>
 		<?php
 		echo $form->textArea($model, 'description', array(
-		    'class'=>'input-block-level'));
+			'class'=>'input-block-level'));
 		?>
 		<?php echo $form->error($model, 'description'); ?>
 
@@ -72,7 +72,7 @@
 				<?php echo $form->labelEx($model, 'targetJan'); ?>
 				<?php
 				echo $form->textField($model, 'targetJan', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetJan'); ?>
 			</div>
@@ -81,7 +81,7 @@
 				<?php echo $form->labelEx($model, 'targetFeb'); ?>
 				<?php
 				echo $form->textField($model, 'targetFeb', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetFeb'); ?>
 			</div>
@@ -91,7 +91,7 @@
 				<?php echo $form->labelEx($model, 'targetMar'); ?>
 				<?php
 				echo $form->textField($model, 'targetMar', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetMar'); ?>
 			</div>
@@ -101,7 +101,7 @@
 				<?php echo $form->labelEx($model, 'targetApr'); ?>
 				<?php
 				echo $form->textField($model, 'targetApr', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetApr'); ?>
 			</div>
@@ -113,7 +113,7 @@
 				<?php echo $form->labelEx($model, 'targetMay'); ?>
 				<?php
 				echo $form->textField($model, 'targetMay', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetMay'); ?>
 			</div>
@@ -123,7 +123,7 @@
 				<?php echo $form->labelEx($model, 'targetJun'); ?>
 				<?php
 				echo $form->textField($model, 'targetJun', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetJun'); ?>
 			</div>
@@ -133,7 +133,7 @@
 				<?php echo $form->labelEx($model, 'targetJul'); ?>
 				<?php
 				echo $form->textField($model, 'targetJul', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetJul'); ?>
 			</div>
@@ -143,7 +143,7 @@
 				<?php echo $form->labelEx($model, 'targetAug'); ?>
 				<?php
 				echo $form->textField($model, 'targetAug', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetAug'); ?>
 			</div>
@@ -156,7 +156,7 @@
 				<?php echo $form->labelEx($model, 'targetSep'); ?>
 				<?php
 				echo $form->textField($model, 'targetSep', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetSep'); ?>
 			</div>
@@ -166,7 +166,7 @@
 				<?php echo $form->labelEx($model, 'targetOct'); ?>
 				<?php
 				echo $form->textField($model, 'targetOct', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetOct'); ?>
 			</div>
@@ -176,7 +176,7 @@
 				<?php echo $form->labelEx($model, 'targetNov'); ?>
 				<?php
 				echo $form->textField($model, 'targetNov', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetNov'); ?>
 			</div>
@@ -186,7 +186,7 @@
 				<?php echo $form->labelEx($model, 'targetDec'); ?>
 				<?php
 				echo $form->textField($model, 'targetDec', array(
-				    'class'=>'input-block-level'));
+					'class'=>'input-block-level'));
 				?>
 				<?php echo $form->error($model, 'targetDec'); ?>
 			</div>
@@ -206,7 +206,7 @@
 		<div class="form-actions">
 			<?php
 			echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-			    'class'=>'btn btn-primary'));
+				'class'=>'btn btn-primary'));
 			?>
 		</div>
 		<?php $this->endWidget(); ?>

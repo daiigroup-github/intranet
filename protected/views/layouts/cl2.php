@@ -7,6 +7,15 @@
 				<li><a href="<?php echo Yii::app()->createUrl('/home'); ?>">หน้าหลัก</a></li>
 				<li class="nav-header">Fit And Fast</li>
 				<li><a href="<?php echo Yii::app()->createUrl('fitfast'); ?>">Fit And Fast</a></li>
+				<?php if(Employee::model()->isManager()):?>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด</a></li>
+				<?php endif;?>
+				<?php if(in_array(Yii::app()->user->name, array('kbw', 'npr', 'nsy'))):?>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyEmployee'); ?>">สรุปผลของพนักงาน</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyManager'); ?>">สรุปผลของ ผจก. ฝ่าย</a></li>
+				<?php endif;?>
+
 				<li class="nav-header">ระบบเอกสาร</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/index'); ?>">สร้างเอกสาร</a></li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/draft'); ?>" title="เอกสารที่สร้างและยังไม่ได้ดำเนินการ">แบบร่าง<?php echo "(" . count(Document::model()->findAll(Document::model()->searchDraft(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
@@ -18,7 +27,7 @@
 					<!--<li><a href="<?php echo Yii::app()->createUrl('/memo/create'); ?>" title="เธชเธฃเน�เธฒเธ� memo">เธชเธฃเน�เธฒเธ� Memo</a></li>-->
 				<li><a href="<?php echo Yii::app()->createUrl('/memo/inbox'); ?>" title="memo ที่ได้รับ">ถาดเข้า<?php
 						echo "(" . count(MemoTo::model()->findAll("status = 1 AND employeeId =:userId", array(
-								":userId" => Yii::app()->user->id))) . ")";
+								":userId"=>Yii::app()->user->id))) . ")";
 						?></a></li>
 				<li><a href="<?php echo Yii::app()->createUrl('/memo/outbox'); ?>" title="memo ที่ส่งไป">ถาดออก<?php echo "(" . count(Memo::model()->findAll(Memo::model()->searchOutbox(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
 
@@ -32,13 +41,15 @@
 				<li class="nav-header">ข้อมูลอื่นๆ</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/employee/extension'); ?>">เบอร์ต่อภายใน</a></li>
 				<?php
-				if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "psa" || Yii::app()->user->name == "ksi") {
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "psa" || Yii::app()->user->name == "ksi")
+				{
 					?>
 					<li><a href="<?php echo Yii::app()->createUrl('/employee/extensionAdmin'); ?>">จัดการเบอร์ต่อภายใน</a></li>
 				<?php } ?>
 
 				<?php
-				if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "kbw") {
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "kbw")
+				{
 					?>
 					<li class="nav-header">พนักงาน</li>
 					<li><a href="<?php echo Yii::app()->createUrl('/employee'); ?>">ทั้งหมด</a></li>
@@ -49,10 +60,11 @@
 					<li><a href="<?php echo Yii::app()->createUrl('/leaveReport/FixTimeReport'); ?>">รายงานแก้ไขเวลา</a></li>
 					<li><a href="<?php echo Yii::app()->createUrl('/leaveReport/summaryLeaveReport'); ?>">รายงานสรุปวันลา</a></li>
 					<li><a href="<?php echo Yii::app()->createUrl('/calendar'); ?>">วันตัดรอบเงินเดือน</a></li>
-<?php } ?>
+				<?php } ?>
 				<?php
 //if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu"){
-				if (1 == 2) {
+				if(1 == 2)
+				{
 					?>
 					<li class="nav-header">ลูกค้า</li>
 					<li><a href="<?php echo Yii::app()->createUrl('/customer'); ?>">ทั้งหมด</a></li>
@@ -78,10 +90,11 @@
 					<li><a href="<?php echo Yii::app()->createUrl('/noticeType/admin'); ?>">การจัดการ ประเภท ประกาศ</a></li>
 					<li><a href="<?php echo Yii::app()->createUrl('rights'); ?>">Rights</a></li>
 
-<?php } ?>
+				<?php } ?>
 
 				<?php
-				if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ksi" || Yii::app()->user->name == "blk") {
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ksi" || Yii::app()->user->name == "blk")
+				{
 					?>
 					<li class="nav-header">คลังอุปกรณ์สำนักงาน</li>
 					<li><a href="<?php echo Yii::app()->createUrl('/stock/'); ?>">คลังอุปกรณ์สำนักงาน</a></li>
@@ -90,11 +103,12 @@
 					<li class="nav-header">รายงาน</li>
 					<li><a href="<?php echo Yii::app()->createUrl('/report/'); ?>">ออกรายงาน</a></li>
 
-<?php } ?>
+				<?php } ?>
 
-<?php
-if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "psa") {
-	?>
+				<?php
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ssd" || Yii::app()->user->name == "psa")
+				{
+					?>
 					<li class="nav-header">การจัดการประกาศต่างๆ</li>
 					<li><a href="<?php echo yii::app()->createurl('/notice/admin'); ?>">การจัดการ ประกาศ</a></li>
 					<li><a href="<?php echo yii::app()->createurl('/elearning/generateExam'); ?>">สร้างการสอบ</a></li>
@@ -104,25 +118,25 @@ if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::a
 	</div>
 
 	<div class="span9">
-<?php if (isset($this->breadcrumb)): ?>
+		<?php if(isset($this->breadcrumb)): ?>
 			<div class="row">
 				<div class="span9">
 					<ul class="breadcrumb">
 						<li><i class="icon-home"></i><span class="divider">/</span></li>
-			<?php if (isset($this->breadcrumb)) echo $this->breadcrumb; ?>
+						<?php if(isset($this->breadcrumb)) echo $this->breadcrumb; ?>
 					</ul>
 				</div>
 			</div>
-					<?php endif; ?>
+		<?php endif; ?>
 
-<?php if (isset($this->pageHeader)): ?>
+		<?php if(isset($this->pageHeader)): ?>
 			<div class="page-header">
 				<h1><?php echo $this->pageHeader; ?></h1>
 			</div>
 		<?php endif; ?>
 
-<?php echo $content; ?>
+		<?php echo $content; ?>
 	</div>
 
 </div>
-		<?php $this->endContent(); ?>
+<?php $this->endContent(); ?>

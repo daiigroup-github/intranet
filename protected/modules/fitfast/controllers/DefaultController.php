@@ -21,8 +21,8 @@ class DefaultController extends Controller
 		return array(
 			array(
 				'allow',
-				'actions'=>array(
-					'*'),
+//				'actions'=>array(
+//					'*'),
 				'users'=>array(
 					'@')
 			),
@@ -85,6 +85,7 @@ class DefaultController extends Controller
 
 	public function actionDivision($id1, $id2)
 	{
+		$this->layout = '//layouts/cl2';
 		$companyId = $id1;
 		$companyDivisionId = $id2;
 		$data = array();
@@ -108,12 +109,75 @@ class DefaultController extends Controller
 		{
 			$data['employee'][$i]['name'] = $employeeModel->fnTh . ' ' . $employeeModel->lnTh;
 			$data['employee'][$i]['employeeId'] = $employeeModel->employeeId;
+			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent($employeeModel->employeeId);
 
 			$i++;
 		}
 
 		$this->render('division', array(
 			'data'=>$data));
+	}
+
+	public function actionCompanyEmployee()
+	{
+		$this->layout = '//layouts/cl2';
+
+		$companyModels = Company::model()->findAll();
+		$companyDivisionModels = CompanyDivision::model()->findAll();
+		$sumPercent = 0;
+
+		$i = 0;
+		$k = 0;
+		foreach($companyModels as $companyModel)
+		{
+			$data[$i]['companyName'] = $companyModel->companyNameTh;
+			$data[$i]['companyId'] = $companyModel->companyId;
+
+			$j = 0;
+			foreach($companyDivisionModels as $companyDivisionModel)
+			{
+				if(null == (Employee::model()->find('status=1 AND companyId=:companyId AND companyDivisionId=:companyDivisionId', array(
+						':companyId'=>$companyModel->companyId,
+						':companyDivisionId'=>$companyDivisionModel->companyDivisionId))))
+					continue;
+
+				$data[$i]['division'][$j]['companyDivisionId'] = $companyDivisionModel->companyDivisionId;
+				$data[$i]['division'][$j]['description'] = $companyDivisionModel->description;
+				$data[$i]['division'][$j]['percent'] = FitAndFast::model()->divisionPercent($companyDivisionModel->companyDivisionId, $companyModel->companyId);
+				$sumPercent += $data[$i]['division'][$j]['percent'];
+				$j++;
+				$k++;
+			}
+			$i++;
+		}
+
+		$this->render('company_employee', array(
+			'data'=>$data,
+			'sumPercent'=>number_format($sumPercent / $k, 2)));
+	}
+
+	public function actionCompanyManager()
+	{
+		$this->layout = '//layouts/cl2';
+		$data = array();
+		$i = 0;
+		$sumPercent = 0;
+
+		$employeeModels = Employee::model()->findAll('status=1 AND isManager=1');
+
+		foreach($employeeModels as $employeeModel)
+		{
+			$data['employee'][$i]['name'] = $employeeModel->fnTh . ' ' . $employeeModel->lnTh;
+			$data['employee'][$i]['employeeId'] = $employeeModel->employeeId;
+			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent($employeeModel->employeeId);
+			$sumPercent += $data['employee'][$i]['percent'];
+
+			$i++;
+		}
+
+		$this->render('company_manager', array(
+			'data'=>$data,
+			'percent'=>number_format($sumPercent / $i, 2)));
 	}
 
 	public function actionIndex($id = Null)
@@ -180,6 +244,7 @@ class DefaultController extends Controller
 	{
 		$model = FitAndFast::model()->findByPk($id1);
 		$flag = false;
+		$k = array_search($id2, FitAndFast::model()->fileArray);
 
 		if(isset($_POST['FitAndFast'][$id2]))
 		{
@@ -193,7 +258,6 @@ class DefaultController extends Controller
 				$fileUrl = 'images/fitfast/' . $fileName;
 				$model->{$id2} = $fileUrl;
 
-				$k = array_search($id2, FitAndFast::model()->fileArray);
 				$model->{FitAndFast::model()->statusFitAndFastArray[$k]} = FitAndFast::STATUS_UPLOADED;
 				$model->{$id2 . 'DateTime'} = new CDbExpression('NOW()');
 
@@ -225,6 +289,8 @@ class DefaultController extends Controller
 		$this->render('upload', array(
 			'fitAndFastId'=>$id1,
 			'field'=>$id2,
+			'title'=>$model->title,
+			'target'=>$model->{FitAndFast::model()->targetArray[$k]},
 			'model'=>$model));
 	}
 
@@ -278,10 +344,12 @@ class DefaultController extends Controller
 					$sumGrade[$grade] += 1;
 				}
 
+				$fitAndFastModel->{FitAndFast::model()->statusFitAndFastArray[$k]} = FitAndFast::STATUS_GRADED;
 				$fitAndFastModel->$_POST['field'] = $grade;
 			}
 			else
 			{
+				$fitAndFastModel->{FitAndFast::model()->statusFitAndFastArray[$k]} = FitAndFast::STATUS_UPLOADED;
 				$fitAndFastModel->$_POST['field'] = NULL;
 			}
 			$this->writeToFile('/tmp/sumGrade', print_r($sumGrade, true), 'a+');
@@ -304,6 +372,15 @@ class DefaultController extends Controller
 					'status'=>false,));
 			}
 		}
+	}
+
+	public function actionGradeInCompanyDivision()
+	{
+		$this->layout = '//layouts/cl2';
+		$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
+
+		$this->render('gradeInDivision', array(
+			'res'=>FitAndFast::model()->findAllWaitingForGradeInCompanyDivision($employeeModel->companyDivisionId)));
 	}
 
 }

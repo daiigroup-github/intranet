@@ -27,11 +27,11 @@
 </style>
 
 <?php
-if($summary['percent'] > 80)
+if($percent > 80)
 {
 	$lineColor = '#00aa00';
 }
-else if($summary['percent'] > 50)
+else if($percent > 50)
 {
 	$lineColor = '#ffee00';
 }
@@ -61,6 +61,6 @@ $(function() {
 ");
 ?>
 
-<div class="chart" data-percent="<?php echo $summary['percent']; ?>">
-	<p class="percent"><?php echo $summary['percent']; ?></p>
+<div class="chart" data-percent="<?php echo $percent; ?>">
+	<p class="percent"><?php echo $percent; ?></p>
 </div>
