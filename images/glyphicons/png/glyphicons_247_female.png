@@ -1,4 +1,0 @@
-ts/RController.php (50)
-in /home/dcorp/intranet2.dcorp.co.th/index.php (13)
-2013/11/11 14:20:02 [warning] [application] Failed to set unsafe attribute "value" of "WorkflowLog".
-in /home/dcorp/intranet2.dcorp.co.th/protected/controllers/DocumentController.php (58

@@ -1,3 +1,0 @@
-".' in /home/dcorp/intranet2.dcorp.co.th/framework/web/CWebApplication.php:280
-Stack trace:
-#0 /home/dcorp/intranet2.dcorp.co.th/framework/web/CWebApplication.php(135): CWebApplication->runCont

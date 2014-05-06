@@ -1,4 +1,0 @@
-./assets
-./framework
-./protected/runtime
-./svn-ignore.txt
