@@ -569,8 +569,15 @@ class FitAndFast extends FitAndFastMaster
 		}
 		else
 		{
-			$res = unserialize($model->sumGrade);
-			$res['percent'] = $this->calculatePercent($forYear, $employeeId);
+			if(isset($model))
+			{
+				$res = unserialize($model->sumGrade);
+				$res['percent'] = $this->calculatePercent($forYear, $employeeId);
+			}
+			else
+			{
+				$res['percent'] = 0;
+			}
 		}
 
 		return $res;
