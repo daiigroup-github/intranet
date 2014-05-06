@@ -37,7 +37,7 @@
 
 						<body>
 
-							<?php if (!isset($_GET['device'])): ?>
+							<?php if(!isset($_GET['device'])): ?>
 								<div class="navbar navbar-fixed-top navbar-inverse">
 									<div class="navbar-inner">
 										<div class="container">
@@ -47,7 +47,7 @@
 												<span class="icon-bar"></span>
 											</a>
 											<a class="brand" href="<?php
-											if (Yii::app()->user->name != "Guest")
+											if(Yii::app()->user->name != "Guest")
 											{
 												echo Yii::app()->createUrl('/home');
 											}
@@ -60,7 +60,7 @@
 
 												<?php
 												//if(!Yii::app()->user->isGuest):
-												if (1 == 2):
+												if(1 == 2):
 													?>
 													<ul class="nav">
 														<!--  <li><a href="<?php echo Yii::app()->createUrl('/employee'); ?>">Employee</a></li>
@@ -80,7 +80,7 @@
 													</ul>
 													<?php
 												endif;
-												if (Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu")
+												if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu")
 												{
 													?>
 													<ul class="nav">
@@ -89,7 +89,7 @@
 															<ul class="dropdown-menu">
 																<li><a href="<?php echo Yii::app()->createUrl('/customer'); ?>">ทั้งหมด</a></li>
 															</ul>
-														</li> 
+														</li>
 														<li class="dropdown">
 															<a href="#" class="dropdown-toggle" data-toggle="dropdown">ระยะทาง<b class="caret"></b></a>
 															<ul class="dropdown-menu">
@@ -125,14 +125,43 @@
 																<li><a href="<?php echo Yii::app()->createUrl('rights'); ?>">Rights</a></li>
 															</ul>
 														</li>
+
 													</ul>
 
-												<?php }
+													<?php
+												}
 												?>
+												<ul class="nav">
+													<li class="dropdown">
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown">โรงหนัง<b class="caret"></b></a>
+														<ul class="dropdown-menu">
+															<li><a href="<?php echo Yii::app()->createUrl('theater/reserve/myReservedList'); ?>">รายการจองดูหนังของฉัน</a></li>
+															<li><a href="<?php echo Yii::app()->createUrl('theater'); ?>">จองดูหนัง</a></li>
+															<?php
+															if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "kbw" || Yii::app()->user->name == "ssd")
+															{
+																?>
+																<li><a href="<?php echo Yii::app()->createUrl('theater/theater'); ?>">การจัดการ โรงหนัง</a></li>
+																<li><a href="<?php echo Yii::app()->createUrl('/theater/theaterCategory'); ?>">การจัดการหมวดหมู่หนัง</a></li>
+																<li><a href="<?php echo Yii::app()->createUrl('/theater/theaterMovie'); ?>">การจัดการหนัง และรอบฉาย</a></li>
+															<?php } ?>
+														</ul>
+													</li>
+												</ul>
 
-												<p class="navbar-text pull-right">
-													<?php echo (!Yii::app()->user->isGuest) ? strtoupper(Yii::app()->user->name) . ' : ' . CHtml::link('ลงชื่อออก', Yii::app()->createUrl('/site/logout')) : ''; //CHtml::link('เข้าสู่ระบบ', Yii::app()->createUrl('/site/login')); ?>
-												</p>
+												<ul class="nav pull-right">
+													<li class="dropdown" >
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user icon-white"></i><?php echo (!Yii::app()->user->isGuest) ? strtoupper(Yii::app()->user->name) : ''; //CHtml::link('เข้าสู่ระบบ', Yii::app()->createUrl('/site/login'));                                                                   ?><b class="caret"></b></a>
+														<ul class="dropdown-menu">
+															<li><a href="<?php echo Yii::app()->createUrl('/employee/' . Yii::app()->user->id); ?>"><i class="icon-user"></i>ข้อมูลส่วนตัว</a></li>
+															<li><a href="<?php echo Yii::app()->createUrl('/employee/changePassword/' . Yii::app()->user->id); ?>"><i class="icon-key"></i>เปลี่ยนรหัสผ่าน</a></li>
+															<li><a href="<?php echo Yii::app()->createUrl('/leaveReport/leaveReport'); ?>"><i class="icon-list"></i>รายการใบลา</a></li>
+															<li><a href="<?php echo Yii::app()->createUrl('/document/viewFixtime/' . Yii::app()->user->id); ?>"><i class="icon-list"></i>รายการใบแก้ไขเวลา</a></li>
+															<li class="divider"></li>
+															<li><a href="<?php echo Yii::app()->createUrl('/site/logout/'); ?>"><i class="icon-signout"></i>ออกจากระบบ</a></li>
+														</ul>
+													</li>
+												</ul>
 											</div><!--/.nav-collapse -->
 										</div>
 									</div>
@@ -142,7 +171,7 @@
 							<div class="container">
 
 								<?php echo $content; ?>
-							</div>		
+							</div>
 							<?php /* if(isset($this->breadcrumb)):?>
 							  <div class="row">
 							  <div class="span12">

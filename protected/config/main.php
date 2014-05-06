@@ -24,6 +24,7 @@ return array(
 		'application.extensions.GalleryManager.*',
 		'application.extensions.GalleryManager.models.*',
 		'application.helpers.*',
+		'application.extensions.select2.*',
 	),
 	'modules'=>array(
 // uncomment the following to enable the Gii tool
@@ -39,7 +40,8 @@ return array(
 			'install'=>false, // Whether to install rights.
 //'superuserName'=>'kpu',
 		), // Enables the installer. ), ),
-		'fitfast'
+		'fitfast',
+		'theater',
 	),
 	// application components
 	'components'=>array(
@@ -83,7 +85,7 @@ return array(
 			'dryRun'=>false,
 			'transportOptions'=>array(
 				'host'=>'smtp.gmail.com', //if not work, try smtp.googlemail.com
-				'username'=>'kamon.p@dcorp.co.th',
+				'username'=>'kamon.p@daiigroup.com',
 				'password'=>'84888488ab',
 				'port'=>'465',
 				'encryption'=>'ssl',
@@ -110,9 +112,9 @@ return array(
 		/* 'file'=>array(
 		  'class'=>'application.extensions.file.CFile',
 		  ), */
-		/* 'CALENDAR'=>array(
-		  'class' => 'application.extensions.googlecalendar.googlecalendar',
-		  ), */
+		'CALENDAR'=>array(
+			'class'=>'application.extensions.googlecalendar.googlecalendar',
+		),
 		'image'=>array(
 			'class'=>'application.extensions.image.CImageComponent',
 			// GD or ImageMagick
@@ -127,6 +129,6 @@ return array(
 	'params'=>array(
 // this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-		'sendEmail'=>FALSE,
+		'sendEmail'=>TRUE,
 	),
 );
