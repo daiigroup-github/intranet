@@ -8,6 +8,10 @@ $form = $this->beginWidget('CActiveForm', array(
 		'enctype'=>'multipart/form-data'),
 	));
 ?>
+<div class="alert alert-info">
+	หัวข้อ : <?php echo $title; ?><br />
+	เป้าหมาย : <?php echo $target; ?>
+</div>
 <div class="row-fluid">
 	<div class="span8">
 		<?php echo $form->fileField($model, $field); ?>

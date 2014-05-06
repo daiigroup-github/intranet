@@ -122,7 +122,7 @@ $this->pageHeader = $employeeName;
 								<?php foreach(FitAndFast::model()->actualArray as $k=> $actual): ?>
 									<td>
 										<?php
-										if(empty($faf[FitAndFast::model()->fileArray[$k]]) && !empty($faf[FitAndFast::model()->targetArray[$k]]))
+										if(empty($faf[FitAndFast::model()->fileArray[$k]]) && !empty($faf[FitAndFast::model()->targetArray[$k]]) && $isUpload)
 										{
 											echo CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl($this->id . '/upload/' . $faf['fitAndFastId'] . '/' . FitAndFast::model()->fileArray[$k]), array(
 												'class'=>''));
@@ -212,24 +212,31 @@ $this->pageHeader = $employeeName;
 											else
 											{
 												if($faf[$grade] == 'F')
-													echo '<span class="label label-success">F</span>';
+													echo '<span class="label label-important">F</span>';
 												else
-													echo '<span class="label label-important">' . $faf[$grade] . '</span>';
+													echo '<span class="label label-success">' . $faf[$grade] . '</span>';
 											}
 										}
 										else
 										{
 											if($faf[FitAndFast::model()->statusFitAndFastArray[$l]] == FitAndFast::STATUS_UPLOADED)
 											{
-												if(!empty($faf[FitAndFast::model()->fileArray[$l]]) && !empty($faf[FitAndFast::model()->targetArray[$l]]))
+												if(in_array(Yii::app()->user->name, $this->editGradeUsersArray))
 												{
-													$this->renderPartial('_updateGrade', array(
-														'grade'=>$faf[$grade],
-														'fitAndFastId'=>$faf['fitAndFastId'],
-														'field'=>$grade,
-														'type'=>$t,
-														'btnId'=>ucfirst($grade) . $i,
-													));
+													if(!empty($faf[FitAndFast::model()->fileArray[$l]]) && !empty($faf[FitAndFast::model()->targetArray[$l]]))
+													{
+														$this->renderPartial('_updateGrade', array(
+															'grade'=>$faf[$grade],
+															'fitAndFastId'=>$faf['fitAndFastId'],
+															'field'=>$grade,
+															'type'=>$t,
+															'btnId'=>ucfirst($grade) . $i,
+														));
+													}
+												}
+												else
+												{
+													echo '<span class="label label-warning">รออนุมัติ</span>';
 												}
 											}
 										}

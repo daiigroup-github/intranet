@@ -565,21 +565,29 @@ class FitAndFast extends FitAndFastMaster
 			$res = array(
 				'sumS'=>$model->sumS,
 				'sumF'=>$model->sumF,
-				'percent'=>(($model->sumF + $model->sumS) > 0) ? 100 * $model->sumS / ($model->sumS + $model->sumF) : 0);
+				'percent'=>(($model->sumF + $model->sumS ) > 0) ? 100 * $model->sumS / ($model->sumS + $model->sumF) : 0);
 		}
 		else
 		{
-			$res = unserialize($model->sumGrade);
-			$res['percent'] = $this->calculatePercent($forYear);
+			if(isset($model))
+			{
+				$res = unserialize($model->sumGrade);
+				$res['percent'] = $this->calculatePercent($forYear, $employeeId);
+			}
+			else
+			{
+				$res['percent'] = 0;
+			}
 		}
 
 		return $res;
 	}
 
-	public function calculatePercent($forYear)
+	public function calculatePercent($forYear, $employeeId = NULL)
 	{
+		$employeeId = (isset($employeeId)) ? $employeeId : Yii::app()->user->id;
 		$fitAndFastModels = FitAndFast::model()->findAll('employeeId=:employeeId AND forYear=:forYear AND sumGrade IS NOT NULL', array(
-			':employeeId'=>Yii::app()->user->id,
+			':employeeId'=>$employeeId,
 			':forYear'=>$forYear));
 
 		$s = 0;
@@ -587,12 +595,14 @@ class FitAndFast extends FitAndFastMaster
 		$SS = 0;
 		$f = 0;
 
+		$handle = fopen('/tmp/calculatePercent', 'a+');
+		if(file_exists('/tmp/calculatePercent'))
+			unlink('/tmp/calculatePercent');
+
 		foreach($fitAndFastModels as $fitAndFastModel)
 		{
 			$sumGrade = unserialize($fitAndFastModel->sumGrade);
-			$handle = fopen('/tmp/calculatePercent', 'w+');
 			fwrite($handle, print_r($sumGrade, true));
-			fclose($handle);
 			$s += $sumGrade['s'];
 			$S += $sumGrade['S'];
 			$SS += $sumGrade['SS'];
@@ -603,13 +613,15 @@ class FitAndFast extends FitAndFastMaster
 		$SPoint = $S;
 		$SSPoint = 2 * $SS;
 		$sumPoint = $sPoint + $SPoint + $SSPoint;
-		$sum = $s + $S + (2 * $SS) + $f;
+		$sum = $s + $S + ( 2 * $SS ) + $f;
 
 		if($sum > 0 && $sumPoint > 0)
 		{
-			return number_format(100 * ($sumPoint) / ($sum), 2);
+			fwrite($handle, 'sumPoint = ' . $sumPoint . ' sum = ' . $sum . ' devide = ' . $sumPoint / $sum);
+			return number_format(100 * ($sumPoint ) / ( $sum), 2);
 		}
 
+		fclose($handle);
 		return 0;
 	}
 
@@ -626,7 +638,7 @@ class FitAndFast extends FitAndFastMaster
 		 */
 		$today = strtotime(date('Y-m-d'));
 		$fitAndFastMonth = array_search($field, $this->gradeArray);
-		$next20th = strtotime(date('Y') . '-' . ($fitAndFastMonth + 1) . '-20' + ' +1 month');
+		$next20th = strtotime(date('Y' . '-' . ($fitAndFastMonth + 1 ) . '-20') . ' +1 month');
 		$grade = '';
 
 		if($today < $next20th)
@@ -676,6 +688,125 @@ class FitAndFast extends FitAndFastMaster
 				return 1;
 				break;
 		}
+	}
+
+	public function findAllWaitingForUpload($forYear = NULL, $employeeId = NULL)
+	{
+		$employeeId = (isset($employeeId)) ? $employeeId : Yii::app()->user->id;
+		$forYear = (isset($forYear)) ? $forYear : date('Y');
+		$res = array();
+
+		$models = $this->findAll('employeeId=:employeeId AND forYear=:forYear', array(
+			':employeeId'=>$employeeId,
+			':forYear'=>$forYear));
+
+		foreach($models as $model)
+		{
+			/**
+			 * หาย้อนหลังไป 1 เดือน
+			 * ช่วงแรกให้เริ่มที่ เดือน ม.ค. ก่อน
+			 */
+			//for($i = date('m') - 2; $i <= date('m') - 1; $i++)
+			for($i = 0; $i <= date('m') - 1; $i++)
+			{
+				if($model->{$this->statusFitAndFastArray[$i] } == self::STATUS_CREATED)
+				{
+					//echo $model->title . '(' . $model->{$this->targetArray[$i]} . ')' . '<br />';
+					$res[$model->fitAndFastId]['title'] = $model->title;
+					$res[$model->fitAndFastId]['data'][$this->fileArray[$i]] = $model->{$this->targetArray[$i]
+						};
+				}
+			}
+		}
+
+		return $res;
+	}
+
+	public function divisionPercent($divisionId, $companyId = NULL, $forYear = NULL)
+	{
+		$forYear = isset($forYear) ? $forYear : date('Y');
+
+		if(!isset($companyId))
+		{
+			$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
+			$companyId = $employeeModel->companyId;
+		}
+
+		//find all employees in division
+		$employeeModels = Employee::model()->findAll('status=1 AND companyDivisionId=:divisionId AND companyId=:companyId', array(
+			':divisionId'=>$divisionId
+			,
+			':companyId'=>$companyId));
+		$sumPercent = 0;
+
+		if($employeeModels)
+		{
+			foreach($employeeModels as $employeeModel)
+			{
+				$sumPercent += $this->calculatePercent($forYear, $employeeModel->employeeId);
+			}
+
+			return number_format($sumPercent / sizeof($employeeModels), 2);
+		}
+
+		return 0;
+	}
+
+	public function companyPercent($forYear = NULL)
+	{
+
+	}
+
+	public function findAllWaitingForGradeInCompanyDivision($companyDivisionId, $isManager = NULL, $forYear = NULL)
+	{
+		$forYear = (isset($forYear)) ? $forYear : date('Y');
+		$employees = Employee::model()->findAll('status=1 AND companyDivisionId=:companyDivisionId', array(
+			':companyDivisionId'=>$companyDivisionId));
+		$res = array();
+
+		foreach($employees as $employee)
+		{
+			if($employee->employeeId == Yii::app()->
+				user->id)
+				continue;
+
+			$models = $this->findAll('employeeId=:employeeId AND forYear=:forYear', array(
+				':employeeId'=>$employee->
+				employeeId,
+				':forYear'=>$forYear));
+
+			foreach($models as $model)
+			{
+				/**
+				 * หาย้อนหลังไป 1 เดือน
+				 */
+				//for($i = date('m') - 2; $i <= date('m') - 1; $i++)
+				for($i = 0; $i <= date('m') - 1; $i++)
+				{
+					if($model->{$this->statusFitAndFastArray [$i]} == self::STATUS_UPLOADED)
+					{
+						if($model->{$this->statusFitAndFastArray [
+							$i]} != 2)
+							continue;
+
+						//echo $model->title . '(' . $model->{$this->targetArray[$i]} . ')' . '<br />';
+						$res[$employee->employeeId]['name'] = $model->employee->fnTh . ' ' . $model->employee->lnTh;
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['title'] = $model->title;
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileMonth'] = $this->fileArray[$i];
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileDateTime'] = $model->{$this->fileArray[$i] . 'DateTime'};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileName'] = $model->{$this->fileArray[$i]};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['target'] = $model->{$this->targetArray[$i]};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['gradeMonth'] = $this->gradeArray[$i];
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['type'] = $model->type;
+					}
+				}
+			}
+		}
+
+		$handle = fopen('/tmp/findAllWaitingForGrade', 'w+');
+		fwrite($handle, print_r($res, true));
+		fclose($handle);
+		return $res;
 	}
 
 }

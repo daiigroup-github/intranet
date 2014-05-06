@@ -25,14 +25,12 @@ $this->menu = array(
 
 $this->pageTitle = Yii::app()->name;
 
-$this->pageHeader = $data['company'];
+$this->pageHeader = 'สรุปผล Fit And Fast ผจก. ฝ่าย (' . $percent . '%)';
 ?>
 
 <div class="row">
 	<!-- block -->
 	<div class="span9">
-		<h3>ฝ่าย :: <?php echo $data['division']; ?></h3>
-
 		<ul class="thumbnails">
 
 			<?php foreach($data['employee'] as $employee): ?>

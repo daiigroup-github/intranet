@@ -1,19 +1,32 @@
 <?php
 
-class HomeController extends Controller {
+class HomeController extends Controller
+{
 
 	public $layout = '//layouts/cl2';
 
-	public function actionIndex() {
-		if (Yii::app()->user->isGuest)
+	public function actionIndex()
+	{
+		if(Yii::app()->user->isGuest)
 			$this->redirect(Yii::app()->createUrl('/'));
 
 		$model = new LoginForm();
 		$elearningExamModel = ElearningExam::model()->hasExamToday();
+		$summary = FitAndFast::model()->gradeByEmployeeId(Yii::app()->user->id);
+
+		if(Employee::model()->isManager())
+		{
+			$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
+			$divisionFitAndFastPercent = FitAndFast::model()->divisionPercent($employeeModel->companyDivisionId);
+		}
+
+		//print_r(sizeof(FitAndFast::model()->findAllWaitingForGradeInCompanyDivision(7)));
 
 		$this->render('index', array(
-			'model' => $model,
-			'elearningExamModel' => $elearningExamModel,
+			'model'=>$model,
+			'elearningExamModel'=>$elearningExamModel,
+			'summary'=>$summary,
+			'divisionFitAndFastPercent'=>isset($divisionFitAndFastPercent) ? $divisionFitAndFastPercent : NULL,
 		));
 	}
 
@@ -44,7 +57,8 @@ class HomeController extends Controller {
 	  }
 	 */
 
-	public function actionShowroom() {
+	public function actionShowroom()
+	{
 		$this->render('showroom');
 	}
 

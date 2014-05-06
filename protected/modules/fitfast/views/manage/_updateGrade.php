@@ -2,15 +2,16 @@
 	<?php
 	$sBtnClass = '';
 
-	if ($grade == 'S')
+	if($grade == 'S')
 	{
 		$sBtnClass = 'btn-success';
 	}
 
-	echo CHtml::ajaxLink('S', Yii::app()->createUrl('fitAndFast/updateGrade'), array('type' => 'post',
-		'data' => 'js:{grade:"S", fitAndFastId:' . $fitAndFastId . ', field:"' . $field . '"}',
-		'dataType' => 'json',
-		'success' => 'js:function(data){
+	echo CHtml::ajaxLink('S', Yii::app()->createUrl('fitAndFast/updateGrade'), array(
+		'type'=>'post',
+		'data'=>'js:{grade:"S", fitAndFastId:' . $fitAndFastId . ', field:"' . $field . '"}',
+		'dataType'=>'json',
+		'success'=>'js:function(data){
 			if(data.status == true)
 			{
 				if(data.grade=="S")
@@ -26,22 +27,24 @@
 				alert("ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่");
 			}
 		}',
-	), array('class' => 'btn btn-mini ' . $sBtnClass,
-		'id' => $sBtnId,
-		'confirm' => 'confirm!!',
+		), array(
+		'class'=>'btn btn-mini ' . $sBtnClass,
+		'id'=>$sBtnId,
+		'confirm'=>'confirm!!',
 	));
 
 	$fBtnClass = '';
 
-	if ($grade == 'F')
+	if($grade == 'F')
 	{
 		$fBtnClass = 'btn-danger';
 	}
 
-	echo CHtml::ajaxLink('F', Yii::app()->createUrl('fitAndFast/updateGrade'), array('type' => 'post',
-		'data' => 'js:{grade:"F", fitAndFastId:' . $fitAndFastId . ', field:"' . $field . '"}',
-		'dataType' => 'json',
-		'success' => 'js:function(data){
+	echo CHtml::ajaxLink('F', Yii::app()->createUrl('fitAndFast/updateGrade'), array(
+		'type'=>'post',
+		'data'=>'js:{grade:"F", fitAndFastId:' . $fitAndFastId . ', field:"' . $field . '"}',
+		'dataType'=>'json',
+		'success'=>'js:function(data){
 			if(data.status == true)
 			{
 				if(data.grade=="F")
@@ -57,9 +60,10 @@
 				alert("ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่");
 			}
 		}',
-	), array('class' => 'btn btn-mini ' . $fBtnClass,
-		'id' => $fBtnId,
-		'confirm' => 'confirm!!',
+		), array(
+		'class'=>'btn btn-mini ' . $fBtnClass,
+		'id'=>$fBtnId,
+		'confirm'=>'confirm!!',
 	));
 	?>
 </div>

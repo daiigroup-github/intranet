@@ -26,6 +26,8 @@ $fBtnId = 'f' . $btnId;
 		'success'=>'js:function(data){
 			if(data.status == true)
 			{
+				//$("#' . $SBtnId . '").parent().parent().html(data.grade);
+				window.location.reload();
 				if(data.grade=="S")
 				{
 					$("#' . $SBtnId . '").addClass("btn-success");
@@ -59,6 +61,8 @@ $fBtnId = 'f' . $btnId;
 		'success'=>'js:function(data){
 			if(data.status == true)
 			{
+				//$(".btn-group").html(data.grade);
+				window.location.reload();
 				if(data.grade=="F")
 				{
 					$("#' . $fBtnId . '").addClass("btn-danger");

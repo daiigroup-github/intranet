@@ -183,5 +183,5 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 			</table>
 		<?php endforeach; ?>
 	</div>
-<?php
+	<?php
 endforeach;

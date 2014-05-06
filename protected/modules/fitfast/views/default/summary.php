@@ -25,7 +25,7 @@ $this->breadcrumb = '<li>Fit And Fast</li>';
 									<i class="icon-search"></i> <?php echo $division['name']; ?>
 								</a>
 								<div class="progress">
-									<div class="bar" style="width: <?php //echo $division['score'];      ?>%;"></div>
+									<div class="bar" style="width: <?php //echo $division['score'];          ?>%;"></div>
 								</div>
 							</td>
 						</tr>

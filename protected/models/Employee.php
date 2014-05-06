@@ -851,6 +851,7 @@ class Employee extends CActiveRecord
 		return $this->findAll($criteria);
 	}
 
+
 	public function findAllEmployeeArray()
 	{
 		$result = array();
@@ -860,6 +861,16 @@ class Employee extends CActiveRecord
 			$result[$item->employeeId] = $item->username . " : " . $item->fnTh . " " . $item->lnTh;
 		}
 		return $result;
+    }
+	public function isManager($id = NULL)
+	{
+		$id = isset($id) ? $id : Yii::app()->user->id;
+
+		$model = $this->find('employeeId=:employeeId AND isManager=1', array(
+			':employeeId'=>$id));
+
+		return ($model !== NULL) ? true : false;
+
 	}
 
 }

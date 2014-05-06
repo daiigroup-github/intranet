@@ -30,10 +30,11 @@ class ManageController extends Controller
 		return array(
 			array(
 				'allow',
-				'actions'=>array(
-					'*'),
+				// 'actions'=>array(
+				// 	'*'),
 				'users'=>array(
-					'@')),
+					'@'),
+				'expression'=>'in_array(Yii::app()->user->name, array("kbw", "nsy", "npr"))',),
 //			array('allow',  // allow all users to perform 'index' and 'view' actions
 //				'actions'=>array('index','view'),
 //				'users'=>array('*'),
@@ -46,9 +47,11 @@ class ManageController extends Controller
 //				'actions'=>array('admin','delete'),
 //				'users'=>array('admin'),
 //			),
-//			array('deny',  // deny all users
-//				'users'=>array('*'),
-//			),
+			array(
+				'deny', // deny all users
+				'users'=>array(
+					'*'),
+			),
 		);
 	}
 

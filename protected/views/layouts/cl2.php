@@ -5,6 +5,17 @@
 		<div class="well sidebar-nav">
 			<ul class="nav nav-list">
 				<li><a href="<?php echo Yii::app()->createUrl('/home'); ?>">หน้าหลัก</a></li>
+				<li class="nav-header">Fit And Fast</li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast'); ?>">Fit And Fast</a></li>
+				<?php if(Employee::model()->isManager()):?>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด</a></li>
+				<?php endif;?>
+				<?php if(in_array(Yii::app()->user->name, array('kbw', 'npr', 'nsy'))):?>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyEmployee'); ?>">สรุปผลของพนักงาน</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyManager'); ?>">สรุปผลของ ผจก. ฝ่าย</a></li>
+				<?php endif;?>
+
 				<li class="nav-header">ระบบเอกสาร</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/index'); ?>">สร้างเอกสาร</a></li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/draft'); ?>" title="เอกสารที่สร้างและยังไม่ได้ดำเนินการ">แบบร่าง<?php echo "(" . count(Document::model()->findAll(Document::model()->searchDraft(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
@@ -129,3 +140,4 @@
 
 </div>
 <?php $this->endContent(); ?>
+
