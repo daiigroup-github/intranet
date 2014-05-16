@@ -122,18 +122,27 @@ $this->pageHeader = $employeeName;
 								<?php foreach(FitAndFast::model()->actualArray as $k=> $actual): ?>
 									<td>
 										<?php
-										if(empty($faf[FitAndFast::model()->fileArray[$k]]) && !empty($faf[FitAndFast::model()->targetArray[$k]]) && $isUpload)
+										if(empty($faf[FitAndFast::model()->gradeArray[$k]]) && !empty($faf[FitAndFast::model()->targetArray[$k]]) && $isUpload)
 										{
 											echo CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl($this->id . '/upload/' . $faf['fitAndFastId'] . '/' . FitAndFast::model()->fileArray[$k]), array(
 												'class'=>''));
 										}
-										else
+//										else
+//										{
+//											if($faf[FitAndFast::model()->fileArray[$k]])
+//											{
+//												echo CHtml::link('<i class="icon-file"></i><br />' . $faf[FitAndFast::model()->fileArray[$k] . 'DateTime'], Yii::app()->baseUrl . '/' . $faf[FitAndFast::model()->fileArray[$k]], array(
+//													'class'=>'pdf'));
+//											}
+//										}
+
+										if(empty($faf[FitAndFast::model()->gradeArray[$k]]) && $faf[FitAndFast::model()->fileArray[$k]])
+											echo '<br />';
+
+										if($faf[FitAndFast::model()->fileArray[$k]])
 										{
-											if($faf[FitAndFast::model()->fileArray[$k]])
-											{
-												echo CHtml::link('<i class="icon-file"></i><br />' . $faf[FitAndFast::model()->fileArray[$k] . 'DateTime'], Yii::app()->baseUrl . '/' . $faf[FitAndFast::model()->fileArray[$k]], array(
-													'class'=>'pdf'));
-											}
+											echo CHtml::link('<i class="icon-file"></i> ' . $faf[FitAndFast::model()->fileArray[$k] . 'DateTime'], Yii::app()->baseUrl . '/' . $faf[FitAndFast::model()->fileArray[$k]], array(
+												'class'=>'pdf'));
 										}
 										?>
 

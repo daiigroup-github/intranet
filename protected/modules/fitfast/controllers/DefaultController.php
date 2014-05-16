@@ -246,6 +246,14 @@ class DefaultController extends Controller
 		$flag = false;
 		$k = array_search($id2, FitAndFast::model()->fileArray);
 
+		if($model->{FitAndFast::model()->gradeArray[$k]})
+		{
+			Yii::app()->clientScript->registerScript('checkGradeNotEmpty', '
+				alert("ให้เกรดแล้วไม่สามารถ Upload ใหม่ได้");
+				history.back(1);
+				');
+		}
+
 		if(isset($_POST['FitAndFast'][$id2]))
 		{
 			$file = CUploadedFile::getInstance($model, $id2);
