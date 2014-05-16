@@ -15,3 +15,5 @@ protected/config/params.php
 gallery/
 images/activities/hbd/
 svn-ignore.txt
+
+protected/config/params.php
