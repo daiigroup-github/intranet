@@ -110,6 +110,8 @@ class TheaterShowtime extends TheaterShowtimeMaster
 			$criteria->compare('th.branchId', $branchId);
 		}
 		$criteria->compare('t.status', 1);
+		$criteria->addCondition("t.showDate >=NOW()");
+		$criteria->order = "t.showDate ASC";
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -121,12 +123,15 @@ class TheaterShowtime extends TheaterShowtimeMaster
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria = new CDbCriteria;
-		$criteria->join = "LEFT JOIN theater th ON th.theaterId = t.theaterId";
+		$criteria->join = " LEFT JOIN theater th ON th.theaterId = t.theaterId";
+		$criteria->join .= " INNER JOIN theater_movie tm ON tm.theaterMovieId = t.theaterMovieId";
 		if(isset($branchId))
 		{
 			$criteria->compare('th.branchId', $branchId);
 		}
 		$criteria->compare('t.status', 1);
+		$criteria->addCondition("t.showDate >=NOW()");
+		$criteria->order = "t.showDate ASC";
 		$criteria->group = "t.theaterMovieId";
 
 		return $this->findAll($criteria);

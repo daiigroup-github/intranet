@@ -4,6 +4,8 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 {
 
 	public $maxReserveCode;
+	public $noDateDiff;
+	public $isSeen;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -85,13 +87,16 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria = new CDbCriteria;
+		$criteria->select = "*, DATEDIFF(NOW(),ts.showDate) as noDateDiff , IF((DATEDIFF(NOW(),ts.showDate) >=0),1,0) as isSeen";
+		$criteria->join = " LEFT JOIN theater_showtime ts ON ts.theaterShowtimeId = t.theaterShowTimeId ";
+		$criteria->join .= " INNER JOIN theater_movie tm ON tm.theaterMovieId = ts.theaterMovieId ";
 //		$criteria->compare('LOWER(reserveCode)', strtolower($this->searchText), true, 'OR');
 //		$criteria->compare('theaterShowTimeId', $this->theaterShowTimeId);
-		$criteria->compare('employeeId', $this->employeeId);
-		$criteria->compare('status', 1);
+		$criteria->compare('t.employeeId', $this->employeeId);
+		$criteria->compare('t.status', 1);
 //		$criteria->compare('LOWER(createDateTime)', strtolower($this->searchText), true, 'OR');
 //		$criteria->compare('LOWER(updateDateTime)', strtolower($this->searchText), true, 'OR');
-//		$criteria->order = "reserveCode ASC";
+		$criteria->order = "isSeen ASC,ts.showDate ASC";
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -114,6 +119,18 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 			$result = $maxCode->maxReserveCode + 1;
 		}
 		return $result;
+	}
+
+	public function countReserveInWeek($startWeek, $endWeek, $employeeId)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->join = "LEFT JOIN theater_showtime ts ON ts.theaterShowtimeId = t.theaterShowTimeId";
+//		$criteria->addBetweenCondition("ts.showDate", "'" . $startWeek . "'", "'" . $startWeek . "'");
+		$criteria->addCondition("ts.showDate BETWEEN '$startWeek' AND '$endWeek'", "AND");
+		$criteria->compare("t.status", 1);
+		$criteria->compare("t.employeeId", $employeeId);
+
+		return count($this->findAll($criteria));
 	}
 
 }

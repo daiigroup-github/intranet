@@ -51,13 +51,20 @@ $('.search-form').submit(function(){
 			?>
 		</div>
 	</div>
+	<style>
+		.oldShow
+		{
+			text-decoration:line-through;
+		}
+	</style>
 	<div class="module-body">
 		<?php
 		$this->widget('zii.widgets.grid.CGridView', array(
 			'id'=>'theater-showtime-grid',
 			'dataProvider'=>$model->findAllMyReserved(),
 			//'filter'=>$model,
-			'itemsCssClass'=>'table table-striped table-bordered',
+			'itemsCssClass'=>'table  table-bordered',
+			'rowCssClassExpression'=>'($data->noDateDiff >=1)?"alert alert-danger oldShow":"alert alert-success"',
 			'columns'=>array(
 				array(
 					'class'=>'IndexColumn'),
@@ -89,7 +96,8 @@ $('.search-form').submit(function(){
 							'url'=>'$this->grid->controller->createUrl("/theater/reserve/cancel", array("id"=>$data->primaryKey))',
 							'options'=>array(
 								'onclick'=>'return confirm("คุณต้องการยกเลิกรายการจองนี้หรือไม่ ?")'
-							)
+							),
+							'visible'=>'($data->noDateDiff >= 3)?False:True'
 						)
 					)
 				),

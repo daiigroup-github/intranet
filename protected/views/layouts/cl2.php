@@ -7,14 +7,19 @@
 				<li><a href="<?php echo Yii::app()->createUrl('/home'); ?>">หน้าหลัก</a></li>
 				<li class="nav-header">Fit And Fast</li>
 				<li><a href="<?php echo Yii::app()->createUrl('fitfast'); ?>">Fit And Fast</a></li>
-				<?php if(Employee::model()->isManager()):?>
-				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด</a></li>
-				<?php endif;?>
-				<?php if(in_array(Yii::app()->user->name, array('kbw', 'npr', 'nsy'))):?>
-				<li><a href="<?php echo Yii::app()->createUrl('fitfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
-				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyEmployee'); ?>">สรุปผลของพนักงาน</a></li>
-				<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyManager'); ?>">สรุปผลของ ผจก. ฝ่าย</a></li>
-				<?php endif;?>
+				<?php if(Employee::model()->isManager()): ?>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด</a></li>
+				<?php endif; ?>
+				<?php
+				if(in_array(Yii::app()->user->name, array(
+						'kbw',
+						'npr',
+						'nsy'))):
+					?>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyEmployee'); ?>">สรุปผลของพนักงาน</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyManager'); ?>">สรุปผลของ ผจก. ฝ่าย</a></li>
+				<?php endif; ?>
 
 				<li class="nav-header">ระบบเอกสาร</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/index'); ?>">สร้างเอกสาร</a></li>
@@ -22,6 +27,18 @@
 				<li><a href="<?php echo Yii::app()->createUrl('/document/inbox'); ?>" title="เอกสารที่ได้รับ และ รอดำเนินการ">ถาดเข้า<?php echo "(" . count(Document::model()->findAll(Document::model()->searchInbox(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/outbox'); ?>" title="เอกสารที่สร้าง และ ดำเนินการไปแล้ว">ถาดออก<?php echo "(" . count(Document::model()->findAll(Document::model()->searchOutbox(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
 				<li><a href="<?php echo Yii::app()->createUrl('/document/history'); ?>" title="เอกสารที่เคยดำเนินการไปแล้ว">ประวัติ<?php echo "(" . count(Document::model()->findAll(Document::model()->searchHistory(Yii::app()->user->id)->criteria)) . ")"; ?></a></li>
+
+				<li class="nav-header">โรงหนัง</li>
+				<li><a href="<?php echo Yii::app()->createUrl('theater/reserve/myReservedList'); ?>">รายการจองดูหนังของฉัน</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('theater'); ?>">จองดูหนัง</a></li>
+				<?php
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "kbw" || Yii::app()->user->name == "ssd")
+				{
+					?>
+					<li><a href="<?php echo Yii::app()->createUrl('theater/theater'); ?>">การจัดการ โรงหนัง</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('/theater/theaterCategory'); ?>">การจัดการหมวดหมู่หนัง</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('/theater/theaterMovie'); ?>">การจัดการหนัง และรอบฉาย</a></li>
+				<?php } ?>
 
 				<li class="nav-header">Memo</li>
 					<!--<li><a href="<?php echo Yii::app()->createUrl('/memo/create'); ?>" title="เธชเธฃเน�เธฒเธ� memo">เธชเธฃเน�เธฒเธ� Memo</a></li>-->
@@ -33,10 +50,10 @@
 
 
 				<!--				<li class="nav-header">ส่วนตัว</li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/employee/' . Yii::app()->user->id);  ?>">ข้อมูลส่วนตัว</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/employee/changePassword/' . Yii::app()->user->id);  ?>">เปลี่ยนรหัสผ่าน</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/leaveReport/leaveReport');  ?>">รายงานใบลา</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/document/viewFixtime/' . Yii::app()->user->id);  ?>">รายงานใบแก้ไขเวลา</a></li>-->
+								<li><a href="<?php // echo Yii::app()->createUrl('/employee/' . Yii::app()->user->id);     ?>">ข้อมูลส่วนตัว</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/employee/changePassword/' . Yii::app()->user->id);     ?>">เปลี่ยนรหัสผ่าน</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/leaveReport/leaveReport');     ?>">รายงานใบลา</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/document/viewFixtime/' . Yii::app()->user->id);     ?>">รายงานใบแก้ไขเวลา</a></li>-->
 
 				<li class="nav-header">ข้อมูลอื่นๆ</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/employee/extension'); ?>">เบอร์ต่อภายใน</a></li>

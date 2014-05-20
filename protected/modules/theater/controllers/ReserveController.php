@@ -19,40 +19,48 @@ class ReserveController extends MasterController
 						":theaterShowtimeId"=>$_GET["theaterShowTimeId"])));
 				if($noOfReserved < $showtime->theater->seats)
 				{
-					$reserveQueue = TheaterShowtimeEmployee::model()->find("theaterShowtimeId = :theaterShowtimeId AND employeeId = :employeeId AND status = 2", array(
-						":theaterShowtimeId"=>$_GET["theaterShowTimeId"],
-						':employeeId'=>Yii::app()->user->id));
-					if(isset($reserveQueue))
+					if($this->checkNoOfReserve($showtime->showDate, Yii::app()->user->id))
 					{
-						$reserve = $reserveQueue;
-						$reserve->status = 1;
+						$reserveQueue = TheaterShowtimeEmployee::model()->find("theaterShowtimeId = :theaterShowtimeId AND employeeId = :employeeId AND status = 2", array(
+							":theaterShowtimeId"=>$_GET["theaterShowTimeId"],
+							':employeeId'=>Yii::app()->user->id));
+						if(isset($reserveQueue))
+						{
+							$reserve = $reserveQueue;
+							$reserve->status = 1;
+						}
+						else
+						{
+							$reserve->reserveCode = TheaterShowtimeEmployee::model()->generateReserveCode($_GET["theaterShowTimeId"]);
+							$reserve->theaterShowTimeId = $_GET["theaterShowTimeId"];
+							$reserve->employeeId = Yii::app()->user->id;
+						}
+
+						if(!$reserve->save())
+						{
+							$errorCode = "ระบบไม่สามารถบันทึกการจองได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
+						}
+						else
+						{
+							$emailController = new EmailSend();
+							$emp = Employee::model()->findByPk(Yii::app()->user->id);
+							$toName = $emp->fnTh . "  " . $emp->lnTh;
+							$toEmail = $emp->email . "@daiigroup.com";
+							$movieName = $showtime->movie->title;
+							$showDate = $this->dateThai($showtime->showDate, 2, FALSE);
+							$reservedUrl = Yii::app()->createUrl(Yii::app()->baseUrl . "/theater/reserve/myReservedList");
+							$emailController->mailReserve($toEmail, $toName, $movieName, $showDate, $toName, $reservedUrl, FALSE);
+
+							//Send Email To Manager
+							$toName2 = $emp->manager->fnTh . "  " . $emp->manager->lnTh;
+							$toEmail2 = $emp->manager->email . "@daiigroup.com";
+							$emailController->mailReserve($toEmail2, $toName2, $movieName, $showDate, $toName, $reservedUrl, TRUE);
+						}
 					}
 					else
 					{
-						$reserve->reserveCode = TheaterShowtimeEmployee::model()->generateReserveCode($_GET["theaterShowTimeId"]);
+						$errorCode = "ไม่สามารถทำการจองได้ เนื่องจากจองเกิน 3 ครั้ง ต่อ อาทิตย์";
 						$reserve->theaterShowTimeId = $_GET["theaterShowTimeId"];
-						$reserve->employeeId = Yii::app()->user->id;
-					}
-
-					if(!$reserve->save())
-					{
-						$errorCode = "ระบบไม่สามารถบันทึกการจองได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง";
-					}
-					else
-					{
-						$emailController = new EmailSend();
-						$emp = Employee::model()->findByPk(Yii::app()->user->id);
-						$toName = $emp->fnTh . "  " . $emp->lnTh;
-						$toEmail = $emp->email . "@daiigroup.com";
-						$movieName = $showtime->movie->title;
-						$showDate = $this->dateThai($showtime->showDate, 2, FALSE);
-						$reservedUrl = Yii::app()->createUrl(Yii::app()->baseUrl . "/theater/reserve/myReservedList");
-						$emailController->mailReserve($toEmail, $toName, $movieName, $showDate, $toName, $reservedUrl, FALSE);
-
-						//Send Email To Manager
-						$toName2 = $emp->manager->fnTh . "  " . $emp->manager->lnTh;
-						$toEmail2 = $emp->manager->email . "@daiigroup.com";
-						$emailController->mailReserve($toEmail2, $toName2, $movieName, $showDate, $toName, $reservedUrl, TRUE);
 					}
 				}
 				else
@@ -164,6 +172,29 @@ class ReserveController extends MasterController
 		$this->render("cancel", array(
 			'flag'=>$flag,
 			'reserve'=>$showtimeEmp));
+	}
+
+	public function checkNoOfReserve($showTime, $employeeId)
+	{
+//		$showTime = "2014-05-21";
+		$showTimeArray = explode("-", $showTime);
+		$maximunToWatch = 3; // Settind From Requirement of HR
+		$mondayDayOfWeek = 1;
+		$fridayDayOfWeek = 5;
+		$dayofweek = date('w', strtotime($showTime));
+
+		$startWeek = date("Y-m-d", mktime(0, 0, 0, $showTimeArray[1], $showTimeArray[2] + ($mondayDayOfWeek - $dayofweek), $showTimeArray[0]));
+		$endWeek = date("Y-m-d", mktime(0, 0, 0, $showTimeArray[1], $showTimeArray[2] + ($fridayDayOfWeek - $dayofweek), $showTimeArray[0]));
+
+		$countOldReserveWeek = TheaterShowtimeEmployee::model()->countReserveInWeek($startWeek, $endWeek, $employeeId);
+		if($countOldReserveWeek >= $maximunToWatch)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
 	}
 
 }

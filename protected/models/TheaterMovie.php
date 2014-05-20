@@ -20,6 +20,10 @@ class TheaterMovie extends TheaterMovieMaster
 	{
 		return CMap::mergeArray(parent::rules(), array(
 				//code here
+				array(
+					'searchText',
+					'safe',
+					'on'=>'search'),
 		));
 	}
 
@@ -36,6 +40,12 @@ class TheaterMovie extends TheaterMovieMaster
 					self::BELONGS_TO,
 					'TheaterCategory',
 					'theaterCategoryId'),
+				'showtime'=>array(
+					self::HAS_MANY,
+					'TheaterShowtime',
+					"theaterShowtimeId",
+					'on'=>'status = 1',
+					'order'=>'showDate DESC'),
 		));
 	}
 
@@ -82,6 +92,7 @@ class TheaterMovie extends TheaterMovieMaster
 		$criteria->compare('status', $this->status);
 		$criteria->compare('LOWER(createDateTime)', strtolower($this->searchText), true, 'OR');
 		$criteria->compare('LOWER(updateDateTime)', strtolower($this->searchText), true, 'OR');
+		$criteria->order = "createDateTime DESC";
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

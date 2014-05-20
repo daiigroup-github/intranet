@@ -1,6 +1,6 @@
 <?php
 
-class TheaterMovieController extends Controller
+class TheaterMovieController extends MasterController
 {
 
 	/**
