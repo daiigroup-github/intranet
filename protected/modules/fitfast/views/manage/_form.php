@@ -46,8 +46,8 @@
 				<?php echo $form->labelEx($model, 'forYear'); ?>
 				<?php
 				echo $form->dropDownList($model, 'forYear', array(
-					date('Y'),
-					date("Y") + 1), array(
+					date('Y')=>date('Y'),
+					date("Y") + 1=>date('Y') + 1), array(
 					'class'=>'input-block-level'));
 				?>
 			</div>
