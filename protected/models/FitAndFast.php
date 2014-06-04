@@ -808,5 +808,69 @@ class FitAndFast extends FitAndFastMaster
 		fclose($handle);
 		return $res;
 	}
+	define 
+
+	public function findAllWaitingForGradeInManagement($forYear = NULL)
+	{
+		$forYear = (isset($forYear)) ? $forYear : date('Y');
+		$employees = Employee::model()->findAll('status=1 AND isManager=1');
+		$res = array();
+
+		return $this->waitingForGrade($employees, $forYear);
+	}
+
+	public function findAllWaitingForGradeByManagerId($managerId, $forYear=NULL)
+	{
+		$forYear = (isset($forYear)) ? $forYear : date('Y');
+		$employees = Employee::model()->findAll('status=1 AND managerId=:managerId', array(
+			':managerId'=>$managerId));
+		$res = array();
+
+		return $this->waitingForGrade($employees, $forYear);
+	}
+
+	private function waitingForGrade($employees, $forYear)
+	{
+		$res = array();
+		foreach($employees as $employee)
+		{
+			if($employee->employeeId == Yii::app()->
+				user->id)
+				continue;
+
+			$models = $this->findAll('employeeId=:employeeId AND forYear=:forYear', array(
+				':employeeId'=>$employee->
+				employeeId,
+				':forYear'=>$forYear));
+
+			foreach($models as $model)
+			{
+				/**
+				 * หาย้อนหลังไป 1 เดือน
+				 */
+				//for($i = date('m') - 2; $i <= date('m') - 1; $i++)
+				for($i = 0; $i <= date('m') - 1; $i++)
+				{
+					if($model->{$this->statusFitAndFastArray [$i]} == self::STATUS_UPLOADED)
+					{
+						if($model->{$this->statusFitAndFastArray [
+							$i]} != 2)
+							continue;
+
+						//echo $model->title . '(' . $model->{$this->targetArray[$i]} . ')' . '<br />';
+						$res[$employee->employeeId]['name'] = $model->employee->fnTh . ' ' . $model->employee->lnTh;
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['title'] = $model->title;
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileMonth'] = $this->fileArray[$i];
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileDateTime'] = $model->{$this->fileArray[$i] . 'DateTime'};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['fileName'] = $model->{$this->fileArray[$i]};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['target'] = $model->{$this->targetArray[$i]};
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['gradeMonth'] = $this->gradeArray[$i];
+						$res[$employee->employeeId]['fitAndFast'][$model->fitAndFastId]['data'][$i]['type'] = $model->type;
+					}
+				}
+			}
+		}
+		return $res;
+	}
 
 }

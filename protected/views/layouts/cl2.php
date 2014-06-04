@@ -8,7 +8,15 @@
 				<li class="nav-header">Fit And Fast</li>
 				<li><a href="<?php echo Yii::app()->createUrl('fitfast'); ?>">Fit And Fast</a></li>
 				<?php if(Employee::model()->isManager()): ?>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด พนักงาน</a></li>
+				<?php endif; ?>
+				<?php
+				if(in_array(Yii::app()->user->name, array(
+						'kbw',
+						'npr',
+						'nsy'))):
+					?>
+					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInManagement'); ?>">รายการรออนุมัติเกรด ผจก. ฝ่าย</a></li>
 				<?php endif; ?>
 				<?php
 				if(in_array(Yii::app()->user->name, array(
@@ -50,10 +58,10 @@
 
 
 				<!--				<li class="nav-header">ส่วนตัว</li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/employee/' . Yii::app()->user->id);     ?>">ข้อมูลส่วนตัว</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/employee/changePassword/' . Yii::app()->user->id);     ?>">เปลี่ยนรหัสผ่าน</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/leaveReport/leaveReport');     ?>">รายงานใบลา</a></li>
-								<li><a href="<?php // echo Yii::app()->createUrl('/document/viewFixtime/' . Yii::app()->user->id);     ?>">รายงานใบแก้ไขเวลา</a></li>-->
+								<li><a href="<?php // echo Yii::app()->createUrl('/employee/' . Yii::app()->user->id);       ?>">ข้อมูลส่วนตัว</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/employee/changePassword/' . Yii::app()->user->id);       ?>">เปลี่ยนรหัสผ่าน</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/leaveReport/leaveReport');       ?>">รายงานใบลา</a></li>
+								<li><a href="<?php // echo Yii::app()->createUrl('/document/viewFixtime/' . Yii::app()->user->id);       ?>">รายงานใบแก้ไขเวลา</a></li>-->
 
 				<li class="nav-header">ข้อมูลอื่นๆ</li>
 				<li><a href="<?php echo Yii::app()->createUrl('/employee/extension'); ?>">เบอร์ต่อภายใน</a></li>

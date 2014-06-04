@@ -388,7 +388,17 @@ class DefaultController extends Controller
 		$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
 
 		$this->render('gradeInDivision', array(
-			'res'=>FitAndFast::model()->findAllWaitingForGradeInCompanyDivision($employeeModel->companyDivisionId)));
+			//'res'=>FitAndFast::model()->findAllWaitingForGradeInCompanyDivision($employeeModel->companyDivisionId)
+			'res'=>FitAndFast::model()->findAllWaitingForGradeByManagerId(Yii::app()->user->id)
+			));
+	}
+
+	public function actionGradeInManagement()
+	{
+		$this->layout = '//layouts/cl2';
+
+		$this->render('gradeInDivision', array(
+			'res'=>FitAndFast::model()->findAllWaitingForGradeInManagement()));
 	}
 
 }
