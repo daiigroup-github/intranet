@@ -118,7 +118,7 @@
 				<?php } ?>
 
 				<?php
-				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || Yii::app()->user->name == "ksi" || Yii::app()->user->name == "blk")
+				if(Yii::app()->user->name == "npr" || Yii::app()->user->name == "psd" || Yii::app()->user->name == "kpu" || strtolower(Yii::app()->user->name) == "sla" || Yii::app()->user->name == "blk")
 				{
 					?>
 					<li class="nav-header">คลังอุปกรณ์สำนักงาน</li>

@@ -101,10 +101,10 @@ if($elearningExamModel):
 
 <?php
 /*
-<div class="alert alert-danger ">
-	<a href="<?php echo Yii::app()->createUrl('home/showroom'); ?>"><image src="<?php echo Yii::app()->baseUrl . "/images/logo/new.png" ?>" width="50px" /><strong> Daii Group Sport Day << Click </strong></a>
-</div>
-*/
+  <div class="alert alert-danger ">
+  <a href="<?php echo Yii::app()->createUrl('home/showroom'); ?>"><image src="<?php echo Yii::app()->baseUrl . "/images/logo/new.png" ?>" width="50px" /><strong> Daii Group Sport Day << Click </strong></a>
+  </div>
+ */
 ?>
 
 <div class="row-fluid">

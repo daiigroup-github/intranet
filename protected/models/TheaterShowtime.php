@@ -110,7 +110,7 @@ class TheaterShowtime extends TheaterShowtimeMaster
 			$criteria->compare('th.branchId', $branchId);
 		}
 		$criteria->compare('t.status', 1);
-		$criteria->addCondition("t.showDate >=NOW()");
+		$criteria->addCondition("t.showDate >=CURDATE()");
 		$criteria->order = "t.showDate ASC";
 
 		return new CActiveDataProvider($this, array(
@@ -130,7 +130,7 @@ class TheaterShowtime extends TheaterShowtimeMaster
 			$criteria->compare('th.branchId', $branchId);
 		}
 		$criteria->compare('t.status', 1);
-		$criteria->addCondition("t.showDate >=NOW()");
+		$criteria->addCondition("t.showDate >=CURDATE()");
 		$criteria->order = "t.showDate ASC";
 		$criteria->group = "t.theaterMovieId";
 

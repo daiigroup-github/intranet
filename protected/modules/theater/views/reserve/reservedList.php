@@ -59,7 +59,7 @@ $('.search-form').submit(function(){
 		<?php
 		$model->status = 1;
 		$this->widget('zii.widgets.grid.CGridView', array(
-			'id'=>'theater-showtime-grid',
+			'id'=>'theater-showtime-reserved-grid',
 			'dataProvider'=>$model->search(),
 			//'filter'=>$model,
 			'itemsCssClass'=>'table table-striped table-bordered',
@@ -92,7 +92,7 @@ $('.search-form').submit(function(){
 		<?php
 		$model->status = 2;
 		$this->widget('zii.widgets.grid.CGridView', array(
-			'id'=>'theater-showtime-grid',
+			'id'=>'theater-showtime-queue-grid',
 			'dataProvider'=>$model->search(),
 			//'filter'=>$model,
 			'itemsCssClass'=>'table table-striped table-bordered',
@@ -125,7 +125,7 @@ $('.search-form').submit(function(){
 		<?php
 		$model->status = 0;
 		$this->widget('zii.widgets.grid.CGridView', array(
-			'id'=>'theater-showtime-grid',
+			'id'=>'theater-showtime-cancel-grid',
 			'dataProvider'=>$model->search(),
 			//'filter'=>$model,
 			'itemsCssClass'=>'table table-striped table-bordered',

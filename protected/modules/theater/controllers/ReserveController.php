@@ -82,7 +82,6 @@ class ReserveController extends MasterController
 				$reserve = $reserveDup;
 			}
 		}
-
 		$this->render('reserve', array(
 			'reserve'=>$reserve,
 			"errorCode"=>$errorCode
@@ -168,7 +167,6 @@ class ReserveController extends MasterController
 				}
 			}
 		}
-
 		$this->render("cancel", array(
 			'flag'=>$flag,
 			'reserve'=>$showtimeEmp));

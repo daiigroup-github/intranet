@@ -16,7 +16,8 @@
  * @property StockTransaction $document
  * @property DocumentType $documentType
  */
-class Document extends CActiveRecord {
+class Document extends CActiveRecord
+{
 
 	public $maxCode;
 	public $currentStatus;
@@ -32,21 +33,24 @@ class Document extends CActiveRecord {
 	 * @param string $className active record class name.
 	 * @return Document the static model class
 	 */
-	public static function model($className = __CLASS__) {
+	public static function model($className = __CLASS__)
+	{
 		return parent::model($className);
 	}
 
 	/**
 	 * @return string the associated database table name
 	 */
-	public function tableName() {
+	public function tableName()
+	{
 		return 'document';
 	}
 
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules() {
+	public function rules()
+	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
@@ -56,11 +60,11 @@ class Document extends CActiveRecord {
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'documentCode, documentTypeId, employeeId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'updateDateTime, isOwner',
 				'safe'),
@@ -69,65 +73,67 @@ class Document extends CActiveRecord {
 			array(
 				'documentId, documentCode, documentTypeId, employeeId, createDateTime, updateDateTime, status, startDate, endDate',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations() {
+	public function relations()
+	{
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'document' => array(
+			'document'=>array(
 				self::BELONGS_TO,
 				'StockTransaction',
 				'documentId'),
-			'documentType' => array(
+			'documentType'=>array(
 				self::BELONGS_TO,
 				'DocumentType',
 				'documentTypeId'),
-			'documentWorkflow' => array(
+			'documentWorkflow'=>array(
 				self::BELONGS_TO,
 				'DocumentWorkflow',
 				array(
-					'documentId' => 'documentId')),
-			'employee' => array(
+					'documentId'=>'documentId')),
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				'employeeId'),
-			'documentItem' => array(
+			'documentItem'=>array(
 				self::HAS_MANY,
 				'DocumentItem',
 				array(
-					'documentId' => 'documentId')),
-			'documentDocumentTemplateField' => array(
+					'documentId'=>'documentId')),
+			'documentDocumentTemplateField'=>array(
 				self::HAS_MANY,
 				'DocumentDocumentTemplateField',
 				'documentId'),
-			'workflowLog' => array(
+			'workflowLog'=>array(
 				self::HAS_MANY,
 				'WorkflowLog',
 				'documentId',
-				'order' => 'workflow_log.workflowLogId DESC'),
+				'order'=>'workflow_log.workflowLogId DESC'),
 		);
 	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels() {
+	public function attributeLabels()
+	{
 		return array(
-			'documentId' => 'เอกสาร',
-			'documentCode' => 'เลขที่เอกสาร',
-			'documentTypeId' => 'ประเภทเอกสาร',
-			'employeeId' => 'พนักงาน',
-			'createDateTime' => 'วันที่สร้าง',
-			'updateDateTime' => 'วันที่ปรับปรุง',
-			'status' => 'สถานะ',
-			'creator' => 'ผู้สร้างเอกสาร',
-			'waitProcess' => "รอดำเนินการ"
+			'documentId'=>'เอกสาร',
+			'documentCode'=>'เลขที่เอกสาร',
+			'documentTypeId'=>'ประเภทเอกสาร',
+			'employeeId'=>'พนักงาน',
+			'createDateTime'=>'วันที่สร้าง',
+			'updateDateTime'=>'วันที่ปรับปรุง',
+			'status'=>'สถานะ',
+			'creator'=>'ผู้สร้างเอกสาร',
+			'waitProcess'=>"รอดำเนินการ"
 		);
 	}
 
@@ -135,7 +141,8 @@ class Document extends CActiveRecord {
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search() {
+	public function search()
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -149,17 +156,18 @@ class Document extends CActiveRecord {
 		$criteria->compare('updateDateTime', $this->updateDateTime, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
 
-	public function searchAdmin() {
+	public function searchAdmin()
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -169,59 +177,64 @@ class Document extends CActiveRecord {
 		$criteria->join .= " LEFT OUTER JOIN group_member gm ON gm.groupId = dw.groupId ";
 		$criteria->compare('t.documentCode', strtoupper($this->documentCode), true);
 		//$criteria->compare('t.createDateTime', $this->createDateTime, true);
-		if (!empty($this->startDate))
+		if(!empty($this->startDate))
 			$criteria->compare('t.createDateTime', ">= $this->startDate", true);
-		if (!empty($this->endDate))
+		if(!empty($this->endDate))
 			$criteria->compare('t.createDateTime', "<= $this->endDate", true);
-		if ($this->isOwner) {
+		if($this->isOwner)
+		{
 			$criteria->compare('t.employeeId', Yii::app()->user->id);
 		}
-		$criteria->compare('t.documentTypeId', $this->documentTypeId);
+		$criteria->compare('t.documentTypeId', $this->documentTypeId, FALSE);
 		$criteria->group = 't.documentId';
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 50
+			'pagination'=>array(
+				'pageSize'=>50
 			),
 		));
 	}
 
-	public function searchDraft($employeeId) {
+	public function searchDraft($employeeId)
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-		if (!isset($employeeId)) {
+		if(!isset($employeeId))
+		{
 			Yii::app()->getController()->redirect(Yii::app()->createUrl("home"));
 		}
 		$criteria = new CDbCriteria;
 		$criteria->join = " LEFT JOIN document_workflow dw ON dw.documentId = t.documentId ";
 		$criteria->join .= " LEFT OUTER JOIN group_member gm ON gm.groupId = dw.groupId ";
 		$criteria->compare('t.documentCode', strtoupper($this->documentCode), true);
-		$criteria->compare('t.documentTypeId', $this->documentTypeId, true);
+		$criteria->compare('t.documentTypeId', $this->documentTypeId, FALSE);
 		//$criteria->compare('t.createDateTime', $this->createDateTime, true);
-		if (!empty($this->startDate))
+		if(!empty($this->startDate))
 			$criteria->compare('t.createDateTime', ">= $this->startDate", true);
-		if (!empty($this->endDate))
+		if(!empty($this->endDate))
 			$criteria->compare('t.createDateTime', "<= $this->endDate", true);
 		$criteria->addCondition("(dw.employeeId =$employeeId OR gm.employeeId in ($employeeId)) AND dw.currentState = 0 AND t.status = 1 ");
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
 
-	public function searchInbox($employeeId) {
+	public function searchInbox($employeeId)
+	{
 
-		if (!isset($employeeId)) {
+		if(!isset($employeeId))
+		{
 			Yii::app()->getController()->redirect(Yii::app()->createUrl("home"));
 		}
 		$criteria = new CDbCriteria;
@@ -230,30 +243,32 @@ class Document extends CActiveRecord {
 		$criteria->join .= " LEFT OUTER JOIN group_member gm ON gm.groupId = dw.groupId ";
 		$criteria->compare('t.documentCode', strtoupper($this->documentCode), true);
 		//$criteria->compare('t.createDateTime', $this->createDateTime, true);
-		if (!empty($this->startDate))
+		if(!empty($this->startDate))
 			$criteria->compare('t.createDateTime', ">= $this->startDate", true);
-		if (!empty($this->endDate))
+		if(!empty($this->endDate))
 			$criteria->compare('t.createDateTime', "<= $this->endDate", true);
-		$criteria->compare('t.documentTypeId', $this->documentTypeId, true);
+		$criteria->compare('t.documentTypeId', $this->documentTypeId, FALSE);
 		$criteria->addCondition("(dw.employeeId =$employeeId OR gm.employeeId in ($employeeId)) AND dw.currentState != 0 AND t.status = 1");
 		//$criteria->params = array(':employeeId' => $employeeId, ':employeeId' => $employeeId);
 		$criteria->group = "t.documentId";
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
 
-	public function searchOutbox($employeeId) {
+	public function searchOutbox($employeeId)
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-		if (!isset($employeeId)) {
+		if(!isset($employeeId))
+		{
 			Yii::app()->getController()->redirect(Yii::app()->createUrl("home"));
 		}
 		$criteria = new CDbCriteria;
@@ -263,30 +278,32 @@ class Document extends CActiveRecord {
 		$criteria->compare('t.documentCode', strtoupper($this->documentCode), true);
 		$criteria->compare('t.documentTypeId', $this->documentTypeId, true);
 		//$criteria->compare('t.createDateTime', $this->createDateTime, true);
-		if (!empty($this->startDate))
+		if(!empty($this->startDate))
 			$criteria->compare('t.createDateTime', ">= $this->startDate", true);
-		if (!empty($this->endDate))
+		if(!empty($this->endDate))
 			$criteria->compare('t.createDateTime', "<= $this->endDate", true);
 		$criteria->compare('t.employeeId', $employeeId);
-		$criteria->compare('t.documentTypeId', $this->documentTypeId, true);
+		$criteria->compare('t.documentTypeId', $this->documentTypeId, FALSE);
 		$criteria->compare('dw.currentState', "<> 0");
 		$criteria->compare('t.status', 1);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
 
-	public function searchHistory($employeeId) {
+	public function searchHistory($employeeId)
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-		if (!isset($employeeId)) {
+		if(!isset($employeeId))
+		{
 			Yii::app()->getController()->redirect(Yii::app()->createUrl("home"));
 		}
 		$criteria = new CDbCriteria;
@@ -297,33 +314,35 @@ class Document extends CActiveRecord {
 		$criteria->addCondition("(wfl.employeeId =$employeeId OR gm.employeeId in ($employeeId)) AND t.status = 1");
 		$criteria->compare('t.documentCode', strtoupper($this->documentCode), true);
 		//$criteria->compare('wfl.employeeId', $employeeId);
-		$criteria->compare('documentTypeId', $this->documentTypeId);
-		if (!empty($this->startDate))
+		$criteria->compare('documentTypeId', $this->documentTypeId, FALSE);
+		if(!empty($this->startDate))
 			$criteria->compare('t.createDateTime', ">= $this->startDate", true);
-		if (!empty($this->endDate))
+		if(!empty($this->endDate))
 			$criteria->compare('t.createDateTime', "<= $this->endDate", true);
 
-		if ($this->isOwner) {
+		if($this->isOwner)
+		{
 			$criteria->compare('t.employeeId', Yii::app()->user->id);
 		}
 		$criteria->group = 'wfl.documentId';
 		$criteria->order = 'wfl.createDateTime DESC ,t.documentCode DESC';
 
-		if (isset($this->startDate) && isset($this->endDate))
+		if(isset($this->startDate) && isset($this->endDate))
 			$criteria->addBetweenCondition('DATE(wfl.createDateTime)', $this->startDate, $this->endDate);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
-			'sort' => array(
-				'defaultOrder' => 't.createDateTime DESC',
+			'criteria'=>$criteria,
+			'sort'=>array(
+				'defaultOrder'=>'t.createDateTime DESC',
 			),
-			'pagination' => array(
-				'pageSize' => 30
+			'pagination'=>array(
+				'pageSize'=>30
 			),
 		));
 	}
 
-	public function findMaxCode($documentmentType) {
+	public function findMaxCode($documentmentType)
+	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
 
@@ -333,22 +352,24 @@ class Document extends CActiveRecord {
 		$criteria->compare("documentTypeId", $documentmentType->documentTypeId);
 
 		$result = new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 		return $result->data[0]->maxCode;
 	}
 
-	public function findAllFieldByDocumentId($documentId) {
+	public function findAllFieldByDocumentId($documentId)
+	{
 		$criteria = new CDbCriteria;
 		$criteria->join = "LEFT JOIN document_document_template_field df ON df.documentId = t.documentId";
 		$criteria->compare("t.document_id", $documentId);
 
 		$result = new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
-	public function findCurrentStatusByDocumentId($documentId) {
+	public function findCurrentStatusByDocumentId($documentId)
+	{
 		$criteria = new CDbCriteria;
 		$criteria->select = "w.workflowName as currentStatus , ws2.workflowStatusName as statusName";
 		$criteria->join = " LEFT JOIN workflow_log wl ON wl.documentId = t.documentId ";
@@ -365,7 +386,8 @@ class Document extends CActiveRecord {
 		return $result[0];
 	}
 
-	public function getAllSubView() {
+	public function getAllSubView()
+	{
 		$basePath = Yii::app()->basePath;
 		//$items['subView'] = $this->getAllSubViewInPath($basePath.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'document');
 		//$items['modules'] = $this->getControllersInModules($basePath);
@@ -373,18 +395,23 @@ class Document extends CActiveRecord {
 		return $this->getAllSubViewInPath($basePath . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'document');
 	}
 
-	protected function getAllSubViewInPath($path) {
+	protected function getAllSubViewInPath($path)
+	{
 		//$path = Yii::app()->basePath.DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.'document';
 		//$items['controllers'] = $this->getControllersInPath($basePath);
 		$subViews = array(
-		);
+			);
 		$subViews[null] = "Choose..";
-		if (file_exists($path) === true) {
+		if(file_exists($path) === true)
+		{
 			$controllerDirectory = scandir($path);
-			foreach ($controllerDirectory as $entry) {
-				if (substr($entry, 0, 3)) {
+			foreach($controllerDirectory as $entry)
+			{
+				if(substr($entry, 0, 3))
+				{
 					$entryPath = $path . DIRECTORY_SEPARATOR . $entry;
-					if (strpos(strtolower($entry), 'sub') !== false) {
+					if(strpos(strtolower($entry), 'sub') !== false)
+					{
 						$name = substr($entry, 3, -4);
 						/* $subViews[ strtolower($name) ] = array(
 						  'name'=>$name,
@@ -400,40 +427,48 @@ class Document extends CActiveRecord {
 					  $subViews[ $subViewName ] = $subview; */
 				}
 			}
-		} else {
+		}
+		else
+		{
 			throw new Exception("The path is not existing!!");
 		}
 		return $subViews;
 	}
 
-	public function findDocumentByDocumentCode($documentTypeCodePrefix, $today = null) {
+	public function findDocumentByDocumentCode($documentTypeCodePrefix, $today = null)
+	{
 		$criteria = new CDbCriteria();
 		$criteria->join = "LEFT JOIN document_type dt ON t.documentTypeId = dt.documentTypeId ";
 		$criteria->condition = "dt.documentCodePrefix = :documentCodePrefix AND t.employeeId = :employeeId";
-		if (isset($today)) {
+		if(isset($today))
+		{
 			$criteria->condition .= " AND t.createDateTime >= CURDATE() ";
 		}
 		$criteria->params = array(
-			":documentCodePrefix" => $documentTypeCodePrefix,
-			":employeeId" => Yii::app()->user->id);
+			":documentCodePrefix"=>$documentTypeCodePrefix,
+			":employeeId"=>Yii::app()->user->id);
 		$criteria->order = "t.createDateTime DESC";
 
 		$result = $this->findAll($criteria);
-		if (count($result) > 0) {
+		if(count($result) > 0)
+		{
 			return $result;
-		} else {
+		}
+		else
+		{
 			return null;
 		}
 	}
 
-	public function behaviors() {
+	public function behaviors()
+	{
 		return array(
-			'ERememberFiltersBehavior' => array(
-				'class' => 'application.components.ERememberFiltersBehavior',
-				'defaults' => array(
+			'ERememberFiltersBehavior'=>array(
+				'class'=>'application.components.ERememberFiltersBehavior',
+				'defaults'=>array(
 				),
 				/* optional line */
-				'defaultStickOnClear' => false /* optional line */
+				'defaultStickOnClear'=>false /* optional line */
 			),);
 	}
 

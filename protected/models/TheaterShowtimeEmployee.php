@@ -75,7 +75,7 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 		$criteria->compare('status', $this->status);
 		$criteria->compare('LOWER(createDateTime)', strtolower($this->searchText), true, 'OR');
 		$criteria->compare('LOWER(updateDateTime)', strtolower($this->searchText), true, 'OR');
-		$criteria->order = "reserveCode ASC";
+		$criteria->order = "CAST(reserveCode  AS SIGNED) ASC";
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -107,7 +107,7 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 	{
 		$result = 0;
 		$criteria = new CDbCriteria();
-		$criteria->select = "MAX(reserveCode) as maxReserveCode";
+		$criteria->select = "MAX(CONVERT(reserveCode,SIGNED)) as maxReserveCode";
 		$criteria->compare("theaterShowTimeId", $theaterShowtimeId);
 		$maxCode = $this->find($criteria);
 		if(empty($maxCode->maxReserveCode) || $maxCode->maxReserveCode == 0)
@@ -116,7 +116,7 @@ class TheaterShowtimeEmployee extends TheaterShowtimeEmployeeMaster
 		}
 		else
 		{
-			$result = $maxCode->maxReserveCode + 1;
+			$result = intval($maxCode->maxReserveCode) + 1;
 		}
 		return $result;
 	}
