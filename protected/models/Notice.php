@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'notice':
  * @property string $noticeId
  * @property string $title
- * @property string $headline 
+ * @property string $headline
  * @property string $description
  * @property string $imageUrl
  * @property string $employeeId
@@ -50,23 +50,23 @@ class Notice extends CActiveRecord
 			array(
 				'status',
 				'numerical',
-				'integerOnly' => true),
+				'integerOnly'=>true),
 			array(
 				'title, headline',
 				'length',
-				'max' => 500),
+				'max'=>500),
 			array(
 				'description',
 				'length',
-				'max' => 2000),
+				'max'=>2000),
 			array(
 				'imageUrl',
 				'length',
-				'max' => 1000),
+				'max'=>1000),
 			array(
 				'employeeId, noticeTypeId',
 				'length',
-				'max' => 20),
+				'max'=>20),
 			array(
 				'createDateTime, updateDateTime',
 				'safe'),
@@ -75,7 +75,7 @@ class Notice extends CActiveRecord
 			array(
 				'noticeId, title, headline, description, imageUrl, employeeId, status, noticeTypeId, createDateTime, updateDateTime',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -87,11 +87,11 @@ class Notice extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'employee' => array(
+			'employee'=>array(
 				self::BELONGS_TO,
 				'Employee',
 				'employeeId'),
-			'noticeType' => array(
+			'noticeType'=>array(
 				self::BELONGS_TO,
 				'NoticeType',
 				'noticeTypeId'),
@@ -104,16 +104,16 @@ class Notice extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'noticeId' => 'Notice',
-			'title' => 'ชื่อ',
-			'headline' => 'หัวข้อย่อย',
-			'description' => 'รายละเอียด',
-			'imageUrl' => 'รูปภาพ',
-			'employeeId' => 'ผู้ประกาศ',
-			'status' => 'สถานะ',
-			'noticeTypeId' => 'ประเภทประกาศ',
-			'createDateTime' => 'วันที่สร้าง',
-			'updateDateTime' => 'วันที่ปรับปรุง',
+			'noticeId'=>'Notice',
+			'title'=>'ชื่อ',
+			'headline'=>'หัวข้อย่อย',
+			'description'=>'รายละเอียด',
+			'imageUrl'=>'รูปภาพ',
+			'employeeId'=>'ผู้ประกาศ',
+			'status'=>'สถานะ',
+			'noticeTypeId'=>'ประเภทประกาศ',
+			'createDateTime'=>'วันที่สร้าง',
+			'updateDateTime'=>'วันที่ปรับปรุง',
 		);
 	}
 
@@ -141,7 +141,7 @@ class Notice extends CActiveRecord
 		$criteria->order = "t.updateDateTime DESC, t.createDateTime DESC";
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -151,9 +151,9 @@ class Notice extends CActiveRecord
 		$criteria->join = "LEFT JOIN notice_type nt ON nt.noticeTypeId = t.noticeTypeId ";
 		$criteria->addCondition("nt.noticeTypeCode =:noticeTypeCode AND t.status = 1");
 		$criteria->params = array(
-			":noticeTypeCode" => $noticeTypeCode);
+			":noticeTypeCode"=>$noticeTypeCode);
 		$criteria->order = "t.updateDateTime DESC, t.createDateTime DESC";
-		$criteria->limit = 3;
+//		$criteria->limit = 3;
 		return Notice::model()->findAll($criteria);
 	}
 

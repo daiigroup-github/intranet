@@ -808,7 +808,6 @@ class FitAndFast extends FitAndFastMaster
 		fclose($handle);
 		return $res;
 	}
-	define 
 
 	public function findAllWaitingForGradeInManagement($forYear = NULL)
 	{
@@ -819,7 +818,7 @@ class FitAndFast extends FitAndFastMaster
 		return $this->waitingForGrade($employees, $forYear);
 	}
 
-	public function findAllWaitingForGradeByManagerId($managerId, $forYear=NULL)
+	public function findAllWaitingForGradeByManagerId($managerId, $forYear = NULL)
 	{
 		$forYear = (isset($forYear)) ? $forYear : date('Y');
 		$employees = Employee::model()->findAll('status=1 AND managerId=:managerId', array(

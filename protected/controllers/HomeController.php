@@ -57,6 +57,20 @@ class HomeController extends Controller
 	  }
 	 */
 
+	public function actionNotice()
+	{
+		if(isset($_GET["noticeType"]))
+		{
+			$noticeType = $_GET["noticeType"];
+		}
+		else
+		{
+			$noticeType = 0;
+		}
+		$this->render("notice", array(
+			'noticeType'=>$noticeType));
+	}
+
 	public function actionShowroom()
 	{
 		$this->render('showroom');
