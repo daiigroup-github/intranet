@@ -50,7 +50,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 			<h4>ภาพรวมฝ่าย</h4>
 			<?php
 			$this->renderPartial('fitfast.views.default._chart', array(
-				'percent'=>$divisionFitAndFastPercent));
+				'percent'=>$divisionFitAndFastPercent, 'id'=>'div'));
 			?>
 		</div>
 	<?php endif; ?>
@@ -59,7 +59,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 		<h4>Fit And Fast</h4>
 		<?php
 		$this->renderPartial('fitfast.views.default._chart', array(
-			'percent'=>$summary['percent']));
+			'percent'=>$summary['percent'], 'id'=>'emp'));
 		?>
 	</div>
 

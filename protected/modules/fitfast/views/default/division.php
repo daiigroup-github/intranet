@@ -39,11 +39,11 @@ $this->pageHeader = $data['company'];
 				<?php if($employee['employeeId'] == 1) continue; ?>
 				<li class="span3">
 					<div class="thumbnail">
-						<a href="<?php echo $this->createUrl('default/employee/' . $employee['employeeId']); ?>"><i class="icon-search"></i></a>
+						<a href="<?php echo $this->createUrl('default/index/' . $employee['employeeId']); ?>"><i class="icon-search"></i></a>
 							<?php echo $employee['name']; ?>
 							<?php
 							$this->renderPartial('fitfast.views.default._chart', array(
-								'percent'=>$employee['percent']));
+								'percent'=>$employee['percent'], 'id'=>$employee['employeeId']));
 							?>
 					</div>
 				</li>

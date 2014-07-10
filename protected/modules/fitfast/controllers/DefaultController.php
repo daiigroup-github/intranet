@@ -109,7 +109,7 @@ class DefaultController extends Controller
 		{
 			$data['employee'][$i]['name'] = $employeeModel->fnTh . ' ' . $employeeModel->lnTh;
 			$data['employee'][$i]['employeeId'] = $employeeModel->employeeId;
-			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent($employeeModel->employeeId);
+			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent(date('Y'), $employeeModel->employeeId);
 
 			$i++;
 		}
@@ -169,12 +169,11 @@ class DefaultController extends Controller
 		{
 			$data['employee'][$i]['name'] = $employeeModel->fnTh . ' ' . $employeeModel->lnTh;
 			$data['employee'][$i]['employeeId'] = $employeeModel->employeeId;
-			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent($employeeModel->employeeId);
+			$data['employee'][$i]['percent'] = FitAndFast::model()->calculatePercent(date('Y'), $employeeModel->employeeId);
 			$sumPercent += $data['employee'][$i]['percent'];
 
 			$i++;
 		}
-
 		$this->render('company_manager', array(
 			'data'=>$data,
 			'percent'=>number_format($sumPercent / $i, 2)));
@@ -191,7 +190,7 @@ class DefaultController extends Controller
 			$isUpload = false;
 
 			if(!in_array(Yii::app()->user->name, array(
-					'kbw')) && Yii::app()->user->id != $managerId)
+					'kbw', 'npr')) && Yii::app()->user->id != $managerId)
 			{
 				$this->redirect(Yii::app()->baseUrl);
 			}

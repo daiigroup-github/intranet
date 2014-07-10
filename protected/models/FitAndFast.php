@@ -359,6 +359,7 @@ class FitAndFast extends FitAndFastMaster
 		$criteria->compare('createDateTime', $this->createDateTime, true);
 		$criteria->compare('updateDateTime', $this->updateDateTime, true);
 		$criteria->compare('title', $this->searchText, true, 'OR');
+		/*
 		$criteria->compare('description', $this->searchText, true, 'OR');
 		$criteria->compare('targetJan', $this->searchText, true, 'OR');
 		$criteria->compare('actualJan', $this->searchText, true, 'OR');
@@ -397,6 +398,7 @@ class FitAndFast extends FitAndFastMaster
 		$criteria->compare('actualDec', $this->searchText, true, 'OR');
 		$criteria->compare('gradeDec', $this->searchText, true, 'OR');
 		$criteria->compare('forYear', $this->forYear, true, 'OR');
+		*/
 		$criteria->compare('type', $this->type, true, 'OR');
 
 		$criteria->with = array(
@@ -733,9 +735,8 @@ class FitAndFast extends FitAndFastMaster
 		}
 
 		//find all employees in division
-		$employeeModels = Employee::model()->findAll('status=1 AND companyDivisionId=:divisionId AND companyId=:companyId', array(
-			':divisionId'=>$divisionId
-			,
+		$employeeModels = Employee::model()->findAll('status=1 AND companyDivisionId=:divisionId AND companyId=:companyId AND isManager=0', array(
+			':divisionId'=>$divisionId,
 			':companyId'=>$companyId));
 		$sumPercent = 0;
 

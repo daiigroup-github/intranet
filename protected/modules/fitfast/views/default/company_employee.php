@@ -47,7 +47,7 @@ $this->pageHeader = 'สรุป Fit And Fast พนักงาน (' . $sumPe
 								<?php echo $division['description']; ?>
 								<?php
 								$this->renderPartial('fitfast.views.default._chart', array(
-									'percent'=>$division['percent']));
+									'percent'=>$division['percent'], 'id'=>uniqid()));
 								?>
 						</div>
 					</li>

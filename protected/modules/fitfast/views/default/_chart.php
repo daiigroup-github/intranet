@@ -40,14 +40,16 @@ else
 	$lineColor = '#ff0000';
 }
 
+$id = isset($id) ? $id : '';
+
 $baseUrl = Yii::app()->baseUrl;
 $cs = Yii::app()->getClientScript();
 
 $cs->registerScriptFile($baseUrl . '/js/easypiechart/jquery.easypiechart.min.js');
-$cs->registerScript('pie', "
+$cs->registerScript('pie'.$id, "
 $(function() {
     //create instance
-    $('.chart').easyPieChart({
+    $('#chart{$id}').easyPieChart({
         animate: 2000,
 		/*onStep: function(from, to, percent) {
 			this.el.children[0].innerHTML = Math.round(percent);
@@ -61,6 +63,6 @@ $(function() {
 ");
 ?>
 
-<div class="chart" data-percent="<?php echo $percent; ?>">
+<div class="chart" id="chart<?php echo $id;?>" data-percent="<?php echo $percent; ?>">
 	<p class="percent"><?php echo $percent; ?></p>
 </div>
