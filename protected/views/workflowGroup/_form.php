@@ -19,17 +19,17 @@
 
 <?php
 $form = $this->beginWidget('CActiveForm', array(
-	'id' => 'workflow-group-form',
-	'enableAjaxValidation' => false,
-	'htmlOptions' => array(
-		'class' => 'form-horizontal'),
+	'id'=>'workflow-group-form',
+	'enableAjaxValidation'=>false,
+	'htmlOptions'=>array(
+		'class'=>'form-horizontal'),
 	));
-?>		
+?>
 <p class="note">
 	Fields with <span class="required">*</span> are required.
 	<?php
 	echo $form->errorSummary($model, 'Please fix the following input errors', '', array(
-		'class' => 'alert alert-error'));
+		'class'=>'alert alert-error'));
 	$form->error($model, 'workflowGroupName');
 	?>
 </p>
@@ -40,8 +40,8 @@ $form = $this->beginWidget('CActiveForm', array(
 		<div class="controls">
 			<?php
 			echo $form->textField($model, 'workflowGroupName', array(
-				'size' => 60,
-				'maxlength' => 80));
+				'size'=>60,
+				'maxlength'=>80));
 			?>
 		</div>
 	</div>
@@ -51,23 +51,23 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php
 $this->widget('ext.jqrelcopy.JQRelcopy', array(
-	'id' => 'copylink',
-	'removeText' => '<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
-	'removeHtmlOptions' => array(
-		'style' => 'color:red'),
-	'options' => array(
-		'copyClass' => 'newcopy',
-		'limit' => 0,
-		'clearInputs' => true,
-		'excludeSelector' => '.skipcopy',
+	'id'=>'copylink',
+	'removeText'=>'<button class="btn btn-danger"><i class="icon-minus icon-white"></i></button>',
+	'removeHtmlOptions'=>array(
+		'style'=>'color:red'),
+	'options'=>array(
+		'copyClass'=>'newcopy',
+		'limit'=>0,
+		'clearInputs'=>true,
+		'excludeSelector'=>'.skipcopy',
 	)
 ));
 ?>
 <span id="sortable">
 	<?php
-	if ($model->workflowState)
+	if($model->workflowState)
 	{
-		foreach ($model->workflowState as $v)
+		foreach($model->workflowState as $v)
 		{
 			?>
 			<div class="alert alert-success">
@@ -76,97 +76,127 @@ $this->widget('ext.jqrelcopy.JQRelcopy', array(
 						<?php echo $form->labelEx($v, 'workflowStateName'); ?>
 						<?php
 						echo $form->textField($v, 'workflowStateName[]', array(
-							'class' => 'input-medium',
-							'value' => $v->workflowStateName));
+							'class'=>'input-medium',
+							'value'=>$v->workflowStateName));
 						?>
 					</div>
 					<div class="span2">
 						<?php echo $form->labelEx($v, 'currentState'); ?>
 						<?php
 						echo $form->dropDownList($v, 'currentState', Workflow::getAllWorkflow(), array(
-							'class' => 'input-small',
-							'name' => 'WorkflowState[currentState][]'));
+							'class'=>'input-small',
+							'name'=>'WorkflowState[currentState][]'));
 						?>
 					</div>
 					<div class="span2">
 						<?php echo $form->labelEx($workflowStateModel, 'nextState'); ?>
 						<?php
 						echo $form->dropDownList($v, 'nextState', Workflow::getAllWorkflow(), array(
-							'class' => 'input-small',
-							'name' => 'WorkflowState[nextState][]'));
+							'class'=>'input-small',
+							'name'=>'WorkflowState[nextState][]'));
 						?>
 					</div>
 					<div class="span2">
 						<?php echo $form->labelEx($workflowStatusModel, 'workflowStatusId'); ?>
 						<?php
 						echo $form->dropDownList($v, 'workflowStatusId', WorkflowStatus::getAllWorkflowStatus(), array(
-							'class' => 'input-small',
-							'name' => 'WorkflowState[workflowStatusId][]'));
+							'class'=>'input-small',
+							'name'=>'WorkflowState[workflowStatusId][]'));
 						?>
 					</div>
 					<div class="span2">
 						<?php echo $form->labelEx($workflowStatusModel, 'requireConfirm'); ?>
 						<?php
 						echo $form->dropDownList($v, 'requireConfirm', array(
-							"0" => "No Require",
-							"1" => "Required"), array(
-							'class' => 'input-small',
-							'name' => 'WorkflowState[requireConfirm][]'));
+							"0"=>"No Require",
+							"1"=>"Required"), array(
+							'class'=>'input-small',
+							'name'=>'WorkflowState[requireConfirm][]'));
 						?>
 					</div>
 					<?php
 					echo $form->hiddenField($workflowStateModel, 'ordered[]', array(
-						'value' => $v->workflowStateId));
+						'value'=>$v->workflowStateId));
 					?>
+				</div>
+				<div class="row-fluid">
+					<div class="span5">
+						<?php echo $form->labelEx($workflowStateModel, 'estimateHour'); ?>
+						<?php
+						echo CHtml::textField('WorkflowState[estimateHour][day][]', $v->workflowGroup()->getEstimateHourArray($v->estimateHour)["day"], array(
+							'class'=>'input-small',
+						));
+						?>วัน
+						<?php
+						echo CHtml::textField('WorkflowState[estimateHour][hour][]', $v->workflowGroup()->getEstimateHourArray($v->estimateHour)["hour"], array(
+							'class'=>'input-small',
+						));
+						?>ช.ม.
+					</div>
 				</div>
 			</div>
 			<?php
 		}
 	}
-	?>				
+	?>
 	<div class="well copy">
 		<div class="row-fluid">
 			<div class="span3">
 				<?php echo $form->labelEx($workflowStateModel, 'workflowStateName'); ?>
 				<?php
 				echo $form->textField($workflowStateModel, 'workflowStateName[]', array(
-					'class' => 'input-medium'));
+					'class'=>'input-medium'));
 				?>
 			</div>
 			<div class="span2">
 				<?php echo $form->labelEx($workflowStateModel, 'currentState'); ?>
 				<?php
 				echo $form->dropDownList($workflowStateModel, 'currentState[]', Workflow::getAllWorkflow(), array(
-					'class' => 'input-small'));
+					'class'=>'input-small'));
 				?>
 			</div>
 			<div class="span2">
 				<?php echo $form->labelEx($workflowStateModel, 'nextState'); ?>
 				<?php
 				echo $form->dropDownList($workflowStateModel, 'nextState[]', Workflow::getAllWorkflow(), array(
-					'class' => 'input-small'));
+					'class'=>'input-small'));
 				?>
 			</div>
 			<div class="span2">
 				<?php echo $form->labelEx($workflowStatusModel, 'workflowStatusId'); ?>
 				<?php
 				echo $form->dropDownList($workflowStateModel, 'workflowStatusId[]', WorkflowStatus::getAllWorkflowStatus(), array(
-					'class' => 'input-small'));
+					'class'=>'input-small'));
 				?>
 			</div>
 			<div class="span2">
 				<?php echo $form->labelEx($workflowStatusModel, 'requireConfirm'); ?>
 				<?php
 				echo $form->dropDownList($workflowStateModel, 'requireConfirm[]', array(
-					"0" => "No Require",
-					"1" => "Required"), array(
-					'class' => 'input-small'));
+					"0"=>"No Require",
+					"1"=>"Required"), array(
+					'class'=>'input-small'));
 				?>
 			</div>
 			<?php
 			echo $form->hiddenField($workflowStateModel, 'ordered[]', array(
-				'value' => ''));
+				'value'=>''));
 			?>
+		</div>
+		<div class="row-fluid">
+			<div class="span5">
+				<?php echo $form->labelEx($workflowStateModel, 'estimateHour'); ?>
+				<?php
+				echo CHtml::textField('WorkflowState[estimateHour][day][]', '', array(
+					'class'=>'input-small',
+				));
+				?>วัน
+				<?php
+				echo CHtml::textField('WorkflowState[estimateHour][hour][]', '', array(
+					'class'=>'input-small',
+				));
+				?>ช.ม.
+			</div>
 		</div>
 	</div>
 </span>
@@ -176,7 +206,7 @@ $this->widget('ext.jqrelcopy.JQRelcopy', array(
 <div class="form-actions">
 	<?php
 	echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array(
-		'class' => 'btn btn-primary'));
+		'class'=>'btn btn-primary'));
 	?>
 </div>
 

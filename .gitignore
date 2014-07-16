@@ -17,3 +17,5 @@ images/activities/hbd/
 svn-ignore.txt
 
 protected/config/params.php
+
+protected/config/main.php

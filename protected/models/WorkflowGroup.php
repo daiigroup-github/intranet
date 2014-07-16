@@ -42,13 +42,13 @@ class WorkflowGroup extends CActiveRecord
 			array(
 				'workflowGroupName',
 				'length',
-				'max' => 80),
+				'max'=>80),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array(
 				'workflowGroupId, workflowGroupName',
 				'safe',
-				'on' => 'search'),
+				'on'=>'search'),
 		);
 	}
 
@@ -60,11 +60,11 @@ class WorkflowGroup extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'workflowState' => array(
+			'workflowState'=>array(
 				self::HAS_MANY,
 				'WorkflowState',
 				'workflowGroupId',
-				'order' => 'ordered'),
+				'order'=>'ordered'),
 		);
 	}
 
@@ -74,8 +74,8 @@ class WorkflowGroup extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'workflowGroupId' => 'Workflow Group',
-			'workflowGroupName' => 'Group Name',
+			'workflowGroupId'=>'Workflow Group',
+			'workflowGroupName'=>'Group Name',
 		);
 	}
 
@@ -94,7 +94,7 @@ class WorkflowGroup extends CActiveRecord
 		$criteria->compare('workflowGroupName', $this->workflowGroupName, true);
 
 		return new CActiveDataProvider($this, array(
-			'criteria' => $criteria,
+			'criteria'=>$criteria,
 		));
 	}
 
@@ -103,14 +103,80 @@ class WorkflowGroup extends CActiveRecord
 		$models = WorkflowGroup::model()->findAll();
 
 		$w = array(
-			'' => 'Choose..');
+			''=>'Choose..');
 
-		foreach ($models as $model)
+		foreach($models as $model)
 		{
 			$w[$model->workflowGroupId] = $model->workflowGroupName;
 		}
 
 		return $w;
+	}
+
+	public function calEstimateHour($day, $hour)
+	{
+		$estimateHour = 0;
+		if(isset($day) && intval($day) > 0)
+		{
+			$estimateHour += $day * 24;
+		}
+		if(isset($hour) && intval($hour) > 0)
+		{
+			$estimateHour +=$hour;
+		}
+
+		return $estimateHour;
+	}
+
+	public function getEstimateHourArray($estimateHour)
+	{
+		$day = 0;
+		$hour = 0;
+		$result = array();
+		if(isset($estimateHour))
+		{
+			$day = floor($estimateHour / 24);
+			$hour = $estimateHour % 24;
+			$result["day"] = $day;
+			$result["hour"] = $hour;
+		}
+		else
+		{
+			$result["day"] = 0;
+			$result["hour"] = 0;
+		}
+
+		return $result;
+	}
+
+	public function getHourToWork($workflowState, $documentId)
+	{
+		$hourTowork = array();
+		$hour = $workflowState->estimateHour;
+//		$beforeState = WorkflowState::model()->find("workflowGroupId = :workflowGroupId AND nextState=:nextState", array(
+//			":workflowGroupId"=>$workflowState->workflowGroupId,
+//			":nextState"=>$workflowState->currentState));
+		$lastWorkflowLog = WorkflowLog::model()->find("documentId = :documentId ORDER BY workflowLogId DESC", array(
+			":documentId"=>$documentId));
+		$hourDiff = ((strtotime(date("Y-m-d H:i:s")) - strtotime(isset($lastWorkflowLog) ? $lastWorkflowLog->createDateTime : date("Y-m-d H:i:s"))) / 60) / 60;
+		if($hourDiff <= 0)
+		{
+			$hourTowork["hourToWork"] = 0;
+		}
+		else
+		{
+			$hourTowork["hourToWork"] = ceil($hourDiff);
+		}
+		if($hourDiff > $hour)
+		{
+			$hourTowork["isOverEstimate"] = 1;
+		}
+		else
+		{
+			$hourTowork["isOverEstimate"] = 0;
+		}
+
+		return $hourTowork;
 	}
 
 }

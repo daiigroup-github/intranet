@@ -29,8 +29,8 @@ class WorkflowGroupController extends Controller
 		  $workflowStateModel->workflowGroupId = $id; */
 		$workflowStateModel = WorkflowState::model()->getAllStateByWorkflowGroupId($id);
 		$this->render('view', array(
-			'model' => $model,
-			'dataProvider' => $workflowStateModel,
+			'model'=>$model,
+			'dataProvider'=>$workflowStateModel,
 		));
 	}
 
@@ -48,7 +48,7 @@ class WorkflowGroupController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['WorkflowGroup']))
+		if(isset($_POST['WorkflowGroup']))
 		{
 			$model->attributes = $_POST['WorkflowGroup'];
 			//if($model->save())
@@ -62,7 +62,7 @@ class WorkflowGroupController extends Controller
 				$model->save();
 				$workflowGroupId = Yii::app()->db->lastInsertID;
 
-				foreach ($_POST['WorkflowState']['currentState'] as $k => $v)
+				foreach($_POST['WorkflowState']['currentState'] as $k=> $v)
 				{
 					$workflowStateModel = new WorkflowState;
 					$w = array(
@@ -74,17 +74,18 @@ class WorkflowGroupController extends Controller
 					$w['workflowStateName'] = $_POST['WorkflowState']['workflowStateName'][$k];
 					$w['requireConfirm'] = $_POST['WorkflowState']['requireConfirm'][$k];
 					$w['workflowGroupId'] = $workflowGroupId;
-
+					$w["estimateHour"] = $model->calEstimateHour($_POST['WorkflowState']['estimateHour']['day'][$k], $_POST['WorkflowState']['estimateHour']['hour'][$k]);
+					$w['ordered'] = $k;
 					$workflowStateModel->attributes = $w;
 
-					if (!$workflowStateModel->save())
+					if(!$workflowStateModel->save())
 					{
 						$flag = FALSE;
 						break;
 					}
 				}
 
-				if ($flag)
+				if($flag)
 				{
 					//print_r($_POST['WorkflowState']);
 					$transaction->commit();
@@ -94,7 +95,7 @@ class WorkflowGroupController extends Controller
 
 				$transaction->rollback();
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -102,9 +103,9 @@ class WorkflowGroupController extends Controller
 		}
 
 		$this->render('create', array(
-			'model' => $model,
-			'workflowStateModel' => $workflowStateModel,
-			'workflowStatusModel' => $workflowStatusModel,
+			'model'=>$model,
+			'workflowStateModel'=>$workflowStateModel,
+			'workflowStatusModel'=>$workflowStatusModel,
 		));
 	}
 
@@ -120,8 +121,9 @@ class WorkflowGroupController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['WorkflowState']))
+		if(isset($_POST['WorkflowState']))
 		{
+			//throw new Exception(print_r($_POST['WorkflowState'], true));
 			$transaction = Yii::app()->db->beginTransaction();
 			try
 			{
@@ -129,9 +131,9 @@ class WorkflowGroupController extends Controller
 				$w = array(
 					);
 
-				foreach ($_POST['WorkflowState']['ordered'] as $k => $v)
+				foreach($_POST['WorkflowState']['ordered'] as $k=> $v)
 				{
-					if ($v)
+					if($v)
 					{
 						$workflowStateModel = WorkflowState::model()->findByPk($v);
 					}
@@ -141,7 +143,7 @@ class WorkflowGroupController extends Controller
 						$w['workflowGroupId'] = $id;
 					}
 
-					if (!$_POST['WorkflowState']['workflowStateName'][$k])
+					if(!$_POST['WorkflowState']['workflowStateName'][$k])
 						break;
 
 					$w['currentState'] = $_POST['WorkflowState']['currentState'][$k];
@@ -150,17 +152,19 @@ class WorkflowGroupController extends Controller
 					$w['workflowStateName'] = $_POST['WorkflowState']['workflowStateName'][$k];
 					$w['requireConfirm'] = $_POST['WorkflowState']['requireConfirm'][$k];
 					$w['ordered'] = $k;
+					$w["estimateHour"] = $model->calEstimateHour($_POST['WorkflowState']['estimateHour']['day'][$k], $_POST['WorkflowState']['estimateHour']['hour'][$k]);
+
 
 					$workflowStateModel->attributes = $w;
 
-					if (!$workflowStateModel->save())
+					if(!$workflowStateModel->save())
 					{
 						$flag = FALSE;
 						break;
 					}
 				}
 
-				if ($flag)
+				if($flag)
 				{
 					$transaction->commit();
 					$this->redirect(array(
@@ -169,7 +173,7 @@ class WorkflowGroupController extends Controller
 
 				$transaction->rollback();
 			}
-			catch (Exception $e)
+			catch(Exception $e)
 			{
 				throw new Exception($e->getMessage());
 				$transaction->rollback();
@@ -180,9 +184,9 @@ class WorkflowGroupController extends Controller
 		$workflowStatusModel = new WorkflowStatus;
 
 		$this->render('update', array(
-			'model' => $model,
-			'workflowStateModel' => $workflowStateModel,
-			'workflowStatusModel' => $workflowStatusModel,
+			'model'=>$model,
+			'workflowStateModel'=>$workflowStateModel,
+			'workflowStatusModel'=>$workflowStatusModel,
 		));
 	}
 
@@ -193,13 +197,13 @@ class WorkflowGroupController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		if (Yii::app()->request->isPostRequest)
+		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-			if (!isset($_GET['ajax']))
+			if(!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
 						'admin'));
 		}
@@ -219,11 +223,11 @@ class WorkflowGroupController extends Controller
 
 		$model = new WorkflowGroup('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['WorkflowGroup']))
+		if(isset($_GET['WorkflowGroup']))
 			$model->attributes = $_GET['WorkflowGroup'];
 
 		$this->render('index', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -234,11 +238,11 @@ class WorkflowGroupController extends Controller
 	{
 		$model = new WorkflowGroup('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['WorkflowGroup']))
+		if(isset($_GET['WorkflowGroup']))
 			$model->attributes = $_GET['WorkflowGroup'];
 
 		$this->render('admin', array(
-			'model' => $model,
+			'model'=>$model,
 		));
 	}
 
@@ -250,7 +254,7 @@ class WorkflowGroupController extends Controller
 	public function loadModel($id)
 	{
 		$model = WorkflowGroup::model()->findByPk($id);
-		if ($model === null)
+		if($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 		return $model;
 	}
@@ -261,7 +265,7 @@ class WorkflowGroupController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'workflow-group-form')
+		if(isset($_POST['ajax']) && $_POST['ajax'] === 'workflow-group-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

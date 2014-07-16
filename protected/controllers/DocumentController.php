@@ -580,7 +580,12 @@ class DocumentController extends Controller
 							$w['remarks'] = $_POST['WorkflowLog']['remarks'];
 							$workflowLogModel->attributes = $w; //Controller::writeToFile('/tmp/doc_view', print_r($workflowLogModel->attributes, true));
 							//if($documentWorkflowModel->save() || !$workflowLogModel->save())
-
+							$hourToWork = $workflowStateResult->workflowGroup->getHourToWork($workflowStateResult, $model->documentId);
+							if(isset($hourToWork))
+							{
+								$workflowLogModel->numHour = $hourToWork["hourToWork"];
+								$workflowLogModel->isOverEstimate = $hourToWork["isOverEstimate"];
+							}
 							if(!$workflowLogModel->save())
 							{
 								$flag = false;
@@ -1104,6 +1109,12 @@ class DocumentController extends Controller
 						else
 						{
 							$w['remarks'] = "";
+						}
+						$hourToWork = $workflowStates[0]->workflowGroup->getHourToWork($workflowStates[0], $documentId);
+						if(isset($hourToWork))
+						{
+							$workflowLogModel->numHour = $hourToWork["hourToWork"];
+							$workflowLogModel->isOverEstimate = $hourToWork["isOverEstimate"];
 						}
 						$workflowLogModel->attributes = $w; //Controller::writeToFile('/tmp/doc_view', print_r($workflowLogModel->attributes, true));
 						//if($documentWorkflowModel->save() || !$workflowLogModel->save())
