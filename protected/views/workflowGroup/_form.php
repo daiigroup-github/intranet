@@ -123,15 +123,23 @@ $this->widget('ext.jqrelcopy.JQRelcopy', array(
 					<div class="span5">
 						<?php echo $form->labelEx($workflowStateModel, 'estimateHour'); ?>
 						<?php
-						echo CHtml::textField('WorkflowState[estimateHour][day][]', $v->workflowGroup()->getEstimateHourArray($v->estimateHour)["day"], array(
+						$esHourArray = $v->workflowGroup()->getEstimateHourArray($v->estimateHour);
+						echo CHtml::textField('WorkflowState[estimateHour][day][]', $esHourArray["day"], array(
 							'class'=>'input-small',
 						));
 						?>วัน
 						<?php
-						echo CHtml::textField('WorkflowState[estimateHour][hour][]', $v->workflowGroup()->getEstimateHourArray($v->estimateHour)["hour"], array(
+						echo CHtml::textField('WorkflowState[estimateHour][hour][]', $esHourArray["hour"], array(
 							'class'=>'input-small',
 						));
 						?>ช.ม.
+					</div>
+					<div class="span7" style="text-align:right">
+						<?php
+						echo CHtml::link("ลบรายการ", Yii::app()->createUrl("workflowGroup/deleteState?workflowStateId=" . $v->workflowStateId), array(
+							'class'=>'btn btn-danger',
+							'onclick'=>'return confirm("คุณต้องการลบรายการนี้หรือไม่ ?")'));
+						?>
 					</div>
 				</div>
 			</div>

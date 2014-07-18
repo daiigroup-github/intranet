@@ -272,4 +272,11 @@ class WorkflowGroupController extends Controller
 		}
 	}
 
+	public function actionDeleteState()
+	{
+		$wfState = WorkflowState::model()->findByPk($_GET["workflowStateId"]);
+		$wfState->delete();
+		$this->redirect("update/id/" . $wfState->workflowGroupId);
+	}
+
 }

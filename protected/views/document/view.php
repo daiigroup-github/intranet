@@ -933,7 +933,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'=>'numHour',
 			'type'=>'raw',
-			'value'=>'"ระยะเวลาที่ต้องเสร็จ ".$data->workflowState->workflowGroup->getEstimateHourArray($data->workflowState->estimateHour)["day"]."วัน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->workflowState->estimateHour)["hour"]." ช.ม." ." ทำเสร็จภายใน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->numHour)["day"]." วัน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->numHour)["hour"]." ช.ม."'
+			'value'=>'"ต้องทำเสร็จ ".$data->workflowState->workflowGroup->getEstimateHourArray($data->workflowState->estimateHour)["day"]."วัน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->workflowState->estimateHour)["hour"]." ช.ม." ." ทำเสร็จภายใน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->numHour)["day"]." วัน ".$data->workflowState->workflowGroup->getEstimateHourArray($data->numHour)["hour"]." ช.ม."'
 		)
 	),
 ));

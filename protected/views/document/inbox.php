@@ -36,7 +36,8 @@ $('.search-form form').submit(function(){
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'document-grid',
 	'dataProvider'=>$model->searchInbox(Yii::app()->user->id),
-	'itemsCssClass'=>'table table-striped table-bordered table-condensed',
+	'itemsCssClass'=>'table  table-bordered table-condensed',
+	'rowCssClassExpression'=>'showCssClassExpression($data)',
 	'columns'=>array(
 		array(
 			'class'=>'IndexColumn'),
@@ -71,6 +72,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'value'=>'CHtml::encode(isset(Document::model()->findCurrentStatusByDocumentId($data->documentId)->statusName) ? Document::model()->findCurrentStatusByDocumentId($data->documentId)->currentStatus." (".Document::model()->findCurrentStatusByDocumentId($data->documentId)->statusName.") " : "แบบร่างเอกสาร")',
 		),
 		array(
+			'name'=>'mustWorkTime',
+//			'type'=>'html',
+			'value'=>'getWorkflowState($data)'
+		),
+		array(
 			'header'=>'',
 			'class'=>'CButtonColumn',
 			'template'=>'{view} ',
@@ -82,4 +88,34 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 ));
+
+function getWorkflowState($data)
+{
+	$hourToWork = WorkflowGroup::model()->getHourToWork(null, $data->documentId);
+	if(isset($hourToWork))
+	{
+		return date("Y-m-d H:i:s", strtotime($hourToWork['createDateTime'] . " + " . $hourToWork['estimateHour'] . " hour"));
+	}
+	else
+	{
+		return "-";
+	}
+}
+
+function showCssClassExpression($data)
+{
+	$hourToWork = WorkflowGroup::model()->getHourToWork(null, $data->documentId);
+	$hourDiff = (strtotime($hourToWork['createDateTime'] . " + " . $hourToWork['estimateHour'] . " hour") - strtotime(date("Y-m-d H:i:s"))) / 3600;
+	if($hourDiff <= 0)
+	{
+		return "alert alert-danger";
+	}
+	else
+	{
+		if($hourDiff < ($hourToWork['estimateHour'] / 2))
+		{
+			return "alert alert-warning";
+		}
+	}
+}
 ?>

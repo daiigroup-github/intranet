@@ -62,6 +62,7 @@ class WorkflowState extends WorkflowStateMaster
 	{
 		return Cmap::mergeArray(parent::attributeLabels(), array(
 				//code here
+				'estimateHour'=>'Next Work Time(hr)'
 		));
 	}
 

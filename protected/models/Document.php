@@ -27,6 +27,7 @@ class Document extends CActiveRecord
 	public $startDate;
 	public $endDate;
 	public $isOwner;
+	public $workflowStatusId;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -115,7 +116,7 @@ class Document extends CActiveRecord
 				self::HAS_MANY,
 				'WorkflowLog',
 				'documentId',
-				'order'=>'workflow_log.workflowLogId DESC'),
+				'order'=>'workflowLogId DESC'),
 		);
 	}
 
@@ -133,7 +134,8 @@ class Document extends CActiveRecord
 			'updateDateTime'=>'วันที่ปรับปรุง',
 			'status'=>'สถานะ',
 			'creator'=>'ผู้สร้างเอกสาร',
-			'waitProcess'=>"รอดำเนินการ"
+			'waitProcess'=>"รอดำเนินการ",
+			'mustWorkTime'=>'ตำเนินการภายใน'
 		);
 	}
 
@@ -371,7 +373,7 @@ class Document extends CActiveRecord
 	public function findCurrentStatusByDocumentId($documentId)
 	{
 		$criteria = new CDbCriteria;
-		$criteria->select = "w.workflowName as currentStatus , ws2.workflowStatusName as statusName";
+		$criteria->select = "w.workflowName as currentStatus , ws2.workflowStatusName as statusName ,ws2.workflowStatusId as workflowStatusId";
 		$criteria->join = " LEFT JOIN workflow_log wl ON wl.documentId = t.documentId ";
 		$criteria->join .= " LEFT JOIN workflow_state ws ON ws.workflowStateId = wl.workflowStateId ";
 		$criteria->join .= " LEFT JOIN workflow w ON w.workflowId = ws.currentState ";

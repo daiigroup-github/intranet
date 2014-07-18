@@ -583,6 +583,7 @@ class DocumentController extends Controller
 							$hourToWork = $workflowStateResult->workflowGroup->getHourToWork($workflowStateResult, $model->documentId);
 							if(isset($hourToWork))
 							{
+								$workflowLogModel->estimateHour = $workflowStateModel->estimateHour;
 								$workflowLogModel->numHour = $hourToWork["hourToWork"];
 								$workflowLogModel->isOverEstimate = $hourToWork["isOverEstimate"];
 							}

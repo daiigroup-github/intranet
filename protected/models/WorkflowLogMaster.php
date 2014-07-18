@@ -11,6 +11,7 @@
  * @property string $groupId
  * @property string $createDateTime
  * @property string $remarks
+ * @property integer $estimateHour
  * @property integer $numHour
  * @property integer $isOverEstimate
  */
@@ -32,14 +33,14 @@ class WorkflowLogMaster extends MasterCActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('documentId, workflowStateId, employeeId, remarks, isOverEstimate', 'required'),
-			array('numHour, isOverEstimate', 'numerical', 'integerOnly'=>true),
+			array('documentId, workflowStateId, employeeId, remarks, estimateHour, isOverEstimate', 'required'),
+			array('estimateHour, numHour, isOverEstimate', 'numerical', 'integerOnly'=>true),
 			array('documentId, workflowStateId, employeeId, groupId', 'length', 'max'=>20),
 			array('createDateTime', 'safe'),
 			array('createDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'insert'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('workflowLogId, documentId, workflowStateId, employeeId, groupId, createDateTime, remarks, numHour, isOverEstimate', 'safe', 'on'=>'search'),
+			array('workflowLogId, documentId, workflowStateId, employeeId, groupId, createDateTime, remarks, estimateHour, numHour, isOverEstimate', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +68,7 @@ class WorkflowLogMaster extends MasterCActiveRecord
 			'groupId' => 'Group',
 			'createDateTime' => 'Create Date Time',
 			'remarks' => 'Remarks',
+			'estimateHour' => 'Estimate Hour',
 			'numHour' => 'Num Hour',
 			'isOverEstimate' => 'Is Over Estimate',
 		);
@@ -95,6 +97,7 @@ class WorkflowLogMaster extends MasterCActiveRecord
 		$criteria->compare('LOWER(groupId)',strtolower($this->searchText),true, 'OR');
 		$criteria->compare('LOWER(createDateTime)',strtolower($this->searchText),true, 'OR');
 		$criteria->compare('LOWER(remarks)',strtolower($this->searchText),true, 'OR');
+		$criteria->compare('estimateHour',$this->estimateHour);
 		$criteria->compare('numHour',$this->numHour);
 		$criteria->compare('isOverEstimate',$this->isOverEstimate);
 

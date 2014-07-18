@@ -149,15 +149,16 @@ class WorkflowGroup extends CActiveRecord
 		return $result;
 	}
 
-	public function getHourToWork($workflowState, $documentId)
+	public function getHourToWork($workflowState = null, $documentId)
 	{
 		$hourTowork = array();
-		$hour = $workflowState->estimateHour;
+
 //		$beforeState = WorkflowState::model()->find("workflowGroupId = :workflowGroupId AND nextState=:nextState", array(
 //			":workflowGroupId"=>$workflowState->workflowGroupId,
 //			":nextState"=>$workflowState->currentState));
 		$lastWorkflowLog = WorkflowLog::model()->find("documentId = :documentId ORDER BY workflowLogId DESC", array(
 			":documentId"=>$documentId));
+		$hour = $lastWorkflowLog->workflowState->estimateHour;
 		$hourDiff = ((strtotime(date("Y-m-d H:i:s")) - strtotime(isset($lastWorkflowLog) ? $lastWorkflowLog->createDateTime : date("Y-m-d H:i:s"))) / 60) / 60;
 		if($hourDiff <= 0)
 		{
@@ -175,6 +176,8 @@ class WorkflowGroup extends CActiveRecord
 		{
 			$hourTowork["isOverEstimate"] = 0;
 		}
+		$hourTowork['createDateTime'] = $lastWorkflowLog->createDateTime;
+		$hourTowork['estimateHour'] = $lastWorkflowLog->estimateHour;
 
 		return $hourTowork;
 	}
