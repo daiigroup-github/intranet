@@ -42,6 +42,7 @@ return array(
 		), // Enables the installer. ), ),
 		'fitfast',
 		'theater',
+		'fitandfast'
 	),
 	// application components
 	'components'=>array(
