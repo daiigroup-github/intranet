@@ -13,9 +13,10 @@
  * @property string $title
  * @property string $description
  * @property integer $type
- * @property double $sumS
- * @property double $sumF
- * @property string $forYear
+ * @property integer $halfS
+ * @property integer $S
+ * @property integer $SS
+ * @property integer $F
  */
 class FitfastMaster extends CActiveRecord
 {
@@ -35,15 +36,15 @@ class FitfastMaster extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('createDateTime, updateDateTime, fitfastEmployeeId, employeeId, title, type, forYear', 'required'),
-			array('status, type', 'numerical', 'integerOnly'=>true),
-			array('sumS, sumF', 'numerical'),
+			array('fitfastEmployeeId, employeeId, title, type', 'required'),
+			array('status, type, halfS, S, SS, F', 'numerical', 'integerOnly'=>true),
 			array('fitfastEmployeeId, employeeId', 'length', 'max'=>10),
-			array('forYear', 'length', 'max'=>4),
-			array('description', 'safe'),
+			array('createDateTime, updateDateTime, description', 'safe'),
+			array('createDateTime, updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'insert'),
+			array('updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'update'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fitfastId, status, createDateTime, updateDateTime, fitfastEmployeeId, employeeId, title, description, type, sumS, sumF, forYear', 'safe', 'on'=>'search'),
+			array('fitfastId, status, createDateTime, updateDateTime, fitfastEmployeeId, employeeId, title, description, type, halfS, S, SS, F', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,9 +74,10 @@ class FitfastMaster extends CActiveRecord
 			'title' => 'Title',
 			'description' => 'Description',
 			'type' => 'Type',
-			'sumS' => 'Sum S',
-			'sumF' => 'Sum F',
-			'forYear' => 'For Year',
+			'halfS' => 'Half S',
+			'S' => 'S',
+			'SS' => 'Ss',
+			'F' => 'F',
 		);
 	}
 
@@ -106,9 +108,10 @@ class FitfastMaster extends CActiveRecord
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('type',$this->type);
-		$criteria->compare('sumS',$this->sumS);
-		$criteria->compare('sumF',$this->sumF);
-		$criteria->compare('forYear',$this->forYear,true);
+		$criteria->compare('halfS',$this->halfS);
+		$criteria->compare('S',$this->S);
+		$criteria->compare('SS',$this->SS);
+		$criteria->compare('F',$this->F);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

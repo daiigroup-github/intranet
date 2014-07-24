@@ -10,6 +10,7 @@
  * @property string $updateDateTime
  * @property string $employeeId
  * @property string $fitfastId
+ * @property integer $month
  * @property string $target
  * @property string $file
  * @property double $grade
@@ -33,14 +34,17 @@ class FitfastTargetMaster extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('createDateTime, updateDateTime, employeeId, fitfastId, target', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
+			array('employeeId, fitfastId, month, target', 'required'),
+			array('status, month', 'numerical', 'integerOnly'=>true),
 			array('grade', 'numerical'),
 			array('employeeId, fitfastId, parent', 'length', 'max'=>10),
 			array('file', 'length', 'max'=>255),
+			array('createDateTime, updateDateTime', 'safe'),
+			array('createDateTime, updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'insert'),
+			array('updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'update'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fitfastTargetId, status, createDateTime, updateDateTime, employeeId, fitfastId, target, file, grade, parent', 'safe', 'on'=>'search'),
+			array('fitfastTargetId, status, createDateTime, updateDateTime, employeeId, fitfastId, month, target, file, grade, parent', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,6 +71,7 @@ class FitfastTargetMaster extends CActiveRecord
 			'updateDateTime' => 'Update Date Time',
 			'employeeId' => 'Employee',
 			'fitfastId' => 'Fitfast',
+			'month' => 'Month',
 			'target' => 'Target',
 			'file' => 'File',
 			'grade' => 'Grade',
@@ -98,6 +103,7 @@ class FitfastTargetMaster extends CActiveRecord
 		$criteria->compare('updateDateTime',$this->updateDateTime,true);
 		$criteria->compare('employeeId',$this->employeeId,true);
 		$criteria->compare('fitfastId',$this->fitfastId,true);
+		$criteria->compare('month',$this->month);
 		$criteria->compare('target',$this->target,true);
 		$criteria->compare('file',$this->file,true);
 		$criteria->compare('grade',$this->grade);

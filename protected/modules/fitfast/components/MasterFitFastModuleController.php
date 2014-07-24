@@ -1,10 +1,16 @@
 <?php
 
-class MasterFitFastModuleController extends Controller
+class MasterFitFastModuleController extends MasterController
 {
 
-	public $layout = '//layouts/cl1';
-	public $editGradeUsersArray = array(
-		'kbw',
-		'npr');
+    public $layout = '//layouts/cl1';
+    public $editGradeUsersArray = array(
+        'kbw',
+        'npr'
+    );
+    public $editManagerArray = array(
+        'nsy',
+        'kbw',
+        'npr'
+    );
 }

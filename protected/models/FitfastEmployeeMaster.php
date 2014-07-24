@@ -9,8 +9,10 @@
  * @property string $createDateTime
  * @property string $updateDateTime
  * @property string $employeeId
- * @property double $sumS
- * @property double $sumF
+ * @property integer $halfS
+ * @property integer $S
+ * @property integer $SS
+ * @property integer $F
  * @property string $forYear
  */
 class FitfastEmployeeMaster extends CActiveRecord
@@ -31,14 +33,16 @@ class FitfastEmployeeMaster extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('createDateTime, updateDateTime, employeeId, forYear', 'required'),
-			array('status', 'numerical', 'integerOnly'=>true),
-			array('sumS, sumF', 'numerical'),
+			array('employeeId, S, forYear', 'required'),
+			array('status, halfS, S, SS, F', 'numerical', 'integerOnly'=>true),
 			array('employeeId', 'length', 'max'=>10),
 			array('forYear', 'length', 'max'=>4),
+			array('createDateTime, updateDateTime', 'safe'),
+			array('createDateTime, updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'insert'),
+			array('updateDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'update'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('fitfastEmployeeId, status, createDateTime, updateDateTime, employeeId, sumS, sumF, forYear', 'safe', 'on'=>'search'),
+			array('fitfastEmployeeId, status, createDateTime, updateDateTime, employeeId, halfS, S, SS, F, forYear', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,8 +68,10 @@ class FitfastEmployeeMaster extends CActiveRecord
 			'createDateTime' => 'Create Date Time',
 			'updateDateTime' => 'Update Date Time',
 			'employeeId' => 'Employee',
-			'sumS' => 'Sum S',
-			'sumF' => 'Sum F',
+			'halfS' => 'Half S',
+			'S' => 'S',
+			'SS' => 'Ss',
+			'F' => 'F',
 			'forYear' => 'For Year',
 		);
 	}
@@ -93,8 +99,10 @@ class FitfastEmployeeMaster extends CActiveRecord
 		$criteria->compare('createDateTime',$this->createDateTime,true);
 		$criteria->compare('updateDateTime',$this->updateDateTime,true);
 		$criteria->compare('employeeId',$this->employeeId,true);
-		$criteria->compare('sumS',$this->sumS);
-		$criteria->compare('sumF',$this->sumF);
+		$criteria->compare('halfS',$this->halfS);
+		$criteria->compare('S',$this->S);
+		$criteria->compare('SS',$this->SS);
+		$criteria->compare('F',$this->F);
 		$criteria->compare('forYear',$this->forYear,true);
 
 		return new CActiveDataProvider($this, array(
