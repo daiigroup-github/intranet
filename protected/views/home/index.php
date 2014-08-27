@@ -16,17 +16,17 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-but
 $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.2');
 ?>
 <style>
-    body {
-        padding-top: 64px;
-    }
+	body
+	{
+		padding-top:64px;
+	}
 
-    .hero-unit {
-        background-color: darkgreen;
-    }
-
-    .hero-unit, .hero-unit h1 {
-        color: #ffffff;
-    }
+	.hero-unit{
+		background-color:darkgreen;
+	}
+	.hero-unit, .hero-unit h1{
+		color:#ffffff;
+	}
 
 </style>
 <?php
@@ -42,68 +42,61 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 //Fit And Fast
 ?>
 <div class="page-header">
-    <h3>Fit And Fast</h3>
+	<h3>Fit And Fast</h3>
 </div>
 <div class="row">
-    <?php if (Employee::model()->isManager()): ?>
-        <div class="span3">
-            <h4>ภาพรวมฝ่าย</h4>
-            <?php
-            $this->renderPartial('fitfast.views.default._chart', array(
-                'percent' => $divisionFitAndFastPercent,
-                'id' => 'div',
-                'span' => 3
-            ));
-            ?>
-        </div>
-    <?php endif; ?>
+	<?php if(Employee::model()->isManager()): ?>
+		<div class="span3">
+			<h4>ภาพรวมฝ่าย</h4>
+			<?php
+			$this->renderPartial('fitfast.views.default._chart', array(
+				'percent'=>$divisionFitAndFastPercent));
+			?>
+		</div>
+	<?php endif; ?>
 
-    <div class="span3">
-        <h4>Fit And Fast</h4>
-        <?php
-        $this->renderPartial('fitfast.views.default._chart', array(
-            'percent' => $summary['percent'],
-            'id' => 'emp',
-            'span' => 3,
-            'grades' => $summary['grades']
-        ));
-        ?>
-    </div>
+	<div class="span3">
+		<h4>Fit And Fast</h4>
+		<?php
+		$this->renderPartial('fitfast.views.default._chart', array(
+			'percent'=>$summary['percent']));
+		?>
+	</div>
 
-    <div class="<?php echo(Employee::model()->isManager() ? 'span3' : 'span6'); ?>">
-        <h4>รายการรอส่ง</h4>
-        <?php
-        ////show รายการที่รอ upload ของเดือน ปัจจุบัน ย้อนหลังกลับไป
-        foreach ($waitForUploads as $k=>$v):
-            ?>
-            <div class="alert">
-                <strong><?php echo $v['title']; ?></strong>
-                <ul>
-                    <?php foreach ($v['fitfastTarget'] as $k2 => $v2): ?>
-                        <li>
-                            เดือน <?php echo $this->monthThai($v2['month']);?> : <?php echo $v2['target'] . ' ' . CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl('fitfast/default/upload/' . $k2)); ?>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php
-        endforeach;
-        ?>
-    </div>
+	<div class = "<?php echo (Employee::model()->isManager() ? 'span3' : 'span6'); ?>">
+		<h4>รายการรอส่ง</h4>
+		<?php
+		////show รายการที่รอ upload ของเดือน ปัจจุบัน ย้อนหลังกลับไป
+		foreach(FitAndFast::model()->findAllWaitingForUpload() as $fitAndFastId=> $fitAndFast):
+			?>
+			<div class="alert">
+				<strong><?php echo $fitAndFast['title']; ?></strong>
+				<ul>
+					<?php foreach($fitAndFast['data'] as $month=> $target): ?>
+						<li>
+							<?php echo $target . ' ' . CHtml::link('<i class="icon-upload-alt"></i>', $this->createUrl('fitfast/default/upload/' . $fitAndFastId . '/' . $month)); ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		endforeach;
+		?>
+	</div>
 </div>
-<hr/>
+<hr />
 
 <?php
 /**
  * Elearning Exam
  */
-if ($elearningExamModel):
-    ?>
-    <div class="alert">
-        <a href="<?php echo Yii::app()->createUrl('elearningExam/' . $elearningExamModel->elearningExamId); ?>">
-            คลิกที่นี่เพื่อเข้าสอบ :: หลังจากคลิกเข้าสอบแล้วไม่สามารถสอบซ้ำได้
-        </a>
-    </div>
+if($elearningExamModel):
+	?>
+	<div class="alert">
+		<a href="<?php echo Yii::app()->createUrl('elearningExam/' . $elearningExamModel->elearningExamId); ?>">
+			คลิกที่นี่เพื่อเข้าสอบ :: หลังจากคลิกเข้าสอบแล้วไม่สามารถสอบซ้ำได้
+		</a>
+	</div>
 <?php endif; ?>
 
 <?php
@@ -116,199 +109,214 @@ if ($elearningExamModel):
 
 <div class="row-fluid">
 
-<div class="span4">
-    <h3 class="">ข่าวสาร & กิจกรรม</h3>
-    <?php
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=A"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-    <hr>
-    <?php
-    $notices = Notice::model()->findNoticeByNoticeTypeCode("A");
-    $i = 0;
-    foreach ($notices as $notice) {
-        ?>
-        <div class="row-fluid img-polaroid">
-        <div class="span12 ">
-        <div style="text-align: center">
-            <?php
-            if (!empty($notice->imageUrl)) {
-                if (strpos($notice->imageUrl, ".pdf")) {
-                    $imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
-                    echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-                } else {
-                    echo "<p><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
-                }
-            } else {
-                $imgUrl = Yii::app()->baseUrl . "/images/ico/news_icon.jpg";
-                echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-            }
-            ?>
-        </div>
-        <h4 style="color:blue"><a target="_blank"
-                                  href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a>
-        </h4>
-        <p><?php
-        //if ($i < 3) {
-        if (1 == 1) {
-            if (isset($notice->headline) && !empty($notice->headline)) {
-                echo $notice->headline;
-            }
-            ?></p>
-            <?php
-            echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
-                'class' => 'btn'
-            ));
-            ?>
-            </div>
-            </div>
-            <br>                                                                                                                                                                                        <!--  <p><a class="btn btn-success" target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>">รายละเอียด »</a></p>-->
-        <?php
-        }
-        ?>
-        <?php
-        $i++;
-        if ($i == 3) {
-            break;
-        }
-    }
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=A"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-</div>
-<div class="span4">
-    <h3>นโยบาย</h3>
-    <?php
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=B"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-    <hr>
-    <?php
-    $notices = Notice::model()->findNoticeByNoticeTypeCode("B");
-    $i = 0;
-    foreach ($notices as $notice) {
-        ?>
-        <div class="row-fluid img-polaroid">
-        <div class="span12 ">
-        <div style="text-align: center">
-            <?php
-            if (!empty($notice->imageUrl)) {
-                if (strpos($notice->imageUrl, ".pdf")) {
-                    $imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
-                    echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-                } else {
-                    echo "<p><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
-                }
-            } else {
-                $imgUrl = Yii::app()->baseUrl . "/images/ico/policy_icon.gif";
-                echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-            }
-            ?>
-        </div>
-        <h4 style="color:blue"><a target="_blank"
-                                  href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a>
-        </h4>
-        <p><?php
-        //if ($i < 3) {
-        if (1 == 1) {
-            if (isset($notice->headline) && !empty($notice->headline)) {
-                echo $notice->headline;
-            }
-            ?></p>
-            <?php
-            echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
-                'class' => 'btn'
-            ));
-            ?>
-            </div>
-            </div>
-            <br>                                                                                                                                                                                        <!--  <p><a class="btn btn-success" target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>">รายละเอียด »</a></p>-->
-        <?php
-        }
-        ?>
-        <?php
-        $i++;
-        if ($i == 3) {
-            break;
-        }
-    }
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=B"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-</div>
+	<div class="span4">
+		<h3 class="">ข่าวสาร & กิจกรรม</h3>
+		<?php
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=A"), array(
+			'class'=>'btn btn-primary'))
+		?>
+		<hr>
+		<?php
+		$notices = Notice::model()->findNoticeByNoticeTypeCode("A");
+		$i = 0;
+		foreach($notices as $notice)
+		{
+			?>
+			<div class="row-fluid img-polaroid" >
+				<div class="span12 " >
+					<div style="text-align: center">
+						<?php
+						if(!empty($notice->imageUrl))
+						{
+							if(strpos($notice->imageUrl, ".pdf"))
+							{
+								$imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
+								echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+							}
+							else
+							{
+								echo "<p><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
+							}
+						}
+						else
+						{
+							$imgUrl = Yii::app()->baseUrl . "/images/ico/news_icon.jpg";
+							echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+						}
+						?>
+					</div>
+					<h4 style="color:blue"><a  target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a></h4>
+					<p><?php
+						//if ($i < 3) {
+						if(1 == 1)
+						{
+							if(isset($notice->headline) && !empty($notice->headline))
+							{
+								echo $notice->headline;
+							}
+							?></p>
+						<?php
+						echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
+							'class'=>'btn'));
+						?>
+					</div>
+				</div>
+				<br>																																														<!--  <p><a class="btn btn-success" target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>">รายละเอียด »</a></p>-->
+				<?php
+			}
+			?>
+			<?php
+			$i++;
+			if($i == 3)
+			{
+				break;
+			}
+		}
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=A"), array(
+			'class'=>'btn btn-primary'))
+		?>
+	</div>
+	<div class="span4">
+		<h3>นโยบาย</h3>
+		<?php
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=B"), array(
+			'class'=>'btn btn-primary'))
+		?>
+		<hr>
+		<?php
+		$notices = Notice::model()->findNoticeByNoticeTypeCode("B");
+		$i = 0;
+		foreach($notices as $notice)
+		{
+			?>
+			<div class="row-fluid img-polaroid" >
+				<div class="span12 " >
+					<div style="text-align: center">
+						<?php
+						if(!empty($notice->imageUrl))
+						{
+							if(strpos($notice->imageUrl, ".pdf"))
+							{
+								$imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
+								echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+							}
+							else
+							{
+								echo "<p><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
+							}
+						}
+						else
+						{
+							$imgUrl = Yii::app()->baseUrl . "/images/ico/policy_icon.gif";
+							echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+						}
+						?>
+					</div>
+					<h4 style="color:blue"><a  target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a></h4>
+					<p><?php
+						//if ($i < 3) {
+						if(1 == 1)
+						{
+							if(isset($notice->headline) && !empty($notice->headline))
+							{
+								echo $notice->headline;
+							}
+							?></p>
+						<?php
+						echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
+							'class'=>'btn'));
+						?>
+					</div>
+				</div>
+				<br>																																														<!--  <p><a class="btn btn-success" target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>">รายละเอียด »</a></p>-->
+				<?php
+			}
+			?>
+			<?php
+			$i++;
+			if($i == 3)
+			{
+				break;
+			}
+		}
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=B"), array(
+			'class'=>'btn btn-primary'))
+		?>
+	</div>
 
-<div class="span4">
-    <h3>ช่วยเหลือ & สนับสนุน</h3>
-    <?php
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=C"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-    <hr>
-    <?php
-    $notices = Notice::model()->findNoticeByNoticeTypeCode("C");
-    $i = 0;
-    foreach ($notices as $notice) {
-        ?>
-        <div class="row-fluid img-polaroid">
-            <div class="span12 ">
-                <div style="text-align:center">
-                    <?php
-                    if (!empty($notice->imageUrl)) {
-                        if (strpos($notice->imageUrl, ".pdf")) {
-                            $imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
-                            echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-                        } else {
-                            echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
-                        }
-                    } else {
-                        $imgUrl = Yii::app()->baseUrl . "/images/ico/support_icon.png";
-                        echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
-                    }
-                    ?>
-                </div>
-                <div class="">
-                    <h4>
-                        <a target="_blank"
-                           href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a>
-                    </h4>
+	<div class="span4">
+		<h3>ช่วยเหลือ & สนับสนุน</h3>
+		<?php
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=C"), array(
+			'class'=>'btn btn-primary'))
+		?>
+		<hr>
+		<?php
+		$notices = Notice::model()->findNoticeByNoticeTypeCode("C");
+		$i = 0;
+		foreach($notices as $notice)
+		{
+			?>
+			<div class="row-fluid img-polaroid" >
+				<div class="span12 " >
+					<div style="text-align:center">
+						<?php
+						if(!empty($notice->imageUrl))
+						{
+							if(strpos($notice->imageUrl, ".pdf"))
+							{
+								$imgUrl = Yii::app()->baseUrl . "/images/ico/pdf_icon.png";
+								echo "<p><a class='pdf' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+							}
+							else
+							{
+								echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$notice->imageUrl' width='80%' alt='' /></a></p>";
+							}
+						}
+						else
+						{
+							$imgUrl = Yii::app()->baseUrl . "/images/ico/support_icon.png";
+							echo "<p class='text-center'><a class='fancyFrame' Title='$notice->title' href='$notice->imageUrl'><img src='$imgUrl' width='80%' alt='' /></a></p>";
+						}
+						?>
+					</div>
+					<div class="" >
+						<h4 >
+							<a  target="_blank" href="<?php echo Yii::app()->createUrl("/notice/view/$notice->noticeId"); ?>"><?php echo $notice->title; ?></a>
+						</h4>
+						<p><?php
+							if(1 == 1)
+							{
+								if(isset($notice->headline) && !empty($notice->headline))
+								{
+									echo $notice->headline;
+								}
+								?>
 
-                    <p><?php
-                        if (1 == 1) {
-                            if (isset($notice->headline) && !empty($notice->headline)) {
-                                echo $notice->headline;
-                            }
-                            ?>
+								<?php
+							}
+							?>
+						</p>
+						<?php
+						echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
+							'class'=>'btn'));
+						?>
+					</div>
+				</div>
+			</div>
+			<br>
+			<?php
+			$i++;
+			if($i == 3)
+			{
+				break;
+			}
+		}
+		echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=C"), array(
+			'class'=>'btn btn-primary'))
+		?>
 
-                        <?php
-                        }
-                        ?>
-                    </p>
-                    <?php
-                    echo CHtml::link("รายละเอียด", Yii::app()->createUrl("/notice/view/$notice->noticeId"), array(
-                        'class' => 'btn'
-                    ));
-                    ?>
-                </div>
-            </div>
-        </div>
-        <br>
-        <?php
-        $i++;
-        if ($i == 3) {
-            break;
-        }
-    }
-    echo CHtml::link("ดูทั้งหมด >>", Yii::app()->createUrl("home/notice?noticeType=C"), array(
-        'class' => 'btn btn-primary'
-    ))
-    ?>
-
-</div>
+	</div>
 </div>
 <hr>
 <?php
@@ -340,6 +348,5 @@ if ($elearningExamModel):
 
   </div>
 
- */
-?>
+ */ ?>
 

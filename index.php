@@ -1,5 +1,4 @@
 <?php
-
 $params = require dirname(__FILE__) . '/protected/config/params.php';
 // change the following paths if necessary
 $yii = dirname(__FILE__) . $params['framework'];

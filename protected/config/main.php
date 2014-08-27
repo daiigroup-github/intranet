@@ -42,7 +42,6 @@ return array(
 		), // Enables the installer. ), ),
 		'fitfast',
 		'theater',
-		'fitandfast'
 	),
 	// application components
 	'components'=>array(
@@ -130,6 +129,6 @@ return array(
 	'params'=>array(
 // this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
-		'sendEmail'=>TRUE,
+		'sendEmail'=>FALSE,
 	),
 );

@@ -26,26 +26,6 @@ class MasterController extends Controller
 		fclose($handle);
 	}
 
-    public function monthThai($month, $format =1)
-    {
-        $monthArray = array(
-            1=>array(1=>'มกราคม', 'ม.ค.'),
-            2=>array(1=>'กุมภาพันธ์', 'ก.พ.'),
-            3=>array(1=>'มีนาคม', 'มี.ค.'),
-            4=>array(1=>'เมษายน', 'เม.ย.'),
-            5=>array(1=>'พฤษภาคม', 'พ.ค.'),
-            6=>array(1=>'มิถุนายน', 'มิ.ย.'),
-            7=>array(1=>'กรกฎาคม', 'ก.ค.'),
-            8=>array(1=>'สิงหาคม', 'ส.ค.'),
-            9=>array(1=>'กันยายน', 'ก.ย.'),
-            10=>array(1=>'ตุลาคม', 'ต.ค.'),
-            11=>array(1=>'พฤศจิกายน', 'พ.ย.'),
-            12=>array(1=>'ธันวาคม', 'ธ.ค.'),
-        );
-
-        return $monthArray[$month][$format];
-    }
-
 	public function dateThai($date, $format, $showTime = TRUE)
 	{
 		// Full month array

@@ -1,18 +1,30 @@
-<?php
-//options
-$size = 0;
-$lineWidth = 0;
-
-switch($span){
-    case 2:
-        $lineWidth = 28;
-        $size = 165;
-        break;
-    default:
-        $lineWidth = 48;
-        $size = 265;
-}
-?>
+<style>
+	.chart {
+		position: relative;
+		display: inline-block;
+		width: 265px;
+		height: 265px;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.chart canvas {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	.percent {
+		display: inline-block;
+		line-height: 265px;
+		z-index: 2;
+		font-size: 1.8em;
+	}
+	.percent:after {
+		content: '%';
+		margin-left: 0.1em;
+		font-size: .8em;
+	}
+</style>
 
 <?php
 if($percent > 80)
@@ -28,38 +40,27 @@ else
 	$lineColor = '#ff0000';
 }
 
-$id = isset($id) ? $id : '';
-
 $baseUrl = Yii::app()->baseUrl;
 $cs = Yii::app()->getClientScript();
 
 $cs->registerScriptFile($baseUrl . '/js/easypiechart/jquery.easypiechart.min.js');
-$cs->registerScript('pie'.$id, "
+$cs->registerScript('pie', "
 $(function() {
     //create instance
-    $('#chart{$id}').easyPieChart({
+    $('.chart').easyPieChart({
         animate: 2000,
 		/*onStep: function(from, to, percent) {
 			this.el.children[0].innerHTML = Math.round(percent);
 		},*/
-		size:{$size},
+		size:265,
 		barColor:'{$lineColor}',
 		lineCap : 'butt',
-		lineWidth: {$lineWidth},
+		lineWidth: 48,
     });
 });
 ");
-$cs->registerCSSFile($baseUrl."/css/chart{$span}.css");
 ?>
 
-<div class="chart" id="chart<?php echo $id;?>" data-percent="<?php echo $percent; ?>">
+<div class="chart" data-percent="<?php echo $percent; ?>">
 	<p class="percent"><?php echo $percent; ?></p>
 </div>
-
-<?php if(isset($grades)):?>
-<p style="text-align: center;">
-    <?php foreach ($grades as $k => $v): ?>
-        <span id="<?php echo $k;?>" class="label <?php echo ($k=='F') ? 'label-important' : 'label-success'?>"><?php echo $v . $k ?></span>
-    <?php endforeach; ?>
-</p>
-<?php endif;?>

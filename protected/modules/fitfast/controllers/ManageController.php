@@ -94,9 +94,6 @@ class ManageController extends Controller
 			$model->statusNov = (isset($_POST['FitAndFast']['targetNov']) && empty($_POST['FitAndFast']['targetNov'])) ? 1 : 0;
 			$model->statusDec = (isset($_POST['FitAndFast']['targetDec']) && empty($_POST['FitAndFast']['targetDec'])) ? 1 : 0;
 
-			$model->createDateTime = new CDbExpression('NOW()');
-			$model->updateDateTime = new CDbExpression('NOW()');
-
 			if($model->save())
 				$this->redirect(array(
 					'view',
@@ -123,20 +120,6 @@ class ManageController extends Controller
 		if(isset($_POST['FitAndFast']))
 		{
 			$model->attributes = $_POST['FitAndFast'];
-
-			$model->statusJan = (isset($_POST['FitAndFast']['targetJan']) && empty($_POST['FitAndFast']['targetJan'])) ? $model->statusJan : 0;
-			$model->statusFeb = (isset($_POST['FitAndFast']['targetFeb']) && empty($_POST['FitAndFast']['targetFeb'])) ? $model->statusFeb : 0;
-			$model->statusMar = (isset($_POST['FitAndFast']['targetMar']) && empty($_POST['FitAndFast']['targetMar'])) ? $model->statusMar : 0;
-			$model->statusApr = (isset($_POST['FitAndFast']['targetApr']) && empty($_POST['FitAndFast']['targetApr'])) ? $model->statusApr : 0;
-			$model->statusMay = (isset($_POST['FitAndFast']['targetMay']) && empty($_POST['FitAndFast']['targetMay'])) ? $model->statusMay : 0;
-			$model->statusJun = (isset($_POST['FitAndFast']['targetJun']) && empty($_POST['FitAndFast']['targetJun'])) ? $model->statusJun : 0;
-			$model->statusJul = (isset($_POST['FitAndFast']['targetJul']) && empty($_POST['FitAndFast']['targetJul'])) ? $model->statusJul : 0;
-			$model->statusAug = (isset($_POST['FitAndFast']['targetAug']) && empty($_POST['FitAndFast']['targetAug'])) ? $model->statusAug : 0;
-			$model->statusSep = (isset($_POST['FitAndFast']['targetSep']) && empty($_POST['FitAndFast']['targetSep'])) ? $model->statusSep : 0;
-			$model->statusOct = (isset($_POST['FitAndFast']['targetOct']) && empty($_POST['FitAndFast']['targetOct'])) ? $model->statusOct : 0;
-			$model->statusNov = (isset($_POST['FitAndFast']['targetNov']) && empty($_POST['FitAndFast']['targetNov'])) ? $model->statusNov : 0;
-			$model->statusDec = (isset($_POST['FitAndFast']['targetDec']) && empty($_POST['FitAndFast']['targetDec'])) ? $model->statusDec : 0;
-
 			if($model->save())
 				$this->redirect(array(
 					'view',
