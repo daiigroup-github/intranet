@@ -1116,12 +1116,14 @@ class DocumentController extends Controller
 						{
 							$workflowLogModel->numHour = $hourToWork["hourToWork"];
 							$workflowLogModel->isOverEstimate = $hourToWork["isOverEstimate"];
+							$workflowLogModel->estimateHour = $hourToWork["estimateHour"];
 						}
 						$workflowLogModel->attributes = $w; //Controller::writeToFile('/tmp/doc_view', print_r($workflowLogModel->attributes, true));
 						//if($documentWorkflowModel->save() || !$workflowLogModel->save())
 
 						if(!$workflowLogModel->save())
 						{
+							throw new Exception(print_r($workflowLogModel->errors, true));
 							$flag = false;
 						}
 					}
@@ -2556,7 +2558,13 @@ class DocumentController extends Controller
 									$workflowLogModel->employeeId = Yii::app()->user->id;
 									$workflowLogModel->createDateTime = new CDbExpression('NOW()');
 									$workflowLogModel->remarks = isset($_POST["WorkflowLog"]["remarks"]) ? $_POST["WorkflowLog"]["remarks"] : '';
-
+									$hourToWork = $documentType->workflowGroup->workflowState[0]->workflowGroup->getHourToWork($documentType->workflowGroup->workflowState[0], $this->documentId);
+									if(isset($hourToWork))
+									{
+										$workflowLogModel->numHour = $hourToWork["hourToWork"];
+										$workflowLogModel->isOverEstimate = $hourToWork["isOverEstimate"];
+										$workflowLogModel->estimateHour = $hourToWork["estimateHour"];
+									}
 									if(!$workflowLogModel->save())
 										$flag = false;
 								}
