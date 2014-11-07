@@ -16,19 +16,41 @@ class ChangePasswordController extends Controller
 				$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
 
 				$emp['password'] = $employeeModel->hashPassword($employeeModel->username, $_POST['ChangePassword']['password']);
-				$emp['isFirstLogin'] = 1;
 
-				$employeeModel->attributes = $emp;
+                //find last 3 passwordLog
+                $passwordLogs = PasswordLog::model()->findAll(array(
+                    'condition'=>'employeeId=:employeeId',
+                    'params'=>array(
+                        ':employeeId'=>Yii::app()->user->id,
+                    ),
+                    'order'=>'createDateTime DESC',
+                    'limit'=>3
+                ));
 
-				if ($employeeModel->save(false))
-				{
-					//echo '<script>alert("เปลี่ยนรหัสผ่านเรียบร้อยแล้ว");</script>';
-					$this->redirect(Yii::app()->createUrl('/home'));
-				}
-				else
-				{
-					$model->addError('oldPassword', 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่');
-				}
+                $i=0;
+                foreach ($passwordLogs as $passwordLog) {
+                    if($passwordLog->password == $emp['password'])
+                        break;
+
+                    $i++;
+                }
+
+                if($i < 3) {
+                    $model->addError('password', 'รหัสผ่านซ้ำกับ 3 ครั้งหลังล่าสุด กรุณากำหนดรหัสผ่านใหม่');
+                } else {
+                    $emp['isFirstLogin'] = 1;
+
+                    $employeeModel->attributes = $emp;
+                    $employeeModel->lastPasswordChangeDateTime = new CDbExpression('NOW()');
+
+                    if ($employeeModel->save(false)) {
+
+                        //echo '<script>alert("เปลี่ยนรหัสผ่านเรียบร้อยแล้ว");</script>';
+                        $this->redirect(Yii::app()->createUrl('/home'));
+                    } else {
+                        $model->addError('oldPassword', 'ไม่สามารถบันทึกข้อมูลได้ กรุณาลองใหม่');
+                    }
+                }
 			}
 			else
 			{

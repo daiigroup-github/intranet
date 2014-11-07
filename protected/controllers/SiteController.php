@@ -95,16 +95,32 @@ class SiteController extends Controller
 		{
 			$model->attributes = $_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
+
 			if ($model->validate() && $model->login())
 			{
 				//echo Yii::app()->user->returnUrl;
 				//$this->redirect(Yii::app()->user->returnUrl);
 
+                $employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
 				$name = Yii::app()->user->name;
 
-				$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
+                //reset loginFailed
+                $employeeModel->loginFailed = 0;
+                $employeeModel->save(false);
 
-				if (!$employeeModel->isFirstLogin)
+                /**
+                 * @Todo
+                 * check Employee.lastChangePassword :: if > 90 days redirect to change password
+                 */
+                $last90days = date('Y-m-d', strtotime('-90 days'));
+                $passwordLog = PasswordLog::model()->find(array(
+                    'condition'=>'createDateTime >= :last90days',
+                    'params'=>array(
+                        ':last90days'=>$last90days,
+                    ),
+                ));
+
+				if (!$employeeModel->isFirstLogin || !isset($passwordLog))
 				{
 					$this->redirect(Yii::app()->createUrl('/changePassword'));
 				}
@@ -138,7 +154,27 @@ class SiteController extends Controller
 						}
 					}
 				}
-			}
+			} else {
+                /**
+                 * count login failed
+                 * if >= 5 lock user
+                 */
+                $employeeModel = Employee::model()->find(array(
+                    'condition'=>'username=:username',
+                    'params'=>array(
+                        ':username'=>$_POST['LoginForm']['username'],
+                    ),
+                ));
+                if($employeeModel->loginFailed >=5) {
+                    //lock user
+                    $employeeModel->status = Employee::STATUS_LOCK;
+                    echo "<script>alert('User ถูกห้ามใช้ กรุณาติดต่อฝ่าย IT')</script>";
+                } else {
+                    $employeeModel->loginFailed += 1;
+                }
+
+                $employeeModel->save(false);
+            }
 		}
 
 		//login failed
@@ -207,5 +243,24 @@ class SiteController extends Controller
 				'model' => $model));
 		}
 	}
+
+    public function actionCreatePasswordLog()
+    {
+        $employees = Employee::model()->findAll('status=1');
+        $i=1;
+        foreach ($employees as $employee) {
+            $passwordLog = new PasswordLog();
+            echo $employee->employeeId.'<br />';
+            $passwordLog->id = $i;
+            $passwordLog->employeeId = $employee->employeeId;
+            $passwordLog->password = $employee->password;
+            $passwordLog->createDateTime = new CDbExpression('NOW()');
+            if(!$passwordLog->save()) {
+                print_r($passwordLog->errors);exit();
+            }
+            $i++;
+        }
+
+    }
 
 }

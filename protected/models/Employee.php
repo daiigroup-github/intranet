@@ -43,7 +43,7 @@
  * @property integer $leaveQuota
  * @property integer $leaveRemain
  */
-class Employee extends CActiveRecord
+class Employee extends EmployeeMaster
 {
 
 	/**
