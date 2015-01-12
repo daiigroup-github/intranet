@@ -18,7 +18,7 @@ class EmployeeResignCommand extends CConsoleCommand
 			if ($employeeModel->save())
 			{
 				$emailController = new EmailSend();
-				$website = "http://" . Yii::app()->baseUrl . "/index.php/Employee/View/" . $employeeModel->employeeId;
+				$website = "http://intranet.daiigroup.com/index.php/Employee/View/" . $employeeModel->employeeId;
 				$toEmails = array(
 					array(
 						'email' => 'kamon.p@daiigroup.com',
