@@ -29,19 +29,25 @@ class ChangePasswordController extends Controller
 
                 $i=0;
                 foreach ($passwordLogs as $passwordLog) {
-                    if($passwordLog->password == $emp['password'])
+                    if($passwordLog->password == $emp['password']){
+                        $i++;
                         break;
-
-                    $i++;
+                    }
                 }
 
-                if($i < 3) {
+
+                if($i > 0) {
                     $model->addError('password', 'รหัสผ่านซ้ำกับ 3 ครั้งหลังล่าสุด กรุณากำหนดรหัสผ่านใหม่');
                 } else {
                     $emp['isFirstLogin'] = 1;
 
                     $employeeModel->attributes = $emp;
-                    $employeeModel->lastPasswordChangeDateTime = new CDbExpression('NOW()');
+                    $employeeModel->lastChangePasswordDateTime = new CDbExpression('NOW()');
+
+                    $passwordLogModel = new PasswordLog();
+                    $passwordLogModel->employeeId = $employeeModel->employeeId;
+                    $passwordLogModel->createDateTime = new CDbExpression('NOW()');
+
 
                     if ($employeeModel->save(false)) {
 

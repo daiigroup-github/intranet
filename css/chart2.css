@@ -1,0 +1,25 @@
+.chart {
+    position: relative;
+    display: inline-block;
+    width: 165px;
+    height: 165px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.chart canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.percent {
+    display: inline-block;
+    line-height: 165px;
+    z-index: 2;
+    font-size: 1.2em;
+}
+.percent:after {
+    content: '%';
+    margin-left: 0.1em;
+    font-size: .8em;
+}

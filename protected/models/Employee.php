@@ -190,7 +190,18 @@ class Employee extends EmployeeMaster
 				self::HAS_MANY,
 				'MobileAppPriv',
 				array(
-					'employeeId'=>'employeeId')),);
+					'employeeId'=>'employeeId')),
+            'fitfasts'=>array(
+                self::HAS_MANY,
+                'Fitfast',
+                'employeeId'
+            ),
+            'fitfastTargets'=>array(
+                self::HAS_MANY,
+                'FitfastTarget',
+                'employeeId'
+            ),
+        );
 	}
 
 	/**
@@ -873,4 +884,8 @@ class Employee extends EmployeeMaster
 
 	}
 
+    public function getFullName()
+    {
+        return $this->fnTh.' '.$this->lnTh;
+    }
 }

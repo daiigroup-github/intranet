@@ -1,7 +1,6 @@
 <?php
 
-class CustomerController extends Controller
-{
+class CustomerController extends Controller {
 
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -9,8 +8,7 @@ class CustomerController extends Controller
 	 */
 	public $layout = '//layouts/cl2';
 
-	public function filters()
-	{
+	public function filters() {
 		return array(
 			//'accessControl', // perform access control for CRUD operations
 			'rights',
@@ -21,8 +19,7 @@ class CustomerController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id)
-	{
+	public function actionView($id) {
 		$this->render('view', array(
 			'model' => $this->loadModel($id),
 		));
@@ -32,29 +29,23 @@ class CustomerController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
-	{
+	public function actionCreate() {
 		$model = new Customer;
 		$customerSale = new CustomerSale();
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
 		$dateNow = new CDbExpression('NOW()');
-		if (isset($_POST['Customer']))
-		{
+		if (isset($_POST['Customer'])) {
 			$model->attributes = $_POST['Customer'];
 			$transaction = Yii::app()->db->beginTransaction();
-			try
-			{
+			try {
 				$flag = true;
-				if ($model->save())
-				{
+				if ($model->save()) {
 					$customerId = Yii::app()->db->lastInsertID;
-					if (isset($_POST["CustomerSale"]["sales"]))
-					{
+					if (isset($_POST["CustomerSale"]["sales"])) {
 						$saleExistingList = " ";
-						foreach ($_POST["CustomerSale"]["sales"] as $sale)
-						{
+						foreach ($_POST["CustomerSale"]["sales"] as $sale) {
 							$customerSale = new CustomerSale();
 							$customerSale->customerId = $customerId;
 							$customerSale->saleId = $sale;
@@ -64,38 +55,29 @@ class CustomerController extends Controller
 								":companyValue" => $saleModel->company->companyValue));
 							$customerSale->companyValue = $saleModel->company->companyValue;
 							$customerSale->createDateTime = $dateNow;
-							if (!$customerSale->save())
-							{
+							if (!$customerSale->save()) {
 								$flag = false;
 							}
-							if ($checkExistingSaleCompany)
-							{
+							if ($checkExistingSaleCompany) {
 								$saleExistingList .= " " . $saleModel->username . " ";
 								$flag = false;
 								$customerSale->addError("saleId", "ผู้แทนขาย" . $saleExistingList . "ซ้ำในบริษัทเดียวกัน");
 							}
 						}
 					}
-				}
-				else
-				{
+				} else {
 					$flag = false;
 				}
-				if ($flag)
-				{
+				if ($flag) {
 					$transaction->commit();
 					$this->redirect(array(
 						'view',
 						'id' => $model->customerId));
-				}
-				else
-				{
+				} else {
 
 					$transaction->rollback();
 				}
-			}
-			catch (Exception $ex)
-			{
+			} catch (Exception $ex) {
 				$transaction->rollback();
 				throw new Exception($ex->getMessage());
 			}
@@ -107,18 +89,16 @@ class CustomerController extends Controller
 		));
 	}
 
-	public function actionMobile()
-	{
+	public function actionMobile() {
 		$res = array(
-			);
+		);
 		$customer = new Customer();
 		$dateNow = date("Y-m-d H:i:s");
 		$flag = true;
 		$customerId = null;
 		$errorMsg = "";
 
-		if (isset($_POST["Customer"]))
-		{
+		if (isset($_POST["Customer"])) {
 
 			/* send from IPHONE
 			 * [Customer] => Array
@@ -130,18 +110,14 @@ class CustomerController extends Controller
 			  [customerFnTh] => a
 			  ) */
 			$transaction = Yii::app()->db->beginTransaction();
-			try
-			{
+			try {
 				$customer->createDateTime = $dateNow;
 				$customer->attributes = $_POST["Customer"];
 
-				if (!$customer->save())
-				{
+				if (!$customer->save()) {
 					$flag = false;
 					$errorMsg = "ไม่สามารถ บันทึก Customer ได้";
-				}
-				else
-				{
+				} else {
 					$customerId = Yii::app()->db->lastInsertID;
 
 					$customerSale = new CustomerSale();
@@ -153,43 +129,33 @@ class CustomerController extends Controller
 						":companyValue" => $saleModel->company->companyValue));
 					$customerSale->companyValue = $saleModel->company->companyValue;
 					$customerSale->createDateTime = $dateNow;
-					if ($checkExistingSaleCompany)
-					{
+					if ($checkExistingSaleCompany) {
 						$saleExistingList .= " " . $saleModel->username . " ";
 						$flag = false;
 						$errorMsg = "ผู้แทนขาย ซ้ำในบริษัทเดียวกัน";
 					}
-					if (!$customerSale->save())
-					{
+					if (!$customerSale->save()) {
 						$flag = false;
 						$errorMsg = "ไม่สามารถบันทึก Customer Sale ได้";
 					}
 				}
 
-				if ($flag)
-				{
+				if ($flag) {
 					$transaction->commit();
 					$res["result"] = true;
-					if (isset($customerId))
-					{
+					if (isset($customerId)) {
 						$res["customerId"] = $customerId;
 					}
-				}
-				else
-				{
+				} else {
 					$res["result"] = false;
 					$res["error"] = $errorMsg;
 				}
-			}
-			catch (Exception $ex)
-			{
+			} catch (Exception $ex) {
 				$transaction->rollback();
 				$res["result"] = false;
 				$res["error"] = $ex->getMessage();
 			}
-		}
-		else
-		{
+		} else {
 			$res["error"] = "no detect POST[Customer]";
 		}
 
@@ -202,15 +168,13 @@ class CustomerController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionUpdate($id)
-	{
+	public function actionUpdate($id) {
 		$model = $this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Customer']))
-		{
+		if (isset($_POST['Customer'])) {
 			$model->attributes = $_POST['Customer'];
 			if ($model->save())
 				$this->redirect(array(
@@ -229,27 +193,23 @@ class CustomerController extends Controller
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
 	 * @param integer $id the ID of the model to be deleted
 	 */
-	public function actionDelete($id)
-	{
-		if (Yii::app()->request->isPostRequest)
-		{
+	public function actionDelete($id) {
+		if (Yii::app()->request->isPostRequest) {
 			// we only allow deletion via POST request
 			$this->loadModel($id)->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if (!isset($_GET['ajax']))
 				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array(
-						'admin'));
-		}
-		else
+							'admin'));
+		} else
 			throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
 	}
 
 	/**
 	 * Lists all models.
 	 */
-	public function actionIndex()
-	{
+	public function actionIndex() {
 // 		$dataProvider=new CActiveDataProvider('Customer');
 // 		$this->render('index',array(
 // 			'dataProvider'=>$dataProvider,
@@ -269,8 +229,7 @@ class CustomerController extends Controller
 	/**
 	 * Manages all models.
 	 */
-	public function actionAdmin()
-	{
+	public function actionAdmin() {
 		$model = new Customer('search');
 		$model->unsetAttributes();  // clear any default values
 		if (isset($_GET['Customer']))
@@ -286,8 +245,7 @@ class CustomerController extends Controller
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer the ID of the model to be loaded
 	 */
-	public function loadModel($id)
-	{
+	public function loadModel($id) {
 		$model = Customer::model()->findByPk($id);
 		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
@@ -298,10 +256,8 @@ class CustomerController extends Controller
 	 * Performs the AJAX validation.
 	 * @param CModel the model to be validated
 	 */
-	protected function performAjaxValidation($model)
-	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'customer-form')
-		{
+	protected function performAjaxValidation($model) {
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'customer-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

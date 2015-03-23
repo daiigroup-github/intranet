@@ -40,6 +40,7 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 
 <?php
 //Fit And Fast
+/*
 ?>
 <div class="page-header">
 	<h3>Fit And Fast</h3>
@@ -85,7 +86,8 @@ $cs->registerCssFile($baseUrl . '/js/fancyBox/source/helpers/jquery.fancybox-thu
 	</div>
 </div>
 <hr />
-
+*/
+?>
 <?php
 /**
  * Elearning Exam

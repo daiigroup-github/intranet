@@ -6,9 +6,9 @@
 			<ul class="nav nav-list">
 				<li><a href="<?php echo Yii::app()->createUrl('/home'); ?>">หน้าหลัก</a></li>
 				<li class="nav-header">Fit And Fast</li>
-				<li><a href="<?php echo Yii::app()->createUrl('fitfast'); ?>">Fit And Fast</a></li>
+				<li><a href="<?php echo Yii::app()->createUrl('fitandfast'); ?>">Fit And Fast</a></li>
 				<?php if(Employee::model()->isManager()): ?>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInCompanyDivision'); ?>">รายการรออนุมัติเกรด พนักงาน</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/approve/employee'); ?>">รายการรออนุมัติเกรด พนักงาน</a></li>
 				<?php endif; ?>
 				<?php
 				if(in_array(Yii::app()->user->name, array(
@@ -16,7 +16,7 @@
 						'npr',
 						'nsy'))):
 					?>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/gradeInManagement'); ?>">รายการรออนุมัติเกรด ผจก. ฝ่าย</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/approve/manager'); ?>">รายการรออนุมัติเกรด ผจก. ฝ่าย</a></li>
 				<?php endif; ?>
 				<?php
 				if(in_array(Yii::app()->user->name, array(
@@ -24,9 +24,11 @@
 						'npr',
 						'nsy'))):
 					?>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyEmployee'); ?>">สรุปผลของพนักงาน</a></li>
-					<li><a href="<?php echo Yii::app()->createUrl('fitfast/default/companyManager'); ?>">สรุปผลของ ผจก. ฝ่าย</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/employee'); ?>">สรุปผลของพนักงาน YTD</a></li>
+                    <li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/monthlyEmployee'); ?>">สรุปผลของพนักงานรายเดือน</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/manager'); ?>">สรุปผลของ ผจก. ฝ่าย YTD</a></li>
+                    <li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/monthlyManager'); ?>">สรุปผลของ ผจก. ฝ่ายรายเดือน</a></li>
 				<?php endif; ?>
 
 				<li class="nav-header">ระบบเอกสาร</li>

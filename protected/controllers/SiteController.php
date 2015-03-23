@@ -114,13 +114,14 @@ class SiteController extends Controller
                  */
                 $last90days = date('Y-m-d', strtotime('-90 days'));
                 $passwordLog = PasswordLog::model()->find(array(
-                    'condition'=>'createDateTime >= :last90days',
+                    'condition'=>'createDateTime >= :last90days AND employeeId=:employeeId',
                     'params'=>array(
                         ':last90days'=>$last90days,
+                        ':employeeId'=>Yii::app()->user->id
                     ),
                 ));
 
-				if (!$employeeModel->isFirstLogin || !isset($passwordLog))
+				if (!$employeeModel->isFirstLogin || isset($passwordLog))
 				{
 					$this->redirect(Yii::app()->createUrl('/changePassword'));
 				}
