@@ -37,7 +37,6 @@ $this->pageHeader = 'สรุปผล Fit And Fast ผจก. ฝ่าย (' 
         <ul class="thumbnails">
 
             <?php foreach ($data['employee'] as $employee): ?>
-                <?php if ($employee['employeeId'] == 1) continue; ?>
                 <li class="span3">
                     <div class="thumbnail">
                         <a href="<?php echo $this->createUrl('default/' . $employee['employeeId']); ?>"><i

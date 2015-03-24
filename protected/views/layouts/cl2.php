@@ -25,10 +25,9 @@
 						'nsy'))):
 					?>
 					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/manage'); ?>">การจัดการ Fit And Fast</a></li>
-					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/employee'); ?>">สรุปผลของพนักงาน YTD</a></li>
-                    <li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/monthlyEmployee'); ?>">สรุปผลของพนักงานรายเดือน</a></li>
+					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/employeeAllDivision'); ?>">สรุปผลของพนักงาน YTD</a></li>
 					<li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/manager'); ?>">สรุปผลของ ผจก. ฝ่าย YTD</a></li>
-                    <li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/monthlyManager'); ?>">สรุปผลของ ผจก. ฝ่ายรายเดือน</a></li>
+                    <li><a href="<?php echo Yii::app()->createUrl('fitandfast/report/monthly'); ?>">สรุปผลรายเดือน</a></li>
 				<?php endif; ?>
 
 				<li class="nav-header">ระบบเอกสาร</li>

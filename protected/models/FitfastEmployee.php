@@ -167,14 +167,15 @@ class FitfastEmployee extends FitfastEmployeeMaster
         );
     }
 
-    public function calculatePercentByDivisionId($companyId, $divisionId, $forYear)
+    public function calculatePercentByDivisionId($companyId, $divisionId, $forYear, $isManager=0)
     {
         $sumPercent = 0;
         $employees = Employee::model()->findAll(array(
-            'condition' => 'companyId=:companyId AND companyDivisionId=:companyDivisionId AND status=1',
+            'condition' => 'companyId=:companyId AND companyDivisionId=:companyDivisionId AND status=1 AND isManager=:isManager',
             'params' => array(
                 ':companyId' => $companyId,
-                ':companyDivisionId' => $divisionId
+                ':companyDivisionId' => $divisionId,
+                ':isManager'=>$isManager
             )
         ));
 

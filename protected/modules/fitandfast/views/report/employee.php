@@ -46,7 +46,7 @@ $this->pageHeader = 'สรุป Fit And Fast พนักงาน (' . $sumPe
                     <li class="span3">
                         <div class="thumbnail">
                             <p>
-                                <a href="<?php echo $this->createUrl('report/division/' . $company['companyId'] . '/' . $division['companyDivisionId']); ?>"><i
+                                <a href="<?php echo $this->createUrl('report/employeeInDivision/companyId/' . $company['companyId'] . '/divisionId/' . $division['companyDivisionId']); ?>"><i
                                         class="icon-search"></i></a>
                                 <?php echo $division['description']; ?>
                             </p>

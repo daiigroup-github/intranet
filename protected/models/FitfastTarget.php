@@ -15,6 +15,9 @@ class FitfastTarget extends FitfastTargetMaster
     const STATUS_CANCEL = 0x8;
 
     const UPLOAD_DATE = 20;
+
+    public $sumGrade;
+
     /**
      * Returns the static model of the specified AR class.
      *
@@ -51,12 +54,12 @@ class FitfastTarget extends FitfastTargetMaster
                 'Fitfast',
                 'fitfastId'
             ),
-            'parent'=>array(
+            'parent' => array(
                 self::BELONGS_TO,
                 'FitfastTarget',
                 'parentId'
             ),
-            'employee'=>array(
+            'employee' => array(
                 self::BELONGS_TO,
                 'Employee',
                 'employeeId'
@@ -164,10 +167,120 @@ class FitfastTarget extends FitfastTargetMaster
     public function statusArray()
     {
         return array(
-            self::STATUS_CREATED=>'Create',
-            self::STATUS_UPLOADED=>'Upload',
-            self::STATUS_GRADED=>'Grade',
-            self::STATUS_CANCEL=>'Cancel',
+            self::STATUS_CREATED => 'Create',
+            self::STATUS_UPLOADED => 'Upload',
+            self::STATUS_GRADED => 'Grade',
+            self::STATUS_CANCEL => 'Cancel',
         );
+    }
+
+    /**
+     * @param $month
+     * @param int $type 1=>employee, 2=manager
+     */
+    public function countGradeByMonth($month, $type = 1)
+    {
+        $isManager = ($type == 1) ? 0 : 1;
+        $employeeModels = Employee::model()->findAll(array(
+            'condition' => 'employeeId!=1 AND status=1 AND isManager=:isManager',
+            'params' => array(
+                ':isManager' => $isManager
+            )
+        ));
+
+        $res = array();
+
+        foreach ($this->gradeArray() as $k => $v) {
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'month=:month AND grade=:grade';
+            $criteria->params = array(
+                ':month' => $month,
+                ':grade' => $k,
+            );
+            $criteria->addInCondition('employeeId', CHtml::listData($employeeModels, 'employeeId', 'employeeId'));
+
+            $res[$v] = $this->count($criteria);
+
+            if ($v == 'SS')
+                $res[$v] *= 2;
+        }
+
+        return array_sum($res);
+    }
+
+    public function sumGradeByMonth($month, $type = 1)
+    {
+        $isManager = ($type == 1) ? 0 : 1;
+
+        $employeeModels = Employee::model()->findAll(array(
+            'condition' => 'employeeId!=1 AND status=1 AND isManager=:isManager',
+            'params' => array(
+                ':isManager' => $isManager
+            )
+        ));
+
+        $res = array();
+
+        foreach ($this->gradeArray() as $k => $v) {
+            if ($v == 'F')
+                continue;
+
+            $criteria = new CDbCriteria();
+            $criteria->condition = 'month=:month AND grade=:grade';
+            $criteria->params = array(
+                ':month' => $month,
+                ':grade' => $k,
+            );
+            $criteria->addInCondition('employeeId', CHtml::listData($employeeModels, 'employeeId', 'employeeId'));
+            $criteria->select = 'sum(grade) as sumGrade';
+
+            $sumGrade = FitfastTarget::model()->find($criteria);
+
+            $res[$v] = !empty($sumGrade->sumGrade) ? $sumGrade->sumGrade : 0;
+        }
+
+        return array_sum($res);
+    }
+
+    public function calculateGradeByMonth($month, $type = 1)
+    {
+        return ($this->countGradeByMonth($month, $type) == 0) ? 0 : number_format(($this->sumGradeByMonth($month, $type) / $this->countGradeByMonth($month, $type)) * 100, 2);
+    }
+
+    /**
+     * Grade F for last month if not upload
+     */
+    public function gradeForDidNotUpload()
+    {
+        foreach ($this->allDidNotUpload() as $model) {
+            $model->grade = -1;
+
+            //update Fitfast
+            $fitfastModel = $model->fitfast;
+            $fitfastModel->F -= 1;
+
+            //update FitfastEmployee
+            $fitfastEmployeeModel = $model->fitfast->fitfastEmployee;
+            $fitfastEmployeeModel->F -= 1;
+            $fitfastEmployeeModel->percent = $fitfastEmployeeModel->calculatePercent();
+
+            //save all
+            $model->save();
+            $fitfastModel->save();
+            $fitfastEmployeeModel->save();
+        }
+
+    }
+
+    public function allDidNotUpload()
+    {
+        $lastMonth = date('m') - 1;
+
+        return $this->findAll(array(
+            'condition' => 'grade=0 AND month=:lastMonth',
+            'params' => array(
+                ':lastMonth' => $lastMonth
+            ),
+        ));
     }
 }
