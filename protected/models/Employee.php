@@ -880,6 +880,7 @@ class Employee extends EmployeeMaster
 		$model = $this->find('employeeId=:employeeId AND isManager=1', array(
 			':employeeId'=>$id));
 
+
 		return ($model !== NULL) ? true : false;
 
 	}

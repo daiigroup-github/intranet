@@ -13,4 +13,5 @@
     <button class="btn btn-default" type="submit">Search</button>
     <?php echo $form->textField($model, 'searchText', array('class' => '')); ?>
 </div>
+<?php echo $form->dropDownList($model, 'employeeId', CHtml::listData(Employee::model()->findAll(array('condition'=>'status=1 and employeeId!=1', 'order'=>'fnTh')), 'employeeId', 'fullName'), array('prompt'=>'พนักงานทั้งหมด'));?>
 <?php $this->endWidget(); ?>

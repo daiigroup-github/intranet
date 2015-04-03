@@ -17,16 +17,28 @@ class HomeController extends Controller
 		if(Employee::model()->isManager())
 		{
 			$employeeModel = Employee::model()->findByPk(Yii::app()->user->id);
-			$divisionFitAndFastPercent = FitAndFast::model()->divisionPercent($employeeModel->companyDivisionId);
+//			$divisionFitAndFastPercent = FitfastEmployee::model()->calculatePercentByDivisionId($employeeModel->companyId, $employeeModel->companyDivisionId, date('Y'));
+
+            $divisionFitAndFast = array(
+                'percent'=>FitfastEmployee::model()->calculatePercentByDivisionId($employeeModel->companyId, $employeeModel->companyDivisionId, date('Y')),
+                'grades'=>FitfastEmployee::model()->countGradeByDivision($employeeModel->companyId, $employeeModel->companyDivisionId, date('Y'))
+            );
 		}
 
 		//print_r(sizeof(FitAndFast::model()->findAllWaitingForGradeInCompanyDivision(7)));
+        $fitfastEmployeeModel = FitfastEmployee::model()->find(array(
+            'condition'=>'employeeId=:employeeId',
+            'params'=>array(
+                ':employeeId'=>Yii::app()->user->id,
+            )
+        ));
 
 		$this->render('index', array(
 			'model'=>$model,
 			'elearningExamModel'=>$elearningExamModel,
 			'summary'=>$summary,
-			'divisionFitAndFastPercent'=>isset($divisionFitAndFastPercent) ? $divisionFitAndFastPercent : NULL,
+			'divisionFitAndFast'=>$divisionFitAndFast,
+            'fitfastEmployeeModel'=>$fitfastEmployeeModel
 		));
 	}
 

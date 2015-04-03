@@ -36,7 +36,9 @@ class FitfastTarget extends FitfastTargetMaster
      */
     public function rules()
     {
-        return CMap::mergeArray(parent::rules(), array());
+        return CMap::mergeArray(parent::rules(), array(
+            array('fitfastTargetId, status, createDateTime, updateDateTime, employeeId, fitfastId, month, target, file, grade, parentId, searchText', 'safe', 'on'=>'search'),
+        ));
     }
 
     /**
@@ -84,6 +86,27 @@ class FitfastTarget extends FitfastTargetMaster
      *         {
      *         }
      */
+    public function search()
+    {
+        // @todo Please modify the following code to remove attributes that should not be searched.
+
+        $criteria=new CDbCriteria;
+
+//        $criteria->compare('fitfastTargetId',$this->fitfastTargetId,true);
+//        $criteria->compare('status',$this->status);
+//        $criteria->compare('employeeId',$this->employeeId,true);
+//        $criteria->compare('month',$this->month);
+        $criteria->compare('target',$this->searchText,true, 'OR');
+
+        $handle = fopen('/tmp/fft-search', 'w+');
+        fwrite($handle, print_r($this->searchText, true));
+        fclose($handle);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
     public function gradeArray()
     {
         return array(
@@ -280,6 +303,19 @@ class FitfastTarget extends FitfastTargetMaster
             'condition' => 'grade=0 AND month=:lastMonth',
             'params' => array(
                 ':lastMonth' => $lastMonth
+            ),
+        ));
+    }
+
+    public function waitingForUploadByEmployeeId($employeeId=null)
+    {
+        $employeeId = isset($employeeId) ? $employeeId : Yii::app()->user->id;
+        $thisMonth = 2;//date('m');
+        return $this->findAll(array(
+            'condition'=>'employeeId=:employeeId AND month<=:month AND grade=0',
+            'params'=>array(
+                ':employeeId'=>$employeeId,
+                ':month'=>$thisMonth
             ),
         ));
     }

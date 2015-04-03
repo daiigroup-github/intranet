@@ -138,6 +138,47 @@ class FitfastEmployee extends FitfastEmployeeMaster
         );
     }
 
+    public function countGradeByDivision($companyId, $divisionId, $forYear=null, $isManager=0)
+    {
+        $s = 0;
+        $S = 0;
+        $SS = 0;
+        $F = 0;
+        $forYear = isset($forYear) ? $forYear : date('Y');
+
+        $employees = Employee::model()->findAll(array(
+            'condition' => 'companyId=:companyId AND companyDivisionId=:companyDivisionId AND status=1 AND isManager=:isManager',
+            'params' => array(
+                ':companyId' => $companyId,
+                ':companyDivisionId' => $divisionId,
+                ':isManager' => $isManager
+            )
+        ));
+
+
+        foreach ($employees as $employee) {
+            $model = $this->find(array(
+                'condition'=>'employeeId=:employeeId AND forYear=:forYear',
+                'params'=>array(
+                    ':employeeId'=>$employee->employeeId,
+                    ':forYear'=>$forYear
+                )
+            ));
+
+            $s += $model->halfS;
+            $S += $model->S;
+            $SS += $model->SS;
+            $F += $model->F;
+        }
+
+        return array(
+            's'=>$s,
+            'S'=>$S,
+            'SS'=>$SS,
+            'F'=>$F
+        );
+    }
+
     public function sumGrade()
     {
         return $this->halfS + $this->S + $this->SS * self::GRADE_SS - $this->F;
@@ -167,7 +208,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
         );
     }
 
-    public function calculatePercentByDivisionId($companyId, $divisionId, $forYear, $isManager=0)
+    public function calculatePercentByDivisionId($companyId, $divisionId, $forYear, $isManager = 0)
     {
         $sumPercent = 0;
         $employees = Employee::model()->findAll(array(
@@ -175,7 +216,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
             'params' => array(
                 ':companyId' => $companyId,
                 ':companyDivisionId' => $divisionId,
-                ':isManager'=>$isManager
+                ':isManager' => $isManager
             )
         ));
 

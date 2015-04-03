@@ -28,7 +28,9 @@ class Fitfast extends FitfastMaster
      */
     public function rules()
     {
-        return CMap::mergeArray(parent::rules(), array());
+        return CMap::mergeArray(parent::rules(), array(
+            array('fitfastId, status, createDateTime, updateDateTime, fitfastEmployeeId, employeeId, title, description, type, halfS, S, SS, F, searchText', 'safe', 'on'=>'search'),
+        ));
     }
 
     /**
@@ -119,9 +121,9 @@ class Fitfast extends FitfastMaster
 //        $criteria->compare('updateDateTime',$this->updateDateTime,true);
 //        $criteria->compare('fitfastEmployeeId',$this->fitfastEmployeeId,true);
         $criteria->compare('employeeId',$this->employeeId,false, 'AND');
-        $criteria->compare('title',$this->title,true, 'AND');
+        $criteria->compare('title',$this->searchText,true, 'AND');
 //        $criteria->compare('description',$this->description,true);
-        $criteria->compare('type',$this->type, false, 'OR');
+//        $criteria->compare('type',$this->type, false, 'OR');
 //        $criteria->compare('halfS',$this->halfS);
 //        $criteria->compare('S',$this->S);
 //        $criteria->compare('SS',$this->SS);

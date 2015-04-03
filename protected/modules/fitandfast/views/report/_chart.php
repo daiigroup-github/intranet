@@ -52,18 +52,18 @@ $cs->registerCSSFile($baseUrl . "/css/chart{$span}.css");
     </div>
 
 <?php if (isset($grades)): ?>
-    <p style="text-align: center;">
-        <?php if($grades !== array()):?>
+    <?php if ($grades !== array()): ?>
+        <p style="text-align: center;">
         <?php foreach ($grades as $k => $v): ?>
             <span id="<?php echo $k; ?>" class="label <?php echo ($k == 'F') ? 'label-important' : 'label-success' ?>"><?php echo $v . $k ?></span>
         <?php endforeach; ?>
-        <?php else:?>
-    <p style="text-align: center;">
-        <span id="s" class="label label-success">0s</span>
-        <span id="S" class="label label-success">0S</span>
-        <span id="SS" class="label label-success">0SS</span>
-        <span id="F" class="label label-important">0F</span>
-    </p>
-        <?php endif;?>
-    </p>
+        </p>
+    <?php else: ?>
+        <p style="text-align: center;">
+            <span id="s" class="label label-success">0s</span>
+            <span id="S" class="label label-success">0S</span>
+            <span id="SS" class="label label-success">0SS</span>
+            <span id="F" class="label label-important">0F</span>
+        </p>
+    <?php endif; ?>
 <?php endif; ?>

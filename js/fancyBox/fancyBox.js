@@ -161,7 +161,7 @@ $(document).ready(function() {
 				'frameWidth': 700,
 				'frameHeight': 600,
 				'overlayShow': false,
-				'hideOnContentClick': false,
+				'hideOnContentClick': false
 				//'content': '<embed src="'+this.href+'#nameddest=self&page=1&view=FitH,0&zoom=80,0,0" type="application/pdf" height="99%" width="100%" />',
 			});
 

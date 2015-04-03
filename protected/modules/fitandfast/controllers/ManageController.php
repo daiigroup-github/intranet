@@ -318,6 +318,7 @@ class ManageController extends FitandfastMasterController
 
             $flag = false;
             $transaction = Yii::app()->db->beginTransaction();
+            $error = array();
 
             try {
                 $i = 0;
@@ -380,6 +381,7 @@ class ManageController extends FitandfastMasterController
                                 $fitfastTargetModel->month = $j-1;
 
                                 if(!$fitfastTargetModel->save()) {
+                                    $error[] = $fitfastTargetModel->errors;
                                     print_r($fitfastTargetModel->errors);
                                     break;
                                 }
@@ -388,10 +390,12 @@ class ManageController extends FitandfastMasterController
                             if($j != 14)
                                 break;
                         } else {
+                            $error[] = $fitfastModel->errors;
                             print_r($fitfastModel->errors);
                             break;
                         }
                     } else {
+                        $error[] = $fitfastEmployeeModel->errors;
                         print_r($fitfastEmployeeModel->errors);
                         break;
                     }
@@ -405,7 +409,7 @@ class ManageController extends FitandfastMasterController
                     $transaction->commit();
                     $this->redirect(Yii::app()->createUrl('fitandfast/manage'));
                 } else {
-
+                    print_r($data);
                     $transaction->rollback();
                 }
             } catch (Exception $e) {
