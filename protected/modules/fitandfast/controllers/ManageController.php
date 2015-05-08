@@ -326,12 +326,12 @@ class ManageController extends FitandfastMasterController
                     $data = explode('|', $line);
 
                     $employeeModel = Employee::model()->find(array(
-                        'condition'=>'employeeCode=:employeeCode',
-                        'params'=>array(
-                            ':employeeCode'=>$data[0]
+                        'condition' => 'employeeCode=:employeeCode',
+                        'params' => array(
+                            ':employeeCode' => $data[0]
                         )
                     ));
-                    if(!isset($employeeModel))
+                    if (!isset($employeeModel))
                         break;
 
                     /**
@@ -365,11 +365,11 @@ class ManageController extends FitandfastMasterController
                         $fitfastModel->title = $data[1];
                         $fitfastModel->type = Fitfast::FITFAST_TYPE_PERFORMANCE;
 
-                        if($fitfastModel->save()) {
+                        if ($fitfastModel->save()) {
                             $fitfastId = Yii::app()->db->lastInsertID;
 
-                            for($j=2;$j<=13;$j++) {
-                                if($data[$j] == null || $data[$j] == "\r" || $data[$j] == "\n") {
+                            for ($j = 2; $j <= 13; $j++) {
+                                if ($data[$j] == null || $data[$j] == "\r" || $data[$j] == "\n") {
                                     continue;
                                 }
 
@@ -378,31 +378,31 @@ class ManageController extends FitandfastMasterController
                                 $fitfastTargetModel->fitfastId = $fitfastId;
                                 $fitfastTargetModel->createDateTime = $fitfastTargetModel->updateDateTime = new CDbExpression('NOW()');
                                 $fitfastTargetModel->target = $data[$j];
-                                $fitfastTargetModel->month = $j-1;
+                                $fitfastTargetModel->month = $j - 1;
 
-                                if(!$fitfastTargetModel->save()) {
+                                if (!$fitfastTargetModel->save()) {
                                     $error[] = $fitfastTargetModel->errors;
-                                    print_r($fitfastTargetModel->errors);
+//                                    echo '$fitfastTargetModel'. print_r($fitfastTargetModel->errors, true);
                                     break;
                                 }
                             }
 
-                            if($j != 14)
+                            if ($j != 14)
                                 break;
                         } else {
                             $error[] = $fitfastModel->errors;
-                            print_r($fitfastModel->errors);
+//                            echo '$fitfastModel'.print_r($fitfastModel->errors, true);
                             break;
                         }
                     } else {
                         $error[] = $fitfastEmployeeModel->errors;
-                        print_r($fitfastEmployeeModel->errors);
+//                        echo '$fitfastEmployeeModel'.print_r($fitfastEmployeeModel->errors, true);
                         break;
                     }
                     $i++;
                 }
 
-                if($i == sizeof($lines))
+                if ($i == sizeof($lines))
                     $flag = true;
 
                 if ($flag) {
@@ -410,6 +410,9 @@ class ManageController extends FitandfastMasterController
                     $this->redirect(Yii::app()->createUrl('fitandfast/manage'));
                 } else {
                     print_r($data);
+                    echo '$fitfastTargetModel' . print_r($fitfastTargetModel->errors, true);
+                    echo '$fitfastModel' . print_r($fitfastModel->errors, true);
+                    echo '$fitfastEmployeeModel' . print_r($fitfastEmployeeModel->errors, true);
                     $transaction->rollback();
                 }
             } catch (Exception $e) {
