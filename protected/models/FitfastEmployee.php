@@ -155,6 +155,11 @@ class FitfastEmployee extends FitfastEmployeeMaster
             )
         ));
 
+        $empId = CHtml::listData($employees, 'employeeId', 'username');
+        $handle = fopen('/tmp/'.get_class($this), 'w+');
+        fwrite($handle, print_r(implode(',',array_keys($empId)), true));
+        fclose($handle);
+
 
         foreach ($employees as $employee) {
             $model = $this->find(array(
@@ -165,10 +170,12 @@ class FitfastEmployee extends FitfastEmployeeMaster
                 )
             ));
 
-            $s += $model->halfS;
-            $S += $model->S;
-            $SS += $model->SS;
-            $F += $model->F;
+            if(isset($model)) {
+                $s += $model->halfS;
+                $S += $model->S;
+                $SS += $model->SS;
+                $F += $model->F;
+            }
         }
 
         return array(
