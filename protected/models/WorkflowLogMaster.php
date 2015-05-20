@@ -33,10 +33,10 @@ class WorkflowLogMaster extends MasterCActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('documentId, workflowStateId, employeeId, remarks, estimateHour, isOverEstimate', 'required'),
+			array('documentId, workflowStateId, employeeId', 'required'),
 			array('estimateHour, numHour, isOverEstimate', 'numerical', 'integerOnly'=>true),
 			array('documentId, workflowStateId, employeeId, groupId', 'length', 'max'=>20),
-			array('createDateTime', 'safe'),
+			array('createDateTime, remarks', 'safe'),
 			array('createDateTime', 'default', 'value'=>new CDbExpression('NOW()'), 'on'=>'insert'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
