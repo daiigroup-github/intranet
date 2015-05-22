@@ -14,7 +14,7 @@ class HomeController extends Controller
 		$model = new LoginForm();
 		$elearningExamModel = ElearningExam::model()->hasExamToday();
 		$summary = FitAndFast::model()->gradeByEmployeeId(Yii::app()->user->id);
-        $divisionFitAndFast = array();
+		$divisionFitAndFast = array();
 
 		if(Employee::model()->isManager())
 		{
