@@ -382,4 +382,21 @@ class FitfastTargetController extends FitandfastMasterController
             'model' => $model
         ));
     }
+
+    public function actionGradeFForAll()
+    {
+        $fitfastTargetModels = FitfastTarget::model()->findAll(array(
+            'condition'=>'month<=5 AND grade=0',
+        ));
+
+        foreach ($fitfastTargetModels as $fft) {
+            $this->actionChangeGrade($fft->fitfastTargetId, 'F');
+            echo '<br />';
+        }
+    }
+
+    public function actionKurtumm()
+    {
+        echo 'Kurtumm';
+    }
 }

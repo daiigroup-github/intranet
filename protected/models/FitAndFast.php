@@ -354,50 +354,50 @@ class FitAndFast extends FitAndFastMaster
 
 		$criteria = new CDbCriteria;
 
-		$criteria->compare('fitAndFastId', $this->fitAndFastId, true);
-		$criteria->compare('status', $this->status);
-		$criteria->compare('createDateTime', $this->createDateTime, true);
-		$criteria->compare('updateDateTime', $this->updateDateTime, true);
-		$criteria->compare('title', $this->searchText, true, 'OR');
-		$criteria->compare('description', $this->searchText, true, 'OR');
-		$criteria->compare('targetJan', $this->searchText, true, 'OR');
-		$criteria->compare('actualJan', $this->searchText, true, 'OR');
-		$criteria->compare('gradeJan', $this->searchText, true, 'OR');
-		$criteria->compare('targetFeb', $this->searchText, true, 'OR');
-		$criteria->compare('actualFeb', $this->searchText, true, 'OR');
-		$criteria->compare('gradeFeb', $this->searchText, true, 'OR');
-		$criteria->compare('targetMar', $this->searchText, true, 'OR');
-		$criteria->compare('actualMar', $this->searchText, true, 'OR');
-		$criteria->compare('gradeMar', $this->searchText, true, 'OR');
-		$criteria->compare('targetApr', $this->searchText, true, 'OR');
-		$criteria->compare('actualApr', $this->searchText, true, 'OR');
-		$criteria->compare('gradeApr', $this->searchText, true, 'OR');
-		$criteria->compare('targetMay', $this->searchText, true, 'OR');
-		$criteria->compare('actualMay', $this->searchText, true, 'OR');
-		$criteria->compare('gradeMay', $this->searchText, true, 'OR');
-		$criteria->compare('targetJun', $this->searchText, true, 'OR');
-		$criteria->compare('actualJun', $this->searchText, true, 'OR');
-		$criteria->compare('gradeJun', $this->searchText, true, 'OR');
-		$criteria->compare('targetJul', $this->searchText, true, 'OR');
-		$criteria->compare('actualJul', $this->searchText, true, 'OR');
-		$criteria->compare('gradeJul', $this->searchText, true, 'OR');
-		$criteria->compare('targetAug', $this->searchText, true, 'OR');
-		$criteria->compare('actualAug', $this->searchText, true, 'OR');
-		$criteria->compare('gradeAug', $this->searchText, true, 'OR');
-		$criteria->compare('targetSep', $this->searchText, true, 'OR');
-		$criteria->compare('actualSep', $this->searchText, true, 'OR');
-		$criteria->compare('gradeSep', $this->searchText, true, 'OR');
-		$criteria->compare('targetOct', $this->searchText, true, 'OR');
-		$criteria->compare('actualOct', $this->searchText, true, 'OR');
-		$criteria->compare('gradeOct', $this->searchText, true, 'OR');
-		$criteria->compare('targetNov', $this->searchText, true, 'OR');
-		$criteria->compare('actualNov', $this->searchText, true, 'OR');
-		$criteria->compare('gradeNov', $this->searchText, true, 'OR');
-		$criteria->compare('targetDec', $this->searchText, true, 'OR');
-		$criteria->compare('actualDec', $this->searchText, true, 'OR');
-		$criteria->compare('gradeDec', $this->searchText, true, 'OR');
-		$criteria->compare('forYear', $this->forYear, true, 'OR');
-		$criteria->compare('type', $this->type, true, 'OR');
+//		$criteria->compare('fitAndFastId', $this->fitAndFastId, true);
+//		$criteria->compare('status', $this->status);
+//		$criteria->compare('createDateTime', $this->createDateTime, true);
+//		$criteria->compare('updateDateTime', $this->updateDateTime, true);
+//		$criteria->compare('title', $this->searchText, true, 'OR');
+//		$criteria->compare('description', $this->searchText, true, 'OR');
+//		$criteria->compare('targetJan', $this->searchText, true, 'OR');
+//		$criteria->compare('actualJan', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeJan', $this->searchText, true, 'OR');
+//		$criteria->compare('targetFeb', $this->searchText, true, 'OR');
+//		$criteria->compare('actualFeb', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeFeb', $this->searchText, true, 'OR');
+//		$criteria->compare('targetMar', $this->searchText, true, 'OR');
+//		$criteria->compare('actualMar', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeMar', $this->searchText, true, 'OR');
+//		$criteria->compare('targetApr', $this->searchText, true, 'OR');
+//		$criteria->compare('actualApr', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeApr', $this->searchText, true, 'OR');
+//		$criteria->compare('targetMay', $this->searchText, true, 'OR');
+//		$criteria->compare('actualMay', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeMay', $this->searchText, true, 'OR');
+//		$criteria->compare('targetJun', $this->searchText, true, 'OR');
+//		$criteria->compare('actualJun', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeJun', $this->searchText, true, 'OR');
+//		$criteria->compare('targetJul', $this->searchText, true, 'OR');
+//		$criteria->compare('actualJul', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeJul', $this->searchText, true, 'OR');
+//		$criteria->compare('targetAug', $this->searchText, true, 'OR');
+//		$criteria->compare('actualAug', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeAug', $this->searchText, true, 'OR');
+//		$criteria->compare('targetSep', $this->searchText, true, 'OR');
+//		$criteria->compare('actualSep', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeSep', $this->searchText, true, 'OR');
+//		$criteria->compare('targetOct', $this->searchText, true, 'OR');
+//		$criteria->compare('actualOct', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeOct', $this->searchText, true, 'OR');
+//		$criteria->compare('targetNov', $this->searchText, true, 'OR');
+//		$criteria->compare('actualNov', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeNov', $this->searchText, true, 'OR');
+//		$criteria->compare('targetDec', $this->searchText, true, 'OR');
+//		$criteria->compare('actualDec', $this->searchText, true, 'OR');
+//		$criteria->compare('gradeDec', $this->searchText, true, 'OR');
+//		$criteria->compare('forYear', $this->forYear, true, 'OR');
+//		$criteria->compare('type', $this->type, true, 'OR');
 
 		$criteria->with = array(
 			'employee');
@@ -410,7 +410,7 @@ class FitAndFast extends FitAndFastMaster
 		}
 
 		$handle = fopen('/tmp/user', 'w+');
-		fwrite($handle, print_r($criteria, true));
+		fwrite($handle, print_r($this->searchText, true));
 		fclose($handle);
 
 		return new CActiveDataProvider($this, array(

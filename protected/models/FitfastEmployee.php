@@ -138,7 +138,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
         );
     }
 
-    public function countGradeByDivision($companyId, $divisionId, $forYear=null, $isManager=0)
+    public function countGradeByDivision($companyId, $divisionId, $forYear = null, $isManager = 0)
     {
         $s = 0;
         $S = 0;
@@ -156,21 +156,21 @@ class FitfastEmployee extends FitfastEmployeeMaster
         ));
 
         $empId = CHtml::listData($employees, 'employeeId', 'username');
-        $handle = fopen('/tmp/'.get_class($this), 'w+');
-        fwrite($handle, print_r(implode(',',array_keys($empId)), true));
+        $handle = fopen('/tmp/' . get_class($this), 'w+');
+        fwrite($handle, print_r(implode(',', array_keys($empId)), true));
         fclose($handle);
 
 
         foreach ($employees as $employee) {
             $model = $this->find(array(
-                'condition'=>'employeeId=:employeeId AND forYear=:forYear',
-                'params'=>array(
-                    ':employeeId'=>$employee->employeeId,
-                    ':forYear'=>$forYear
+                'condition' => 'employeeId=:employeeId AND forYear=:forYear',
+                'params' => array(
+                    ':employeeId' => $employee->employeeId,
+                    ':forYear' => $forYear
                 )
             ));
 
-            if(isset($model)) {
+            if (isset($model)) {
                 $s += $model->halfS;
                 $S += $model->S;
                 $SS += $model->SS;
@@ -179,10 +179,10 @@ class FitfastEmployee extends FitfastEmployeeMaster
         }
 
         return array(
-            's'=>$s,
-            'S'=>$S,
-            'SS'=>$SS,
-            'F'=>$F
+            's' => $s,
+            'S' => $S,
+            'SS' => $SS,
+            'F' => $F
         );
     }
 
@@ -190,7 +190,6 @@ class FitfastEmployee extends FitfastEmployeeMaster
     {
         return $this->halfS + $this->S + $this->SS * self::GRADE_SS - $this->F;
     }
-
     public function calculatePercent()
     {
         // % = ( $sum1 / $sum2 ) * 100
@@ -198,6 +197,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
 
         return ($this->sumGrade() == 0) ? 0 : number_format(($sum1 / $this->sumGrade()) * 100, 2);
     }
+
 
     public function calculatePercentByEmployeeIdAndYear($employeeId, $forYear)
     {
@@ -226,6 +226,8 @@ class FitfastEmployee extends FitfastEmployeeMaster
                 ':isManager' => $isManager
             )
         ));
+
+        if (!sizeof($employees)) return 0;
 
         foreach ($employees as $employee) {
             $fitfastEmployeeModel = FitfastEmployee::model()->find(array(
