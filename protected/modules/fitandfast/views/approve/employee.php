@@ -24,7 +24,12 @@ $this->breadcrumbs=array(
             'name' => 'month',
             'value' => '$data->getMonthThaiText($data->month)'
         ),
-        'target',
+//        'target',
+        array(
+            'type'=>'raw',
+            'name'=>'target',
+            'value'=>'$data->fitfast->title."<br />".$data->target'
+        ),
         array(
             'type'=>'raw',
             'name'=>'file',
