@@ -28,6 +28,7 @@ $this->breadcrumbs=array(
         array(
             'type'=>'raw',
             'name'=>'target',
+            'header'=>'Topic/Target',
             'value'=>'$data->fitfast->title."<br />".$data->target'
         ),
         array(
