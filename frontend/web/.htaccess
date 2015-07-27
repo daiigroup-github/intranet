@@ -9,5 +9,5 @@ RewriteCond %{REQUEST_FILENAME} !-d
 # Otherwise forward it to index.php
 RewriteRule . index.php
 
-Header set Access-Control-Allow-Origin "*"
-Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
+#Header set Access-Control-Allow-Origin "*"
+#Header set Access-Control-Allow-Methods: "GET,POST,OPTIONS,DELETE,PUT"
