@@ -30,10 +30,10 @@ return [
             'errorAction' => 'site/error',
         ],
 
-        'view' =>[
+        'view' => [
             'theme' => [
                 'pathMap' => ['@app/views' => '@app/themes/pixel-admin'],
-                'baseUrl'   => '@web'
+                'baseUrl' => '@web'
             ]
         ],
         'assetManager' => [
@@ -42,7 +42,7 @@ return [
 //                    'js'=>[]
 //                ],
                 'yii\bootstrap\BootstrapPluginAsset' => [
-                    'js'=>[]
+                    'js' => []
                 ],
                 'yii\bootstrap\BootstrapAsset' => [
                     'css' => [],
@@ -59,8 +59,11 @@ return [
         'fitandfast' => [
             'class' => 'frontend\modules\fitandfast\Fitandfast',
         ],
-        'document'=>[
+        'document' => [
             'class' => 'frontend\modules\document\Document',
+        ],
+        'mobile' => [
+            'class' => 'frontend\modules\mobile\Mobile',
         ]
     ],
 ];

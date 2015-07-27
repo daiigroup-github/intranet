@@ -37,7 +37,6 @@ class ReportController extends FitandfastMasterController
 
     public function actionEmployeeAllDivision()
     {
-        echo 'abc';
         $res = [];
         $companyModels = Company::find()
             ->where('status=1')
