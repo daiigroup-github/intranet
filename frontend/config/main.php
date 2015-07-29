@@ -64,6 +64,9 @@ return [
         ],
         'mobile' => [
             'class' => 'frontend\modules\mobile\Mobile',
+        ],
+        'employee' => [
+            'class' => 'frontend\modules\employee\Employee',
         ]
     ],
 ];
