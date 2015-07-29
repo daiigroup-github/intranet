@@ -2,3 +2,7 @@
 /vendor
 /tests
 frontend/web/assets
+/assets
+/nbproject
+/protected/runtime
+/protected/config/params.php
