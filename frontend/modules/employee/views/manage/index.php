@@ -16,6 +16,7 @@ $this->params['pageHeader'] = Html::encode($this->title);
 
     <p>
         <?= Html::a('Create Employee', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Resign', ['resign'], ['class' => 'btn btn-warning']) ?>
     </p>
 
     <?php Pjax::begin(['id' => 'employee-grid-view']); ?>
@@ -82,7 +83,19 @@ $this->params['pageHeader'] = Html::encode($this->title);
                             return $model->employeeStatusText;
                         }
                     ],
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template'=>'{view} {update} {lock}',
+                        'buttons' => [
+                            'lock' => function ($url, $model) {
+                                $lock = ($model->status == 1) ? 'lock' : 'unlock';
+                                return Html::a('<i class="fa fa-'.$lock.'"></i>', $url, [
+                                    'title' => strtoupper($lock),
+//                                    'class' => 'btn btn-primary btn-xs grade',
+                                ]);
+                            },
+                        ]
+                    ],
                 ]
             ]); ?>
             <?php Pjax::end(); ?>

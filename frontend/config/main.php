@@ -12,6 +12,13 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=daiichi',
+            'username' => 'intranet',
+            'password' => '1Ntr@N3T938',
+            'charset' => 'utf8',
+        ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
@@ -67,6 +74,7 @@ return [
         ],
         'employee' => [
             'class' => 'frontend\modules\employee\Employee',
+            'defaultRoute'=>'manage'
         ]
     ],
 ];

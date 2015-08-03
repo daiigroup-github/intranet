@@ -67,13 +67,29 @@ class ManageController extends EmployeeMasterController
     {
         $model = new Employee();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->employeeId]);
+//        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->employeeCode = $model->generateEmployeeCode();
+            $model->username = $model->generateUsername($model->fnEn, $model->lnEn);
+            $model->password = $model->hashPassword();
+            $model->createDateTime = $model->updateDateTime = new Expression('NOW()');
+//            $model->proDate = date('Y-m-d', strtotime($model->startDate, '+90 day'));
+
+            echo '<br /><br /><br /><br /><br /><br />';
+            print_r($model->attributes);
+
+            if(!$model->validate()) {
+                echo '<br /><br /><br /><br /><br /><br />';
+                print_r($model->errors);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
         }
+        return $this->render('create', [
+            'model' => $model,
+        ]);
     }
 
     /**
