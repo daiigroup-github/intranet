@@ -58,6 +58,11 @@ return [
 
             ],
         ],
+
+        'request' => [
+            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+            'cookieValidationKey' => 'EDk8lofh-rkx-40yLXXIPFr-M2DSaatw',
+        ],
     ],
     'params' => $params,
     'defaultRoute' => 'home/index',
