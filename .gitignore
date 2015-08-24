@@ -4,5 +4,6 @@
 frontend/web/assets
 /nbproject/private/
 *.xml
-
+/assets
 *.properties
+/protected/runtime
