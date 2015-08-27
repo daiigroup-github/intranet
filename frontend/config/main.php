@@ -68,18 +68,18 @@ return [
     'defaultRoute' => 'home/index',
 
     'modules' => [
-        'fitandfast' => [
-            'class' => 'frontend\modules\fitandfast\Fitandfast',
-        ],
-        'document' => [
-            'class' => 'frontend\modules\document\Document',
-        ],
+        'content' => [
+			'class' => 'modules\backend\Content',
+		],
         'mobile' => [
-            'class' => 'frontend\modules\mobile\Mobile',
-        ],
-        'employee' => [
-            'class' => 'frontend\modules\employee\Employee',
-            'defaultRoute'=>'manage'
-        ]
-    ],
+			'class' => 'modules\mobile\Mobile',
+		],
+//        'mobile' => [
+//            'class' => 'frontend\modules\mobile\Mobile',
+//        ],
+//        'employee' => [
+//            'class' => 'frontend\modules\employee\Employee',
+//            'defaultRoute'=>'manage'
+//        ]
+	],
 ];
