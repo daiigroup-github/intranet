@@ -67,19 +67,19 @@ return [
     'params' => $params,
     'defaultRoute' => 'home/index',
 
-    'modules' => [
-        'content' => [
-			'class' => 'modules\backend\Content',
+	'modules' => [
+		'fitandfast' => [
+			'class' => 'frontend\modules\fitandfast\Fitandfast',
 		],
-        'mobile' => [
-			'class' => 'modules\mobile\Mobile',
+		'document' => [
+			'class' => 'frontend\modules\document\Document',
 		],
-//        'mobile' => [
-//            'class' => 'frontend\modules\mobile\Mobile',
-//        ],
-//        'employee' => [
-//            'class' => 'frontend\modules\employee\Employee',
-//            'defaultRoute'=>'manage'
-//        ]
+		'mobile' => [
+			'class' => 'frontend\modules\mobile\Mobile',
+		],
+		'employee' => [
+			'class' => 'frontend\modules\employee\Employee',
+			'defaultRoute' => 'manage'
+		]
 	],
 ];
