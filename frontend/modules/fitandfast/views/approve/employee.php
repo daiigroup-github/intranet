@@ -34,7 +34,7 @@ FancyBoxAsset::register($this);
                             'attribute' => 'employeeId',
                             'label' => 'Employee',
                             'value' => function ($model) {
-                                return $model->fitFast->fitfastEmployee->employee->fullThName;
+                                return $model->fitfast->fitfastEmployee->employee->fullThName;
                             }
                         ],
                         'target',
@@ -44,7 +44,13 @@ FancyBoxAsset::register($this);
                                 return $model->getMonthText($model->month);
                             }
                         ],
-                        'file',
+                        [
+                            'attribute'=>'file',
+                            'format'=>'raw',
+                            'value'=>function($model){
+                                return Html::a('View File', [$model->file], ['rel' => 'fancyboxPDF', 'class'=>'fancyBoxPDF']);
+                            }
+                        ],
                         [
                             'attribute' => 'grade',
                             'value' => function ($model) {

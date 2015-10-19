@@ -63,6 +63,15 @@ return [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'EDk8lofh-rkx-40yLXXIPFr-M2DSaatw',
         ],
+
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName'=>false,
+            'rules' => [
+                // your rules go here
+            ],
+            // ...
+        ]
     ],
     'params' => $params,
     'defaultRoute' => 'home/index',
@@ -80,6 +89,10 @@ return [
         'employee' => [
             'class' => 'frontend\modules\employee\Employee',
             'defaultRoute'=>'manage'
+        ],
+        'mileage' => [
+            'class' => 'frontend\modules\mileage\Mileage',
+//            'defaultRoute'=>'manage'
         ]
     ],
 ];

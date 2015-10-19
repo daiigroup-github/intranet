@@ -2,7 +2,7 @@
 
 namespace frontend\modules\fitandfast\controllers;
 
-use app\models\search\FitfastEmployeeSearch;
+use frontend\models\search\FitfastEmployeeSearch;
 use frontend\models\FitfastTarget;
 use Yii;
 use frontend\models\FitfastEmployee;

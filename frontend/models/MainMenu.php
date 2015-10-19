@@ -66,7 +66,7 @@ class MainMenu extends Model
             //Fit and Fast
 
             [
-                'labelIcon' => 'fa-dashboard',
+                'labelIcon' => 'fa-line-chart',
                 'label' => 'Fit and Fast',
                 'url' => ['#'],
                 'options' => [
@@ -115,6 +115,35 @@ class MainMenu extends Model
 //                            'label' => 'History',
 //                            'labelIcon' => 'fa-history'
 //                        ],
+                    ],
+                ]),
+            ],
+
+            //Mileage
+            [
+                'label' => 'Mileage',
+                'labelIcon' => 'fa-dashboard',
+                'url' => ['/'],
+                'options' => [
+                    'class' => 'mm-dropdown mm-dropdown-root'
+                ],
+                'items' => NavPixel::widget([
+                    'options' => [
+                        'class' => 'mmc-dropdown-delay animated fadeInLeft',
+                    ],
+                    'items' => [
+                        [
+                            'label' => 'Create',
+                            'labelIcon' => 'fa-plus-circle'
+                        ],
+                        [
+                            'label' => 'Inbox',
+                            'labelIcon' => 'fa-inbox'
+                        ],
+                        [
+                            'label' => 'Outbox',
+                            'labelIcon' => 'fa-mail-forward'
+                        ],
                     ],
                 ]),
             ],

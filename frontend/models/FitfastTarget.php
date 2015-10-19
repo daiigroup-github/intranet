@@ -133,7 +133,7 @@ class FitfastTarget extends FitfastTargetMaster
 //                    }
 //                }
 //            }
-            $fitfastModel = $model->fitFast;
+            $fitfastModel = $model->fitfast;
             $fitfastEmployeeModel = $fitfastModel->fitfastEmployee;
 
             //new grade
