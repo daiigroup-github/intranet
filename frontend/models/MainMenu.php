@@ -15,7 +15,7 @@ use yii\web\Controller;
  */
 class MainMenu extends Model
 {
-    public function mainMenu()
+    public static function mainMenu()
     {
         return [
             [
@@ -38,7 +38,7 @@ class MainMenu extends Model
                         [
                             'label' => 'Create',
                             'labelIcon' => 'fa-plus-circle',
-                            'url'=>['/document/create']
+                            'url'=>['/document']
                         ],
                         [
                             'label' => 'Drafts',
@@ -207,6 +207,35 @@ class MainMenu extends Model
                     ],
                 ]),
             ],
+
+            //Sales report
+            [
+                'label'=>'Sales Report',
+                'labelIcon' => 'fa-bar-chart',
+                'options'=>['class'=>'mm-dropdown mm-dropdown-root'],
+                'items' => NavPixel::widget([
+                    'options' => [
+                        'class' => 'mmc-dropdown-delay animated fadeInLeft',
+                    ],
+                    'items' => [
+                        [
+                            'label' => 'CI',
+                            'labelIcon' => 'fa-users',
+                            'url'=>['/salesreport/ci'],
+                        ],
+                        [
+                            'label' => 'Project',
+                            'labelIcon' => 'fa-building',
+                            'url'=>['/salesreport/project'],
+                        ],
+                        [
+                            'label' => 'Report',
+                            'labelIcon' => 'fa-pie-chart',
+                            'url'=>['/sales-report/report']
+                        ],
+                    ],
+                ]),
+            ],
             [
                 'label' => 'Reports',
                 'labelIcon' => 'fa-bar-chart',
@@ -225,7 +254,7 @@ class MainMenu extends Model
         ];
     }
 
-    public function mainNavigation()
+    public static function mainNavigation()
     {
         return [
 //            [

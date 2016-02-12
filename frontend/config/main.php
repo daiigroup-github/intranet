@@ -93,6 +93,11 @@ return [
         'mileage' => [
             'class' => 'frontend\modules\mileage\Mileage',
 //            'defaultRoute'=>'manage'
+        ],
+
+        'salesreport' => [
+            'class' => 'frontend\modules\mileage\Mileage',
+//            'defaultRoute'=>'manage'
         ]
     ],
 ];

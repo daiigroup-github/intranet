@@ -77,13 +77,13 @@ class FitfastEmployee extends FitfastEmployeeMaster
         return ArrayHelper::map($forYears, 'forYear', 'forYear');
     }
 
-    public function summaryByEmployeeId($id = null, $forYear = null)
+    public static function summaryByEmployeeId($id = null, $forYear = null)
     {
         $id = isset($id) ? $id : \Yii::$app->user->identity->id;
         $forYear = isset($forYear) ? $forYear : date('Y');
         $employeeModel = Employee::findOne($id);
 
-        $model = FitfastEmployee::findOne(['employeeId' => $id]);
+        $model = FitfastEmployee::findOne(['employeeId' => $id, 'forYear'=>$forYear]);
 
         return [
             'id' => 'ff-' . \Yii::$app->user->identity->username . '-' . uniqid(),
@@ -111,7 +111,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
         return ($this->sumGrade() == 0) ? 0 : number_format(($sum1 / $this->sumGrade()) * 100, 2);
     }
 
-    public function gradeByMonth($month, $employeeId = null, $forYear = null)
+    public static function gradeByMonth($month, $employeeId = null, $forYear = null)
     {
         $res = [
             'countGrade' => 0,
@@ -171,7 +171,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
         return $res;
     }
 
-    public function cummulateGrade($employeeId = null, $forYear = null)
+    public static function cummulateGrade($employeeId = null, $forYear = null)
     {
         $employeeId = isset($employeeId) ? $employeeId : \Yii::$app->user->identity->id;
         $forYear = isset($forYear) ? $forYear : date('Y');

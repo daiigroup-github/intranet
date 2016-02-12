@@ -14,7 +14,8 @@ class SigninController extends Controller
 
     public function actionIndex()
     {
-        $webs = MasterModel::getAllWebs();
+        $masterModel = new MasterModel();
+        $webs = $masterModel->getAllWebs();
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }

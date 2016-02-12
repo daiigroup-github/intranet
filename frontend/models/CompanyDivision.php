@@ -37,4 +37,9 @@ class CompanyDivision extends CompanyDivisionMaster
     {
         return ArrayHelper::map(CompanyDivision::find()->where('status=1')->all(), 'companyDivisionId', 'description');
     }
+
+    public function getDocumentTypes()
+    {
+        return $this->hasMany(DocumentType::className(), ['companyDivisionId'=>'companyDivisionId'])->orderBy('documentTypeName');
+    }
 }
