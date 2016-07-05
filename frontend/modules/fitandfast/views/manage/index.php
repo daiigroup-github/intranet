@@ -15,6 +15,7 @@ $this->params['pageHeader'] = Html::encode($this->title);
 
     <p>
         <?= Html::a('Create Fitfast Employee', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fa fa-download"></i> Import', ['import'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php Pjax::begin(['id' => 'employee-grid-view']); ?>

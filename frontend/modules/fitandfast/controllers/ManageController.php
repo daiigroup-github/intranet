@@ -4,11 +4,11 @@ namespace frontend\modules\fitandfast\controllers;
 
 use frontend\models\search\FitfastEmployeeSearch;
 use frontend\models\FitfastTarget;
+use frontend\models\Employee;
 use Yii;
 use frontend\models\FitfastEmployee;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\models\Fitfast;
@@ -155,23 +155,23 @@ class ManageController extends FitandfastMasterController
         $fitfastTargetModel = new FitfastTarget();
         $err = '';
 
-        if(isset($_POST['FitfastTarget'])) {
+        if (isset($_POST['FitfastTarget'])) {
             $fitfastTargetModel->attributes = $_POST['FitfastTarget'];
 
             //check duplicate month
             $fft = FitfastTarget::find()
-                ->where('status=1 AND month=:month AND fitfastId=:fitfastId', [':month'=>$fitfastTargetModel->month, ':fitfastId'=>$fitfastModel->fitfastId])
+                ->where('status=1 AND month=:month AND fitfastId=:fitfastId', [':month' => $fitfastTargetModel->month, ':fitfastId' => $fitfastModel->fitfastId])
                 ->one();
 
-            if(isset($fft)) {
+            if (isset($fft)) {
                 $err = 'Duplicate Month';
             } else {
                 $fitfastTargetModel->fitfastId = $fitfastModel->fitfastId;
                 $fitfastTargetModel->employeeId = $fitfastModel->employeeId;
                 $fitfastTargetModel->createDateTime = $fitfastTargetModel->updateDateTime = new Expression('NOW()');
 
-                if($fitfastTargetModel->save()) {
-                    return $this->redirect(['view', 'id'=>$fitfastModel->fitfastEmployeeId]);
+                if ($fitfastTargetModel->save()) {
+                    return $this->redirect(['view', 'id' => $fitfastModel->fitfastEmployeeId]);
                 }
             }
         }
@@ -205,7 +205,7 @@ class ManageController extends FitandfastMasterController
                 $fitfastId = Yii::$app->db->getLastInsertID();
 
                 foreach ($_POST['FitfastTarget'] as $k => $v) {
-                    if(empty($v['target']))
+                    if (empty($v['target']))
                         continue;
 
                     $fitfastTargetModel = new FitfastTarget();
@@ -215,7 +215,7 @@ class ManageController extends FitandfastMasterController
                     $fitfastTargetModel->employeeId = $fitfastEmployeeModel->employeeId;
                     $fitfastTargetModel->createDateTime = $fitfastTargetModel->updateDateTime = new Expression('NOW()');
 
-                    if($fitfastTargetModel->save()) {
+                    if ($fitfastTargetModel->save()) {
                         $flag = true;
                     } else {
                         $flag = false;
@@ -228,6 +228,11 @@ class ManageController extends FitandfastMasterController
                 $transaction->commit();
                 return $this->redirect(['view', 'id' => $fitfastEmployeeModel->fitfastEmployeeId]);
             } else {
+                
+                if($fitfastEmployeeModel->errors) print_r($fitfastEmployeeModel->errors);
+                if($fitfastModel->errors) print_r($fitfastModel->errors);
+                if($fitfastTargetModel->errors) print_r($fitfastTargetModel->errors);
+                
                 $transaction->rollBack();
             }
         } catch
@@ -244,5 +249,106 @@ class ManageController extends FitandfastMasterController
                 'fitfastEmployeeModel' => $fitfastEmployeeModel
             ]);
         }
+    }
+
+    /**
+     * Import file
+     */
+    public function actionImport()
+    {
+        $model = new FitfastEmployee();
+
+        if (isset($_FILES['importFile'])) {
+            $thisYear = date('Y');
+            $lines = file($_FILES['importFile']['tmp_name']);
+
+            $flag = false;
+            $i = 0;
+            $errors = [];
+
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                foreach ($lines as $line) {
+                    $data = explode('|', $line);
+                    $employeeModel = Employee::find()->where(['employeeCode' => $data[0]])->one();
+
+                    if (isset($employeeModel)) {
+                        $fitfastEmployeeModel = FitfastEmployee::find()->where(['employeeId' => $employeeModel->employeeId, 'forYear' => $thisYear])->one();
+
+                        if ($fitfastEmployeeModel) {
+                            //update time
+                            $fitfastEmployeeModel->updateDateTime = new Expression('NOW()');
+                        } else {
+                            $fitfastEmployeeModel = new FitfastEmployee();
+                            $fitfastEmployeeModel->employeeId = $employeeModel->employeeId;
+                            $fitfastEmployeeModel->forYear = $thisYear;
+                            $fitfastEmployeeModel->createDateTime = $fitfastEmployeeModel->updateDateTime = new Expression('NOW()');
+                        }
+
+                        if ($fitfastEmployeeModel->save()) {
+                            /**
+                             * Fitfast
+                             */
+                            $fitfastModel = new Fitfast();
+                            $fitfastModel->employeeId = $employeeModel->employeeId;
+                            $fitfastModel->fitfastEmployeeId = $fitfastEmployeeModel->fitfastEmployeeId;
+                            $fitfastModel->createDateTime = $fitfastModel->updateDateTime = new Expression('NOW()');
+                            $fitfastModel->type = 1;
+                            $fitfastModel->title = $data[1];
+
+                            if ($fitfastModel->save()) {
+                                for ($j = 2; $j <= 13; $j++) {
+                                    if ($data[$j] == null || $data[$j] == "\r" || $data[$j] == "\n") {
+                                        continue;
+                                    }
+
+                                    $fitfastTargetModel = new FitfastTarget();
+                                    $fitfastTargetModel->employeeId = $employeeModel->employeeId;
+                                    $fitfastTargetModel->fitfastId = $fitfastModel->fitfastId;
+                                    $fitfastTargetModel->createDateTime = $fitfastTargetModel->updateDateTime = new Expression('NOW()');
+                                    $fitfastTargetModel->target = $data[$j];
+                                    $fitfastTargetModel->month = $j - 1;
+
+                                    if (!$fitfastTargetModel->save()) {
+                                        $error['fitfastTarget'] = $fitfastTargetModel->errors;
+                                        break;
+                                    }
+                                }
+
+                                if ($j != 14)
+                                    break;
+                            } else {
+                                $errors['fitfast'] = $fitfastModel->errors;
+                                break;
+                            }
+
+                        } else {
+                            $errors['fitfastEmployee'] = $fitfastEmployeeModel->errors;
+                            break;
+                        }
+
+                    } else {
+                        $errors['employee'] = $data[0];
+                        break;
+                    }
+
+                    $i++;
+                }
+
+                if($i == sizeof($lines))
+                    $flag = true;
+
+                if ($flag) {
+                    $transaction->commit();
+                } else {
+                    $transaction->rollBack();
+                }
+            } catch
+            (Exception $e) {
+                $transaction->rollBack();
+            }
+        }
+
+        return $this->render('import', compact('model'));
     }
 }

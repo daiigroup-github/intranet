@@ -36,6 +36,8 @@ class FitfastEmployee extends FitfastEmployeeMaster
     public $sumSS;
     public $sumF;
 
+    public $importFile;
+
     /**
      * @inheritdoc
      */
@@ -83,7 +85,7 @@ class FitfastEmployee extends FitfastEmployeeMaster
         $forYear = isset($forYear) ? $forYear : date('Y');
         $employeeModel = Employee::findOne($id);
 
-        $model = FitfastEmployee::findOne(['employeeId' => $id, 'forYear'=>$forYear]);
+        $model = FitfastEmployee::findOne(['employeeId' => $id, 'forYear' => $forYear]);
 
         return [
             'id' => 'ff-' . \Yii::$app->user->identity->username . '-' . uniqid(),
@@ -184,27 +186,27 @@ class FitfastEmployee extends FitfastEmployeeMaster
         return $res;
     }
 
-    public function percentByCompanyAndDivision($companyId, $companyDivisionId, $isManager=0)
+    public function percentByCompanyAndDivision($companyId, $companyDivisionId, $isManager = 0)
     {
         $employeeModels = Employee::find()
-        ->where('status=1 AND isManager=:isManager AND companyId=:companyId AND companyDivisionId=:companyDivisionId')
-        ->params(
-            [
-                ':isManager'=>$isManager,
-                ':companyId'=>$companyId,
-                'companyDivisionId'=>$companyDivisionId
-            ]
-        )
-        ->all();
+            ->where('status=1 AND isManager=:isManager AND companyId=:companyId AND companyDivisionId=:companyDivisionId')
+            ->params(
+                [
+                    ':isManager' => $isManager,
+                    ':companyId' => $companyId,
+                    'companyDivisionId' => $companyDivisionId
+                ]
+            )
+            ->all();
 
         $employeeIds = ArrayHelper::map($employeeModels, 'employeeId', 'employeeId');
 
         $sumPercent = FitfastEmployee::find()
-        ->select('sum(percent) as sumPercent')
-        ->andWhere(['IN', 'employeeId', $employeeIds])
-        ->one();
+            ->select('sum(percent) as sumPercent')
+            ->andWhere(['IN', 'employeeId', $employeeIds])
+            ->one();
 
-        return (sizeof($employeeIds)==0) ? 0 : number_format($sumPercent->sumPercent / sizeof($employeeIds), 2);
+        return (sizeof($employeeIds) == 0) ? 0 : number_format($sumPercent->sumPercent / sizeof($employeeIds), 2);
     }
 
 }
